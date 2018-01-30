@@ -1,0 +1,81 @@
+{
+	"description": "Test well component",
+	"setup": [
+		{
+			"page": "Well/01/1",
+			"contents": "<bootstrap_well>Well text</bootstrap_well>"
+		},
+		{
+			"page": "Well/01/2",
+			"contents": "<bootstrap_well class=\"wot\" id=\"reader\" style=\"margin-top:50px\" size=\"lg\">Well text</bootstrap_well>"
+		},
+		{
+			"page": "Well/01/3",
+			"contents": "<bootstrap_well size=\"invalid\" foo=\"bar\">Well text</bootstrap_well>"
+		},
+		{
+			"page": "Well/01/4",
+			"contents": "<bootstrap_well></bootstrap_well>"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component well with no attributes",
+			"subject": "Well/01/1",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"well\" id=\"bsc_well_",
+					">Well text</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component well with all attributes set",
+			"subject": "Well/01/2",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"well well-lg wot\" style=\"margin-top:50px\" id=\"reader\"",
+					">Well text</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component well with invalid size and invalid attribute",
+			"subject": "Well/01/3",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"well\" id=\"bsc_well_",
+					">Well text</div>"
+				],
+				"not-contain": [
+					"foo",
+					"bar",
+					"well-invalid"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component well with no input",
+			"subject": "Well/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"well\" id=\"bsc_well_",
+					"></div>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

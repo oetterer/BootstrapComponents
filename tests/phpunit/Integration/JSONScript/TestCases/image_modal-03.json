@@ -1,0 +1,64 @@
+{
+	"description": "Test image modals with suppression via magic word or css class",
+	"setup": [
+		{
+			"namespace": "NS_FILE",
+			"page": "Image_modal-03-Serenity.png",
+			"contents": {
+				"upload": {
+					"file" : "/../../../../resources/Serenity.png",
+					"text" : "Serenity for Image Modal Test 02"
+				}
+			}
+		},
+		{
+			"page": "Image_modal/02/1",
+			"contents": "[[File:Image_modal-02-Serenity.png|Caption text|alt=normal]]__NOIMAGEMODAL__"
+		},
+		{
+			"page": "Image_modal/02/2",
+			"contents": "[[File:Image_modal-02-Serenity.png|Caption text|alt=normal|class=no-modals]]"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for image modal suppressed by magic word",
+			"subject": "Image_modal/02/1",
+			"assert-output": {
+				"to-contain": [
+					"/File:Image_modal-02-Serenity.png\" class=\"image\" title=\"Caption text\"><img alt=\"normal\" src=",
+					"/images/b/b9/Image_modal-02-Serenity.png\" width=\"404\" height=\"132\" /></a>"
+				],
+				"not-contain": [
+					"\"modal",
+					"modal\""
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for image modal suppressed by css class",
+			"subject": "Image_modal/02/1",
+			"assert-output": {
+				"to-contain": [
+					"/File:Image_modal-02-Serenity.png\" class=\"image\" title=\"Caption text\"><img alt=\"normal\" src=",
+					"/images/b/b9/Image_modal-02-Serenity.png\" width=\"404\" height=\"132\" /></a>"
+				],
+				"not-contain": [
+					"\"modal",
+					"modal\""
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

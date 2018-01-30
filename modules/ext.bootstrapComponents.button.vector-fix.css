@@ -1,0 +1,53 @@
+/**
+ * Contains css fixes for the button component when vector skin is used.
+ *
+ * @copyright (C) 2018, Tobias Oetterer, Paderborn University
+ * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
+ *
+ * This file is part of the MediaWiki extension BootstrapComponents.
+ * The BootstrapComponents extension is free software: you can redistribute it
+ * and/or modify it under the terms of the GNU General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * The BootstrapComponents extension is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * @file
+ * @ingroup       BootstrapComponents
+ * @author        Tobias Oetterer
+ */
+a.btn-default,
+a.btn-default:visited,
+a.btn-default:active,
+a.btn-default:hover {
+    color:#000000;
+}
+
+a.btn-primary,
+a.btn-primary:visited,
+a.btn-primary:active,
+a.btn-primary:hover,
+a.btn-success,
+a.btn-success:visited,
+a.btn-success:active,
+a.btn-success:hover,
+a.btn-info,
+a.btn-info:visited,
+a.btn-info:active,
+a.btn-info:hover,
+a.btn-warning,
+a.btn-warning:visited,
+a.btn-warning:active,
+a.btn-warning:hover,
+a.btn-danger,
+a.btn-danger:visited,
+a.btn-danger:active,
+a.btn-danger:hover {
+    color: #ffffff;
+}

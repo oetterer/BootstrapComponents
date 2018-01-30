@@ -1,0 +1,192 @@
+{
+	"description": "Test modal component",
+	"setup": [
+		{
+			"namespace": "NS_FILE",
+			"page": "Modal-01-Serenity.png",
+			"contents": {
+				"upload": {
+					"file" : "/../../../../resources/Serenity.png",
+					"text" : "Serenity for Modal Test 01"
+				}
+			}
+		},
+		{
+			"page": "Modal/01/1",
+			"contents": "<bootstrap_modal text=\"Trigger\">Modal content text</bootstrap_modal>"
+		},
+		{
+			"page": "Modal/01/2",
+			"contents": "<bootstrap_modal text=\"[[File:Modal-01-Serenity.png|alt=Execute!|110px]]\">Modal content text</bootstrap_modal>"
+		},
+		{
+			"page": "Modal/01/3",
+			"contents": "<bootstrap_modal text=\"Shiny\" class=\"firefly\" id=\"BestShipInTheVerse\" style=\"font-weight:bold\" color=\"success\" footer=\"Let's misbehave\" heading=\"You can't take the sky from me\" size=\"lg\">Modal content text</bootstrap_modal>"
+		},
+		{
+			"page": "Modal/01/4",
+			"contents": "<bootstrap_modal text=\"Trigger\" foo=\"bar\" size=\"small\" color=\"grey\">Modal content text</bootstrap_modal>"
+		},
+		{
+			"page": "Modal/01/5",
+			"contents": "<bootstrap_modal text=\"Trigger\"></bootstrap_modal>"
+		},
+		{
+			"page": "Modal/01/6",
+			"contents": "<bootstrap_modal>Modal content text</bootstrap_modal>"
+		},
+		{
+			"page": "Modal/01/7",
+			"contents": "<bootstrap_modal text=\"[[File:Invalid.png]]\">Modal content text</bootstrap_modal>"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component modal with no attributes",
+			"subject": "Modal/01/1",
+			"assert-output": {
+				"to-contain": [
+					"<button type=\"button\" class=\"modal-trigger btn btn-default\" data-toggle=\"modal\" data-target=\"#bsc_modal_",
+					">Trigger</button>",
+					"class=\"modal fade\" role=\"dialog\"",
+					"class=\"modal-dialog\"",
+					"class=\"modal-content\"",
+					"class=\"modal-header\"",
+					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
+					"class=\"modal-body\">Modal content text</div>",
+					"class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component modal with image as trigger",
+			"subject": "Modal/01/2",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"modal-trigger\" data-toggle=\"modal\" data-target=\"#bsc_modal_",
+					"<img alt=\"Execute!\" src=",
+					"/images/thumb/5/5d/Modal-01-Serenity.png/110px-Modal-01-Serenity.png\" width=\"110\" height=\"36\" srcset=",
+					"/images/thumb/5/5d/Modal-01-Serenity.png/165px-Modal-01-Serenity.png 1.5x,",
+					"/images/thumb/5/5d/Modal-01-Serenity.png/220px-Modal-01-Serenity.png 2x\" /></span>",
+					"class=\"modal fade\" role=\"dialog\"",
+					"class=\"modal-dialog\"",
+					"class=\"modal-content\"",
+					"class=\"modal-header\"",
+					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
+					"class=\"modal-body\">Modal content text</div>",
+					"class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component modal with all attributes set",
+			"subject": "Modal/01/3",
+			"assert-output": {
+				"to-contain": [
+					"<button type=\"button\" class=\"modal-trigger btn btn-success\" data-toggle=\"modal\" data-target=\"#BestShipInTheVerse\">Shiny</button>",
+					"class=\"modal fade firefly\" style=\"font-weight:bold\" role=\"dialog\" id=\"BestShipInTheVerse\" aria-hidden=\"true\">",
+					"class=\"modal-dialog modal-lg\"",
+					"class=\"modal-content\"",
+					"class=\"modal-header\"",
+					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
+					"<span class=\"modal-title\">You can't take the sky from me</span></div>",
+					"class=\"modal-body\"",
+					">Modal content text</div>",
+					"class=\"modal-footer\">Let's misbehave<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component modal with invalid attribute",
+			"subject": "Modal/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<button type=\"button\" class=\"modal-trigger btn btn-default\" data-toggle=\"modal\" data-target=\"#bsc_modal_",
+					">Trigger</button>",
+					"class=\"modal fade\" role=\"dialog\"",
+					"class=\"modal-dialog\"",
+					"class=\"modal-content\"",
+					"class=\"modal-header\"",
+					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
+					"class=\"modal-body\">Modal content text</div>",
+					"class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
+				],
+				"not-contain": [
+					"btn-small",
+					"modal-small",
+					"btn-grey",
+					"modal-grey",
+					"foo=",
+					"bar"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#4 verify output for component modal with no input text",
+			"subject": "Modal/01/5",
+			"assert-output": {
+				"to-contain": [
+					"<button type=\"button\" class=\"modal-trigger btn btn-default\" data-toggle=\"modal\" data-target=\"#bsc_modal_",
+					">Trigger</button>",
+					"class=\"modal fade\" role=\"dialog\"",
+					"class=\"modal-dialog\"",
+					"class=\"modal-content\"",
+					"class=\"modal-header\"",
+					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
+					"class=\"modal-body\"></div>",
+					"class=\"modal-footer\"",
+					"<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#5 verify output for component modal with no trigger",
+			"subject": "Modal/01/6",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">You must specify a text for this modal button.</span>"
+				],
+				"not-contain": [
+					"\"modal",
+					"modal-",
+					"<button",
+					"btn",
+					"toggle"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#6 verify output for component modal with invalid image as trigger",
+			"subject": "Modal/01/7",
+			"assert-output": {
+				"to-contain": [
+					"><a href=",
+					"/index.php?title=Special:Upload&amp;wpDestFile=Invalid.png\" class=\"new\" title=\"File:Invalid.png\">File:Invalid.png</a>"
+				],
+				"not-contain": [
+					"\"modal",
+					"modal-",
+					"<button",
+					"btn",
+					"toggle"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

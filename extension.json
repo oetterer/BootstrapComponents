@@ -1,0 +1,110 @@
+{
+	"name": "BootstrapComponents",
+	"version": "1.0.0",
+	"author": [
+		"[https://www.semantic-mediawiki.org/wiki/User:Oetterer Tobias Oetterer]"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:BootstrapComponents",
+	"descriptionmsg": "bootstrap-components-desc",
+	"license-name": "GPL-3.0-or-later",
+	"type": "parserhook",
+	"requires": {
+		"MediaWiki": ">= 1.27.0"
+	},
+	"ConfigRegistry": {
+		"BootstrapComponents": "GlobalVarConfig::newInstance"
+	},
+	"load_composer_autoloader": true,
+	"@note1": "switch to PSR-4 when dropping support for < 1.31",
+	"AutoloadClasses": {
+		"BootstrapComponents\\AbstractComponent": "src/AbstractComponent.php",
+		"BootstrapComponents\\ApplicationFactory": "src/ApplicationFactory.php",
+		"BootstrapComponents\\AttributeManager": "src/AttributeManager.php",
+		"BootstrapComponents\\CarouselGallery": "src/CarouselGallery.php",
+		"BootstrapComponents\\ComponentLibrary": "src/ComponentLibrary.php",
+		"BootstrapComponents\\ImageModal": "src/ImageModal.php",
+		"BootstrapComponents\\ImageModalTrigger": "src/ImageModalTrigger.php",
+		"BootstrapComponents\\ModalBuilder": "src/ModalBuilder.php",
+		"BootstrapComponents\\NestableInterface": "src/NestableInterface.php",
+		"BootstrapComponents\\ParserOutputHelper": "src/ParserOutputHelper.php",
+		"BootstrapComponents\\ParserRequest": "src/ParserRequest.php",
+		"BootstrapComponents\\NestingController": "src/NestingController.php",
+		"BootstrapComponents\\Setup": "src/Setup.php",
+		"BootstrapComponents\\Component\\Accordion": "src/Component/Accordion.php",
+		"BootstrapComponents\\Component\\Alert": "src/Component/Alert.php",
+		"BootstrapComponents\\Component\\Badge": "src/Component/Badge.php",
+		"BootstrapComponents\\Component\\Button": "src/Component/Button.php",
+		"BootstrapComponents\\Component\\Carousel": "src/Component/Carousel.php",
+		"BootstrapComponents\\Component\\Collapse": "src/Component/Collapse.php",
+		"BootstrapComponents\\Component\\Icon": "src/Component/Icon.php",
+		"BootstrapComponents\\Component\\Jumbotron": "src/Component/Jumbotron.php",
+		"BootstrapComponents\\Component\\Label": "src/Component/Label.php",
+		"BootstrapComponents\\Component\\Modal": "src/Component/Modal.php",
+		"BootstrapComponents\\Component\\Panel": "src/Component/Panel.php",
+		"BootstrapComponents\\Component\\Popover": "src/Component/Popover.php",
+		"BootstrapComponents\\Component\\Tooltip": "src/Component/Tooltip.php",
+		"BootstrapComponents\\Component\\Well": "src/Component/Well.php"
+	},
+	"@note2": "hooks are registered in BootstrapComponents\\Setup",
+	"Hooks": { },
+	"config": {
+		"BootstrapComponentsDisableSourceLinkOnImageModal": false,
+		"BootstrapComponentsEnableCarouselGalleryMode": true,
+		"BootstrapComponentsModalReplaceImageTag": false,
+		"BootstrapComponentsWhitelist": true
+	},
+	"callback": "BootstrapComponents\\Setup::onExtensionLoad",
+	"MessagesDirs": {
+		"BootstrapComponents": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"BootstrapComponentsMagic": "BootstrapComponents.magic.php"
+	},
+	"ResourceModules": {
+		"ext.bootstrapComponents.button.vector-fix": {
+			"position": "bottom",
+			"styles": "ext.bootstrapComponents.button.vector-fix.css"
+		},
+		"ext.bootstrapComponents.carousel.fix": {
+			"position": "bottom",
+			"styles": "ext.bootstrapComponents.carousel.fix.css"
+		},
+		"ext.bootstrapComponents.modal.fix": {
+			"position": "bottom",
+			"styles": "ext.bootstrapComponents.modal.fix.css"
+		},
+		"ext.bootstrapComponents.modal.vector-fix": {
+			"position": "bottom",
+			"styles": "ext.bootstrapComponents.modal.vector-fix.css"
+		},
+		"ext.bootstrapComponents.popover": {
+			"position": "top",
+			"dependencies": "ext.bootstrap",
+			"scripts": "ext.bootstrapComponents.popover.js"
+		},
+		"ext.bootstrapComponents.popover.vector-fix": {
+			"position": "top",
+			"styles": "ext.bootstrapComponents.popover.vector-fix.css"
+		},
+		"ext.bootstrapComponents.tooltip": {
+			"position": "top",
+			"dependencies": "ext.bootstrap",
+			"scripts": "ext.bootstrapComponents.tooltip.js"
+		},
+		"ext.bootstrapComponents.vector-fix": {
+			"position": "bottom",
+			"styles": "ext.bootstrapComponents.vector-fix.css"
+		}
+	},
+	"ResourceFileModulePaths": {
+	"localBasePath": "modules",
+	"remoteExtPath": "BootstrapComponents/modules"
+	},
+	"TrackingCategories" : [
+		"bootstrap-components-error-tracking-category",
+		"bootstrap-components-tracking-category"
+	],
+	"manifest_version": 1
+}

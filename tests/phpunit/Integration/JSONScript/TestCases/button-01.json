@@ -1,0 +1,146 @@
+{
+	"description": "Test button component",
+	"setup": [
+		{
+			"namespace": "NS_FILE",
+			"page": "Button-01-Serenity.png",
+			"contents": {
+				"upload": {
+					"file" : "/../../../../resources/Serenity.png",
+					"text" : "Serenity for Button Test 01"
+				}
+			}
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Target",
+			"contents": "This is a target for the button"
+		},
+		{
+			"page": "Button/01/1",
+			"contents": "{{#bootstrap_button: Target }}"
+		},
+		{
+			"page": "Button/01/2",
+			"contents": "{{#bootstrap_button: target | class=emergency | id=out_of_gas_item | style=margin-top:50px | color=danger | active | disabled=no | size=lg | text=Big red Callback Button}}"
+		},
+		{
+			"page": "Button/01/3",
+			"contents": "{{#bootstrap_button: Button text | foo=bar | disabled=YeS | size=big | color=nope}}"
+		},
+		{
+			"page": "Button/01/4",
+			"contents": "{{#bootstrap_button:}}"
+		},
+		{
+			"page": "Button/01/5",
+			"contents": "{{#bootstrap_button: Target | text=\"[[File:Button-01-Serenity.png|23px]]\"}}"
+		},
+		{
+			"page": "Button/01/6",
+			"contents": "{{#bootstrap_button: Target | text=\"[[File:Invalid.png]]\"}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component button with no attributes",
+			"subject": "Button/01/1",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"btn btn-default\"",
+					"role=\"button\"",
+					"href=\"",
+					"Target",
+					">Target</a>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component button with all attributes set",
+			"subject": "Button/01/2",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"btn btn-danger btn-lg active emergency\"",
+					"role=\"button\"",
+					"id=\"out_of_gas_item\"",
+					"style=\"margin-top:50px\"",
+					"href=\"",
+					"/Target\">",
+					">Big red Callback Button</a>"
+				],
+				"not-contain": [
+					"disabled"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component button with invalid attributes and disable set",
+			"subject": "Button/01/3",
+			"assert-output": {
+				"to-contain": [
+					"class=\"btn btn-default disabled\"",
+					"role=\"button\"",
+					"/Button_text\">Button text</a>"
+				],
+				"not-contain": [
+					"foo",
+					"bar",
+					"big",
+					"nope"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component button with no input text",
+			"subject": "Button/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">You must specify a target for this button.</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#4 verify output for component button with image as text",
+			"subject": "Button/01/5",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"btn btn-default\" role=\"button\" id=\"bsc_button_",
+					"href=\"",
+					"/Target\">",
+					"<img alt=\"Button-01-Serenity.png\" src=",
+					"/images/thumb/5/52/Button-01-Serenity.png/23px-Button-01-Serenity.png\" width=\"23\" height=\"8\" srcset=",
+					"/images/thumb/5/52/Button-01-Serenity.png/35px-Button-01-Serenity.png 1.5x,",
+					"/images/thumb/5/52/Button-01-Serenity.png/46px-Button-01-Serenity.png 2x\" />\"</a>"
+				],
+				"not-contain": [
+					"modal"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#5 verify output for component button with invalid image as text",
+			"subject": "Button/01/6",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"btn btn-default\" role=\"button\" id=\"bsc_button_",
+					"/index.php?title=Special:Upload&amp;wpDestFile=Invalid.png\">File:Invalid.png</a>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

@@ -1,0 +1,103 @@
+{
+	"description": "Test panel component",
+	"setup": [
+		{
+			"page": "Panel/01/1",
+			"contents": "<bootstrap_panel>Panel text</bootstrap_panel>"
+		},
+		{
+			"page": "Panel/01/2",
+			"contents": "<bootstrap_panel class=\"forbidden-planet\" id=\"miranda\" style=\"border:5px\" collapsible color=\"danger\" footer=\"below\" heading=\"above\">Panel text</bootstrap_panel>"
+		},
+		{
+			"page": "Panel/01/3",
+			"contents": "<bootstrap_panel color=\"invalid\" foo=\"bar\" active collapsible=\"oFF\">Panel text</bootstrap_panel>"
+		},
+		{
+			"page": "Panel/01/4",
+			"contents": "<bootstrap_panel></bootstrap_panel>"
+		},
+		{
+			"page": "Panel/01/5",
+			"contents": "<bootstrap_panel header=\"Heading {{#bootstrap_icon: asterisk}}\" footing=\"below\">Panel text {{#bootstrap_icon: asterisk}}</bootstrap_panel>"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component panel with no attributes",
+			"subject": "Panel/01/1",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"panel panel-default\">",
+					"<div class=\"panel-body\">Panel text</div></div></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component panel with all attributes set",
+			"subject": "Panel/01/2",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"panel panel-danger forbidden-planet\" style=\"border:5px\">",
+					"<div class=\"panel-heading\" data-toggle=\"collapse\" href=\"#miranda\"><h4 class=\"panel-title\" style=\"margin-top:0;padding-top:0;\">above</h4></div>",
+					"<div id=\"miranda\" class=\"panel-collapse collapse fade\">",
+					"<div class=\"panel-body\">Panel text</div>",
+					"<div class=\"panel-footer\">below</div></div></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component panel with invalid color and invalid attributes",
+			"subject": "Panel/01/3",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"panel panel-default\">",
+					"<div class=\"panel-body\">Panel text</div></div></div>"
+				],
+				"not-contain": [
+					"foo",
+					"bar",
+					"collapse",
+					"active",
+					"invalid"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component panel with no content",
+			"subject": "Panel/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"panel panel-default\">",
+					"<div class=\"panel-body\"></div></div></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#4 verify output for component panel with bootstrap icon inception; also testing aliases",
+			"subject": "Panel/01/5",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"panel panel-default\">",
+					"<div class=\"panel-heading\"><h4 class=\"panel-title\" style=\"margin-top:0;padding-top:0;\">Heading <span class=\"glyphicon glyphicon-asterisk\"></span></h4></div>",
+					"<div class=\"panel-body\">Panel text <span class=\"glyphicon glyphicon-asterisk\"></span></div>",
+					"<div class=\"panel-footer\">below</div></div></div>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

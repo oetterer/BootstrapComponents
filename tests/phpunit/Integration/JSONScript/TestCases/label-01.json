@@ -1,0 +1,81 @@
+{
+	"description": "Test label component",
+	"setup": [
+		{
+			"page": "Label/01/1",
+			"contents": "{{#bootstrap_label:Label text}}"
+		},
+		{
+			"page": "Label/01/2",
+			"contents": "{{#bootstrap_label: Hero of Serenity Valley | class=order | id=brown_coat | style=margin-top:50px | color=warning}}"
+		},
+		{
+			"page": "Label/01/3",
+			"contents": "{{#bootstrap_label: Label text | color=invalid | foo=bar}}"
+		},
+		{
+			"page": "Label/01/4",
+			"contents": "{{#bootstrap_label:}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component label with no attributes",
+			"subject": "Label/01/1",
+			"assert-output": {
+				"to-contain": [
+					"class=\"label label-default\"",
+					">Label text</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component label with all attributes set",
+			"subject": "Label/01/2",
+			"assert-output": {
+				"to-contain": [
+					"class=\"label label-warning order\"",
+					"id=\"brown_coat\"",
+					"style=\"margin-top:50px\"",
+					">Hero of Serenity Valley</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component label with invalid color and invalid attribute",
+			"subject": "Label/01/3",
+			"assert-output": {
+				"to-contain": [
+					"class=\"label label-default\"",
+					">Label text</span>"
+				],
+				"not-contain": [
+					"foo",
+					"bar"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component label with no input text",
+			"subject": "Label/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">You must specify a label text.</span>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

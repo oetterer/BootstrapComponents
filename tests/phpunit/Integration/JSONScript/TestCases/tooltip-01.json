@@ -1,0 +1,165 @@
+{
+	"description": "Test tooltip component",
+	"setup": [
+		{
+			"namespace": "NS_FILE",
+			"page": "Tooltip-01-Serenity.png",
+			"contents": {
+				"upload": {
+					"file" : "/../../../../resources/Serenity.png",
+					"text" : "Serenity for Tooltip Test 01"
+				}
+			}
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "((",
+			"contents": "{{"
+		},
+		{
+			"namespace": "NS_TEMPLATE",
+			"page": "))",
+			"contents": "}}"
+		},
+		{
+			"page": "Tooltip/01/1",
+			"contents": "{{#bootstrap_tooltip: Target | text=Tooltip text }}"
+		},
+		{
+			"page": "Tooltip/01/2",
+			"contents": "{{#bootstrap_tooltip: Target | text=Tooltip text | class=nice | id=small-tip | style=font-size:0.8em | placement=left }}"
+		},
+		{
+			"page": "Tooltip/01/3",
+			"contents": "{{#bootstrap_tooltip: Target | text=Tooltip text | foo=bar | placement=none }}"
+		},
+		{
+			"page": "Tooltip/01/4",
+			"contents": "{{#bootstrap_tooltip: | text=Tooltip text }}"
+		},
+		{
+			"page": "Tooltip/01/5",
+			"contents": "{{#bootstrap_tooltip: Target }}"
+		},
+		{
+			"page": "Tooltip/01/6",
+			"contents": "{{#bootstrap_tooltip: [[File:Tooltip-01-Serenity.png|23px]] | text=Tooltip text}}"
+		},
+		{
+			"page": "Tooltip/01/7",
+			"contents": "{{#bootstrap_tooltip: [[File:Invalid.png]] | text=Tooltip text}}"
+		},
+		{
+			"page": "Tooltip/01/8",
+			"contents": "{{#bootstrap_tooltip: Target {{((}}#bootstrap_icon: asterisk{{))}} | text=Tooltip text {{((}}#bootstrap_icon: asterisk{{))}} }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component tooltip with no attributes",
+			"subject": "Tooltip/01/1",
+			"assert-output": {
+				"to-contain": [
+					"<span id=\"bsc_tooltip_",
+					"data-toggle=\"tooltip\" title=\"Tooltip text\">Target</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component tooltip with all attributes set",
+			"subject": "Tooltip/01/2",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"nice\" style=\"font-size:0.8em\" id=\"small-tip\" data-toggle=\"tooltip\" title=\"Tooltip text\" data-placement=\"left\">Target</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component tooltip with invalid attributes and disable set",
+			"subject": "Tooltip/01/3",
+			"assert-output": {
+				"to-contain": [
+					"<span id=\"bsc_tooltip_",
+					"data-toggle=\"tooltip\" title=\"Tooltip text\">Target</span>"
+				],
+				"not-contain": [
+					"foo",
+					"bar",
+					"placement",
+					"none"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component tooltip with no input text",
+			"subject": "Tooltip/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">You must specify text or an image, the tooltip should be added to.</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#4 verify output for component tooltip with no tooltip text",
+			"subject": "Tooltip/01/5",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">This tooltip is missing its text attribute and therefore the actual tooltip.</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#5 verify output for component tooltip with image as text",
+			"subject": "Tooltip/01/6",
+			"assert-output": {
+				"to-contain": [
+					"<span id=\"bsc_tooltip_",
+					"data-toggle=\"tooltip\" title=\"Tooltip text\"><img alt=\"Tooltip-01-Serenity.png\" src=",
+					"/images/thumb/1/1c/Tooltip-01-Serenity.png/23px-Tooltip-01-Serenity.png\" width=\"23\" height=\"8\" srcset=",
+					"/images/thumb/1/1c/Tooltip-01-Serenity.png/35px-Tooltip-01-Serenity.png 1.5x,",
+					"/images/thumb/1/1c/Tooltip-01-Serenity.png/46px-Tooltip-01-Serenity.png 2x\" /></span>"
+				],
+				"not-contain": [
+					"modal"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#6 verify output for component tooltip with invalid image as text",
+			"subject": "Tooltip/01/7",
+			"assert-output": {
+				"to-contain": [
+					"<a id=\"bsc_tooltip_",
+					"/index.php?title=Special:Upload&amp;wpDestFile=Invalid.png\">File:Invalid.png</a>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#7 verify output for component tooltip with bootstrap icon inception",
+			"subject": "Tooltip/01/8",
+			"assert-output": {
+				"to-contain": [
+					"<span id=\"bsc_tooltip_",
+					"data-toggle=\"tooltip\" title=\"Tooltip text &lt;span class=&quot;glyphicon glyphicon-asterisk&quot;&gt;&lt;/span&gt;\">Target <span class=\"glyphicon glyphicon-asterisk\"></span></span>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

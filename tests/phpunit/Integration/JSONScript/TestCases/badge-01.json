@@ -1,0 +1,81 @@
+{
+	"description": "Test badge component",
+	"setup": [
+		{
+			"page": "Badge/01/1",
+			"contents": "{{#bootstrap_badge:Badge text}}"
+		},
+		{
+			"page": "Badge/01/2",
+			"contents": "{{#bootstrap_badge: Hero of Serenity Valley | class=order | id=brown_coat | style=margin-top:50px}}"
+		},
+		{
+			"page": "Badge/01/3",
+			"contents": "{{#bootstrap_badge: Badge text | foo=bar}}"
+		},
+		{
+			"page": "Badge/01/4",
+			"contents": "{{#bootstrap_badge:}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component badge with no attributes",
+			"subject": "Badge/01/1",
+			"assert-output": {
+				"to-contain": [
+					"class=\"badge\"",
+					">Badge text</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component badge with all attributes set",
+			"subject": "Badge/01/2",
+			"assert-output": {
+				"to-contain": [
+					"class=\"badge order\"",
+					"id=\"brown_coat\"",
+					"style=\"margin-top:50px\"",
+					">Hero of Serenity Valley</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component badge with invalid color and invalid attribute",
+			"subject": "Badge/01/3",
+			"assert-output": {
+				"to-contain": [
+					"class=\"badge\"",
+					">Badge text</span>"
+				],
+				"not-contain": [
+					"foo",
+					"bar"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component badge with no input text",
+			"subject": "Badge/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">You must specify a text for this badge.</span>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

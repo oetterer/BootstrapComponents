@@ -1,0 +1,89 @@
+{
+	"description": "Test accordion component",
+	"setup": [
+		{
+			"page": "Accordion/01/1",
+			"contents": "<bootstrap_accordion></bootstrap_accordion>"
+		},
+		{
+			"page": "Accordion/01/2",
+			"contents": "<bootstrap_accordion class=\"music\" id=\"old\" style=\"width:auto\"></bootstrap_accordion>"
+		},
+		{
+			"page": "Accordion/01/3",
+			"contents": "<bootstrap_accordion foo=\"bar\"></bootstrap_accordion>"
+		},
+		{
+			"page": "Accordion/01/4",
+			"contents": "<bootstrap_accordion><bootstrap_panel heading=\"panel1\">panel1 content</bootstrap_panel><bootstrap_panel heading=\"panel2\" footer=\"footer\" color=\"success\">panel2 content</bootstrap_panel></bootstrap_accordion>"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component accordion with no attributes and no panels",
+			"subject": "Accordion/01/1",
+			"assert-output": {
+				"to-contain": [
+					"class=\"panel-group\"",
+					"></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component accordion with all attributes set, but still no panels",
+			"subject": "Accordion/01/2",
+			"assert-output": {
+				"to-contain": [
+					"class=\"panel-group music\"",
+					"id=\"old\"",
+					"style=\"width:auto\"",
+					"></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component accordion with invalid attribute",
+			"subject": "Accordion/01/3",
+			"assert-output": {
+				"to-contain": [
+					"class=\"panel-group\"",
+					"></div>"
+				],
+				"not-contain": [
+					"foo",
+					"bar"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component accordion with two panels",
+			"subject": "Accordion/01/4",
+			"assert-output": {
+				"to-contain": [
+					"class=\"panel-group\"",
+					"class=\"panel panel-default\"",
+					"class=\"panel panel-success\"",
+					"class=\"panel-heading\" data-parent=\"#bsc_accordion_",
+					"data-toggle=\"collapse\" href=\"#bsc_panel_",
+					"class=\"panel-title\"",
+					"class=\"panel-collapse collapse fade\"",
+					"class=\"panel-body\"",
+					"class=\"panel-footer\""
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

@@ -1,0 +1,101 @@
+{
+	"description": "Test alert component",
+	"setup": [
+		{
+			"page": "Alert/01/1",
+			"contents": "<bootstrap_alert>Alert text</bootstrap_alert>"
+		},
+		{
+			"page": "Alert/01/2",
+			"contents": "<bootstrap_alert class=\"klaxon\" id=\"red\" style=\"margin-top:50px\" color=\"danger\" dismissible>Alert text</bootstrap_alert>"
+		},
+		{
+			"page": "Alert/01/3",
+			"contents": "<bootstrap_alert color=\"invalid\" foo=\"bar\">Alert text</bootstrap_alert>"
+		},
+		{
+			"page": "Alert/01/4",
+			"contents": "<bootstrap_alert dismissible=\"fade\">Alert text</bootstrap_alert>"
+		},
+		{
+			"page": "Alert/01/5",
+			"contents": "<bootstrap_alert></bootstrap_alert>"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component alert with no attributes",
+			"subject": "Alert/01/1",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"alert alert-info\"",
+					"role=\"alert\">Alert text</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component alert with all attributes set",
+			"subject": "Alert/01/2",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"alert alert-danger alert-dismissible klaxon\"",
+					"id=\"red\"",
+					"style=\"margin-top:50px\"",
+					"role=\"alert\"",
+					"<div type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></div>",
+					">Alert text</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component alert with invalid color and invalid attribute",
+			"subject": "Alert/01/3",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"alert alert-info\"",
+					"role=\"alert\">Alert text</div>"
+				],
+				"not-contain": [
+					"foo",
+					"bar"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component alert with fade",
+			"subject": "Alert/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"alert alert-info fade in\"",
+					"role=\"alert\"",
+					"<div type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></div>",
+					">Alert text</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#4 verify output for component alert with no content",
+			"subject": "Alert/01/5",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"alert alert-info\"",
+					"role=\"alert\"></div>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

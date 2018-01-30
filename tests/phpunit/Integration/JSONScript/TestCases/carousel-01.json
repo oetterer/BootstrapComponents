@@ -1,0 +1,133 @@
+{
+	"description": "Test carousel component",
+	"setup": [
+		{
+			"namespace": "NS_FILE",
+			"page": "Carousel-01-Serenity.png",
+			"contents": {
+				"upload": {
+					"file" : "/../../../../resources/Serenity.png",
+					"text" : "Serenity for Carousel Test 01"
+				}
+			}
+		},
+		{
+			"namespace": "NS_MAIN",
+			"page": "Target",
+			"contents": "This is a target for the carousel"
+		},
+		{
+			"page": "Carousel/01/1",
+			"contents": "{{#bootstrap_carousel: [[File:Carousel-01-Serenity.png|link=]] | [[File:Carousel-01-Serenity.png|link=Target]] }}"
+		},
+		{
+			"page": "Carousel/01/2",
+			"contents": "{{#bootstrap_carousel: [[File:Carousel-01-Serenity.png|link=]] | [[File:Carousel-01-Serenity.png|link=Target]] | class=round | id=carnival01 | style=margin:auto }}"
+		},
+		{
+			"page": "Carousel/01/3",
+			"contents": "{{#bootstrap_carousel: [[File:Carousel-01-Serenity.png|link=]] | [[File:Carousel-01-Serenity.png|link=Target]] | [[File:Carousel-01-Serenity.png]] | foo=bar | id=three_items }}"
+		},
+		{
+			"page": "Carousel/01/4",
+			"contents": "{{#bootstrap_carousel:}}"
+		},
+		{
+			"page": "Carousel/01/5",
+			"contents": "{{#bootstrap_carousel: [[File:Invalid.png]] }}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component carousel with no attributes",
+			"subject": "Carousel/01/1",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"carousel slide\" id=\"bsc_carousel_",
+					"data-ride=\"carousel\">",
+					"<ol class=\"carousel-indicators\">",
+					"<li data-target=\"#bsc_carousel_",
+					"data-slide-to=\"0\" class=\"active\"></li>",
+					"data-slide-to=\"1\"></li>",
+					"<div class=\"carousel-inner\">",
+					"<div class=\"item active\"><img alt=\"Carousel-01-Serenity.png\" src=",
+					"/images/e/eb/Carousel-01-Serenity.png\" width=\"404\" height=\"132\" /></div>",
+					"<div class=\"item\"><a href=",
+					"/Target\" title=\"Target\"><img alt=\"Carousel-01-Serenity.png\" src=",
+					"</div><a class=\"left carousel-control\" href=\"#bsc_carousel_",
+					"data-slide=\"prev\"><span class=\"glyphicon glyphicon-chevron-left\"></span></a><a class=\"right carousel-control\" href=\"#bsc_carousel_",
+					"data-slide=\"next\"><span class=\"glyphicon glyphicon-chevron-right\"></span></a></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component carousel with all attributes set",
+			"subject": "Carousel/01/2",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"carousel slide round\" style=\"margin:auto\" id=\"carnival01\" data-ride=\"carousel\">"
+				],
+				"not-contain": [
+					"disabled"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component carousel with invalid attribute and a third item (whiz a modal)",
+			"subject": "Carousel/01/3",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"carousel slide\" id=\"three_items\" data-ride=\"carousel\">",
+					"<li data-target=\"#three_items\" data-slide-to=\"2\"></li>",
+					"<div class=\"item\"><span class=\"modal-trigger\" data-toggle=\"modal\" data-target=\"#bsc_image_modal_",
+					"modal-dialog",
+					"modal-body",
+					"modal-footer",
+					"\"modal\"",
+					"img-responsive"
+				],
+				"not-contain": [
+					"foo=",
+					"bar"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component carousel with no images text",
+			"subject": "Carousel/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">There are no images set in the carousel.</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component carousel with no images text",
+			"subject": "Carousel/01/5",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"carousel slide\" id=\"bsc_carousel_",
+					"data-ride=\"carousel\">",
+					"<ol class=\"carousel-indicators\">",
+					"<li data-target=\"#bsc_carousel_",
+					"<div class=\"item active\"><a href=",
+					"/index.php?title=Special:Upload&amp;wpDestFile=Invalid.png\" class=\"new\" title=\"File:Invalid.png\">File:Invalid.png</a></div>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

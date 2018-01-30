@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Oetterer"
+		]
+	},
+	"bootstrap-components-desc": "Allows to use various bootstrap components inside mediawiki markup.",
+
+	"bootstrap-components-error-tracking-category": "Pages with bootstrap component errors",
+	"bootstrap-components-tracking-category": "",
+
+	"bootstrap-components-close-element" : "Close",
+
+	"bootstrap-components-image-modal-source-button" : "Visit Source",
+
+	"bootstrap-components-badge-content-missing" : "You must specify a text for this badge.",
+	"bootstrap-components-button-target-missing" : "You must specify a target for this button.",
+	"bootstrap-components-button-target-invalid" : "You must specify a valid target for this button.",
+	"bootstrap-components-carousel-images-missing" : "There are no images set in the carousel.",
+	"bootstrap-components-glyph-icon-name-missing" : "You must specify an icon name.",
+	"bootstrap-components-label-content-missing" : "You must specify a label text.",
+	"bootstrap-components-modal-text-missing" : "You must specify a text for this modal button.",
+	"bootstrap-components-popover-heading-missing" : "You must specify a heading for this popover.",
+	"bootstrap-components-popover-text-missing" : "You must specify a text for this popover.",
+	"bootstrap-components-tooltip-content-missing" : "This tooltip is missing its text attribute and therefore the actual tooltip.",
+	"bootstrap-components-tooltip-target-missing" : "You must specify text or an image, the tooltip should be added to."
+}

@@ -1,0 +1,153 @@
+{
+	"description": "Test collapse component",
+	"setup": [
+		{
+			"namespace": "NS_FILE",
+			"page": "Collapse-01-Serenity.png",
+			"contents": {
+				"upload": {
+					"file" : "/../../../../resources/Serenity.png",
+					"text" : "Serenity for Collapse Test 01"
+				}
+			}
+		},
+		{
+			"page": "Collapse/01/1",
+			"contents": "<bootstrap_collapse text=\"button text\">Collapse text</bootstrap_collapse>"
+		},
+		{
+			"page": "Collapse/01/2",
+			"contents": "<bootstrap_collapse text=\"button text\" class=\"regimes\" id=\"alliance\" style=\"color:black\" active color=\"danger\" disabled=\"oFf\" size=\"lg\">Collapse text</bootstrap_collapse>"
+		},
+		{
+			"page": "Collapse/01/3",
+			"contents": "<bootstrap_collapse text=\"button text\" active=\"0\" color=\"invalid\" foo=\"bar\" size=\"overbearing\" disabled>Collapse text</bootstrap_collapse>"
+		},
+		{
+			"page": "Collapse/01/4",
+			"contents": "<bootstrap_collapse>Collapse text</bootstrap_collapse>"
+		},
+		{
+			"page": "Collapse/01/5",
+			"contents": "<bootstrap_collapse text=\"button text\" id=\"empty_one\"></bootstrap_collapse>"
+		},
+		{
+			"page": "Collapse/01/6",
+			"contents": "<bootstrap_collapse text=\"[[File:Collapse-01-Serenity.png|50px|alt=Collapse]]\" active disabled size=\"lg\" color=\"success\">Collapse text</bootstrap_collapse>"
+		},
+		{
+			"page": "Collapse/01/7",
+			"contents": "<bootstrap_collapse text=\"[[File:Invalid.png]]\">Collapse text</bootstrap_collapse>"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component collapse with only mandatory attributes",
+			"subject": "Collapse/01/1",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"btn btn-default\" role=\"button\" id=\"bsc_button_",
+					"href=\"#bsc_collapse_",
+					"data-toggle=\"collapse\">button text</a><div class=\"collapse\" id=\"bsc_collapse_",
+					">Collapse text</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component collapse with all attributes set",
+			"subject": "Collapse/01/2",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"btn btn-danger btn-lg active regimes\" style=\"color:black\" role=\"button\" id=\"bsc_button_",
+					"href=\"#alliance\" data-toggle=\"collapse\">button text</a><div class=\"collapse regimes\" style=\"color:black\" id=\"alliance\">Collapse text</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component collapse with invalid attributes, but disabled",
+			"subject": "Collapse/01/3",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"btn btn-default disabled\" role=\"button\" id=\"bsc_button_",
+					"href=\"#bsc_collapse_",
+					"data-toggle=\"collapse\">button text</a><div class=\"collapse\" id=\"bsc_collapse_",
+					">Collapse text</div>"
+				],
+				"not-contain": [
+					"foo",
+					"bar",
+					"active",
+					"overbearing"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component collapse with no text",
+			"subject": "Collapse/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"btn btn-default\" role=\"button\" id=\"bsc_button_",
+					"href=\"#bsc_collapse_",
+					"data-toggle=\"collapse\">#bsc_collapse_",
+					"</a><div class=\"collapse\" id=\"bsc_collapse_",
+					">Collapse text</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#4 verify output for component collapse with no content",
+			"subject": "Collapse/01/5",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"btn btn-default\" role=\"button\" id=\"bsc_button_",
+					"href=\"#empty_one\" data-toggle=\"collapse\">button text</a><div class=\"collapse\" id=\"empty_one\"></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#5 verify output for component collapse with image as \"text\"",
+			"subject": "Collapse/01/6",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"btn btn-success btn-lg active disabled\" role=\"button\" id=\"bsc_button_",
+					"href=\"#bsc_collapse_",
+					"data-toggle=\"collapse\"><img alt=\"Collapse\" src=",
+					"/images/thumb/d/d0/Collapse-01-Serenity.png/50px-Collapse-01-Serenity.png\" width=\"50\" height=\"16\" srcset=",
+					"/images/thumb/d/d0/Collapse-01-Serenity.png/75px-Collapse-01-Serenity.png 1.5x",
+					"/images/thumb/d/d0/Collapse-01-Serenity.png/100px-Collapse-01-Serenity.png 2x\" /></a><div class=\"collapse\" id=\"bsc_collapse_",
+					">Collapse text</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#6 verify output for component collapse with invalid image as \"text\"",
+			"subject": "Collapse/01/7",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"btn btn-default\" role=\"button\" id=\"bsc_button_",
+					"/index.php?title=Special:Upload&amp;wpDestFile=Invalid.png\" data-toggle=\"collapse\">File:Invalid.png</a><div class=\"collapse\" id=\"bsc_collapse_",
+					">Collapse text</div>"
+				],
+				"not-contain": [
+					"collapse-"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

@@ -1,0 +1,86 @@
+{
+	"description": "Test jumbotron component",
+	"setup": [
+		{
+			"page": "Jumbotron/01/1",
+			"contents": "<bootstrap_jumbotron>Jumbotron text</bootstrap_jumbotron>"
+		},
+		{
+			"page": "Jumbotron/01/2",
+			"contents": "<bootstrap_jumbotron class=\"cruiser\" id=\"dortmunder\" style=\"font-weight:bold\">Jumbotron text</bootstrap_jumbotron>"
+		},
+		{
+			"page": "Jumbotron/01/3",
+			"contents": "<bootstrap_jumbotron foo=\"bar\">Jumbotron text</bootstrap_jumbotron>"
+		},
+		{
+			"page": "Jumbotron/01/4",
+			"contents": "<bootstrap_jumbotron></bootstrap_jumbotron>"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component jumbotron with no attributes",
+			"subject": "Jumbotron/01/1",
+			"assert-output": {
+				"to-contain": [
+					"class=\"container\"",
+					"class=\"jumbotron\"",
+					">Jumbotron text</div></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component jumbotron with all attributes set",
+			"subject": "Jumbotron/01/2",
+			"assert-output": {
+				"to-contain": [
+					"class=\"container\"",
+					"class=\"jumbotron cruiser\"",
+					"id=\"dortmunder\"",
+					"style=\"font-weight:bold\"",
+					">Jumbotron text</div></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component jumbotron with invalid attribute",
+			"subject": "Jumbotron/01/3",
+			"assert-output": {
+				"to-contain": [
+					"class=\"container\"",
+					"class=\"jumbotron\"",
+					">Jumbotron text</div></div>"
+				],
+				"not-contain": [
+					"foo",
+					"bar"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component jumbotron with no input text",
+			"subject": "Jumbotron/01/4",
+			"assert-output": {
+				"to-contain": [
+					"class=\"container\"",
+					"class=\"jumbotron\"",
+					"></div></div>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

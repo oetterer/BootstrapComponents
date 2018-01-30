@@ -1,0 +1,123 @@
+{
+	"description": "Test adding mode carousel to gallery tag",
+	"setup": [
+		{
+			"namespace": "NS_FILE",
+			"page": "Gallery-01-Serenity.png",
+			"contents": {
+				"upload": {
+					"file" : "/../../../../resources/Serenity.png",
+					"text" : "Serenity for Gallery Test 01"
+				}
+			}
+		},
+		{
+			"page": "Gallery_carousel/01/1",
+			"contents": "<gallery mode=\"carousel\">File:Gallery-01-Serenity.png|alt=Gallery Test Image 1|Caption 1\nFile:Gallery-01-Serenity.png|alt=Gallery Test Image 2|Caption 2\n</gallery>"
+		},
+		{
+			"page": "Gallery_carousel/01/2",
+			"contents": "<gallery mode=\"carousel\" class=\"add-this-class\" id=\"gallery_test_02\" style=\"width:600px\">File:Gallery-01-Serenity.png|alt=Gallery Test Image 1|Caption 1\nFile:Gallery-01-Serenity.png|alt=Gallery Test Image 2|Caption 2\n</gallery>"
+		},
+		{
+			"page": "Gallery_carousel/01/3",
+			"contents": "<gallery mode=\"carousel\"></gallery>"
+		},
+		{
+			"page": "Gallery_carousel/01/4",
+			"contents": "<gallery mode=\"carousel\">Template:Invalid.png\n</gallery>"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for carousel gallery with no attributes and two images",
+			"subject": "Gallery_carousel/01/1",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"carousel slide\" id=\"bsc_carousel_",
+					"data-ride=\"carousel\">",
+					"<ol class=\"carousel-indicators\">",
+					"<li data-target=\"#bsc_carousel_",
+					"data-slide-to=\"0\" class=\"active\"></li>",
+					"data-slide-to=\"1\"></li>",
+					"<div class=\"carousel-inner\">",
+					"<div class=\"item active\">",
+					"<img alt=\"Gallery Test Image 1\" src=",
+					"/images/9/9a/Gallery-01-Serenity.png\" title=\"Caption 1\" width=\"404\" height=\"132\" class=\"img-responsive img-responsive\" />",
+					"<div class=\"modal-caption\">Caption 1</div>",
+					"<img alt=\"Gallery Test Image 2\" src=",
+					"/images/9/9a/Gallery-01-Serenity.png\" title=\"Caption 2\" width=\"404\" height=\"132\" class=\"img-responsive img-responsive\" />",
+					"<div class=\"modal-caption\">Caption 2</div>",
+					"<a class=\"left carousel-control\" href=\"#bsc_carousel_",
+					"data-slide=\"prev\"><span class=\"glyphicon glyphicon-chevron-left\"></span></a><a class=\"right carousel-control\" href=\"#bsc_carousel_",
+					"data-slide=\"next\"><span class=\"glyphicon glyphicon-chevron-right\"></span></a></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for carousel gallery with all attributes (class, id, and style) and two images",
+			"subject": "Gallery_carousel/01/2",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"carousel slide add-this-class\" style=\"width:600px\" id=\"gallery_test_02\" data-ride=\"carousel\">",
+					"<ol class=\"carousel-indicators\">",
+					"<li data-target=\"#gallery_test_02\" data-slide-to=\"0\" class=\"active\"></li>",
+					"<li data-target=\"#gallery_test_02\" data-slide-to=\"1\"></li>",
+					"<div class=\"carousel-inner\">",
+					"<div class=\"item active\">",
+					"<img alt=\"Gallery Test Image 1\" src=",
+					"/images/9/9a/Gallery-01-Serenity.png\" title=\"Caption 1\" width=\"404\" height=\"132\" class=\"img-responsive img-responsive\" />",
+					"<div class=\"modal-caption\">Caption 1</div>",
+					"<img alt=\"Gallery Test Image 2\" src=",
+					"/images/9/9a/Gallery-01-Serenity.png\" title=\"Caption 2\" width=\"404\" height=\"132\" class=\"img-responsive img-responsive\" />",
+					"<div class=\"modal-caption\">Caption 2</div>",
+					"<a class=\"left carousel-control\" href=\"#gallery_test_02",
+					"data-slide=\"prev\"><span class=\"glyphicon glyphicon-chevron-left\"></span></a><a class=\"right carousel-control\" href=\"#gallery_test_02",
+					"data-slide=\"next\"><span class=\"glyphicon glyphicon-chevron-right\"></span></a></div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for carousel gallery with no images",
+			"subject": "Gallery_carousel/01/3",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">There are no images set in the carousel.</span>"
+				],
+				"not-contain": [
+					"\"modal",
+					"modal\"",
+					"button",
+					"aria",
+					"btn"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for carousel gallery with one invalid image",
+			"subject": "Gallery_carousel/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">There are no images set in the carousel.</span>"
+				],
+				"not-contain": [
+					"right",
+					"left"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

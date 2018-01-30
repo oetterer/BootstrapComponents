@@ -1,0 +1,65 @@
+{
+	"description": "Test icon component",
+	"setup": [
+		{
+			"page": "Icon/01/1",
+			"contents": "{{#bootstrap_icon: asterisk}}"
+		},
+		{
+			"page": "Icon/01/2",
+			"contents": "{{#bootstrap_icon: Cloud | id=test | class=unused | style=margin:auto | foo=bar }}"
+		},
+		{
+			"page": "Icon/01/3",
+			"contents": "{{#bootstrap_icon:}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component icon with lowercase input",
+			"subject": "Icon/01/1",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"glyphicon glyphicon-asterisk\"></span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component icon with uppercase input and attributes",
+			"subject": "Icon/01/2",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"glyphicon glyphicon-cloud\"></span>"
+				],
+				"not-contain": [
+					"foo",
+					"bar",
+					"id=",
+					"unused",
+					"style"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component icon with no input",
+			"subject": "Icon/01/3",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">You must specify an icon name.</span>"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

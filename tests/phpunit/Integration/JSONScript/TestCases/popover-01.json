@@ -1,0 +1,160 @@
+{
+	"description": "Test popover component",
+	"setup": [
+		{
+			"namespace": "NS_FILE",
+			"page": "Popover-01-Serenity.png",
+			"contents": {
+				"upload": {
+					"file" : "/../../../../resources/Serenity.png",
+					"text" : "Serenity for Popover Test 01"
+				}
+			}
+		},
+		{
+			"page": "Popover/01/1",
+			"contents": "<bootstrap_popover heading=\"Mandatory heading\" text=\"mandatory text\">Popover text</bootstrap_popover>"
+		},
+		{
+			"page": "Popover/01/2",
+			"contents": "<bootstrap_popover heading=\"Mandatory heading\" text=\"mandatory text\" class=\"jaynes-stuff\" id=\"vera\" style=\"color:shiny\" color=\"danger\" placement=\"top\" size=\"lg\" trigger=\"hover\">Popover text</bootstrap_popover>"
+		},
+		{
+			"page": "Popover/01/3",
+			"contents": "<bootstrap_popover heading=\"Mandatory heading\" text=\"mandatory text\" color=\"invalid\" foo=\"bar\" placement=\"meta\" size=\"mega\" trigger=\"fast\">Popover text</bootstrap_popover>"
+		},
+		{
+			"page": "Popover/01/4",
+			"contents": "<bootstrap_popover text=\"mandatory text\"></bootstrap_popover>"
+		},
+		{
+			"page": "Popover/01/5",
+			"contents": "<bootstrap_popover heading=\"Mandatory heading\"></bootstrap_popover>"
+		},
+		{
+			"page": "Popover/01/6",
+			"contents": "<bootstrap_popover heading=\"Mandatory heading\" text=\"mandatory text\"></bootstrap_popover>"
+		},
+		{
+			"page": "Popover/01/7",
+			"contents": "<bootstrap_popover heading=\"Mandatory heading\" text=\"[[File:Popover-01-Serenity.png|50px|alt=Popover]]\">Popover text</bootstrap_popover>"
+		},
+		{
+			"page": "Popover/01/8",
+			"contents": "<bootstrap_popover heading=\"Mandatory heading\" text=\"[[File:Invalid.png]]\">Popover text</bootstrap_popover>"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for component popover with only mandatory attributes",
+			"subject": "Popover/01/1",
+			"assert-output": {
+				"to-contain": [
+					"<button class=\"btn btn-info\" id=\"bsc_popover_",
+					"data-toggle=\"popover\" title=\"Mandatory heading\" data-content=\"Popover text\" type=\"submit\">mandatory text</button>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for component popover with all attributes set",
+			"subject": "Popover/01/2",
+			"assert-output": {
+				"to-contain": [
+					"<button class=\"btn btn-danger btn-lg jaynes-stuff\" style=\"color:shiny\" id=\"vera\" data-toggle=\"popover\" title=\"Mandatory heading\" data-content=\"Popover text\" data-placement=\"top\" data-trigger=\"hover\" type=\"submit\">mandatory text</button>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for component popover with invalid attributes",
+			"subject": "Popover/01/3",
+			"assert-output": {
+				"to-contain": [
+					"<button class=\"btn btn-info\" id=\"bsc_popover_",
+					"data-toggle=\"popover\" title=\"Mandatory heading\" data-content=\"Popover text\" type=\"submit\">mandatory text</button>"
+				],
+				"not-contain": [
+					"foo",
+					"bar",
+					"invalid",
+					"meta",
+					"mega",
+					"fast"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for component popover with no heading",
+			"subject": "Popover/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">You must specify a heading for this popover.</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#4 verify output for component popover with no text",
+			"subject": "Popover/01/5",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">You must specify a text for this popover.</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#5 verify output for component popover with no content",
+			"subject": "Popover/01/6",
+			"assert-output": {
+				"to-contain": [
+					"<button class=\"btn btn-info\" id=\"bsc_popover_",
+					"data-toggle=\"popover\" title=\"Mandatory heading\" data-content=\"\" type=\"submit\">mandatory text</button>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#6 verify output for component popover with image as \"text\"",
+			"subject": "Popover/01/7",
+			"assert-output": {
+				"to-contain": [
+					"<button class=\"btn btn-info\" id=\"bsc_popover_",
+					"data-toggle=\"popover\" title=\"Mandatory heading\" data-content=\"Popover text\" type=\"submit\">",
+					"type=\"submit\"><img alt=\"Popover\" src=",
+					"/images/thumb/8/83/Popover-01-Serenity.png/50px-Popover-01-Serenity.png\" width=\"50\" height=\"16\" srcset=",
+					"/images/thumb/8/83/Popover-01-Serenity.png/75px-Popover-01-Serenity.png 1.5x,",
+					"/images/thumb/8/83/Popover-01-Serenity.png/100px-Popover-01-Serenity.png 2x\" /></button>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#7 verify output for component popover with invalid image as \"text\"",
+			"subject": "Popover/01/8",
+			"assert-output": {
+				"to-contain": [
+					"<a class=\"btn btn-info\" id=\"bsc_popover_",
+					"/index.php?title=Special:Upload&amp;wpDestFile=Invalid.png\" role=\"button\">File:Invalid.png</a>"
+				],
+				"not-contain": [
+					"\"popover",
+					"popover-",
+					"popover\""
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

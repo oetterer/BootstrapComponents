@@ -1,0 +1,46 @@
+{
+	"description": "Test image modals with invalid thumb image",
+	"setup": [
+		{
+			"namespace": "NS_FILE",
+			"page": "Image_modal-02-Serenity.png",
+			"contents": {
+				"upload": {
+					"file" : "/../../../../resources/Serenity.png",
+					"text" : "Serenity for Image Modal Test 02"
+				}
+			}
+		},
+		{
+			"page": "Image_modal/02/1",
+			"contents": "[[File:Image_modal-02-Serenity.png|thumb=Invalid.png|Caption text]]"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for image modal with manual, non existing thumb",
+			"subject": "Image_modal/02/1",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"thumb tright\"><div class=\"thumbinner\" style=\"width:302px;\"><a href=",
+					"/index.php?title=Special:Upload&amp;wpDestFile=Image_modal-02-Serenity.png\" class=\"new\" title=\"File:Image modal-02-Serenity.png\">File:Image modal-02-Serenity.png</a>",
+					"<div class=\"thumbcaption\">Caption text</div></div></div>"
+				],
+				"not-contain": [
+					"\"modal",
+					"modal\""
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

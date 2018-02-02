@@ -23,7 +23,7 @@ configuration it can add a new [gallery][Gallery] mode, and replace normal
 
 - [Installation and configuration](docs/installation-configuration.md)
 - [Usage](docs/components.md)
-- [Lua support](doc/lua.md)
+- [Lua support](docs/lua.md)
 - [Release notes](docs/release-notes.md)
 - [Testing](docs/testing.md)
 - [Contributing](docs/contributing.md)

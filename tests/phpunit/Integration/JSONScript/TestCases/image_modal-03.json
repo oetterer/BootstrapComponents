@@ -7,28 +7,28 @@
 			"contents": {
 				"upload": {
 					"file" : "/../../../../resources/Serenity.png",
-					"text" : "Serenity for Image Modal Test 02"
+					"text" : "Serenity for Image Modal Test 03"
 				}
 			}
 		},
 		{
-			"page": "Image_modal/02/1",
-			"contents": "[[File:Image_modal-02-Serenity.png|Caption text|alt=normal]]__NOIMAGEMODAL__"
+			"page": "Image_modal/03/1",
+			"contents": "[[File:Image_modal-03-Serenity.png|Caption text|alt=normal]]__NOIMAGEMODAL__"
 		},
 		{
-			"page": "Image_modal/02/2",
-			"contents": "[[File:Image_modal-02-Serenity.png|Caption text|alt=normal|class=no-modals]]"
+			"page": "Image_modal/03/2",
+			"contents": "[[File:Image_modal-03-Serenity.png|Caption text|alt=normal|class=no-modal test]]"
 		}
 	],
 	"tests": [
 		{
 			"type": "parser",
 			"about": "#0 verify output for image modal suppressed by magic word",
-			"subject": "Image_modal/02/1",
+			"subject": "Image_modal/03/1",
 			"assert-output": {
 				"to-contain": [
-					"/File:Image_modal-02-Serenity.png\" class=\"image\" title=\"Caption text\"><img alt=\"normal\" src=",
-					"/images/b/b9/Image_modal-02-Serenity.png\" width=\"404\" height=\"132\" /></a>"
+					"/File:Image_modal-03-Serenity.png\" class=\"image\" title=\"Caption text\"><img alt=\"normal\" src=",
+					"/images/e/ea/Image_modal-03-Serenity.png\" width=\"404\" height=\"132\" /></a>"
 				],
 				"not-contain": [
 					"\"modal",
@@ -39,11 +39,11 @@
 		{
 			"type": "parser",
 			"about": "#1 verify output for image modal suppressed by css class",
-			"subject": "Image_modal/02/1",
+			"subject": "Image_modal/03/2",
 			"assert-output": {
 				"to-contain": [
-					"/File:Image_modal-02-Serenity.png\" class=\"image\" title=\"Caption text\"><img alt=\"normal\" src=",
-					"/images/b/b9/Image_modal-02-Serenity.png\" width=\"404\" height=\"132\" /></a>"
+					"/File:Image_modal-03-Serenity.png\" class=\"image\" title=\"Caption text\"><img alt=\"normal\" src=",
+					"/images/e/ea/Image_modal-03-Serenity.png\" width=\"404\" height=\"132\" class=\"no-modal test\" /></a>"
 				],
 				"not-contain": [
 					"\"modal",

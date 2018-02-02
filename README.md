@@ -2,8 +2,8 @@
 [![Build Status](https://secure.travis-ci.org/oetterer/BootstrapComponents.svg?branch=master)](http://travis-ci.org/oetterer/BootstrapComponents)
 [![Code Coverage](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/oetterer/BootstrapComponents/version.png)](https://packagist.org/packages/oetterer/BootstrapComponents)
-[![Packagist download count](https://poser.pugx.org/oetterer/BootstrapComponents/d/total.png)](https://packagist.org/packages/oetterer/BootstrapComponents)
+[![Latest Stable Version](https://poser.pugx.org/oetterer/BootstrapComponents/version.png)](https://packagist.org/packages/mediawiki/bootstrap-components)
+[![Packagist download count](https://poser.pugx.org/oetterer/BootstrapComponents/d/total.png)](https://packagist.org/packages/mediawiki/bootstrap-components)
 
 Bootstrap Components is a [MediaWiki] extension that aims to provide
 editors with an easy access to certain components introduced by
@@ -23,6 +23,7 @@ configuration it can add a new [gallery][Gallery] mode, and replace normal
 
 - [Installation and configuration](docs/installation-configuration.md)
 - [Usage](docs/components.md)
+- [Lua support](doc/lua.md)
 - [Release notes](docs/release-notes.md)
 - [Testing](docs/testing.md)
 - [Contributing](docs/contributing.md)

@@ -396,7 +396,10 @@ class ImageModal implements NestableInterface {
 		if ( isset( $frameParams['class'] ) && in_array( self::CSS_CLASS_PREVENTING_MODAL, explode( ' ', $frameParams['class'] ) ) ) {
 			return false;
 		}
-		return !$this->getParserOutputHelper()->areImageModalsSuppressed();
+		/** @see ParserOutputHelper::areImageModalsSuppressed as to why we need to use the global parser1 */
+		$parser = $GLOBALS['wgParser'];
+		// the is_null test has to be added because otherwise some unit tests will fail
+		return is_null( $parser->getOutput() ) || !$parser->getOutput()->getExtensionData( 'bsc_no_image_modal' );
 	}
 
 	/**

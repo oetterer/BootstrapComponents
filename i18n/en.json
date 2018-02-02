@@ -13,6 +13,9 @@
 
 	"bootstrap-components-image-modal-source-button" : "Visit Source",
 
+	"bootstrap-components-lua-error-no-component": "No component name provided for mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Invalid component name passed to mw.bootstrap.parse: $1.",
+
 	"bootstrap-components-badge-content-missing" : "You must specify a text for this badge.",
 	"bootstrap-components-button-target-missing" : "You must specify a target for this button.",
 	"bootstrap-components-button-target-invalid" : "You must specify a valid target for this button.",

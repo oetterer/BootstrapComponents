@@ -1,7 +1,7 @@
 --[[
 	Registers methods that can be accessed through the Scribunto extension
 
-	@since 1.0
+	@since 1.1
 
 	@licence GNU GPL v3
 	@author Tobias Oetterer

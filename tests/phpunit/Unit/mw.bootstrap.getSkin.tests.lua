@@ -1,7 +1,7 @@
 --[[
 	Tests for mw.bootstrap.getSkin module
 
-	@since 1.0
+	@since 1.1
 
 	@licence GNU GPL v3+
 	@author Tobias Oetterer

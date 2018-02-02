@@ -13,7 +13,7 @@ use \Scribunto_LuaEngineTestBase;
  *
  * @license GNU GPL v3+
  *
- * @since   1.0
+ * @since   1.1
  * @author  Tobias Oetterer
  */
 abstract class LuaLibraryTestBase extends Scribunto_LuaEngineTestBase

@@ -6,7 +6,7 @@ namespace BootstrapComponents\Tests\Unit;
  * @covers \BootstrapComponents\LuaLibrary
  *
  * @license GNU GPL v2+
- * @since   1.0
+ * @since   1.1
  *
  * @author  Tobias Oetterer
  */

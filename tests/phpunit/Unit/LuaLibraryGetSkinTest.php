@@ -11,7 +11,7 @@ namespace BootstrapComponents\Tests\Unit;
  *
  * @license GNU GPL v3+
  *
- * @since   1.0
+ * @since   1.1
  * @author  Tobias Oetterer
  */
 class LuaLibraryGetSkinTest extends LuaLibraryTestBase {

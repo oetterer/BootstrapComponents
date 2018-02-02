@@ -1,4 +1,8 @@
 -- Module:Bootstrap
+--
+-- @since 1.1
+--
+-- @author Tobias Oetterer
 local p = {}
 
 function p.parse( frame )

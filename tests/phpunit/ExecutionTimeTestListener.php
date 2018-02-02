@@ -11,6 +11,8 @@ use PHPUnit_Framework_TestSuite;
 /**
  * Class ExecutionTimeTestListener
  *
+ * @since 1.1
+ *
  * @package BootstrapComponents\Tests
  */
 class ExecutionTimeTestListener implements PHPUnit_Framework_TestListener {

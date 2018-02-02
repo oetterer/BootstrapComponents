@@ -35,7 +35,7 @@ use \Scribunto_LuaLibraryBase;
  *
  * Class to handle the scribunto lua support.
  *
- * @since 1.0
+ * @since 1.1
  */
 class LuaLibrary extends Scribunto_LuaLibraryBase {
 
@@ -55,7 +55,7 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * @since 1.0
+	 * @return array
 	 */
 	public function register() {
 
@@ -64,7 +64,7 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 			'getSkin' => [ $this, 'getSkin' ],
 		];
 
-		$this->getEngine()->registerInterface( __DIR__ . '/../lua/mw.bootstrap.lua', $lib, [] );
+		return $this->getEngine()->registerInterface( __DIR__ . '/../lua/mw.bootstrap.lua', $lib, [] );
 	}
 
 	/**
@@ -154,8 +154,6 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * Takes the $arguments passed from lua and pre-processes them: make sure,
 	 * we have a sequence array (not associative)
-	 *
-	 * @since 1.0
 	 *
 	 * @param string|array $arguments
 	 *

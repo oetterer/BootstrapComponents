@@ -25,7 +25,6 @@ class ImageModalTriggerTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 		parent::setUp();
-		set_time_limit( 300 );
 	}
 
 	public function testCanConstruct() {

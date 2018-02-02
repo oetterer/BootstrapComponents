@@ -205,6 +205,8 @@ class ImageModalTrigger {
 	 * @param array  $sanitizedFrameParams
 	 * @param int    $publicationWidth
 	 *
+	 * @throws \Exception cascading {@see ImageModalTrigger::buildThumbnailTrigger}
+	 *
 	 * @return string
 	 */
 	protected function wrapAndFinalize( $publicationString, $sanitizedFrameParams, $publicationWidth ) {

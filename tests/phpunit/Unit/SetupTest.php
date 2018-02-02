@@ -2,6 +2,7 @@
 
 namespace BootstrapComponents\Tests\Unit;
 
+use BootstrapComponents\ApplicationFactory;
 use BootstrapComponents\Setup as Setup;
 use BootstrapComponents\ComponentLibrary;
 use \Parser;
@@ -251,19 +252,11 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	 * @throws \MWException
 	 */
 	public function testHookGalleryGetModes() {
-		$instance = new Setup( [] );
-		$hookCallbackList = $instance->buildHookCallbackListFor(
-			[ 'GalleryGetModes' ]
-		);
-		$this->assertArrayHasKey(
-			'GalleryGetModes',
-			$hookCallbackList
-		);
-		$this->assertTrue(
-			is_callable( $hookCallbackList['GalleryGetModes'] )
-		);
+
+		$callback = $this->getCallBackForHook( 'GalleryGetModes' );
 		$modesForTest = [ 'default' => 'TestGallery' ];
-		$hookCallbackList['GalleryGetModes']( $modesForTest );
+
+		$callback( $modesForTest );
 		$this->assertEquals(
 			2,
 			count( $modesForTest )
@@ -283,21 +276,11 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	 * @throws \MWException
 	 */
 	public function testHookImageBeforeProduceHTML() {
-		$instance = new Setup( [] );
-		$hookCallbackList = $instance->buildHookCallbackListFor(
-			[ 'ImageBeforeProduceHTML' ]
-		);
-		$this->assertArrayHasKey(
-			'ImageBeforeProduceHTML',
-			$hookCallbackList
-		);
-		$this->assertTrue(
-			is_callable( $hookCallbackList['ImageBeforeProduceHTML'] )
-		);
+		$callback = $this->getCallBackForHook( 'ImageBeforeProduceHTML' );
 		$linker = $title = $file = $frameParams = $handlerParams = $time = $res = false;
 
 		$this->assertTrue(
-			$hookCallbackList['ImageBeforeProduceHTML']( $linker, $title, $file, $frameParams, $handlerParams, $time, $res )
+			$callback( $linker, $title, $file, $frameParams, $handlerParams, $time, $res )
 		);
 	}
 
@@ -318,24 +301,15 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 		$parser = $this->getMockBuilder( 'Parser' )
 			->disableOriginalConstructor()
 			->getMock();
-		$parser->expects( $this->any() )
+		$parser->expects( $this->once() )
 			->method( 'getOutput' )
 			->willReturn( $parserOutput );
 
-		$instance = new Setup( [] );
+		$callback = $this->getCallBackForHook( 'InternalParseBeforeLinks' );
 
-		$hookCallbackList = $instance->buildHookCallbackListFor(
-			[ 'InternalParseBeforeLinks' ]
-		);
-		$this->assertArrayHasKey(
-			'InternalParseBeforeLinks',
-			$hookCallbackList
-		);
 		$text = '';
 		$this->assertTrue(
-			isset( $hookCallbackList['InternalParseBeforeLinks'] )
-			&& is_callable( $hookCallbackList['InternalParseBeforeLinks'] )
-			&& $hookCallbackList['InternalParseBeforeLinks']( $parser, $text )
+			$callback( $parser, $text )
 		);
 		$this->assertEquals(
 			'',
@@ -343,7 +317,7 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 		);
 		$text = '__NOIMAGEMODAL__';
 		$this->assertTrue(
-			$hookCallbackList['InternalParseBeforeLinks']( $parser, $text )
+			$callback( $parser, $text )
 		);
 		$this->assertEquals(
 			'',
@@ -366,23 +340,19 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 			->method( 'getContentForLaterInjection' )
 			->willReturnOnConsecutiveCalls( '', 'call2' );
 
-
-		$instance = new Setup( [] );
-		$hookCallbackList = $instance->buildHookCallbackListFor(
-			[ 'ParserBeforeTidy' ]
-		);
+		$callback = $this->getCallBackForHook( 'ParserBeforeTidy' );
 
 		$text = '';
 		$this->assertTrue(
-			isset( $hookCallbackList['ParserBeforeTidy'] )
-			&& is_callable( $hookCallbackList['ParserBeforeTidy'] )
-			&& $hookCallbackList['ParserBeforeTidy']( $parser, $text, $parserOutputHelper )
+			$callback( $parser, $text, $parserOutputHelper )
 		);
 		$this->assertEquals(
 			'',
 			$text
 		);
-		$hookCallbackList['ParserBeforeTidy']( $parser, $text, $parserOutputHelper );
+		$this->assertTrue(
+			$callback( $parser, $text, $parserOutputHelper )
+		);
 		$this->assertEquals(
 			'call2',
 			$text
@@ -422,14 +392,37 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 				[ $this->equalTo( $prefix . 'well' ), $this->callback( 'is_callable' ) ]
 			);
 
-		$instance = new Setup( [] );
-		$hookCallbackList = $instance->buildHookCallbackListFor(
-			[ 'ParserFirstCallInit' ]
+		$callback = $this->getCallBackForHook( 'ParserFirstCallInit' );
+		$this->assertTrue(
+			$callback( $observerParser )
+		);
+	}
+
+	/**
+	 * @throws \ConfigException
+	 * @throws \MWException
+	 */
+	public function testHookScribuntoExternalLibraries() {
+		$callback = $this->getCallBackForHook( 'ScribuntoExternalLibraries' );
+
+		$libraries = [];
+		$this->assertTrue(
+			$callback( '', $libraries )
+		);
+		$this->assertEquals(
+			[],
+			$libraries
 		);
 		$this->assertTrue(
-			isset( $hookCallbackList['ParserFirstCallInit'] )
-			&& is_callable( $hookCallbackList['ParserFirstCallInit'] )
-			&& $hookCallbackList['ParserFirstCallInit']( $observerParser )
+			$callback( 'lua', $libraries )
+		);
+		$this->assertArrayHasKey(
+			'mw.bootstrap',
+			$libraries
+		);
+		$this->assertEquals(
+			'BootstrapComponents\\LuaLibrary',
+			$libraries['mw.bootstrap']
 		);
 	}
 
@@ -438,19 +431,9 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	 * @throws \MWException
 	 */
 	public function testHookSetupAfterCache() {
-		$instance = new Setup( [] );
-		$hookCallbackList = $instance->buildHookCallbackListFor(
-			[ 'SetupAfterCache' ]
-		);
-		$this->assertArrayHasKey(
-			'SetupAfterCache',
-			$hookCallbackList
-		);
+		$callback = $this->getCallBackForHook( 'SetupAfterCache' );
 		$this->assertTrue(
-			is_callable( $hookCallbackList['SetupAfterCache'] )
-		);
-		$this->assertTrue(
-			$hookCallbackList['SetupAfterCache']()
+			$callback()
 		);
 	}
 
@@ -475,16 +458,10 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 				$registeredParserHooks[$parserHookString] = [ $callBack, ComponentLibrary::HANDLER_TYPE_TAG_EXTENSION ];
 			} ) );
 
-		$instance = new Setup( [] );
-
-		$hookCallbackList = $instance->buildHookCallbackListFor(
-			[ 'ParserFirstCallInit' ]
-		);
+		$callable = $this->getCallBackForHook( 'ParserFirstCallInit' );
 
 		$this->assertTrue(
-			isset( $hookCallbackList['ParserFirstCallInit'] )
-			&& is_callable( $hookCallbackList['ParserFirstCallInit'] )
-			&& $hookCallbackList['ParserFirstCallInit']( $extractionParser )
+			$callable( $extractionParser )
 		);
 
 		$this->assertEquals(
@@ -503,10 +480,10 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	public function buildHookCallbackListForProvider() {
 		return [
 			'empty'               => [ [] ],
-			'default'             => [ [ 'ParserFirstCallInit', 'SetupAfterCache' ] ],
-			'alsoImageModal'      => [ [ 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache' ] ],
-			'alsoCarouselGallery' => [ [ 'GalleryGetModes', 'ParserFirstCallInit', 'SetupAfterCache' ] ],
-			'all'                 => [ [ 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache' ] ],
+			'default'             => [ [ 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
+			'alsoImageModal'      => [ [ 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
+			'alsoCarouselGallery' => [ [ 'GalleryGetModes', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
+			'all'                 => [ [ 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
 			'invalid'             => [ [ 'nonExistingHook', 'PageContentSave' ] ],
 		];
 	}
@@ -518,22 +495,22 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 		return [
 			'onlydefault' => [
 				[],
-				[ 'ParserFirstCallInit', 'SetupAfterCache' ],
-				[ 'GalleryGetModes', 'ImageBeforeProduceHTML' ],
+				[ 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ],
+				[ 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy' ],
 			],
 			'gallery activated' => [
 				[ 'BootstrapComponentsEnableCarouselGalleryMode' ],
-				[ 'ParserFirstCallInit', 'SetupAfterCache', 'GalleryGetModes' ],
+				[ 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'GalleryGetModes' ],
 				[ 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy'  ],
 			],
 			'image replacement activated' => [
 				[ 'BootstrapComponentsModalReplaceImageTag' ],
-				[ 'ParserFirstCallInit', 'SetupAfterCache', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy' ],
+				[ 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy' ],
 				[ 'GalleryGetModes' ],
 			],
 			'both activated' => [
 				[ 'BootstrapComponentsEnableCarouselGalleryMode', 'BootstrapComponentsModalReplaceImageTag' ],
-				[ 'ParserFirstCallInit', 'SetupAfterCache', 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy' ],
+				[ 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy' ],
 				[],
 			],
 		];
@@ -616,5 +593,26 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 			$ret,
 			'Failed testing parser hook for parser hook string ' . $registeredParserHook
 		);
+	}
+
+	/**
+	 * @throws \ConfigException
+	 * @throws \MWException
+	 *
+	 * @return \Closure
+	 */
+	private function getCallBackForHook( $hook ) {
+		$instance = new Setup( [] );
+		$hookCallbackList = $instance->buildHookCallbackListFor(
+			[ $hook ]
+		);
+		$this->assertArrayHasKey(
+			$hook,
+			$hookCallbackList
+		);
+		$this->assertTrue(
+			is_callable( $hookCallbackList[$hook] )
+		);
+		return $hookCallbackList[$hook];
 	}
 }

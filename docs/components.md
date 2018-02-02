@@ -37,7 +37,7 @@ See also:
 * [Panel](#panel)
 
 #### Example usage
-```
+```html
 <bootstrap_accordion [..]>
   <bootstrap_panel [..]>Content text for the first panel</bootstrap_panel>
   <bootstrap_panel [..]>Content text for the second panel</bootstrap_panel>
@@ -49,15 +49,15 @@ See also:
 The following attributes can be used inside the tag:
 
 <dl>
-<dt>Class</dt>
+<dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
 add multiple classes, separate them by a space.</dd>
 
-<dt>Id</dt>
+<dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is
 unique.</dd>
 
-<dt>Style</dt>
+<dt>style</dt>
 <dd>Adds this string to the style attribute of the component. If you want to
 add multiple css styles, separate them by a semicolon.</dd>
 </dl>
@@ -74,7 +74,7 @@ See also:
 * [Well](#well)
 
 #### Example usage
-```
+```html
 <bootstrap_alert [..]>Message text</bootstrap_alert>
 ```
 
@@ -82,11 +82,11 @@ See also:
 The following attributes can be used inside the tag:
 
 <dl>
-<dt>Class</dt>
+<dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
 add multiple classes, separate them by a space.</dd>
 
-<dt>Color</dt>
+<dt>color</dt>
 <dd>Sets the color for this component.
 
 Allowed Values are
@@ -99,18 +99,18 @@ Allowed Values are
 <li>danger</li>
 </ul></dd>
 
-<dt>Dismissible</dt>
+<dt>dismissible</dt>
 <dd>If present or set to any value, the alert will get a dismiss-button.
 If you set dismissible to <em>fade</em>, the alert will fade out when dismissed.
 
 You can also set this attribute to any [_no_ value](#no-values), in which case
 it is ignored [(?)](#why-use-no-values).</dd>
 
-<dt>Id</dt>
+<dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is
 unique.</dd>
 
-<dt>Style</dt>
+<dt>style</dt>
 <dd>Adds this string to the style attribute of the component. If you want to
 add multiple css styles, separate them by a semicolon.</dd>
 </dl>
@@ -129,7 +129,7 @@ See also:
 * [Label](#label)
 
 #### Example usage
-```
+```html
 {{#bootstrap_badge: text | .. }}
 ```
 
@@ -137,15 +137,15 @@ See also:
 The following attributes can be used inside the parser function:
 
 <dl>
-<dt>Class</dt>
+<dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
 add multiple classes, separate them by a space.</dd>
 
-<dt>Id</dt>
+<dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is
 unique.</dd>
 
-<dt>Style</dt>
+<dt>style</dt>
 <dd>Adds this string to the style attribute of the component. If you want to
 add multiple css styles, separate them by a semicolon.</dd>
 </dl>
@@ -159,7 +159,7 @@ add multiple css styles, separate them by a semicolon.</dd>
 Bootstrap provides different styles of buttons that can link to any target.
 
 #### Example usage
-```
+```html
 {{#bootstrap_button: target | .. }}
 ```
 
@@ -167,18 +167,18 @@ Bootstrap provides different styles of buttons that can link to any target.
 The following attributes can be used inside the parser function:
 
 <dl>
-<dt>Active</dt>
+<dt>active</dt>
 <dd>Having this attribute simply present or set to a non-[_no value_](#no-values)
 makes a button appear pressed.
 
 You can also set this attribute to any <em>no value</em>, in which case
 it is ignored [(?)](#why-use-no-values).</dd>
 
-<dt>Class</dt>
+<dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
 add multiple classes, separate them by a space.</dd>
 
-<dt>Color</dt>
+<dt>color</dt>
 <dd>Sets the color for this component.
 
 Allowed Values are
@@ -191,18 +191,18 @@ Allowed Values are
 <li>danger</li>
 </ul></dd>
 
-<dt>Disabled</dt>
+<dt>disabled</dt>
 <dd>Having this attribute simply present or set to a non-[_no value_](#no-values)
 disables the button.
 
 You can also set this attribute to any <em>no value</em>, in which case
 it is ignored [(?)](#why-use-no-values).</dd>
 
-<dt>Id</dt>
+<dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is
 unique.</dd>
 
-<dt>Size</dt>
+<dt>size</dt>
 <dd>You can choose a size for your button. Possible options are:
 <ul>
 <li>xs</li>
@@ -211,11 +211,11 @@ unique.</dd>
 <li>lg</li>
 </ul></dd>
 
-<dt>Style</dt>
+<dt>style</dt>
 <dd>Adds this string to the style attribute of the component. If you want to
 add multiple css styles, separate them by a semicolon.</dd>
 
-<dt>Text</dt>
+<dt>text</dt>
 <dd>This text will be displayed on the button. If omitted, the target is
 used.
 
@@ -233,7 +233,7 @@ background with button color.</dd>
 The Carousel component is for cycling through elements, like a carousel (slide show).
 
 #### Example usage
-```xml
+```html
 {{#bootstrap_carousel: [[File:Image1|..]] | [[File:Image2|..]] | .. }}
 ```
 
@@ -241,15 +241,15 @@ The Carousel component is for cycling through elements, like a carousel (slide s
 The following attributes can be used inside the parser function:
 
 <dl>
-<dt>Class</dt>
+<dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
 add multiple classes, separate them by a space.</dd>
 
-<dt>Id</dt>
+<dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is
 unique.</dd>
 
-<dt>Style</dt>
+<dt>style</dt>
 <dd>Adds this string to the style attribute of the component. If you want to
 add multiple css styles, separate them by a semicolon.</dd>
 </dl>
@@ -267,7 +267,7 @@ See also:
 * [Modals](#modal) can also be used to hide and show content.
 
 #### Example usage
-```
+```html
 <bootstrap_collapse text="Collapse button text|[[File:TriggerImage.png|..]" [..]>Text inside the collapse</bootstrap_collapse>
 ```
 
@@ -276,7 +276,7 @@ This uses all the allowed attributes of the [button](#button)
 and they will be used in the same manner. Exceptions follow:
 
 <dl>
-<dt>Text</dt>
+<dt>text</dt>
 <dd>This is a <b>mandatory</b> field.
 
 If you supply text, a [button](#button) will be generated and used
@@ -299,7 +299,7 @@ a list of available names.
 The name is the string after the "glyphicon glyphicon-"-part. See example.
 
 #### Example usage
-```
+```html
 {{#bootstrap_icon: icon-name}}
 <!-- inserting an asterisk -->
 {{#bootstrap_icon: asterisk}}
@@ -325,7 +325,7 @@ See also:
 * [Well](#well)
 
 #### Example usage
-```
+```html
 <bootstrap_jumbotron [..]>Content of the jumbotron</bootstrap_jumbotron>
 ```
 
@@ -333,15 +333,15 @@ See also:
 The following attributes can be used inside the tag:
 
 <dl>
-<dt>Class</dt>
+<dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
 add multiple classes, separate them by a space.</dd>
 
-<dt>Id</dt>
+<dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is
 unique.</dd>
 
-<dt>Style</dt>
+<dt>style</dt>
 <dd>Adds this string to the style attribute of the component. If you want to
 add multiple css styles, separate them by a semicolon.</dd>
 </dl>
@@ -358,7 +358,7 @@ See also:
 * [Badge](#badge)
 
 #### Example usage
-```
+```html
 {{#bootstrap_label: label text | .. }}
 ```
 
@@ -366,11 +366,11 @@ See also:
 The following attributes can be used inside the parser function:
 
 <dl>
-<dt>Class</dt>
+<dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
 add multiple classes, separate them by a space.</dd>
 
-<dt>Color</dt>
+<dt>color</dt>
 <dd>Sets the color for this component.
 
 Allowed Values are
@@ -383,11 +383,11 @@ Allowed Values are
 <li>danger</li>
 </ul></dd>
 
-<dt>Id</dt>
+<dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is
 unique.</dd>
 
-<dt>Style</dt>
+<dt>style</dt>
 <dd>Adds this string to the style attribute of the component. If you want to
 add multiple css styles, separate them by a semicolon.</dd>
 </dl>
@@ -410,19 +410,19 @@ See also:
     are another way to show/hide content.
 
 #### Example usage
-```
-<bootstrap_modal [..]>Content of the modal</bootstrap_modal>
+```html
+<bootstrap_modal text="" [..]>Content of the modal</bootstrap_modal>
 ```
 
 #### Allowed Attributes
 The following attributes can be used inside the tag:
 
 <dl>
-<dt>Class</dt>
+<dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
 add multiple classes, separate them by a space.</dd>
 
-<dt>Color</dt>
+<dt>color</dt>
 <dd>Sets the color for this component.
 
 Allowed Values are
@@ -435,17 +435,17 @@ Allowed Values are
 <li>danger</li>
 </ul></dd>
 
-<dt>Footer</dt>
+<dt>footer</dt>
 <dd>All you supply here will be inserted into the footer area of the modal.</dd>
 
-<dt>Heading</dt>
+<dt>heading</dt>
 <dd>All you supply here will be inserted into the header area of the modal.</dd>
 
-<dt>Id</dt>
+<dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is
 unique.</dd>
 
-<dt>Size</dt>
+<dt>size</dt>
 <dd>You can choose a size for your modal. Possible options are:
 <ul>
 <li>sm</li>
@@ -453,11 +453,11 @@ unique.</dd>
 <li>lg</li>
 </ul></dd>
 
-<dt>Style</dt>
+<dt>style</dt>
 <dd>Adds this string to the style attribute of the component. If you want to
 add multiple css styles, separate them by a semicolon.</dd>
 
-<dt>Text</dt>
+<dt>text</dt>
 <dd>This is a <b>mandatory</b> field.
 
 If you supply text, a [button](#button) will be generated and used
@@ -480,7 +480,7 @@ See also:
     more collapsible components)
 
 #### Example usage
-```xml
+```html
 <bootstrap_panel [..]>Content text for the panel</bootstrap_panel>
 ```
 
@@ -488,7 +488,7 @@ See also:
 The following attributes can be used inside the tag:
 
 <dl>
-<dt>Active</dt>
+<dt>active</dt>
 <dd>When uses inside an [accordion](#accordion), having this attribute
 simply present or set to a non-[_no value_](#no-values) expands this
 panel.
@@ -496,11 +496,11 @@ panel.
 You can also set this attribute to any <em>no value</em>, in which case
 it is ignored [(?)](#why-use-no-values).</dd>
 
-<dt>Class</dt>
+<dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
 add multiple classes, separate them by a space.</dd>
 
-<dt>Collapsible</dt>
+<dt>collapsible</dt>
 <dd>Even when not inside an accordion, a panel can be made collapsible. Simply
 having this attribute present or set to a non-[_no value_](#no-values)
 accomplishes this.
@@ -508,7 +508,7 @@ accomplishes this.
 You can also set this attribute to any <em>no value</em>, in which case
 it is ignored [(?)](#why-use-no-values).</dd>
 
-<dt>Color</dt>
+<dt>color</dt>
 <dd>Sets the color for this component.
 
 Allowed Values are
@@ -521,17 +521,17 @@ Allowed Values are
 <li>danger</li>
 </ul></dd>
 
-<dt>Footer</dt>
+<dt>footer</dt>
 <dd>All you supply here will be inserted into the footer area of the panel.</dd>
 
-<dt>Heading</dt>
+<dt>heading</dt>
 <dd>All you supply here will be inserted into the header area of the panel.</dd>
 
-<dt>Id</dt>
+<dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is
 unique.</dd>
 
-<dt>Style</dt>
+<dt>style</dt>
 <dd>Adds this string to the style attribute of the component. If you want to
 add multiple css styles, separate them by a semicolon.</dd>
 </dl>
@@ -551,7 +551,7 @@ See also:
 * [Collapse](#collapse)
 
 #### Example usage
-```
+```html
 <bootstrap_popover text="" heading="" [..]>Content for the pop up</bootstrap_popover>
 ```
 
@@ -559,11 +559,11 @@ See also:
 The following attributes can be used inside the tag:
 
 <dl>
-<dt>Class</dt>
+<dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
 add multiple classes, separate them by a space.</dd>
 
-<dt>Color</dt>
+<dt>color</dt>
 <dd>Sets the color for this component.
 
 Allowed Values are
@@ -576,16 +576,16 @@ Allowed Values are
 <li>danger</li>
 </ul></dd>
 
-<dt>Heading</dt>
+<dt>heading</dt>
 <dd>This is a <b>mandatory</b> field.
 
 This will be inserted into the header area of the popover.</dd>
 
-<dt>Id</dt>
+<dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is
 unique.</dd>
 
-<dt>Placement</dt>
+<dt>placement</dt>
 <dd>By default, the popover will appear on the right side of the trigger
 element. With this, you can place it somewhere else:
 <ul>
@@ -595,7 +595,7 @@ element. With this, you can place it somewhere else:
 <li>right (default)</li>
 </ul></dd>
 
-<dt>Size</dt>
+<dt>size</dt>
 <dd>You can choose a size for your trigger button. Possible options are:
 <ul>
 <li>xs</li>
@@ -604,11 +604,11 @@ element. With this, you can place it somewhere else:
 <li>lg</li>
 </ul></dd>
 
-<dt>Style</dt>
+<dt>style</dt>
 <dd>Adds this string to the style attribute of the component. If you want to
 add multiple css styles, separate them by a semicolon.</dd>
 
-<dt>Text</dt>
+<dt>text</dt>
 <dd>This is a <b>mandatory</b> field.
 
 This will be used as the text for the popover button.
@@ -617,7 +617,7 @@ If you supply an image tag, it is stripped of any link tags and then
 be used inside the button. Best use a transparent image or match image
 background with button color.</dd>
 
-<dt>Trigger</dt>
+<dt>trigger</dt>
 <dd>By default, the popover is opened when you click on the trigger element,
 and closes when you click on the element again. You can change his
 behaviour with:
@@ -642,23 +642,23 @@ See also:
 * [Popover](#popover)
 
 #### Example usage
-```
-{{#bootstrap_tooltip: content of the tooltip | text="" | .. }}
+```html
+{{#bootstrap_tooltip: content of the tooltip | text= | .. }}
 ```
 
 #### Allowed Attributes
 The following attributes can be used inside the parser function:
 
 <dl>
-<dt>Class</dt>
+<dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
 add multiple classes, separate them by a space.</dd>
 
-<dt>Id</dt>
+<dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is
 unique.</dd>
 
-<dt>Placement</dt>
+<dt>placement</dt>
 <dd>By default, the popover will appear on top of the element. With this,
 you can place it somewhere else:
 <ul>
@@ -668,11 +668,11 @@ you can place it somewhere else:
 <li>right</li>
 </ul></dd>
 
-<dt>Style</dt>
+<dt>style</dt>
 <dd>Adds this string to the style attribute of the component. If you want to
 add multiple css styles, separate them by a semicolon.</dd>
 
-<dt>Text</dt>
+<dt>text</dt>
 <dd>This is a <b>mandatory</b> field.
 
 This will be used as the element, the tooltip will be displayed for.</dd>
@@ -692,7 +692,7 @@ See also:
 * [Jumbotron](#jumbotron)
 
 #### Example usage
-```
+```html
 <bootstrap_well [..]>Message text</bootstrap_well>
 ```
 
@@ -700,15 +700,15 @@ See also:
 The following attributes can be used inside the tag:
 
 <dl>
-<dt>Class</dt>
+<dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
 add multiple classes, separate them by a space.</dd>
 
-<dt>Id</dt>
+<dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is
 unique.</dd>
 
-<dt>Size</dt>
+<dt>size</dt>
 <dd>You can choose a size for your well. Possible options are:
 <ul>
 <li>sm</li>
@@ -716,7 +716,7 @@ unique.</dd>
 <li>lg</li>
 </ul></dd>
 
-<dt>Style</dt>
+<dt>style</dt>
 <dd>Adds this string to the style attribute of the component. If you want to
 add multiple css styles, separate them by a semicolon.</dd>
 </dl>
@@ -747,7 +747,7 @@ another parser function, you now can have your parser function return
 a no value.
 
 #### Example
-```
+```html
 <!-- this does not work: -->
 <bootstrap_panel {{#if:{{{1|}}}|collapsible|}}>Content text for the panel</bootstrap_panel>
 

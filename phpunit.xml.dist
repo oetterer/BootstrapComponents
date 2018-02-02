@@ -12,6 +12,14 @@
          stopOnIncomplete="false"
          stopOnSkipped="false"
          verbose="true">
+    <listeners>
+        <listener file="tests/phpunit/ExecutionTimeTestListener.php" class="BootstrapComponents\Tests\Unit\ExecutionTimeTestListener">
+            <arguments>
+                <boolean>true</boolean>
+                <integer>10</integer>
+            </arguments>
+        </listener>
+    </listeners>
     <testsuites>
         <testsuite name="bootstrap-components-unit">
             <directory>tests/phpunit/Unit</directory>
@@ -26,6 +34,9 @@
         </whitelist>
     </filter>
     <php>
-       <var name="seqlgHttpResponseCacheType" value="hash"/>
+        <var name="wgUseFileCache" value="false"/>
+        <var name="seqlgHttpResponseCacheType" value="hash"/>
+        <var name="benchmarkPageCopyCount" value="1000"/>
+        <var name="benchmarkPageEditRepetitionCount" value="50"/>
     </php>
 </phpunit>

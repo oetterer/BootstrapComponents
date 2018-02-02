@@ -137,6 +137,13 @@ class ParserOutputHelper {
 	}
 
 	/**
+	 * Unless I find a solution for the integration test problem, I cannot use an instance of
+	 * ParserOutputHelper in ImageModal to ascertain this. In integration tests, "we" use a
+	 * different parser than the InternalParseBeforeLinks-Hook. At least, after I added
+	 * Scribunto _unit_ tests. All messes up, I'm afraid. ImageModal better use global parser, and
+	 * for the time being this method will be
+	 * @deprecated
+	 *
 	 * @return bool|null
 	 */
 	public function areImageModalsSuppressed() {

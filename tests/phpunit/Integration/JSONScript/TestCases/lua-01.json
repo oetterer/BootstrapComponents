@@ -1,0 +1,97 @@
+{
+	"description": "Test `mw.bootstrap.parse` functions",
+	"setup": [
+		{
+			"namespace": "NS_MODULE",
+			"page": "Bootstrap",
+			"contents": {
+				"import-from": "/../Fixtures/module.bootstrap.lua"
+			}
+		},
+		{
+			"page": "Lua/01/1",
+			"contents": "{{#invoke:Bootstrap|parse|alert|Content|color=danger|dismissible=fade}}"
+		},
+		{
+			"page": "Lua/01/2",
+			"contents": "{{#invoke:Bootstrap|parse}}"
+		},
+		{
+			"page": "Lua/01/3",
+			"contents": "{{#invoke:Bootstrap|parse|foobar}}"
+		},
+		{
+			"page": "Lua/01/4",
+			"contents": "{{#invoke:Bootstrap|parse|icon}}"
+		},
+		{
+			"page": "Lua/01/5",
+			"contents": "{{#invoke:Bootstrap|getSkin}}"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify output for parsing with 'alert|Content|color=danger|dismissible=fade'",
+			"subject": "Lua/01/1",
+			"assert-output": {
+				"to-contain": [
+					"<div class=\"alert alert-danger fade in\" id=\"bsc_alert_",
+					"role=\"alert\"><div class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span>&#215;</span></div>Content</div>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify output for parsing with missing component",
+			"subject": "Lua/01/2",
+			"assert-output": {
+				"to-contain": [
+					"No component name provided for mw.bootstrap.parse."
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify output for parsing with invalid component",
+			"subject": "Lua/01/3",
+			"assert-output": {
+				"to-contain": [
+					"Invalid component name passed to mw.bootstrap.parse: foobar."
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify output for parsing with component icon and missing text",
+			"subject": "Lua/01/4",
+			"assert-output": {
+				"to-contain": [
+					"<span class=\"error\">You must specify an icon name.</span>"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#4 verify output for getSkin",
+			"subject": "Lua/01/5",
+			"assert-output": {
+				"to-contain": [
+					"vector"
+				],
+				"not-contain": [
+					"span"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

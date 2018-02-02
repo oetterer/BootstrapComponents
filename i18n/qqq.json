@@ -13,6 +13,9 @@
 
 	"bootstrap-components-image-modal-source-button" : "Text on the button linking to the image source page.",
 
+	"bootstrap-components-lua-error-no-component": "Error message that indicates, that there was no component name provided to the lua parse function.",
+	"bootstrap-components-lua-error-invalid-component": "Error message that indicates, that there was an invalid component name provided to the lua parse function.\n\nParameters:\n* $1 - invalid component provided",
+
 	"bootstrap-components-badge-content-missing" : "Error message that indicates, that the text is missing in a badge component. Please supply an input text after the double colon.",
 	"bootstrap-components-button-target-missing" : "Error message that indicates, that the button component has its target missing. Please supply a target after the double colon.",
 	"bootstrap-components-button-target-invalid" : "Error message that indicates, that the button component has an invalid target. Please supply a valid target after the double colon.",

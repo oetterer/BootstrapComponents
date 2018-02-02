@@ -54,7 +54,11 @@ class Setup {
 	/**
 	 * @var array
 	 */
-	const AVAILABLE_HOOKS = [ 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache' ];
+	const AVAILABLE_HOOKS = [
+		'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks',
+		'ParserBeforeTidy', 'ParserFirstCallInit', 'ScribuntoExternalLibraries',
+		'SetupAfterCache'
+	];
 
 	/**
 	 * @var ComponentLibrary
@@ -150,7 +154,7 @@ class Setup {
 	 * @return string[]
 	 */
 	public function compileRequestedHooksListFor( $myConfig ) {
-		$requestedHookList = [ 'ParserFirstCallInit', 'SetupAfterCache' ];
+		$requestedHookList = [ 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ];
 		if ( $myConfig->has( 'BootstrapComponentsEnableCarouselGalleryMode' )
 			&& $myConfig->get( 'BootstrapComponentsEnableCarouselGalleryMode' )
 		) {
@@ -229,6 +233,13 @@ class Setup {
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
 			 */
 			'ParserFirstCallInit'      => $this->createParserFirstCallInitCallback( $componentLibrary, $nestingController ),
+
+			'ScribuntoExternalLibraries' => function( $engine, &$extraLibraries ) {
+				if ( $engine == 'lua' ) {
+					$extraLibraries['mw.bootstrap'] = 'BootstrapComponents\\LuaLibrary';
+				}
+				return true;
+			},
 
 			/**
 			 * Hook: SetupAfterCache

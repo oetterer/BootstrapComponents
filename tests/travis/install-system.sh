@@ -27,7 +27,7 @@ fi
 
 function installMWCoreAndDB {
 
- echo "Installing MW Version ${MW}"
+ echo -e "*** Installing MW Version ${MW}\n"
 
  cd ${baseDir}
  wget https://github.com/wikimedia/mediawiki/archive/${SOURCE}.tar.gz -O ${MW}.tar.gz
@@ -37,9 +37,9 @@ function installMWCoreAndDB {
  cd ${mwDir}
 
  composer self-update
- composer install --prefer-source
+ composer install --no-suggest
 
- echo "installing database ${DB}"
+ echo -e "*** Installing database ${DB}\n"
 
  if [[ "${DB}" == "postgres" ]]; then
   sudo /etc/init.d/postgresql stop
@@ -55,31 +55,66 @@ function installMWCoreAndDB {
 
 function installSkin {
 
- echo "installing skin vector"
+ echo -e  "*** Installing skin vector\n"
  cd ${baseDir}/${mwDir}/skins
 
  wget https://github.com/wikimedia/mediawiki-skins-Vector/archive/${BRANCH}.tar.gz -O vector.tar.gz
  tar -zxf vector.tar.gz
 
  if [[ -e Vector ]]; then
-  rm -r Vector # REL1_30 has an empty Vector directory sitting here (as well as CologneBlue, Modern, and MonoBook
+  rm -r Vector # most mw dumps ship with empty skin directories
  fi
  mv mediawiki-skins-Vector-${BRANCH} Vector
 }
 
+function installDependencies {
+
+ echo -e "*** Installing Dependencies\n"
+ cd ${baseDir}/${mwDir}
+
+ composer require 'mediawiki/semantic-media-wiki=~2.5' --update-with-dependencies --no-suggest
+ composer require 'mediawiki/bootstrap=*' --update-with-dependencies
+
+ SCRIB="dev-$BRANCH"
+ if [ "$MW" = "master" ]; then
+  SCRIB="dev-REL1_30"
+ fi
+ composer init --stability dev
+ composer require 'mediawiki/scribunto' "$SCRIB" --dev --update-with-dependencies
+}
+
 function installSourceViaComposer {
- echo "missing"
+ # not used atm
+ echo -e "Running composer install build on ${TRAVIS_BRANCH}\n"
+ cd ${baseDir}/${mwDir}
+
+ composer require mediawiki/bootstrap-components "dev-master" --dev --update-with-dependencies
+
+ cd /extensions/BootstrapComponents
+
+ # Pull request number, "false" if it's not a pull request
+ # After the install via composer an additional get fetch is carried out to
+ # update the repository to make sure that the latest code changes are
+ # deployed for testing
+ if [ "$TRAVIS_PULL_REQUEST" != "false" ]
+ then
+  git fetch origin +refs/pull/"$TRAVIS_PULL_REQUEST"/merge:
+  git checkout -qf FETCH_HEAD
+ else
+  git fetch origin "$TRAVIS_BRANCH"
+  git checkout -qf FETCH_HEAD
+ fi
+
+ cd ../..
+
+ # Rebuild the class map for added classes during git fetch
+ composer dump-autoload
 }
 
 function installSourceFromPull {
 
- echo "Installing Extension"
- cd ${baseDir}/${mwDir}
-
- composer require 'mediawiki/semantic-media-wiki=~2.5' --update-with-dependencies
- composer require 'mediawiki/bootstrap=*' --update-with-dependencies
-
- cd extensions
+ echo -e "*** Installing Extension\n"
+ cd ${baseDir}/${mwDir}/extensions
 
  cp -r ${originalDirectory} BootstrapComponents
 
@@ -88,6 +123,7 @@ function installSourceFromPull {
 }
 
 function augmentConfiguration {
+ echo -e "*** Augmenting LocalSettings\n"
 
  cd ${baseDir}/${mwDir}
 
@@ -95,8 +131,9 @@ function augmentConfiguration {
  if [[ "${SITELANG}" != "" ]]; then
   echo '$wgLanguageCode = "'${SITELANG}'";' >> LocalSettings.php
  fi
+ echo 'require_once "$IP/extensions/Scribunto/Scribunto.php";' >> LocalSettings.php
+ echo '$wgScribuntoDefaultEngine = "luastandalone";' >> LocalSettings.php
  echo '$wgBootstrapComponentsModalReplaceImageTag = true;' >> LocalSettings.php
- #echo '$wgBootstrapComponentsDisableIdsForTestEnvironment = true;' >> LocalSettings.php
  echo '$wgEnableUploads = true;' >> LocalSettings.php
  echo 'wfLoadSkin( "Vector" );' >> LocalSettings.php
  echo 'error_reporting(E_ALL| E_STRICT);' >> LocalSettings.php
@@ -110,7 +147,7 @@ function augmentConfiguration {
 
 function injectResources {
 
- echo "Uploading test images"
+ echo -e "*** Uploading test images\n"
 
  cd ${baseDir}/${mwDir}
  php maintenance/importImages.php ${baseDir}/${mwDir}/extensions/BootstrapComponents/tests/resources/ png
@@ -120,6 +157,7 @@ function injectResources {
 
 installMWCoreAndDB
 installSkin
+installDependencies
 installSourceFromPull
 augmentConfiguration
 injectResources

@@ -1,5 +1,13 @@
 ## Release Notes
 
+### Bootstrap 1.1
+
+Released on 02-Feb-2018
+
+* adds scribunto support, providing module `mw.bootstrap` with functions
+  * `parse` to render components
+  * `getSkin` to get the name of the current skin
+
 ### Bootstrap 1.0
 
 Released on 30-Jan-2018

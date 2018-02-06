@@ -59,6 +59,8 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @param string $componentName
 	 *
+	 * @throws \ConfigException
+	 *
 	 * @dataProvider componentNameAndClassProvider
 	 */
 	public function testIsRegistered( $componentName ) {
@@ -73,6 +75,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 * @param string   $component
 	 * @param string[] $expectedAttributes
 	 *
+	 * @throws \ConfigException
 	 * @throws \MWException
 	 *
 	 * @dataProvider componentAttributesProvider
@@ -90,6 +93,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 * @param string $componentName
 	 * @param string $componentClass
 	 *
+	 * @throws \ConfigException
 	 * @throws \MWException
 	 *
 	 * @dataProvider componentNameAndClassProvider
@@ -102,6 +106,9 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
+	/**
+	 * @throws \ConfigException
+	 */
 	public function testGetAllRegisteredComponents() {
 		$instance = new ComponentLibrary();
 		$this->assertEquals(
@@ -112,6 +119,8 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @param string $componentName
+	 *
+	 * @throws \ConfigException
 	 *
 	 * @dataProvider componentNameAndClassProvider
 	 */
@@ -124,6 +133,9 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
+	/**
+	 * @throws \ConfigException
+	 */
 	public function testGetHandlerTypeForUnknownComponent() {
 		$instance = new ComponentLibrary();
 
@@ -136,6 +148,8 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @param string $componentName
 	 * @param bool   $isParserFunction
+	 *
+	 * @throws \ConfigException
 	 *
 	 * @dataProvider handlerTypeProvider
 	 */
@@ -155,6 +169,8 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 * @param string $skinName
 	 * @param array  $expectedModules
 	 *
+	 * @throws \ConfigException
+	 *
 	 * @dataProvider modulesForComponentsProvider
 	 */
 	public function testGetModulesFor( $componentName, $skinName, $expectedModules ) {
@@ -169,6 +185,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 * @param string $componentName
 	 * @param string $componentClass
 	 *
+	 * @throws \ConfigException
 	 * @throws \MWException
 	 *
 	 * @dataProvider componentNameAndClassProvider
@@ -184,6 +201,8 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @param bool|string[] $whiteList
 	 * @param string[]      $expectedComponents
+	 *
+	 * @throws \ConfigException
 	 *
 	 * @dataProvider whiteListProvider
 	 */
@@ -202,6 +221,8 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @param string $method
 	 *
+	 * @throws \ConfigException
+	 *
 	 * @expectedException \MWException
 	 *
 	 * @dataProvider exceptionThrowingMethodsProvider
@@ -217,6 +238,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @expectedException \MWException
 	 *
+	 * @throws \ConfigException
 	 * @throws \MWException cascading {@see \BootstrapComponents\ComponentLibrary::getClassFor}
 	 */
 	public function testRegisterVsKnown() {

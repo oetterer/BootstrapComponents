@@ -89,7 +89,7 @@ class Popover extends AbstractComponent {
 				[
 					'data-toggle'    => 'popover',
 					'title'          => $heading,
-					'data-content'   => $input,
+					'data-content'   => str_replace( "\n", " ", trim( $input ) ),
 					'data-placement' => $this->getValueFor( 'placement' ),
 					'data-trigger'   => $this->getValueFor( 'trigger' ),
 				]

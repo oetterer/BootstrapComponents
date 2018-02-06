@@ -50,15 +50,20 @@ class Modal extends AbstractComponent {
 	public function placeMe( $input ) {
 		list ( $outerClass, $style ) = $this->processCss( [], [] );
 
-		list ( $code, $text ) = $this->generateTrigger();
-		if ( !$code ) {
+		list ( $returnCode, $text ) = $this->generateTrigger();
+		if ( !$returnCode ) {
 			return $text;
 		}
+
+		$safeInput = $this->prepareInput(
+			$this->getParserRequest(),
+			true
+		);
 
 		$modal = ApplicationFactory::getInstance()->getModalBuilder(
 			$this->getId(),
 			$text,
-			$input,
+			$safeInput,
 			$this->getParserOutputHelper()
 		);
 		return $modal->setOuterClass(

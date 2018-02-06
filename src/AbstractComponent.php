@@ -93,7 +93,7 @@ abstract class AbstractComponent implements NestableInterface {
 	/**
 	 * Does the actual work in the individual components.
 	 *
-	 * @param string   $input
+	 * @param string $input
 	 *
 	 * @return string|array
 	 */
@@ -150,16 +150,13 @@ abstract class AbstractComponent implements NestableInterface {
 	 * @return string|array
 	 */
 	public function parseComponent( $parserRequest ) {
-		if ( !is_a( $parserRequest, 'BootstrapComponents\ParserRequest' )  ) {
+		if ( !is_a( $parserRequest, 'BootstrapComponents\ParserRequest' ) ) {
 			throw new MWException( 'Invalid ParserRequest supplied to component ' . $this->getComponentName() . '!' );
 		}
 		$this->getNestingController()->open( $this );
 		$this->initComponentData( $parserRequest );
 
-		$input = $parserRequest->getParser()->recursiveTagParse(
-			$parserRequest->getInput(),
-			$parserRequest->getFrame()
-		);
+		$input = $this->prepareInput( $parserRequest );
 
 		$ret = $this->placeMe( $input );
 		$this->getNestingController()->close( $this->getId() );
@@ -249,6 +246,36 @@ abstract class AbstractComponent implements NestableInterface {
 	}
 
 	/**
+	 * Parses input text from parser request. Does also some fixes to let parser detect paragraphs in content.
+	 *
+	 * @param ParserRequest $parserRequest
+	 * @param bool          $fullParse
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return string
+	 */
+	protected function prepareInput( $parserRequest, $fullParse = false ) {
+		$parser = $parserRequest->getParser();
+		if ( $fullParse ) {
+			$input = $parser->recursiveTagParseFully(
+				$parserRequest->getInput(),
+				$parserRequest->getFrame()
+			);
+		} else {
+			$input = $parser->recursiveTagParse(
+				$parserRequest->getInput(),
+				$parserRequest->getFrame()
+			);
+		}
+		if ( preg_match( '/\n\n/', $input ) || preg_match( '/<p/', $input ) ) {
+			// if there are paragraph marker we prefix input with a new line so the parser recognizes two paragraphs.
+			$input = "\n" . $input . "\n";
+		}
+		return $input;
+	}
+
+	/**
 	 * Takes your class and style string and appends them with corresponding data from user (if present)
 	 * passed in attributes.
 	 *
@@ -257,9 +284,9 @@ abstract class AbstractComponent implements NestableInterface {
 	 *
 	 * @return array[] containing (array)$class and (array)$style
 	 */
-	protected function processCss( $class, $style  ) {
-		$class = (array)$class;
-		$style = (array)$style;
+	protected function processCss( $class, $style ) {
+		$class = (array) $class;
+		$style = (array) $style;
 		if ( $newClass = $this->getValueFor( 'class' ) ) {
 			$class[] = $newClass;
 		}
@@ -294,7 +321,7 @@ abstract class AbstractComponent implements NestableInterface {
 			$parserRequest->getAttributes()
 		);
 		$this->id = $this->getValueFor( 'id' ) != false
-			? (string)$this->getValueFor( 'id' )
+			? (string) $this->getValueFor( 'id' )
 			: $this->getNestingController()->generateUniqueId( $this->getComponentName() );
 		$this->augmentParserOutput();
 	}

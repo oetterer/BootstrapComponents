@@ -54,7 +54,7 @@
 					"class=\"modal-content\"",
 					"class=\"modal-header\"",
 					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
-					"class=\"modal-body\">Modal content text</div>",
+					"class=\"modal-body\">\n<p>Modal content text\n</p>",
 					"class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
 				]
 			}
@@ -75,7 +75,7 @@
 					"class=\"modal-content\"",
 					"class=\"modal-header\"",
 					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
-					"class=\"modal-body\">Modal content text</div>",
+					"class=\"modal-body\">\n<p>Modal content text\n</p>",
 					"class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
 				]
 			}
@@ -94,7 +94,7 @@
 					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
 					"<span class=\"modal-title\">You can't take the sky from me</span></div>",
 					"class=\"modal-body\"",
-					">Modal content text</div>",
+					">\n<p>Modal content text\n</p>",
 					"class=\"modal-footer\">Let's misbehave<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
 				]
 			}
@@ -112,7 +112,7 @@
 					"class=\"modal-content\"",
 					"class=\"modal-header\"",
 					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
-					"class=\"modal-body\">Modal content text</div>",
+					"class=\"modal-body\">\n<p>Modal content text\n</p>",
 					"class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
 				],
 				"not-contain": [
@@ -138,7 +138,7 @@
 					"class=\"modal-content\"",
 					"class=\"modal-header\"",
 					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
-					"class=\"modal-body\"></div>",
+					"class=\"modal-body\">",
 					"class=\"modal-footer\"",
 					"<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
 				]

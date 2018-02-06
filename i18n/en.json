@@ -4,7 +4,7 @@
 			"Oetterer"
 		]
 	},
-	"bootstrap-components-desc": "Allows to use various bootstrap components inside mediawiki markup.",
+	"bootstrap-components-desc": "Aims to provide editors with an easy access to certain components introduced by Twitter Bootstrap 3",
 
 	"bootstrap-components-error-tracking-category": "Pages with bootstrap component errors",
 	"bootstrap-components-tracking-category": "",

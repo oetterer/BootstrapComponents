@@ -1,0 +1,114 @@
+{
+	"description": "Paragraphs not detected on input containing two paragraphs",
+	"setup": [
+		{
+			"page": "Issue/003/1",
+			"contents": "<bootstrap_alert>Paragraph 1\n\nParagraph 2</bootstrap_alert>"
+		},
+		{
+			"page": "Issue/003/2",
+			"contents": "<bootstrap_collapse>Paragraph 1\n\nParagraph 2</bootstrap_collapse>"
+		},
+		{
+			"page": "Issue/003/3",
+			"contents": "<bootstrap_jumbotron>Paragraph 1\n\nParagraph 2</bootstrap_jumbotron>"
+		},
+		{
+			"page": "Issue/003/4",
+			"contents": "<bootstrap_modal text=\"test\">Paragraph 1\n\nParagraph 2</bootstrap_modal>"
+		},
+		{
+			"page": "Issue/003/5",
+			"contents": "<bootstrap_panel>Paragraph 1\n\nParagraph 2</bootstrap_panel>"
+		},
+		{
+			"page": "Issue/003/6",
+			"contents": "<bootstrap_popover heading=\"test\" text=\"test\">Paragraph 1\n\nParagraph 2</bootstrap_popover>"
+		},
+		{
+			"page": "Issue/003/7",
+			"contents": "<bootstrap_well>Paragraph 1\n\nParagraph 2</bootstrap_well>"
+		}
+	],
+	"tests": [
+		{
+			"type": "parser",
+			"about": "#0 verify two-paragraph-fix for component alert",
+			"subject": "Issue/003/1",
+			"assert-output": {
+				"to-contain": [
+					">\n<p>Paragraph 1\n</p><p>Paragraph 2\n</p>\n<"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#1 verify two-paragraph-fix for component collapse",
+			"subject": "Issue/003/2",
+			"assert-output": {
+				"to-contain": [
+					">\n<p>Paragraph 1\n</p><p>Paragraph 2\n</p>\n<"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#2 verify two-paragraph-fix for component jumbotron",
+			"subject": "Issue/003/3",
+			"assert-output": {
+				"to-contain": [
+					">\n<p>Paragraph 1\n</p><p>Paragraph 2\n</p>\n<"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#3 verify two-paragraph-fix for component modal",
+			"subject": "Issue/003/4",
+			"assert-output": {
+				"to-contain": [
+					">\n<p>Paragraph 1\n</p><p>Paragraph 2\n</p>\n<"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#4 verify two-paragraph-fix for component panel",
+			"subject": "Issue/003/5",
+			"assert-output": {
+				"to-contain": [
+					">\n<p>Paragraph 1\n</p><p>Paragraph 2\n</p>\n<"
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#5 verify two-paragraph-fix for component popover",
+			"subject": "Issue/003/6",
+			"assert-output": {
+				"to-contain": [
+					"data-content=\"Paragraph 1  Paragraph 2\""
+				]
+			}
+		},
+		{
+			"type": "parser",
+			"about": "#6 verify two-paragraph-fix for component well",
+			"subject": "Issue/003/7",
+			"assert-output": {
+				"to-contain": [
+					">\n<p>Paragraph 1\n</p><p>Paragraph 2\n</p>\n<"
+				]
+			}
+		}
+	],
+	"settings": {
+		"wgContLang": "en",
+		"wgLang": "en"
+	},
+	"meta": {
+		"version": "1",
+		"is-incomplete": false,
+		"debug": false
+	}
+}

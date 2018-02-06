@@ -33,6 +33,9 @@
 		"squizlabs/php_codesniffer": "~2.1",
 		"phpmd/phpmd": "~2.1"
 	},
+	"suggest": {
+		"mediawiki/scribunto": "Framework for embedding scripting languages into MediaWiki pages"
+	},
 	"autoload": {
 		"files": [
 			"BootstrapComponents.php"

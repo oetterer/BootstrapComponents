@@ -67,6 +67,9 @@ abstract class ComponentsTestBase extends PHPUnit_Framework_TestCase {
 		$this->parser->expects( $this->any() )
 			->method( 'recursiveTagParse' )
 			->will( $this->returnArgument( 0 ) );
+		$this->parser->expects( $this->any() )
+			->method( 'recursiveTagParseFully' )
+			->will( $this->returnArgument( 0 ) );
 		$this->parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
 			->disableOriginalConstructor()
 			->getMock();

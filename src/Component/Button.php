@@ -125,7 +125,7 @@ class Button extends AbstractComponent {
 	 * @return array containing (string|null) target, (string) text. Note that target is null when invalid
 	 */
 	private function getTargetAndText( $input ) {
-		$target = $input;
+		$target = trim( $input );
 		$text = (string)$this->getValueFor( 'text' );
 		if ( empty( $text ) ) {
 			$text = $target;
@@ -150,6 +150,8 @@ class Button extends AbstractComponent {
 			// we have an non existing image as text, return image name as text and upload url as target
 			// since $text was already parsed and html_encoded and Html::rawElement will do this again,
 			// we need to decode the html special characters in target aka $matches[1]
+			// also clear additionally injected raw attributes
+			$this->rawAttributes = [];
 			return [ $matches[2], htmlspecialchars_decode( $matches[1] ) ];
 		}
 		return [ preg_replace( '~^(.*)(<a.+href=[^>]+>)(.+)(</a>)(.*)$~ms', '\1\3\5', $text ), $target ];

@@ -132,7 +132,7 @@
 			"assert-output": {
 				"to-contain": [
 					"<a class=\"btn btn-default\" role=\"button\" id=\"bsc_button_",
-					"/index.php?title=Special:Upload&amp;wpDestFile=Invalid.png\" data-toggle=\"collapse\">File:Invalid.png</a><div class=\"collapse\" id=\"bsc_collapse_",
+					"/index.php?title=Special:Upload&amp;wpDestFile=Invalid.png\">File:Invalid.png</a><div class=\"collapse\" id=\"bsc_collapse_",
 					">Collapse text</div>"
 				],
 				"not-contain": [

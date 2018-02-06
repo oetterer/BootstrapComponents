@@ -137,7 +137,7 @@ class ModalBuilder {
 	 *
 	 * @param string             $id
 	 * @param string             $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
-	 * @param string             $content must be safe raw html (best run through {@see Parser::recursiveTagParse})
+	 * @param string             $content must be fully parsed html (use {@see Parser::recursiveTagParseFully})
 	 * @param ParserOutputHelper $parserOutputHelper
 	 */
 
@@ -343,15 +343,6 @@ class ModalBuilder {
 	}
 
 	/**
-	 * Build the modal, with all sections, requested content and necessary control elements.
-	 *
-	 * @return string
-	 */
-	protected function getContent() {
-		return $this->content;
-	}
-
-	/**
 	 * @return string|false
 	 */
 	protected function getBodyClass() {
@@ -363,6 +354,15 @@ class ModalBuilder {
 	 */
 	protected function getBodyStyle() {
 		return $this->bodyStyle;
+	}
+
+	/**
+	 * Build the modal, with all sections, requested content and necessary control elements.
+	 *
+	 * @return string
+	 */
+	protected function getContent() {
+		return $this->content;
 	}
 
 	/**

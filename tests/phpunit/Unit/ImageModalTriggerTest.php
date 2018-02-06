@@ -21,8 +21,6 @@ use \PHPUnit_Framework_TestCase;
  */
 class ImageModalTriggerTest extends PHPUnit_Framework_TestCase {
 
-	const NUM_OF_RND_COMPARE_TESTS = 25;
-
 	public function setUp() {
 		parent::setUp();
 	}

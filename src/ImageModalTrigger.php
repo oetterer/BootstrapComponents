@@ -64,6 +64,7 @@ class ImageModalTrigger {
 	 * @param array $handlerParams
 	 *
 	 * @throws \ConfigException cascading {@see \BootstrapComponents\ImageModalTrigger::generateTriggerCreateThumb}
+	 * @throws \Exception       cascading {@see \BootstrapComponents\ImageModalTrigger::wrapAndFinalize}
 	 *
 	 * @return false|string
 	 */

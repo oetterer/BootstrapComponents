@@ -154,7 +154,7 @@ class Setup {
 	 * @return string[]
 	 */
 	public function compileRequestedHooksListFor( $myConfig ) {
-		$requestedHookList = [ 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ];
+		$requestedHookList = [ 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ];
 		if ( $myConfig->has( 'BootstrapComponentsEnableCarouselGalleryMode' )
 			&& $myConfig->get( 'BootstrapComponentsEnableCarouselGalleryMode' )
 		) {
@@ -165,7 +165,6 @@ class Setup {
 		) {
 			$requestedHookList[] = 'ImageBeforeProduceHTML';
 			$requestedHookList[] = 'InternalParseBeforeLinks';
-			$requestedHookList[] = 'ParserBeforeTidy';
 		}
 		return $requestedHookList;
 	}
@@ -373,11 +372,12 @@ class Setup {
 	private function createInternalParseBeforeLinksCallback() {
 		return function( Parser &$parser, &$text ) {
 			$mw = MagicWord::get( 'BSC_NO_IMAGE_MODAL' );
-			if ( $mw->matchAndRemove( $text ) ) {
-				// we do not use our ParserOutputHelper class here, for we would need to reset it in integration tests.
-				// resetting our factory build classes is unfortunately a little skittish
-				$parser->getOutput()->setExtensionData( 'bsc_no_image_modal', true );
-			}
+			// we do not use our ParserOutputHelper class here, for we would need to reset it in integration tests.
+			// resetting our factory build classes is unfortunately a little skittish
+			$parser->getOutput()->setExtensionData(
+				'bsc_no_image_modal',
+				$mw->matchAndRemove( $text )
+			);
 			return true;
 		};
 	}

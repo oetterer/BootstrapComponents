@@ -18,15 +18,15 @@
 		},
 		{
 			"page": "Carousel/01/1",
-			"contents": "{{#bootstrap_carousel: [[File:Carousel-01-Serenity.png|link=]] | [[File:Carousel-01-Serenity.png|link=Target]] }}"
+			"contents": "{{#bootstrap_carousel: [[File:Carousel-01-Serenity.png|link=]] | 1=[[File:Carousel-01-Serenity.png|link=Target]] }}"
 		},
 		{
 			"page": "Carousel/01/2",
-			"contents": "{{#bootstrap_carousel: [[File:Carousel-01-Serenity.png|link=]] | [[File:Carousel-01-Serenity.png|link=Target]] | class=round | id=carnival01 | style=margin:auto }}"
+			"contents": "{{#bootstrap_carousel: [[File:Carousel-01-Serenity.png|link=]] | 1=[[File:Carousel-01-Serenity.png|link=Target]] | class=round | id=carnival01 | style=margin:auto }}"
 		},
 		{
 			"page": "Carousel/01/3",
-			"contents": "{{#bootstrap_carousel: [[File:Carousel-01-Serenity.png|link=]] | [[File:Carousel-01-Serenity.png|link=Target]] | [[File:Carousel-01-Serenity.png]] | foo=bar | id=three_items }}"
+			"contents": "{{#bootstrap_carousel: [[File:Carousel-01-Serenity.png|link=]] | 1=[[File:Carousel-01-Serenity.png|link=Target]] | 2=[[File:Carousel-01-Serenity.png]] | foo=bar | id=three_items }}"
 		},
 		{
 			"page": "Carousel/01/4",

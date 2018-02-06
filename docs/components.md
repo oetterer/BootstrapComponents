@@ -254,6 +254,14 @@ unique.</dd>
 add multiple css styles, separate them by a semicolon.</dd>
 </dl>
 
+#### Note
+If you want to add the same image more than once, you have to "fake" different
+attributes, otherwise the parser will drop all but one:
+
+```html
+{{#bootstrap_carousel: [[File:Image1]] | 1=[[File:Image1]] | 2=[[File:Image1]] | 3=[[File:Image1]] }}
+```
+
 #### Links
 * https://www.w3schools.com/bootstrap/bootstrap_carousel.asp
 

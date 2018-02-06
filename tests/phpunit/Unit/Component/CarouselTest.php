@@ -21,7 +21,7 @@ use \MWException;
  */
 class CarouselTest extends ComponentsTestBase {
 
-	private $input = 'Well test text';
+	private $input = 'Botched input';
 
 	/**
 	 * @throws \MWException
@@ -77,15 +77,17 @@ class CarouselTest extends ComponentsTestBase {
 	public function placeMeArgumentsProvider() {
 		return [
 			'simple'               => [
-				$this->input,
+				'[[File:Mal.jpg|Malcolm Reynolds_0]]',
 				[ '[[File:Mal.jpg|Malcolm Reynolds]]' => true, '[[File:Wash.jpg|link' => '|Hoban Washburne]]' ],
 				'<div class="carousel slide" id="bsc_carousel_NULL" data-ride="carousel">
 <ol class="carousel-indicators">
 	<li data-target="#bsc_carousel_NULL" data-slide-to="0" class="active"></li>
 	<li data-target="#bsc_carousel_NULL" data-slide-to="1"></li>
+	<li data-target="#bsc_carousel_NULL" data-slide-to="2"></li>
 </ol>
 <div class="carousel-inner">
-	<div class="item active">[[File:Mal.jpg|Malcolm Reynolds]]</div>
+	<div class="item active">[[File:Mal.jpg|Malcolm Reynolds_0]]</div>
+	<div class="item">[[File:Mal.jpg|Malcolm Reynolds]]</div>
 	<div class="item">[[File:Wash.jpg|link=|Hoban Washburne]]</div>
 </div><a class="left carousel-control" href="#bsc_carousel_NULL" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a><a class="right carousel-control" href="#bsc_carousel_NULL" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a></div>',
 			],

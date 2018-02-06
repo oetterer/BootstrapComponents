@@ -45,9 +45,7 @@ class Carousel extends AbstractComponent {
 	 * @param string $input
 	 */
 	public function placeMe( $input ) {
-		$images = $this->extractAndParseImageList(
-			$this->getParserRequest()
-		);
+		$images = $this->extractAndParseImageList( $this->getParserRequest() );
 		if ( !count( $images ) ) {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-carousel-images-missing' );
 		}
@@ -103,6 +101,48 @@ class Carousel extends AbstractComponent {
 	}
 
 	/**
+	 * @param string $attribute
+	 * @param string $value
+	 *
+	 * @return false|string
+	 */
+	private function buildImageString( $attribute, $value ) {
+		$imageParts = [];
+		if ( !is_int( $attribute ) ) {
+			$imageParts[] = $attribute;
+		}
+		if ( is_string( $value ) ) {
+			$imageParts[] = $value;
+		}
+		$imageString = implode( '=', $imageParts );
+		if ( preg_match( '/\[.+\]/', $imageString ) ) {
+			return $imageString;
+		}
+		return false;
+	}
+
+	/**
+	 * Converts the carousel image into slides.
+	 *
+	 * @param string[] $images
+	 *
+	 * @return string
+	 */
+	private function convertImagesIntoSlides( $images ) {
+		$slides = PHP_EOL;
+		$active = ' active';
+		foreach ( $images as $image ) {
+			$slides .= "\t" . Html::rawElement(
+					'div',
+					[ 'class' => 'item' . $active ],
+					$image
+				) . PHP_EOL;
+			$active = '';
+		}
+		return $slides;
+	}
+
+	/**
 	 * Extracts and parses all images for the carousel.
 	 *
 	 * @param ParserRequest $parserRequest
@@ -111,17 +151,17 @@ class Carousel extends AbstractComponent {
 	 */
 	private function extractAndParseImageList( ParserRequest $parserRequest ) {
 		$elements = [];
-		if ( $parserRequest->getInput() ) {
-			$elements[$parserRequest->getInput()] = true;
+		if ( !empty( $parserRequest->getInput() ) ) {
+			$elements[] = $parserRequest->getInput();
 		}
 		$elements = array_merge( $elements, $parserRequest->getAttributes() );
 		$images = [];
 		foreach ( $elements as $key => $val ) {
-			$string = $key . (is_bool( $val ) ? '' : '=' . $val);
-			if ( preg_match( '/\[.+\]/', $string ) ) {
+			$imageString = $this->buildImageString( $key, $val );
+			if ( is_string( $imageString ) ) {
 				// we assume an image, local or remote
 				$images[] = $parserRequest->getParser()->recursiveTagParse(
-					$string,
+					$imageString,
 					$parserRequest->getFrame()
 				);
 			}
@@ -155,26 +195,5 @@ class Carousel extends AbstractComponent {
 				[ 'class' => 'carousel-indicators' ],
 				$inner
 			) . PHP_EOL;
-	}
-
-	/**
-	 * Converts the carousel image into slides.
-	 *
-	 * @param string[] $images
-	 *
-	 * @return string
-	 */
-	private function convertImagesIntoSlides( $images ) {
-		$slides = PHP_EOL;
-		$active = ' active';
-		foreach ( $images as $image ) {
-			$slides .= "\t" . Html::rawElement(
-					'div',
-					[ 'class' => 'item' . $active ],
-					$image
-				) . PHP_EOL;
-			$active = '';
-		}
-		return $slides;
 	}
 }

@@ -80,11 +80,7 @@ class CarouselGallery extends ImageGalleryBase {
 		if ( empty( $newAttributes ) ) {
 			return $origAttributes;
 		}
-		// add $newAttributes to $origAttributes's attributes. note the difference in parameter handling
-		foreach ( $newAttributes as $key => $val ) {
-			$origAttributes[] = $key . '=' . $val;
-		}
-		return $origAttributes;
+		return array_merge( $origAttributes, $newAttributes );
 	}
 
 	/**
@@ -174,11 +170,11 @@ class CarouselGallery extends ImageGalleryBase {
 			return false;
 		}
 		$carouselAttributes = $this->addParserFunctionAttributes( $carouselAttributes, $this->mAttribs );
-		array_unshift( $carouselAttributes, $this->mParser );
+		$input = array_shift( $carouselAttributes );
 
 		return ApplicationFactory::getInstance()->getNewParserRequest(
-			$carouselAttributes,
-			true,
+			[ $input, $carouselAttributes, $this->mParser, null ],
+			false,
 			'gallery carousel'
 		);
 	}

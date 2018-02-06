@@ -686,6 +686,14 @@ add multiple css styles, separate them by a semicolon.</dd>
 This will be used as the element, the tooltip will be displayed for.</dd>
 </dl>
 
+#### Note
+Tooltips are marked with a dotted underline. If you want to disable this, add the
+following to your `Mediawiki:Common.css`:
+```css
+.bootstrap-tooltip {
+    border-bottom: none;
+}
+```
 
 #### Links
 * https://www.w3schools.com/bootstrap/bootstrap_tooltip.asp

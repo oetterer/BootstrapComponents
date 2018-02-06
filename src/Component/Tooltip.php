@@ -72,7 +72,7 @@ class Tooltip extends AbstractComponent {
 	 * @return array $tag, $text, $attributes
 	 */
 	private function buildHtmlElements( $input, $tooltip ) {
-		list ( $class, $style ) = $this->processCss( [], [] );
+		list ( $class, $style ) = $this->processCss( [ 'bootstrap-tooltip' ], [] );
 
 		list ( $input, $target ) = $this->stripLinksFrom( $input, '' );
 

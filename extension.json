@@ -92,7 +92,8 @@
 		"ext.bootstrapComponents.tooltip": {
 			"position": "top",
 			"dependencies": "ext.bootstrap",
-			"scripts": "ext.bootstrapComponents.tooltip.js"
+			"scripts": "ext.bootstrapComponents.tooltip.js",
+			"styles": "ext.bootstrapComponents.tooltip.css"
 		},
 		"ext.bootstrapComponents.vector-fix": {
 			"position": "bottom",

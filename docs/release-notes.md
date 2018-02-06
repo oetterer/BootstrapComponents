@@ -1,5 +1,18 @@
 ## Release Notes
 
+### Bootstrap 1.1.1
+
+Released on 06-Feb-2018
+
+Changes:
+* tooltips now highlighted through css class `bootstrap-tooltip`
+
+Fixes:
+* paragraphs inside various components did not show correctly
+* component modal broken when image modals were disabled
+* carousel unable to process the same image more than once
+* component collapse broken for invalid images as trigger
+
 ### Bootstrap 1.1
 
 Released on 02-Feb-2018

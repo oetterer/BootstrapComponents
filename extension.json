@@ -64,6 +64,10 @@
 		"BootstrapComponentsMagic": "BootstrapComponents.magic.php"
 	},
 	"ResourceModules": {
+		"ext.bootstrapComponents.alert.fix": {
+			"position": "bottom",
+			"styles": "ext.bootstrapComponents.alert.fix.css"
+		},
 		"ext.bootstrapComponents.button.vector-fix": {
 			"position": "bottom",
 			"styles": "ext.bootstrapComponents.button.vector-fix.css"

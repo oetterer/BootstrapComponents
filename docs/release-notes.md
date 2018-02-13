@@ -1,5 +1,13 @@
 ## Release Notes
 
+### Bootstrap 1.1.2
+
+Released on _not yet_
+
+Changes:
+* add support for colors "primary" and "default" to component alert
+* add two more known issues concerning the modal 
+
 ### Bootstrap 1.1.1
 
 Released on 06-Feb-2018

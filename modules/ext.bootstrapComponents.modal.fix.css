@@ -52,3 +52,7 @@ a.modal-trigger {
 .modal-caption {
     text-align: center;
 }
+
+.modal-footer > button {
+    margin-left: 0.5em;
+}

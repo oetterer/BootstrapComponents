@@ -363,6 +363,9 @@ class ComponentLibrary {
 					'color',
 					'dismissible',
 				],
+				'modules'     => [
+					'default' => 'ext.bootstrapComponents.alert.fix',
+				],
 			],
 			'badge'     => [
 				'class'       => 'BootstrapComponents\\Component\\Badge',

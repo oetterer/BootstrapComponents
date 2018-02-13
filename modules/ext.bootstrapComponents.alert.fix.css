@@ -1,5 +1,5 @@
 /**
- * Contains css fixes for the modal component (and the image modal) when vector skin is used.
+ * Contains css additions for the alert component.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -22,19 +22,14 @@
  * @ingroup       BootstrapComponents
  * @author        Tobias Oetterer
  */
-
-.modal-backdrop {
-    /*
-     * we have to make due without the model backdrop because of the vector nav elements
-     * overlapping the backdrop.
-     * if anyone has a better solution, contact me :)
-     */
-    display: none;
+.alert-default {
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    color: #333;
 }
 
-.modal {
-    /*
-     * lets get clear of the header elements
-     */
-    top: 60px;
+.alert-primary {
+    background-color: #337ab7;
+    border-color: #337ab7;
+    color: #ffffff;
 }

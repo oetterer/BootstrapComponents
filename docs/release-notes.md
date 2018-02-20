@@ -6,7 +6,9 @@ Released on _not yet_
 
 Changes:
 * add support for colors "primary" and "default" to component alert
-* add two more known issues concerning the modal 
+* add two more known issues concerning the modal
+* add more robust argument and return value handling for lua parse() function
+* add issue template
 
 Fixes:
 * illegal call to User->loadFromSession() triggered by Extension:CodeMirror 

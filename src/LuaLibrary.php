@@ -89,9 +89,13 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 		$componentClass = $componentLibrary->getClassFor( $componentName );
 		$parserRequest = $this->buildParserRequest( $input, $arguments, $componentName );
 		$component = $this->getComponent( $componentClass );
-		return [
-			$component->parseComponent( $parserRequest )
-		];
+
+		$parsedComponent = $component->parseComponent( $parserRequest );
+		if ( is_array( $parsedComponent ) ) {
+			$parsedComponent = $parsedComponent[0];
+		}
+
+		return [ $parsedComponent ];
 	}
 
 	/**
@@ -170,12 +174,27 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 		// we rectify this here
 		$processedArguments = [];
 		foreach ( $arguments as $key => $value ) {
-			if ( !is_int( $key ) && !preg_match( '/[0-9]+/', $key ) ) {
-				$value = (string) $key . '=' . (string) $value;
-			}
-			$processedArguments[] = $value;
+			$processedArguments[] = $this->processKeyValuePair( $key, $value );
 		}
 
 		return $processedArguments;
+	}
+
+	/**
+	 * @param string $key
+	 * @param string $value
+	 *
+	 * @return string
+	 */
+	private function processKeyValuePair( $key, $value ) {
+		if ( is_int( $key ) || preg_match( '/[0-9]+/', $key ) ) {
+			return trim( $value );
+		}
+		if ( is_array( $value ) ) {
+			$glue = $key == 'style' ? ';' : ' ';
+			return (string) $key . '=' . implode( $glue, $value );
+		} else {
+			return (string) $key . '=' . (string) $value;
+		}
 	}
 }

@@ -196,7 +196,7 @@ class ParserOutputHelper {
 	public function loadBootstrapModules() {
 		$parserOutput = $this->getParser()->getOutput();
 		if ( is_a( $parserOutput, ParserOutput::class ) ) {
-			// Q: when do we expect \Parser->getOutput() no to be a \ParserOutput? A:During tests.
+			// Q: when do we expect \Parser->getOutput() no to be a \ParserOutput? A: During tests.
 			$parserOutput->addModuleStyles( 'ext.bootstrap.styles' );
 			$parserOutput->addModuleScripts( 'ext.bootstrap.scripts' );
 			if ( $this->vectorSkinInUse() ) {
@@ -246,19 +246,15 @@ class ParserOutputHelper {
 	 * @return string
 	 */
 	private function detectSkinInUse( $useConfig = false ) {
-		if ( $useConfig ) {
+		if ( !$useConfig ) {
 			$skin = RequestContext::getMain()->getSkin();
 		}
 		if ( !empty( $skin ) && is_a( $skin, 'Skin' ) ) {
 			return $skin->getSkinName();
 		}
 		$mainConfig = MediaWikiServices::getInstance()->getMainConfig();
-		try {
-			$defaultSkin = $mainConfig->get( 'DefaultSkin' );
-		} catch ( ConfigException $e ) {
-			$defaultSkin = 'unknown';
-		}
-		return $defaultSkin;
+		$defaultSkin = $mainConfig->get( 'DefaultSkin' );
+		return empty( $defaultSkin ) ? 'unknown' : $defaultSkin;
 	}
 
 	/**

@@ -355,7 +355,24 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	// Note: Hook ParserFirstCallInit is tested in \BootstrapComponents\Tests\Unit\Hooks\ParserFirstCallInitTest
+	/**
+	 * Note: Hook ParserFirstCallInit is tested in detail in {@see \BootstrapComponents\Tests\Unit\Hooks\ParserFirstCallInitTest}.
+	 *
+	 * @throws \ConfigException
+	 * @throws \MWException
+	 */
+	public function testHookParserFirstCallInit() {
+		$parser = $this->getMockBuilder( 'Parser' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$callback = $this->getCallBackForHook( 'ParserFirstCallInit' );
+
+		$this->assertTrue(
+			$callback( $parser )
+		);
+	}
+
 
 	/**
 	 * @throws \ConfigException

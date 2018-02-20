@@ -26,13 +26,13 @@
 
 namespace BootstrapComponents;
 
+use \BootstrapComponents\Hooks\ParserFirstCallInit;
 use \Bootstrap\BootstrapManager;
 use \Hooks;
 use \MagicWord;
 use \MediaWiki\MediaWikiServices;
 use \MWException;
 use \Parser;
-use \ReflectionClass;
 
 /**
  * Class Setup
@@ -61,17 +61,17 @@ class Setup {
 	];
 
 	/**
-	 * @var ComponentLibrary
+	 * @var ComponentLibrary $componentLibrary
 	 */
 	private $componentLibrary;
 
 	/**
-	 * @var \Config
+	 * @var \Config $myConfig
 	 */
 	private $myConfig;
 
 	/**
-	 * @var NestingController
+	 * @var NestingController $nestingController
 	 */
 	private $nestingController;
 
@@ -231,7 +231,10 @@ class Setup {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
 			 */
-			'ParserFirstCallInit'      => $this->createParserFirstCallInitCallback( $componentLibrary, $nestingController ),
+			'ParserFirstCallInit'      => function( Parser $parser ) use ( $componentLibrary, $nestingController ) {
+				$hook = new ParserFirstCallInit( $parser, $componentLibrary, $nestingController );
+				return $hook->process();
+			},
 
 			'ScribuntoExternalLibraries' => function( $engine, &$extraLibraries ) {
 				if ( $engine == 'lua' ) {
@@ -379,75 +382,6 @@ class Setup {
 				$mw->matchAndRemove( $text )
 			);
 			return true;
-		};
-	}
-
-	/**
-	 * Callback for Hook: ParserFirstCallInit
-	 *
-	 * Called when the parser initializes for the first time.
-	 *
-	 * @param ComponentLibrary  $componentLibrary
-	 * @param NestingController $nestingController
-	 *
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
-	 *
-	 * @return \Closure
-	 */
-	private function createParserFirstCallInitCallback( $componentLibrary, $nestingController ) {
-
-		return function( Parser $parser ) use ( $componentLibrary, $nestingController ) {
-
-			$parserOutputHelper = ApplicationFactory::getInstance()->getParserOutputHelper( $parser );
-
-			foreach ( $componentLibrary->getRegisteredComponents() as $componentName ) {
-
-				$parserHookString = $componentLibrary::compileParserHookStringFor( $componentName );
-				$callback = $this->createParserHookCallbackFor(
-					$componentName, $componentLibrary, $nestingController, $parserOutputHelper
-				);
-
-				if ( $componentLibrary->isParserFunction( $componentName ) ) {
-					$parser->setFunctionHook( $parserHookString, $callback );
-				} elseif ( $componentLibrary->isTagExtension( $componentName ) ) {
-					$parser->setHook( $parserHookString, $callback );
-				} else {
-					wfDebugLog(
-						'BootstrapComponents',
-						'Unknown handler type (' . $componentLibrary->getHandlerTypeFor( $componentName )
-						. ') detected for component ' . $parserHookString
-					);
-				}
-			}
-			return true;
-		};
-	}
-
-	/**
-	 * Creates the callback to be registered with {@see \Parser::setFunctionHook} or {@see \Parser::setHook}.
-	 *
-	 * @param string             $componentName
-	 * @param ComponentLibrary   $componentLibrary
-	 * @param NestingController  $nestingController
-	 * @param ParserOutputHelper $parserOutputHelper
-	 *
-	 * @return \Closure
-	 */
-	private function createParserHookCallbackFor( $componentName, $componentLibrary, $nestingController, $parserOutputHelper ) {
-
-		return function() use ( $componentName, $componentLibrary, $nestingController, $parserOutputHelper ) {
-
-			$componentClass = $componentLibrary->getClassFor( $componentName );
-			$objectReflection = new ReflectionClass( $componentClass );
-			$object = $objectReflection->newInstanceArgs( [ $componentLibrary, $parserOutputHelper, $nestingController ] );
-
-			$parserRequest = ApplicationFactory::getInstance()->getNewParserRequest(
-				func_get_args(),
-				$componentLibrary->isParserFunction( $componentName ),
-				$componentName
-			);
-			/** @var AbstractComponent $object */
-			return $object->parseComponent( $parserRequest );
 		};
 	}
 

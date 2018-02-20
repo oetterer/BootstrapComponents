@@ -2,11 +2,7 @@
 
 namespace BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\ApplicationFactory;
 use BootstrapComponents\Setup as Setup;
-use BootstrapComponents\ComponentLibrary;
-use \Parser;
-use \ParserOutput;
 use \PHPUnit_Framework_TestCase;
 
 /**
@@ -359,44 +355,7 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	/**
-	 * @throws \ConfigException
-	 * @throws \MWException
-	 */
-	public function testHookParserFirstCallInit() {
-		$prefix = ComponentLibrary::PARSER_HOOK_PREFIX;
-		$observerParser = $this->getMockBuilder(Parser::class )
-			->disableOriginalConstructor()
-			->setMethods( [ 'setFunctionHook', 'setHook' ] )
-			->getMock();
-		$observerParser->expects( $this->exactly( 6 ) )
-			->method( 'setFunctionHook' )
-			->withConsecutive(
-				[ $this->equalTo( $prefix . 'badge' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'button' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'carousel' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'icon' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'label' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'tooltip' ), $this->callback( 'is_callable' ) ]
-			);
-		$observerParser->expects( $this->exactly( 8 ) )
-			->method( 'setHook' )
-			->withConsecutive(
-				[ $this->equalTo( $prefix . 'accordion' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'alert' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'collapse' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'jumbotron' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'modal' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'panel' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'popover' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'well' ), $this->callback( 'is_callable' ) ]
-			);
-
-		$callback = $this->getCallBackForHook( 'ParserFirstCallInit' );
-		$this->assertTrue(
-			$callback( $observerParser )
-		);
-	}
+	// Note: Hook ParserFirstCallInit is tested in \BootstrapComponents\Tests\Unit\Hooks\ParserFirstCallInitTest
 
 	/**
 	 * @throws \ConfigException
@@ -435,43 +394,6 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue(
 			$callback()
 		);
-	}
-
-	/**
-	 * @throws \ConfigException
-	 * @throws \MWException
-	 */
-	public function testCanCreateParserHooks() {
-		$registeredParserHooks = [];
-		$extractionParser = $this->getMockBuilder(Parser::class )
-			->disableOriginalConstructor()
-			->setMethods( [ 'setFunctionHook', 'setHook' ] )
-			->getMock();
-		$extractionParser->expects( $this->exactly( 6 ) )
-			->method( 'setFunctionHook' )
-			->will( $this->returnCallback( function( $parserHookString, $callBack ) use ( &$registeredParserHooks ) {
-				$registeredParserHooks[$parserHookString] = [ $callBack, ComponentLibrary::HANDLER_TYPE_PARSER_FUNCTION ];
-			} ) );
-		$extractionParser->expects( $this->exactly( 8 ) )
-			->method( 'setHook' )
-			->will( $this->returnCallback( function( $parserHookString, $callBack ) use ( &$registeredParserHooks ) {
-				$registeredParserHooks[$parserHookString] = [ $callBack, ComponentLibrary::HANDLER_TYPE_TAG_EXTENSION ];
-			} ) );
-
-		$callable = $this->getCallBackForHook( 'ParserFirstCallInit' );
-
-		$this->assertTrue(
-			$callable( $extractionParser )
-		);
-
-		$this->assertEquals(
-			14,
-			count( $registeredParserHooks )
-		);
-
-		foreach ( $registeredParserHooks as $registeredParserHook => $data ) {
-			$this->doTestParserHook( $registeredParserHook, $data[0], $data[1] );
-		}
 	}
 
 	/**
@@ -572,30 +494,8 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @param string   $registeredParserHook
-	 * @param \Closure $callback
-	 * @param string   $handlerType
-	 */
-	private function doTestParserHook( $registeredParserHook, $callback, $handlerType ) {
-		$parser = $this->getMockBuilder( 'Parser' )
-			->disableOriginalConstructor()
-			->getMock();
-		$input = 'test';
-		if ( $handlerType == ComponentLibrary::HANDLER_TYPE_TAG_EXTENSION ) {
-			$ret = $callback( $input, [], $parser, null );
-		} elseif ( $handlerType == ComponentLibrary::HANDLER_TYPE_PARSER_FUNCTION ) {
-			$ret = $callback( $parser, $input );
-		} else {
-			$ret = false;
-		}
-		$this->assertInternalType(
-			'string',
-			$ret,
-			'Failed testing parser hook for parser hook string ' . $registeredParserHook
-		);
-	}
-
-	/**
+	 * @param string $hook
+	 *
 	 * @throws \ConfigException
 	 * @throws \MWException
 	 *

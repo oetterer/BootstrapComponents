@@ -1,8 +1,8 @@
 ## Release Notes
 
-### Bootstrap 1.1.2
+### Bootstrap 1.2
 
-Released on _not yet_
+Released on 20-Feb-2018
 
 Changes:
 * add support for colors "primary" and "default" to component alert

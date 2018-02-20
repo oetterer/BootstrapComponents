@@ -290,20 +290,20 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function componentNameAndClassProvider() {
 		return [
-			'accordion' => [ 'accordion', 'BootstrapComponents\\Component\\Accordion' ],
-			'alert'     => [ 'alert', 'BootstrapComponents\\Component\\Alert' ],
-			'badge'     => [ 'badge', 'BootstrapComponents\\Component\\Badge' ],
-			'button'    => [ 'button', 'BootstrapComponents\\Component\\Button' ],
-			'carousel'  => [ 'carousel', 'BootstrapComponents\\Component\\Carousel' ],
-			'collapse'  => [ 'collapse', 'BootstrapComponents\\Component\\Collapse' ],
-			'icon'      => [ 'icon', 'BootstrapComponents\\Component\\Icon' ],
-			'jumbotron' => [ 'jumbotron', 'BootstrapComponents\\Component\\Jumbotron' ],
-			'label'     => [ 'label', 'BootstrapComponents\\Component\\Label' ],
-			'modal'     => [ 'modal', 'BootstrapComponents\\Component\\Modal' ],
-			'panel'     => [ 'panel', 'BootstrapComponents\\Component\\Panel' ],
-			'popover'   => [ 'popover', 'BootstrapComponents\\Component\\Popover' ],
-			'tooltip'   => [ 'tooltip', 'BootstrapComponents\\Component\\Tooltip' ],
-			'well'      => [ 'well', 'BootstrapComponents\\Component\\Well' ],
+			'accordion' => [ 'accordion', 'BootstrapComponents\\Components\\Accordion' ],
+			'alert'     => [ 'alert', 'BootstrapComponents\\Components\\Alert' ],
+			'badge'     => [ 'badge', 'BootstrapComponents\\Components\\Badge' ],
+			'button'    => [ 'button', 'BootstrapComponents\\Components\\Button' ],
+			'carousel'  => [ 'carousel', 'BootstrapComponents\\Components\\Carousel' ],
+			'collapse'  => [ 'collapse', 'BootstrapComponents\\Components\\Collapse' ],
+			'icon'      => [ 'icon', 'BootstrapComponents\\Components\\Icon' ],
+			'jumbotron' => [ 'jumbotron', 'BootstrapComponents\\Components\\Jumbotron' ],
+			'label'     => [ 'label', 'BootstrapComponents\\Components\\Label' ],
+			'modal'     => [ 'modal', 'BootstrapComponents\\Components\\Modal' ],
+			'panel'     => [ 'panel', 'BootstrapComponents\\Components\\Panel' ],
+			'popover'   => [ 'popover', 'BootstrapComponents\\Components\\Popover' ],
+			'tooltip'   => [ 'tooltip', 'BootstrapComponents\\Components\\Tooltip' ],
+			'well'      => [ 'well', 'BootstrapComponents\\Components\\Well' ],
 		];
 	}
 

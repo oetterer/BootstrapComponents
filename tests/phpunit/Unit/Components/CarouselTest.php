@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Carousel;
+use BootstrapComponents\Components\Carousel;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Carousel
+ * @covers  \BootstrapComponents\Components\Carousel
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class CarouselTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\Component\\Carousel',
+			'BootstrapComponents\\Components\\Carousel',
 			new Carousel(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),

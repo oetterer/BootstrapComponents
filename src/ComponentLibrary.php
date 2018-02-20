@@ -349,14 +349,14 @@ class ComponentLibrary {
 	private function rawComponentsDefinition() {
 		return [
 			'accordion' => [
-				'class'       => 'BootstrapComponents\\Component\\Accordion',
+				'class'       => 'BootstrapComponents\\Components\\Accordion',
 				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
 				'attributes'  => [
 					'default' => true,
 				],
 			],
 			'alert'     => [
-				'class'       => 'BootstrapComponents\\Component\\Alert',
+				'class'       => 'BootstrapComponents\\Components\\Alert',
 				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
 				'attributes'  => [
 					'default' => true,
@@ -368,14 +368,14 @@ class ComponentLibrary {
 				],
 			],
 			'badge'     => [
-				'class'       => 'BootstrapComponents\\Component\\Badge',
+				'class'       => 'BootstrapComponents\\Components\\Badge',
 				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
 				'attributes'  => [
 					'default' => true,
 				],
 			],
 			'button'    => [
-				'class'       => 'BootstrapComponents\\Component\\Button',
+				'class'       => 'BootstrapComponents\\Components\\Button',
 				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
 				'attributes'  => [
 					'default' => true,
@@ -390,7 +390,7 @@ class ComponentLibrary {
 				],
 			],
 			'carousel'  => [
-				'class'       => 'BootstrapComponents\\Component\\Carousel',
+				'class'       => 'BootstrapComponents\\Components\\Carousel',
 				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
 				'attributes'  => [
 					'default' => true,
@@ -400,7 +400,7 @@ class ComponentLibrary {
 				],
 			],
 			'collapse'  => [
-				'class'       => 'BootstrapComponents\\Component\\Collapse',
+				'class'       => 'BootstrapComponents\\Components\\Collapse',
 				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
 				'attributes'  => [
 					'default' => true,
@@ -415,21 +415,21 @@ class ComponentLibrary {
 				],
 			],
 			'icon'      => [
-				'class'       => 'BootstrapComponents\\Component\\Icon',
+				'class'       => 'BootstrapComponents\\Components\\Icon',
 				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
 				'attributes'  => [
 					'default' => false,
 				],
 			],
 			'jumbotron' => [
-				'class'       => 'BootstrapComponents\\Component\\Jumbotron',
+				'class'       => 'BootstrapComponents\\Components\\Jumbotron',
 				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
 				'attributes'  => [
 					'default' => true,
 				],
 			],
 			'label'     => [
-				'class'       => 'BootstrapComponents\\Component\\Label',
+				'class'       => 'BootstrapComponents\\Components\\Label',
 				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
 				'attributes'  => [
 					'default' => true,
@@ -437,7 +437,7 @@ class ComponentLibrary {
 				],
 			],
 			'modal'     => [
-				'class'       => 'BootstrapComponents\\Component\\Modal',
+				'class'       => 'BootstrapComponents\\Components\\Modal',
 				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
 				'attributes'  => [
 					'default' => true,
@@ -456,7 +456,7 @@ class ComponentLibrary {
 				],
 			],
 			'panel'     => [
-				'class'       => 'BootstrapComponents\\Component\\Panel',
+				'class'       => 'BootstrapComponents\\Components\\Panel',
 				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
 				'attributes'  => [
 					'default' => true,
@@ -468,7 +468,7 @@ class ComponentLibrary {
 				],
 			],
 			'popover'   => [
-				'class'       => 'BootstrapComponents\\Component\\Popover',
+				'class'       => 'BootstrapComponents\\Components\\Popover',
 				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
 				'attributes'  => [
 					'default' => true,
@@ -488,7 +488,7 @@ class ComponentLibrary {
 				],
 			],
 			'tooltip'   => [
-				'class'       => 'BootstrapComponents\\Component\\Tooltip',
+				'class'       => 'BootstrapComponents\\Components\\Tooltip',
 				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
 				'attributes'  => [
 					'default' => true,
@@ -500,7 +500,7 @@ class ComponentLibrary {
 				],
 			],
 			'well'      => [
-				'class'       => 'BootstrapComponents\\Component\\Well',
+				'class'       => 'BootstrapComponents\\Components\\Well',
 				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
 				'attributes'  => [
 					'default' => true,

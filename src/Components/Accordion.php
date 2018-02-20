@@ -24,10 +24,9 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Component;
+namespace BootstrapComponents\Components;
 
 use BootstrapComponents\AbstractComponent;
-use BootstrapComponents\ParserRequest;
 use \Html;
 
 /**

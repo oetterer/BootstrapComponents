@@ -24,14 +24,12 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Component;
+namespace BootstrapComponents\Components;
 
 use BootstrapComponents\AbstractComponent;
 use BootstrapComponents\ApplicationFactory;
 use BootstrapComponents\ModalBuilder;
-use BootstrapComponents\ParserRequest;
 use \Html;
-use \MWException;
 
 /**
  * Class Modal

@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Alert;
+use BootstrapComponents\Components\Alert;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Alert
+ * @covers  \BootstrapComponents\Components\Alert
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class AlertTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'\\BootstrapComponents\\Component\\Alert',
+			'\\BootstrapComponents\\Components\\Alert',
 			new Alert(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),

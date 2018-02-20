@@ -78,7 +78,7 @@ A few points to ease the process:
 ```
     [
         (string)[component name, lower case] => [
-            'class' => (string)'\\BootstrapComponents\\Component\\[Component Class]',
+            'class' => (string)'\\BootstrapComponents\\Components\\[Component Class]',
             'handlerType' => [self::HANDLER_TYPE_PARSER_FUNCTION or self::HANDLER_TYPE_TAG_EXTENSION],
             'attributes' => [
                 'default' => (bool)true|false [does this component allow the default attributes]

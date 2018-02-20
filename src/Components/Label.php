@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains the component class for rendering a well.
+ * Contains the component class for rendering a label.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -24,35 +24,36 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Component;
+namespace BootstrapComponents\Components;
 
 use BootstrapComponents\AbstractComponent;
-use BootstrapComponents\ParserRequest;
 use \Html;
 
 /**
- * Class Well
+ * Class Label
  *
- * Class for component 'well'
+ * Class for component 'label'
  *
- * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Well
+ * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Label
  * @since 1.0
  */
-class Well extends AbstractComponent {
+class Label extends AbstractComponent {
 	/**
 	 * @inheritdoc
 	 *
 	 * @param string $input
 	 */
 	public function placeMe( $input ) {
-
-		$class = [ 'well' ];
-		if ( $size = $this->getValueFor( 'size' ) ) {
-			$class[] = 'well-' . $size;
+		if ( empty( $input ) ) {
+			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-label-content-missing' );
 		}
+
+		$class = [
+			'label', 'label-' . $this->getValueFor( 'color', 'default' ),
+		];
 		list ( $class, $style ) = $this->processCss( $class, [] );
 		return Html::rawElement(
-			'div',
+			'span',
 			[
 				'class' => $this->arrayToString( $class, ' ' ),
 				'style' => $this->arrayToString( $style, ';' ),

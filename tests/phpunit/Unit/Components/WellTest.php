@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Well;
+use BootstrapComponents\Components\Well;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Well
+ * @covers  \BootstrapComponents\Components\Well
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class WellTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\Component\\Well',
+			'BootstrapComponents\\Components\\Well',
 			new Well(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),

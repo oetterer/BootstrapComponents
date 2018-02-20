@@ -24,7 +24,7 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Component;
+namespace BootstrapComponents\Components;
 
 use BootstrapComponents\ApplicationFactory;
 use BootstrapComponents\AbstractComponent;

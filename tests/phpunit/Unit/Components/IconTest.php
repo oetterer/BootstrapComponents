@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Jumbotron;
+use BootstrapComponents\Components\Icon;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Jumbotron
+ * @covers  \BootstrapComponents\Components\Icon
  *
  * @ingroup Test
  *
@@ -19,9 +19,9 @@ use \MWException;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class JumbotronTest extends ComponentsTestBase {
+class IconTest extends ComponentsTestBase {
 
-	private $input = 'Jumbotron test text';
+	private $input = 'icon';
 
 	/**
 	 * @throws \MWException
@@ -29,8 +29,8 @@ class JumbotronTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\Component\\Jumbotron',
-			new Jumbotron(
+			'\\BootstrapComponents\\Components\\Icon',
+			new Icon(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),
 				$this->getNestingController()
@@ -47,7 +47,7 @@ class JumbotronTest extends ComponentsTestBase {
 	 * @throws MWException
 	 */
 	public function testCanRender( $input, $arguments, $expectedOutput ) {
-		$instance = new Jumbotron(
+		$instance = new Icon(
 			$this->getComponentLibrary(),
 			$this->getParserOutputHelper(),
 			$this->getNestingController()
@@ -66,20 +66,15 @@ class JumbotronTest extends ComponentsTestBase {
 	 */
 	public function placeMeArgumentsProvider() {
 		return [
-			'simple'          => [
+			'simple' => [
 				$this->input,
 				[],
-				'<div class="container"><div class="jumbotron" id="bsc_jumbotron_NULL">' . $this->input . '</div></div>',
+				'<span class="glyphicon glyphicon-' . $this->input . '"></span>',
 			],
-			'manual id'       => [
-				$this->input,
-				[ 'id' => 'hms_dortmunder' ],
-				'<div class="container"><div class="jumbotron" id="hms_dortmunder">' . $this->input . '</div></div>',
-			],
-			'style and class' => [
-				$this->input,
-				[ 'class' => 'dummy nice', 'style' => 'float:right;background-color:green' ],
-				'<div class="container"><div class="jumbotron dummy nice" style="float:right;background-color:green" id="bsc_jumbotron_NULL">' . $this->input . '</div></div>',
+			'empty'  => [
+				'',
+				[],
+				'bootstrap-components-glyph-icon-name-missing',
 			],
 		];
 	}

@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains the component class for rendering a tooltip.
+ * Contains the component class for rendering a popover.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -24,57 +24,56 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Component;
+namespace BootstrapComponents\Components;
 
 use BootstrapComponents\AbstractComponent;
-use BootstrapComponents\ParserRequest;
 use \Html;
 
 /**
- * Class Tooltip
+ * Class Popover
  *
- * Class for component 'tooltip'
+ * Class for component 'popover'
  *
- * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Tooltip
+ * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Popover
  * @since 1.0
  */
-class Tooltip extends AbstractComponent {
+class Popover extends AbstractComponent {
 	/**
 	 * @inheritdoc
 	 *
 	 * @param string $input
 	 */
 	public function placeMe( $input ) {
-		if ( empty( $input ) ) {
-			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-tooltip-target-missing' );
+		$heading = $this->getValueFor( 'heading' );
+		$text    = $this->getValueFor( 'text' );
+		if ( $heading === false || !strlen( $heading ) ) {
+			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-popover-heading-missing' );
 		}
-		$tooltip = $this->getValueFor( 'text' );
-		if ( empty( $tooltip ) ) {
-			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-tooltip-content-missing' );
+		if ( $text === false || !strlen( $text ) ) {
+			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-popover-text-missing' );
 		}
-		list( $tag, $input, $attributes ) = $this->buildHtmlElements( $input, (string)$tooltip );
 
-		return [
-				Html::rawElement(
-				$tag,
-				$attributes,
-				$input
-			),
-			'isHTML'  => true,
-			'noparse' => true,
-		];
+		list( $tag, $text, $attributes ) = $this->buildHtmlElements( $input, (string)$text, (string)$heading );
+
+		// I cannot use the button class here, because it needs a target and also does not accept pre-processed attributes.
+		return Html::rawElement(
+			$tag,
+			$attributes,
+			$text
+		);
 	}
 
 	/**
 	 * @param string $input
-	 * @param string $tooltip
+	 * @param string $text
+	 * @param string $heading
 	 *
 	 * @return array $tag, $text, $attributes
 	 */
-	private function buildHtmlElements( $input, $tooltip ) {
-		list ( $class, $style ) = $this->processCss( [ 'bootstrap-tooltip' ], [] );
+	private function buildHtmlElements( $input, $text, $heading ) {
+		list ( $class, $style ) = $this->processCss( $this->calculatePopoverClassAttribute(), [] );
 
-		list ( $input, $target ) = $this->stripLinksFrom( $input, '' );
+		list ( $text, $target ) = $this->stripLinksFrom( $text, '' );
 
 		$attributes = [
 			'class'          => $this->arrayToString( $class, ' ' ),
@@ -82,21 +81,37 @@ class Tooltip extends AbstractComponent {
 			'id'             => $this->getId(),
 		];
 		if ( empty( $target ) ) {
-			// this is the normal tooltip process
+			// this is the normal popover process
 			$attributes = array_merge(
 				$attributes,
 				[
-					'data-toggle'    => 'tooltip',
-					'title'          => $tooltip,
+					'data-toggle'    => 'popover',
+					'title'          => $heading,
+					'data-content'   => str_replace( "\n", " ", trim( $input ) ),
 					'data-placement' => $this->getValueFor( 'placement' ),
+					'data-trigger'   => $this->getValueFor( 'trigger' ),
 				]
 			);
-			$tag = "span";
+			$tag = "button";
 		} else {
 			$attributes['href'] = $target;
+			$attributes['role'] = 'button';
 			$tag = "a";
 		}
-		return [ $tag, $input, $attributes ];
+		return [ $tag, $text, $attributes ];
+	}
+
+	/**
+	 * Calculates the class attribute value from the passed attributes
+	 *
+	 * @return string[]
+	 */
+	private function calculatePopoverClassAttribute() {
+		$class = [ 'btn', 'btn-' . $this->getValueFor( 'color', 'info' ) ];
+		if ( $size = $this->getValueFor( 'size' ) ) {
+			$class[] = 'btn-' . $size;
+		}
+		return $class;
 	}
 
 	/**

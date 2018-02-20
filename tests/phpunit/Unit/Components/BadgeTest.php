@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Accordion as Accordion;
+use BootstrapComponents\Components\Badge;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Accordion
+ * @covers  \BootstrapComponents\Components\Badge
  *
  * @ingroup Test
  *
@@ -19,9 +19,9 @@ use \MWException;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class AccordionTest extends ComponentsTestBase {
+class BadgeTest extends ComponentsTestBase {
 
-	private $input = 'Accordion test text';
+	private $input = 'Badge test text';
 
 	/**
 	 * @throws \MWException
@@ -29,8 +29,8 @@ class AccordionTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'\\BootstrapComponents\\Component\\Accordion',
-			new Accordion(
+			'\\BootstrapComponents\\Components\\Badge',
+			new Badge(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),
 				$this->getNestingController()
@@ -47,7 +47,7 @@ class AccordionTest extends ComponentsTestBase {
 	 * @throws MWException
 	 */
 	public function testCanRender( $input, $arguments, $expectedOutput ) {
-		$instance = new Accordion(
+		$instance = new Badge(
 			$this->getComponentLibrary(),
 			$this->getParserOutputHelper(),
 			$this->getNestingController()
@@ -57,10 +57,8 @@ class AccordionTest extends ComponentsTestBase {
 
 		/** @noinspection PhpParamsInspection */
 		$generatedOutput = $instance->parseComponent( $parserRequest );
-		$this->assertEquals(
-			$expectedOutput,
-			$generatedOutput
-		);
+
+		$this->assertEquals( $expectedOutput, $generatedOutput );
 	}
 
 	/**
@@ -68,15 +66,25 @@ class AccordionTest extends ComponentsTestBase {
 	 */
 	public function placeMeArgumentsProvider() {
 		return [
-			'simple'        => [
+			'simple'          => [
 				$this->input,
 				[],
-				'<div class="panel-group" id="bsc_accordion_NULL">' . $this->input . '</div>',
+				'<span class="badge" id="bsc_badge_NULL">' . $this->input . '</span>',
 			],
-			'add_css_class' => [
+			'empty'           => [
+				'',
+				[],
+				'bootstrap-components-badge-content-missing',
+			],
+			'manual id'       => [
 				$this->input,
-				[ 'class' => 'test' ],
-				'<div class="panel-group test" id="bsc_accordion_NULL">' . $this->input . '</div>',
+				[ 'id' => 'book' ],
+				'<span class="badge" id="book">' . $this->input . '</span>',
+			],
+			'style and class' => [
+				$this->input,
+				[ 'class' => 'dummy nice', 'style' => 'float:right;background-color:#80266e' ],
+				'<span class="badge dummy nice" style="float:right;background-color:#80266e" id="bsc_badge_NULL">' . $this->input . '</span>',
 			],
 		];
 	}

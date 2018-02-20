@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Panel;
+use BootstrapComponents\Components\Panel;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Panel
+ * @covers  \BootstrapComponents\Components\Panel
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class PanelTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\Component\\Panel',
+			'BootstrapComponents\\Components\\Panel',
 			new Panel(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),
@@ -72,7 +72,7 @@ class PanelTest extends ComponentsTestBase {
 	 * @dataProvider placeMeInsideAccordionArgumentsProvider
 	 */
 	public function testCanRenderAccordionPanel( $input, $arguments, $expectedOutput ) {
-		$accordion = $this->getMockBuilder( 'BootstrapComponents\\Component\\Accordion' )
+		$accordion = $this->getMockBuilder( 'BootstrapComponents\\Components\\Accordion' )
 			->disableOriginalConstructor()
 			->getMock();
 		$accordion->expects( $this->any() )

@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Button;
+use BootstrapComponents\Components\Button;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Button
+ * @covers  \BootstrapComponents\Components\Button
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class ButtonTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\Component\\Button',
+			'BootstrapComponents\\Components\\Button',
 			new Button(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),

@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Popover;
+use BootstrapComponents\Components\Popover;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Popover
+ * @covers  \BootstrapComponents\Components\Popover
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class PopoverTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'\\BootstrapComponents\\Component\\Popover',
+			'\\BootstrapComponents\\Components\\Popover',
 			new Popover(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),

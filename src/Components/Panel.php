@@ -24,16 +24,14 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Component;
+namespace BootstrapComponents\Components;
 
 use BootstrapComponents\ComponentLibrary;
 use BootstrapComponents\AbstractComponent;
 use BootstrapComponents\NestingController;
 use BootstrapComponents\ParserOutputHelper;
-use BootstrapComponents\ParserRequest;
 use \Html;
 use \MWException;
-use \Parser;
 
 /**
  * Class Panel

@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains the component class for rendering a badge.
+ * Contains the component class for rendering an icon.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -24,21 +24,20 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Component;
+namespace BootstrapComponents\Components;
 
 use BootstrapComponents\AbstractComponent;
-use BootstrapComponents\ParserRequest;
 use \Html;
 
 /**
- * Class Badge
+ * Class Icon
  *
- * Class for component 'badge'
+ * Class for component 'icon'
  *
- * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Badge
+ * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Icon
  * @since 1.0
  */
-class Badge extends AbstractComponent {
+class Icon extends AbstractComponent {
 	/**
 	 * @inheritdoc
 	 *
@@ -46,18 +45,12 @@ class Badge extends AbstractComponent {
 	 */
 	public function placeMe( $input ) {
 		if ( empty( $input ) ) {
-			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-badge-content-missing' );
+			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-glyph-icon-name-missing' );
 		}
 
-		list ( $class, $style ) = $this->processCss( [ 'badge' ], [] );
 		return Html::rawElement(
 			'span',
-			[
-				'class' => $this->arrayToString( $class, ' ' ),
-				'style' => $this->arrayToString( $style, ';' ),
-				'id'    => $this->getId(),
-			],
-			$input
+			[ 'class' => 'glyphicon glyphicon-' . strtolower( trim( $input ) ) ]
 		);
 	}
 }

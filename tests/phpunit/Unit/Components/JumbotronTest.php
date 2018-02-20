@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Badge;
+use BootstrapComponents\Components\Jumbotron;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Badge
+ * @covers  \BootstrapComponents\Components\Jumbotron
  *
  * @ingroup Test
  *
@@ -19,9 +19,9 @@ use \MWException;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class BadgeTest extends ComponentsTestBase {
+class JumbotronTest extends ComponentsTestBase {
 
-	private $input = 'Badge test text';
+	private $input = 'Jumbotron test text';
 
 	/**
 	 * @throws \MWException
@@ -29,8 +29,8 @@ class BadgeTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'\\BootstrapComponents\\Component\\Badge',
-			new Badge(
+			'BootstrapComponents\\Components\\Jumbotron',
+			new Jumbotron(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),
 				$this->getNestingController()
@@ -47,7 +47,7 @@ class BadgeTest extends ComponentsTestBase {
 	 * @throws MWException
 	 */
 	public function testCanRender( $input, $arguments, $expectedOutput ) {
-		$instance = new Badge(
+		$instance = new Jumbotron(
 			$this->getComponentLibrary(),
 			$this->getParserOutputHelper(),
 			$this->getNestingController()
@@ -69,22 +69,17 @@ class BadgeTest extends ComponentsTestBase {
 			'simple'          => [
 				$this->input,
 				[],
-				'<span class="badge" id="bsc_badge_NULL">' . $this->input . '</span>',
-			],
-			'empty'           => [
-				'',
-				[],
-				'bootstrap-components-badge-content-missing',
+				'<div class="container"><div class="jumbotron" id="bsc_jumbotron_NULL">' . $this->input . '</div></div>',
 			],
 			'manual id'       => [
 				$this->input,
-				[ 'id' => 'book' ],
-				'<span class="badge" id="book">' . $this->input . '</span>',
+				[ 'id' => 'hms_dortmunder' ],
+				'<div class="container"><div class="jumbotron" id="hms_dortmunder">' . $this->input . '</div></div>',
 			],
 			'style and class' => [
 				$this->input,
-				[ 'class' => 'dummy nice', 'style' => 'float:right;background-color:#80266e' ],
-				'<span class="badge dummy nice" style="float:right;background-color:#80266e" id="bsc_badge_NULL">' . $this->input . '</span>',
+				[ 'class' => 'dummy nice', 'style' => 'float:right;background-color:green' ],
+				'<div class="container"><div class="jumbotron dummy nice" style="float:right;background-color:green" id="bsc_jumbotron_NULL">' . $this->input . '</div></div>',
 			],
 		];
 	}

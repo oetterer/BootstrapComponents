@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Modal;
+use BootstrapComponents\Components\Modal;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Modal
+ * @covers  \BootstrapComponents\Components\Modal
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class ModalTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\Component\\Modal',
+			'BootstrapComponents\\Components\\Modal',
 			new Modal(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),

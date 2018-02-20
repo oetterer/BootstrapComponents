@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Collapse;
+use BootstrapComponents\Components\Collapse;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Collapse
+ * @covers  \BootstrapComponents\Components\Collapse
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class CollapseTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'\\BootstrapComponents\\Component\\Collapse',
+			'\\BootstrapComponents\\Components\\Collapse',
 			new Collapse(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),

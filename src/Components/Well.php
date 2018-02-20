@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains the component class for rendering an icon.
+ * Contains the component class for rendering a well.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -24,34 +24,40 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Component;
+namespace BootstrapComponents\Components;
 
 use BootstrapComponents\AbstractComponent;
-use BootstrapComponents\ParserRequest;
 use \Html;
 
 /**
- * Class Icon
+ * Class Well
  *
- * Class for component 'icon'
+ * Class for component 'well'
  *
- * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Icon
+ * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Well
  * @since 1.0
  */
-class Icon extends AbstractComponent {
+class Well extends AbstractComponent {
 	/**
 	 * @inheritdoc
 	 *
 	 * @param string $input
 	 */
 	public function placeMe( $input ) {
-		if ( empty( $input ) ) {
-			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-glyph-icon-name-missing' );
-		}
 
+		$class = [ 'well' ];
+		if ( $size = $this->getValueFor( 'size' ) ) {
+			$class[] = 'well-' . $size;
+		}
+		list ( $class, $style ) = $this->processCss( $class, [] );
 		return Html::rawElement(
-			'span',
-			[ 'class' => 'glyphicon glyphicon-' . strtolower( trim( $input ) ) ]
+			'div',
+			[
+				'class' => $this->arrayToString( $class, ' ' ),
+				'style' => $this->arrayToString( $style, ';' ),
+				'id'    => $this->getId(),
+			],
+			$input
 		);
 	}
 }

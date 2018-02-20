@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains the component class for rendering a label.
+ * Contains the component class for rendering a badge.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -24,21 +24,20 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Component;
+namespace BootstrapComponents\Components;
 
 use BootstrapComponents\AbstractComponent;
-use BootstrapComponents\ParserRequest;
 use \Html;
 
 /**
- * Class Label
+ * Class Badge
  *
- * Class for component 'label'
+ * Class for component 'badge'
  *
- * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Label
+ * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Badge
  * @since 1.0
  */
-class Label extends AbstractComponent {
+class Badge extends AbstractComponent {
 	/**
 	 * @inheritdoc
 	 *
@@ -46,13 +45,10 @@ class Label extends AbstractComponent {
 	 */
 	public function placeMe( $input ) {
 		if ( empty( $input ) ) {
-			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-label-content-missing' );
+			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-badge-content-missing' );
 		}
 
-		$class = [
-			'label', 'label-' . $this->getValueFor( 'color', 'default' ),
-		];
-		list ( $class, $style ) = $this->processCss( $class, [] );
+		list ( $class, $style ) = $this->processCss( [ 'badge' ], [] );
 		return Html::rawElement(
 			'span',
 			[

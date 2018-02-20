@@ -26,7 +26,7 @@
 
 namespace BootstrapComponents;
 
-use BootstrapComponents\Component\Carousel;
+use BootstrapComponents\Components\Carousel;
 use \ImageGalleryBase;
 
 /**

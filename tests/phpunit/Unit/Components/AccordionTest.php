@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Icon;
+use BootstrapComponents\Components\Accordion as Accordion;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Icon
+ * @covers  \BootstrapComponents\Components\Accordion
  *
  * @ingroup Test
  *
@@ -19,9 +19,9 @@ use \MWException;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class IconTest extends ComponentsTestBase {
+class AccordionTest extends ComponentsTestBase {
 
-	private $input = 'icon';
+	private $input = 'Accordion test text';
 
 	/**
 	 * @throws \MWException
@@ -29,8 +29,8 @@ class IconTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'\\BootstrapComponents\\Component\\Icon',
-			new Icon(
+			'\\BootstrapComponents\\Components\\Accordion',
+			new Accordion(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),
 				$this->getNestingController()
@@ -47,7 +47,7 @@ class IconTest extends ComponentsTestBase {
 	 * @throws MWException
 	 */
 	public function testCanRender( $input, $arguments, $expectedOutput ) {
-		$instance = new Icon(
+		$instance = new Accordion(
 			$this->getComponentLibrary(),
 			$this->getParserOutputHelper(),
 			$this->getNestingController()
@@ -57,8 +57,10 @@ class IconTest extends ComponentsTestBase {
 
 		/** @noinspection PhpParamsInspection */
 		$generatedOutput = $instance->parseComponent( $parserRequest );
-
-		$this->assertEquals( $expectedOutput, $generatedOutput );
+		$this->assertEquals(
+			$expectedOutput,
+			$generatedOutput
+		);
 	}
 
 	/**
@@ -66,15 +68,15 @@ class IconTest extends ComponentsTestBase {
 	 */
 	public function placeMeArgumentsProvider() {
 		return [
-			'simple' => [
+			'simple'        => [
 				$this->input,
 				[],
-				'<span class="glyphicon glyphicon-' . $this->input . '"></span>',
+				'<div class="panel-group" id="bsc_accordion_NULL">' . $this->input . '</div>',
 			],
-			'empty'  => [
-				'',
-				[],
-				'bootstrap-components-glyph-icon-name-missing',
+			'add_css_class' => [
+				$this->input,
+				[ 'class' => 'test' ],
+				'<div class="panel-group test" id="bsc_accordion_NULL">' . $this->input . '</div>',
 			],
 		];
 	}

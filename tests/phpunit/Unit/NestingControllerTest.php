@@ -124,7 +124,7 @@ class NestingControllerTest extends PHPUnit_Framework_TestCase {
 		$this->setExpectedException( 'MWException' );
 
 		/** @var AbstractComponent $component */
-		$component = $this->getComponent( 'panel', 'BootstrapComponents\\Component\\Panel' );
+		$component = $this->getComponent( 'panel', 'BootstrapComponents\\Components\\Panel' );
 		$instance->open( $component );
 
 		$instance->close( 'invalid' );

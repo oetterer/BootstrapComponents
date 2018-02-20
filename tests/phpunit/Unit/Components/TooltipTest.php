@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Component;
+namespace BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Component\Label;
+use BootstrapComponents\Components\Tooltip;
 use BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Component\Label
+ * @covers  \BootstrapComponents\Components\Tooltip
  *
  * @ingroup Test
  *
@@ -19,9 +19,9 @@ use \MWException;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class LabelTest extends ComponentsTestBase {
+class TooltipTest extends ComponentsTestBase {
 
-	private $input = 'Label test text';
+	private $input = 'Tooltip test text';
 
 	/**
 	 * @throws \MWException
@@ -29,8 +29,8 @@ class LabelTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'\\BootstrapComponents\\Component\\Label',
-			new Label(
+			'\\BootstrapComponents\\Components\\Tooltip',
+			new Tooltip(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),
 				$this->getNestingController()
@@ -47,7 +47,7 @@ class LabelTest extends ComponentsTestBase {
 	 * @throws MWException
 	 */
 	public function testCanRender( $input, $arguments, $expectedOutput ) {
-		$instance = new Label(
+		$instance = new Tooltip(
 			$this->getComponentLibrary(),
 			$this->getParserOutputHelper(),
 			$this->getNestingController()
@@ -58,6 +58,10 @@ class LabelTest extends ComponentsTestBase {
 		/** @noinspection PhpParamsInspection */
 		$generatedOutput = $instance->parseComponent( $parserRequest );
 
+		if ( is_array( $generatedOutput ) ) {
+			$generatedOutput = $generatedOutput[0];
+		}
+
 		$this->assertEquals( $expectedOutput, $generatedOutput );
 	}
 
@@ -66,25 +70,25 @@ class LabelTest extends ComponentsTestBase {
 	 */
 	public function placeMeArgumentsProvider() {
 		return [
-			'simple'          => [
+			'simple'              => [
 				$this->input,
-				[],
-				'<span class="label label-default" id="bsc_label_NULL">' . $this->input . '</span>',
+				[ 'text' => 'simple' ],
+				'<span class="bootstrap-tooltip" id="bsc_tooltip_NULL" data-toggle="tooltip" title="simple">' . $this->input . '</span>',
 			],
-			'empty'           => [
+			'empty'               => [
 				'',
 				[],
-				'bootstrap-components-label-content-missing',
+				'bootstrap-components-tooltip-target-missing',
 			],
-			'style and class' => [
+			'text missing'        => [
 				$this->input,
-				[ 'class' => 'dummy nice', 'style' => 'float:right;background-color:#80266e' ],
-				'<span class="label label-default dummy nice" style="float:right;background-color:#80266e" id="bsc_label_NULL">' . $this->input . '</span>',
+				[],
+				'bootstrap-components-tooltip-content-missing',
 			],
-			'manual id'       => [
+			'id, style and class' => [
 				$this->input,
-				[ 'id' => 'dinosaur', 'color' => 'warning' ],
-				'<span class="label label-warning" id="dinosaur">' . $this->input . '</span>',
+				[ 'text' => 'simple', 'class' => 'dummy nice', 'style' => 'float:right;background-color:#80266e', 'id' => 'vera' ],
+				'<span class="bootstrap-tooltip dummy nice" style="float:right;background-color:#80266e" id="vera" data-toggle="tooltip" title="simple">' . $this->input . '</span>',
 			],
 		];
 	}

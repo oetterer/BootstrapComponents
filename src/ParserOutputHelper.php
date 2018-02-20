@@ -26,7 +26,9 @@
 
 namespace BootstrapComponents;
 
+use \ConfigException;
 use \Html;
+use \MediaWiki\MediaWikiServices;
 use \ParserOutput;
 use \RequestContext;
 use \Title;
@@ -97,7 +99,9 @@ class ParserOutputHelper {
 		$this->articleTracked = false;
 		$this->articleTrackedOnError = false;
 		$this->parser = $parser;
-		$this->nameOfActiveSkin = $this->detectSkinInUse();
+		$this->nameOfActiveSkin = $this->detectSkinInUse(
+			defined( 'MW_NO_SESSION' )
+		);
 		$this->contentForLaterInjection = '';
 	}
 
@@ -237,11 +241,24 @@ class ParserOutputHelper {
 	}
 
 	/**
+	 * @param bool $useConfig   set to true, if we can't rely on {@see \RequestContext::getSkin}
+	 *
 	 * @return string
 	 */
-	private function detectSkinInUse() {
-		$skin = RequestContext::getMain()->getSkin();
-		return ($skin && is_a( $skin, 'Skin' ) ? $skin->getSkinName() : 'unknown');
+	private function detectSkinInUse( $useConfig = false ) {
+		if ( $useConfig ) {
+			$skin = RequestContext::getMain()->getSkin();
+		}
+		if ( !empty( $skin ) && is_a( $skin, 'Skin' ) ) {
+			return $skin->getSkinName();
+		}
+		$mainConfig = MediaWikiServices::getInstance()->getMainConfig();
+		try {
+			$defaultSkin = $mainConfig->get( 'DefaultSkin' );
+		} catch ( ConfigException $e ) {
+			$defaultSkin = 'unknown';
+		}
+		return $defaultSkin;
 	}
 
 	/**

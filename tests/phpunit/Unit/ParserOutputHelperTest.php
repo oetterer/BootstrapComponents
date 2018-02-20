@@ -4,6 +4,7 @@ namespace BootstrapComponents\Tests\Unit;
 
 use BootstrapComponents\ComponentLibrary;
 use BootstrapComponents\ParserOutputHelper;
+use BootstrapComponents\ParserRequest;
 use \MWException;
 use \Parser;
 use \PHPUnit_Framework_MockObject_MockObject;
@@ -163,7 +164,7 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * @dataProvider errorMessageProvider
 	 */
-	public function __testCanRenderErrorMessage( $messageText, $renderedMessage ) {
+	public function testCanRenderErrorMessage( $messageText, $renderedMessage ) {
 		/** @noinspection PhpParamsInspection */
 		$instance = new ParserOutputHelper(
 			$this->buildFullyEquippedParser( ( $renderedMessage != '~^$~' ) )
@@ -180,6 +181,29 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 		$this->assertInternalType(
 			'bool',
 			$instance->vectorSkinInUse()
+		);
+	}
+
+	/**
+	 * @throws \ReflectionException
+	 */
+	public function testPrivateCanDetectSkinInUse() {
+		$instance = new ParserOutputHelper( $this->parser );
+
+		$reflection = new \ReflectionClass( ParserOutputHelper::class );
+		$method = $reflection->getMethod( 'detectSkinInUse' );
+		$method->setAccessible( true );
+
+		// this is default
+		$this->assertEquals(
+			'vector',
+			$method->invokeArgs( $instance, [ false ] )
+		);
+
+		// this was introduced due to issue #9
+		$this->assertEquals(
+			'vector',
+			$method->invokeArgs( $instance, [ true ] )
 		);
 	}
 

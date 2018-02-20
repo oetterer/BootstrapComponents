@@ -8,6 +8,9 @@ Changes:
 * add support for colors "primary" and "default" to component alert
 * add two more known issues concerning the modal 
 
+Fixes:
+* illegal call to User->loadFromSession() triggered by Extension:CodeMirror 
+
 ### Bootstrap 1.1.1
 
 Released on 06-Feb-2018

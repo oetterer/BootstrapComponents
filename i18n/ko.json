@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ykhwong"
+		]
+	},
+	"bootstrap-components-close-element": "닫기",
+	"bootstrap-components-lua-error-invalid-component": "mw.bootstrap.parse에 유효하지 않은 구성 요소 이름이 전달되었습니다: $1",
+	"bootstrap-components-button-target-missing": "이 버튼의 대상을 지정해야 합니다.",
+	"bootstrap-components-button-target-invalid": "이 버튼을 위한 유효한 대상을 지정해야 합니다.",
+	"bootstrap-components-glyph-icon-name-missing": "아이콘 이름을 지정해야 합니다.",
+	"bootstrap-components-label-content-missing": "레이블 텍스트를 지정해야 합니다.",
+	"bootstrap-components-modal-text-missing": "모달 버튼을 위한 텍스트를 지정해야 합니다."
+}

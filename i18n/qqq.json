@@ -5,26 +5,21 @@
 		]
 	},
 	"bootstrap-components-desc": "{{desc|name=Bootstrap Components|url=https://www.mediawiki.org/wiki/Extension:BootstrapComponents}}",
-
 	"bootstrap-components-error-tracking-category": "Tracking category for pages with faulty calls to a bootstrap tag.",
 	"bootstrap-components-tracking-category": "Tracking category for pages with calls to at least one bootstrap tag.\n\n{{Notranslate}}",
-
-	"bootstrap-components-close-element" : "Text for the close button of various components.\n\n{{Identical|Close}}",
-
-	"bootstrap-components-image-modal-source-button" : "Text on the button linking to the image source page.",
-
+	"bootstrap-components-close-element": "Text for the close button of various components.\n\n{{Identical|Close}}",
+	"bootstrap-components-image-modal-source-button": "Text on the button linking to the image source page.",
 	"bootstrap-components-lua-error-no-component": "Error message that indicates, that there was no component name provided to the lua parse function.",
 	"bootstrap-components-lua-error-invalid-component": "Error message that indicates, that there was an invalid component name provided to the lua parse function.\n\nParameters:\n* $1 - invalid component provided",
-
-	"bootstrap-components-badge-content-missing" : "Error message that indicates, that the text is missing in a badge component. Please supply an input text after the double colon.",
-	"bootstrap-components-button-target-missing" : "Error message that indicates, that the button component has its target missing. Please supply a target after the double colon.",
-	"bootstrap-components-button-target-invalid" : "Error message that indicates, that the button component has an invalid target. Please supply a valid target after the double colon.",
-	"bootstrap-components-carousel-images-missing" : "Error message that indicates, that there were no images supplied to the carousel component.",
-	"bootstrap-components-glyph-icon-name-missing" : "Error message that indicates, that there has been no icon name supplied to the glyphicon component. Please supply an input text after the double colon.",
-	"bootstrap-components-label-content-missing" : "Error message that indicates, that the content is missing in a label component. Please supply an input text after the double colon.",
-	"bootstrap-components-modal-text-missing" : "Error message that indicates, that the text is missing in a modal component. Please supply a non empty attribute text.",
-	"bootstrap-components-popover-heading-missing" : "Error message that indicates, that a popover has no heading supplied. Please supply a non empty attribute heading.",
-	"bootstrap-components-popover-text-missing" : "Error message that indicates, that a popover has no text supplied. Please supply a non empty attribute text.",
-	"bootstrap-components-tooltip-content-missing" : "Error message that indicates, that a tooltip is missing the text to be tooltip'd. Please supply an input text after the double colon.",
-	"bootstrap-components-tooltip-target-missing" : "Error message that indicates, that a tooltip is missing its tooltip. Please supply a non empty attribute text."
+	"bootstrap-components-badge-content-missing": "Error message that indicates, that the text is missing in a badge component. Please supply an input text after the double colon.",
+	"bootstrap-components-button-target-missing": "Error message that indicates, that the button component has its target missing. Please supply a target after the double colon.",
+	"bootstrap-components-button-target-invalid": "Error message that indicates, that the button component has an invalid target. Please supply a valid target after the double colon.",
+	"bootstrap-components-carousel-images-missing": "Error message that indicates, that there were no images supplied to the carousel component.",
+	"bootstrap-components-glyph-icon-name-missing": "Error message that indicates, that there has been no icon name supplied to the glyphicon component. Please supply an input text after the double colon.",
+	"bootstrap-components-label-content-missing": "Error message that indicates, that the content is missing in a label component. Please supply an input text after the double colon.",
+	"bootstrap-components-modal-text-missing": "Error message that indicates, that the text is missing in a modal component. Please supply a non empty attribute text.",
+	"bootstrap-components-popover-heading-missing": "Error message that indicates, that a popover has no heading supplied. Please supply a non empty attribute heading.",
+	"bootstrap-components-popover-text-missing": "Error message that indicates, that a popover has no text supplied. Please supply a non empty attribute text.",
+	"bootstrap-components-tooltip-content-missing": "Error message that indicates, that a tooltip is missing the text to be tooltip'd. Please supply an input text after the double colon.",
+	"bootstrap-components-tooltip-target-missing": "Error message that indicates, that a tooltip is missing its tooltip. Please supply a non empty attribute text."
 }

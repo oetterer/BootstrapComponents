@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eduardo Addad de Oliveira"
+		]
+	},
+	"bootstrap-components-desc": "Pretende fornecer aos editores um acesso fácil a determinados componentes introduzidos pelo Twitter Bootstrap 3",
+	"bootstrap-components-error-tracking-category": "Páginas com erros no componente bootstrap",
+	"bootstrap-components-close-element": "Fechar",
+	"bootstrap-components-image-modal-source-button": "Visite fonte",
+	"bootstrap-components-lua-error-no-component": "Nenhum nome de componente fornecido para mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Nome do componente inválido passado para mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "Você deve especificar um texto para este distintivo.",
+	"bootstrap-components-button-target-missing": "Você deve especificar um alvo para este botão.",
+	"bootstrap-components-button-target-invalid": "Você deve especificar um alvo válido para este botão.",
+	"bootstrap-components-carousel-images-missing": "Não há imagens configuradas no carrossel.",
+	"bootstrap-components-glyph-icon-name-missing": "Você deve especificar um nome de ícone.",
+	"bootstrap-components-label-content-missing": "Você deve especificar um texto de rótulo.",
+	"bootstrap-components-modal-text-missing": "Você deve especificar um texto para este botão modal.",
+	"bootstrap-components-popover-heading-missing": "Você deve especificar um título para este popover.",
+	"bootstrap-components-popover-text-missing": "Você deve especificar um texto para este popover.",
+	"bootstrap-components-tooltip-content-missing": "Esta dica de ferramenta está faltando seu atributo de texto e, portanto, a dica de ferramenta real.",
+	"bootstrap-components-tooltip-target-missing": "Você deve especificar texto ou imagem, a dica de ferramenta deve ser adicionada."
+}

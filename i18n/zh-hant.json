@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kly"
+		]
+	},
+	"bootstrap-components-close-element": "關閉",
+	"bootstrap-components-image-modal-source-button": "觀看來源頁面",
+	"bootstrap-components-button-target-missing": "您必須為此按鍵指定目標。",
+	"bootstrap-components-button-target-invalid": "您必須為此按鍵指定有效的目標。"
+}

@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Liuxinyu970226"
+		]
+	},
+	"bootstrap-components-desc": "此扩展的目标是提供更易访问由Twitter Bootstrap 3引进的特定部件编辑器",
+	"bootstrap-components-error-tracking-category": "页面有bootstrap部件错误",
+	"bootstrap-components-close-element": "关闭",
+	"bootstrap-components-image-modal-source-button": "访问源代码",
+	"bootstrap-components-lua-error-no-component": "没有为mw.bootstrap.parse提供部件名称。",
+	"bootstrap-components-lua-error-invalid-component": "传递给mw.bootstrap.parse的部件名称无效：$1。",
+	"bootstrap-components-badge-content-missing": "您必须指定此徽章的文本。",
+	"bootstrap-components-button-target-missing": "您必须指定此按钮的目标。",
+	"bootstrap-components-button-target-invalid": "您必须指定此按钮的有效目标。",
+	"bootstrap-components-carousel-images-missing": "在传送带中没有图片集。",
+	"bootstrap-components-glyph-icon-name-missing": "您必须指定图标名称。",
+	"bootstrap-components-label-content-missing": "您必须指定标签文本。",
+	"bootstrap-components-modal-text-missing": "您必须指定此模式按钮的文本。",
+	"bootstrap-components-popover-heading-missing": "您必须指定此弹出元素的标题。",
+	"bootstrap-components-popover-text-missing": "您必须指定此弹出元素的文本。",
+	"bootstrap-components-tooltip-content-missing": "此提示框缺少文本属性，并因此缺少实际提示信息。",
+	"bootstrap-components-tooltip-target-missing": "您必须指定文本或图片，这是提示框要加入的地方。"
+}

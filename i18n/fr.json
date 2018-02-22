@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Gomoko"
+		]
+	},
+	"bootstrap-components-desc": "Vise à fournir aux éditeurs un accès facile à certains composants introduits par Bootstrap 3 de Twitter",
+	"bootstrap-components-error-tracking-category": "Pages avec des erreurs de composant bootstrap",
+	"bootstrap-components-close-element": "Fermer",
+	"bootstrap-components-image-modal-source-button": "Visiter la source",
+	"bootstrap-components-lua-error-no-component": "Aucun nom de composant fourni pour mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Nom de composant non valide passé à mw.bootstrap.parse : $1.",
+	"bootstrap-components-badge-content-missing": "Vous devez spécifier un texte pour ce badge.",
+	"bootstrap-components-button-target-missing": "Vous devez spécifier une cible pour ce bouton.",
+	"bootstrap-components-button-target-invalid": "Vous devez spécifier une cible valide pour ce bouton.",
+	"bootstrap-components-carousel-images-missing": "Il n’y a aucun ensemble d’images dans le carrousel.",
+	"bootstrap-components-glyph-icon-name-missing": "Vous devez spécifier un nom d’icône.",
+	"bootstrap-components-label-content-missing": "Vous devez spécifier un texte de libellé.",
+	"bootstrap-components-modal-text-missing": "Vous devez spécifier un texte pour ce bouton modal.",
+	"bootstrap-components-popover-heading-missing": "Vous devez spécifier un titre pour ce popover.",
+	"bootstrap-components-popover-text-missing": "Vous devez spécifier un texte pour ce popover.",
+	"bootstrap-components-tooltip-content-missing": "Cette bulle n’a pas d’attribut texte et n’est donc pas une vraie bulle.",
+	"bootstrap-components-tooltip-target-missing": "Vous devez spécifier un texte ou une image, auquel la bulle doit être ajoutée."
+}

@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Athena in Wonderland"
+		]
+	},
+	"bootstrap-components-desc": "Ajuda a fornecer aos editores um acesso fácil a determinados componentes introduzidos pelo Twitter Bootstrap 3",
+	"bootstrap-components-error-tracking-category": "Páginas com erros no componente bootstrap",
+	"bootstrap-components-close-element": "Fechar",
+	"bootstrap-components-image-modal-source-button": "Visitar fonte",
+	"bootstrap-components-lua-error-no-component": "Não foi fornecido o nome de componente para mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Nome do componente inválido, passado para mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "Tem de especificar um texto para este emblema.",
+	"bootstrap-components-button-target-missing": "Tem de especificar um destino para este botão.",
+	"bootstrap-components-button-target-invalid": "Tem de especificar um destino válido para este botão.",
+	"bootstrap-components-carousel-images-missing": "Não há imagens definidas no carrossel.",
+	"bootstrap-components-glyph-icon-name-missing": "Tem de especificar um nome para o ícone.",
+	"bootstrap-components-label-content-missing": "Tem de especificar um texto para o rótulo.",
+	"bootstrap-components-modal-text-missing": "Tem de especificar um texto para este botão modal.",
+	"bootstrap-components-popover-heading-missing": "Tem de especificar um cabeçalho para este popover.",
+	"bootstrap-components-popover-text-missing": "Tem de especificar um texto para este popover.",
+	"bootstrap-components-tooltip-content-missing": "Falta o atributo do texto a esta dica, e portanto a dica atual.",
+	"bootstrap-components-tooltip-target-missing": "Tem de especificar um texto ou uma imagem, a dica também deve ser acrescentada."
+}

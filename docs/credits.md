@@ -15,6 +15,9 @@ Integration tests use the `JsonTestCaseScriptRunner` class created by
 mwjames for [SemanticMediaWiki] and both json test classes and the
 `ReadmeContentsBuilder` are adaptions of his work, also.
 
+Translations have been provided by the members of the [Translatewiki.net
+project](https://translatewiki.net).
+
 ### Dependencies
 
 The BootstrapComponents extension uses the Bootstrap extension by

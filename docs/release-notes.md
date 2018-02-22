@@ -1,6 +1,16 @@
 ## Release Notes
 
-### Bootstrap 1.2
+### BootstrapComponents 1.2.1
+
+Released on 22-Feb-2018
+
+Changes:
+* add translations via translatewiki
+
+Fixes
+* fix copy/paste error in "illegal call fix" from v 1.2.0
+
+### BootstrapComponents 1.2
 
 Released on 20-Feb-2018
 
@@ -16,7 +26,7 @@ Changes:
 Fixes:
 * illegal call to User->loadFromSession() triggered by Extension:CodeMirror 
 
-### Bootstrap 1.1.1
+### BootstrapComponents 1.1.1
 
 Released on 06-Feb-2018
 
@@ -29,7 +39,7 @@ Fixes:
 * carousel unable to process the same image more than once
 * component collapse broken for invalid images as trigger
 
-### Bootstrap 1.1
+### BootstrapComponents 1.1
 
 Released on 02-Feb-2018
 
@@ -37,7 +47,7 @@ Released on 02-Feb-2018
   * `parse` to render components
   * `getSkin` to get the name of the current skin
 
-### Bootstrap 1.0
+### BootstrapComponents 1.0
 
 Released on 30-Jan-2018
 

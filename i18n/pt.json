@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Athena in Wonderland"
+			"Athena in Wonderland",
+			"Hamilton Abreu"
 		]
 	},
 	"bootstrap-components-desc": "Ajuda a fornecer aos editores um acesso fácil a determinados componentes introduzidos pelo Twitter Bootstrap 3",
@@ -19,6 +20,6 @@
 	"bootstrap-components-modal-text-missing": "Tem de especificar um texto para este botão modal.",
 	"bootstrap-components-popover-heading-missing": "Tem de especificar um cabeçalho para este popover.",
 	"bootstrap-components-popover-text-missing": "Tem de especificar um texto para este popover.",
-	"bootstrap-components-tooltip-content-missing": "Falta o atributo do texto a esta dica, e portanto a dica atual.",
-	"bootstrap-components-tooltip-target-missing": "Tem de especificar um texto ou uma imagem, a dica também deve ser acrescentada."
+	"bootstrap-components-tooltip-content-missing": "Falta o atributo texto a esta dica, portanto, falta a dica em si mesma.",
+	"bootstrap-components-tooltip-target-missing": "Tem de especificar um texto ou uma imagem, ao qual a dica deve ser acrescentada."
 }

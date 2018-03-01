@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"ديفيد"
+		]
+	},
+	"bootstrap-components-desc": "يهدف إلى تزويد المحررين بسهولة الوصول إلى بعض المكونات التي أدخلها تويتر بوتستراب 3",
+	"bootstrap-components-error-tracking-category": "الصفحات ذات أخطاء مكون التمهيد",
+	"bootstrap-components-close-element": "أغلق",
+	"bootstrap-components-image-modal-source-button": "اعرض المصدر",
+	"bootstrap-components-lua-error-no-component": "م يتم توفير اسم مكون لـmw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "تم تمرير اسم مكون غير صالح إلى mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "يجب تحديد نص لهذه الشارة.",
+	"bootstrap-components-button-target-missing": "يجب تحديد هدف لهذا الزر.",
+	"bootstrap-components-button-target-invalid": "يجب تحديد هدف صالح لهذا الزر.",
+	"bootstrap-components-carousel-images-missing": "لا توجد مجموعة صور في دائرة الصور.",
+	"bootstrap-components-glyph-icon-name-missing": "يجب تحديد اسم أيقونة.",
+	"bootstrap-components-label-content-missing": "يجب تحديد نص تسمية.",
+	"bootstrap-components-modal-text-missing": "يجب تحديد نص لزر الوسائط هذا.",
+	"bootstrap-components-popover-heading-missing": "يجب تحديد عنوان لهذا البوبوفر.",
+	"bootstrap-components-popover-text-missing": "يجب تحديد نص لهذا البوبوفر.",
+	"bootstrap-components-tooltip-content-missing": "تفتقد هذه الأداة سمة النص، وبالتالي تلميح الأداة الفعلي.",
+	"bootstrap-components-tooltip-target-missing": "يجب تحديد نص أو صورة، تجب إضافة تلميح الأداة إلى."
+}

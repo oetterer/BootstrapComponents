@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"bootstrap-components-desc": "Им овозможува на уредниците лесен пристап до извесни составници воведени од Bootstrap 3 на Twitter",
+	"bootstrap-components-error-tracking-category": "Страници со грешки во составниците на Bootstrap",
+	"bootstrap-components-close-element": "Затвори",
+	"bootstrap-components-image-modal-source-button": "Погл. извор",
+	"bootstrap-components-lua-error-no-component": "Не е укажан назив за mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Добиен е неважечки назив на составницата во mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "Мора да укажете текст за значкава.",
+	"bootstrap-components-button-target-missing": "Мора да укажете цел за копчево.",
+	"bootstrap-components-button-target-invalid": "Мора да укажете важечка цел за копчево.",
+	"bootstrap-components-carousel-images-missing": "Нема зададено слики во вртелешката.",
+	"bootstrap-components-glyph-icon-name-missing": "Мора да укажете име за иконата.",
+	"bootstrap-components-label-content-missing": "Мора да укажете текст за натписот.",
+	"bootstrap-components-modal-text-missing": "Мора да укажете текст за ова модалното копче.",
+	"bootstrap-components-popover-heading-missing": "Мора да укажете заглавие за отскочников.",
+	"bootstrap-components-popover-text-missing": "Мора да укажете текст за отскочников.",
+	"bootstrap-components-tooltip-content-missing": "Оваа поткажанка нема атрибут за текст и затоа не може да постои.",
+	"bootstrap-components-tooltip-target-missing": "Мора да укажете текст или слика во која ќе се додаде поткажанката."
+}

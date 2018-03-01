@@ -5,21 +5,21 @@
 			"Metalhead64"
 		]
 	},
-	"bootstrap-components-desc": "Ermöglicht Bearbeitern den einfachen Zugriff auf bestimmte Komponenten, die von Twitter Bootstrap 3 bereitgestellt werden",
+	"bootstrap-components-desc": "Ermöglicht Bearbeitern den einfachen Zugriff auf einige Komponenten, die von Twitter Bootstrap 3 bereitgestellt werden",
 	"bootstrap-components-error-tracking-category": "Seiten mit Bootstrap-Komponentenfehlern",
 	"bootstrap-components-close-element": "Schließen",
 	"bootstrap-components-image-modal-source-button": "Dateiseite aufrufen",
 	"bootstrap-components-lua-error-no-component": "Es wurde kein Komponentenname für „mw.bootstrap.parse“ angegeben.",
 	"bootstrap-components-lua-error-invalid-component": "Es wurde ein ungültiger Komponentenname an „mw.bootstrap.parse“ übergeben: $1.",
-	"bootstrap-components-badge-content-missing": "Zu dieser Auszeichnung muss ein Text angegeben werden.",
+	"bootstrap-components-badge-content-missing": "Zu diesem Schildchen muss ein Text angegeben werden.",
 	"bootstrap-components-button-target-missing": "Zu dieser Schaltfläche muss eine Zielseite angegeben werden.",
 	"bootstrap-components-button-target-invalid": "Zu dieser Schaltfläche muss eine gültige Zielseite angegeben werden.",
 	"bootstrap-components-carousel-images-missing": "Zu diesem Bilderkarussel wurden keine anzuzeigenden Bilder festgelegt.",
-	"bootstrap-components-glyph-icon-name-missing": "Es muss ein Name für das Symbol angegeben werden.",
-	"bootstrap-components-label-content-missing": "Du musst einen bezeichnenden Text angeben.",
-	"bootstrap-components-modal-text-missing": "Du musst einen Text für diesen modalen Button angeben.",
-	"bootstrap-components-popover-heading-missing": "Du musst eine Überschrift für diesen Popover angeben.",
-	"bootstrap-components-popover-text-missing": "Du musst einen Text für diesen Popover angeben.",
-	"bootstrap-components-tooltip-content-missing": "Diesem Tooltip fehlt sein Textattribut und somit der tatsächliche Tooltip.",
-	"bootstrap-components-tooltip-target-missing": "Du musst Text oder ein Bild angeben, zu dem der Tooltip hinzugefügt werden soll."
+	"bootstrap-components-glyph-icon-name-missing": "Zu diesem Symbol muss ein Name angegeben werden.",
+	"bootstrap-components-label-content-missing": "Zu dieser Komponente muss eine Beschriftung angegeben werden.",
+	"bootstrap-components-modal-text-missing": "Zu dieser modalen Schaltfläche muss ein Text angegeben werden.",
+	"bootstrap-components-popover-heading-missing": "Zu diesem Popover muss eine Überschrift angegeben werden.",
+	"bootstrap-components-popover-text-missing": "Zu diesem Popover muss ein Text angegeben werden.",
+	"bootstrap-components-tooltip-content-missing": "Zu diesem Tooltip muss ein Text angegeben werden.",
+	"bootstrap-components-tooltip-target-missing": "Zu diesem Tooltip muss ein Text oder Bild angegeben werden, bei dem er angezeigt werden soll."
 }

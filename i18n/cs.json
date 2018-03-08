@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ilimanaq29"
+		]
+	},
+	"bootstrap-components-desc": "Cíl k poskytnutí editorům jednoduchý přístup k určitým komponentům zavedeným Twitter Bootstrap 3",
+	"bootstrap-components-error-tracking-category": "Stránky s chybami komponentu bootstrap",
+	"bootstrap-components-close-element": "Zavřít",
+	"bootstrap-components-image-modal-source-button": "Zobrazit zdrojový kód",
+	"bootstrap-components-lua-error-no-component": "Žádný název komponentu nebyl definován pro mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Neplatný název komponentu prošel na mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "Musíte specifikovat text tohoto vyznamenání.",
+	"bootstrap-components-button-target-missing": "Musíte specifikovat cíl pro toto tlačítko.",
+	"bootstrap-components-button-target-invalid": "Musíte specifikovat platný cíl tohoto tlačítka.",
+	"bootstrap-components-carousel-images-missing": "V kolotoči nejsou nastaveny žádné obrázky.",
+	"bootstrap-components-glyph-icon-name-missing": "Musíte specifikovat název ikony.",
+	"bootstrap-components-label-content-missing": "Musíte specifikovat text cedulky",
+	"bootstrap-components-modal-text-missing": "Musíte specifikovat text modálního tlačítka.",
+	"bootstrap-components-popover-heading-missing": "Musíte specifikovat nadpis tohoto popoveru.",
+	"bootstrap-components-popover-text-missing": "Musíte specifikovat text tohoto popoveru.",
+	"bootstrap-components-tooltip-content-missing": "Tento návrh nástroje postrádá textový atribut a proto i aktuální návrh.",
+	"bootstrap-components-tooltip-target-missing": "Musíte specifikovat text nebo obrázek, do kterého by měl být tooltip vložen."
+}

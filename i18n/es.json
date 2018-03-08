@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fitoschido"
+		]
+	},
+	"bootstrap-components-desc": "Tiene por objeto proporcionar a los editores un acceso sencillo a algunos de los componentes de Bootstrap 3",
+	"bootstrap-components-error-tracking-category": "Páginas con errores en componentes de Bootstrap",
+	"bootstrap-components-close-element": "Cerrar",
+	"bootstrap-components-image-modal-source-button": "Visitar fuente",
+	"bootstrap-components-lua-error-no-component": "No se proporcionó ningún nombre de componente para mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Se transfirió un nombre de componente no válido a mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "Debes especificar el texto de este emblema.",
+	"bootstrap-components-button-target-missing": "Debes especificar el destino de este botón.",
+	"bootstrap-components-button-target-invalid": "Debes especificar un destino válido para este botón.",
+	"bootstrap-components-carousel-images-missing": "No hay ninguna imagen definida en el deslizador.",
+	"bootstrap-components-glyph-icon-name-missing": "Debes especificar un nombre de icono.",
+	"bootstrap-components-label-content-missing": "Debes especificar el texto de la etiqueta.",
+	"bootstrap-components-modal-text-missing": "Debes especificar el texto de este botón modal.",
+	"bootstrap-components-popover-heading-missing": "Debes especificar el título de este globo emergente.",
+	"bootstrap-components-popover-text-missing": "Debes especificar el texto de este globo emergente.",
+	"bootstrap-components-tooltip-content-missing": "A esta descripción de ayuda le falta el atributo de texto y, por ende, la descripción en sí.",
+	"bootstrap-components-tooltip-target-missing": "Debes especificar un elemento de texto o de imagen al cual atribuir la descripción de ayuda."
+}

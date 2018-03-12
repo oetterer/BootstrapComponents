@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"WikiPhoenix"
+		]
+	},
+	"bootstrap-components-desc": "Siktar mot att tillhandahålla redigerare med enkel åtkomst till vissa komponenter som introducerades i Twitter Bootstrap 3",
+	"bootstrap-components-error-tracking-category": "Sidor med komponentfel i bootstrap",
+	"bootstrap-components-close-element": "Stäng",
+	"bootstrap-components-image-modal-source-button": "Visa källa",
+	"bootstrap-components-lua-error-no-component": "Inget komponentnamn tillhandahölls för mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Ogiltigt komponentnamn skickades till mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "Du måste ange en text för detta emblem.",
+	"bootstrap-components-button-target-missing": "Du måste ange ett mål för denna knapp.",
+	"bootstrap-components-button-target-invalid": "Du måste ange ett giltigt mål för denna knapp.",
+	"bootstrap-components-carousel-images-missing": "Det finns inga bilder i denna karusell.",
+	"bootstrap-components-glyph-icon-name-missing": "Du måste ange ett ikonnamn.",
+	"bootstrap-components-label-content-missing": "Du måste ange en etikettext.",
+	"bootstrap-components-modal-text-missing": "Du måste ange en text för denna dialogknapp.",
+	"bootstrap-components-popover-heading-missing": "Du måste ange en rubrik för denna meny.",
+	"bootstrap-components-popover-text-missing": "Du måste ange en text för denna meny.",
+	"bootstrap-components-tooltip-content-missing": "Detta inforuta saknar sitt textattribut och därmed den egentliga inforuta.",
+	"bootstrap-components-tooltip-target-missing": "Du måste ange text eller en bild som ska läggas till i inforutan."
+}

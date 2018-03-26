@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ykhwong"
+			"Ykhwong",
+			"Nuevo Paso"
 		]
 	},
 	"bootstrap-components-close-element": "닫기",
+	"bootstrap-components-image-modal-source-button": "원본 보기",
 	"bootstrap-components-lua-error-no-component": "mw.bootstrap.parse에 지정된 구성 요소 이름이 없습니다.",
 	"bootstrap-components-lua-error-invalid-component": "mw.bootstrap.parse에 유효하지 않은 구성 요소 이름이 전달되었습니다: $1",
 	"bootstrap-components-button-target-missing": "이 버튼의 대상을 지정해야 합니다.",

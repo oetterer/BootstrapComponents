@@ -4,8 +4,21 @@
 			"Kly"
 		]
 	},
+	"bootstrap-components-desc": "意在提供給編輯者能簡易存取一些由 Twitter Bootstrap 3 引入的元件",
+	"bootstrap-components-error-tracking-category": "帶有 bootstrap 元件的頁面出錯",
 	"bootstrap-components-close-element": "關閉",
 	"bootstrap-components-image-modal-source-button": "觀看來源頁面",
+	"bootstrap-components-lua-error-no-component": "沒有替 mw.bootstrap.parse 提供元件名稱。",
+	"bootstrap-components-lua-error-invalid-component": "傳遞給 mw.bootstrap.parse 的無效元件名稱：$1。",
+	"bootstrap-components-badge-content-missing": "您必須為此徽章指定文字內容。",
 	"bootstrap-components-button-target-missing": "您必須為此按鍵指定目標。",
-	"bootstrap-components-button-target-invalid": "您必須為此按鍵指定有效的目標。"
+	"bootstrap-components-button-target-invalid": "您必須為此按鍵指定有效的目標。",
+	"bootstrap-components-carousel-images-missing": "沒有在輪播裡設定圖片。",
+	"bootstrap-components-glyph-icon-name-missing": "您必須指定一個圖標名稱。",
+	"bootstrap-components-label-content-missing": "您必須指定標籤文字內容。",
+	"bootstrap-components-modal-text-missing": "您必須為此模態按鍵指定文字內容。",
+	"bootstrap-components-popover-heading-missing": "您必須為此彈出提示框指定標題。",
+	"bootstrap-components-popover-text-missing": "您必須為此彈出提示框指定文字內容。",
+	"bootstrap-components-tooltip-content-missing": "工具提示框需補充文字屬性才有用。",
+	"bootstrap-components-tooltip-target-missing": "您必須指定工具提示框應加入的文字或圖片。"
 }

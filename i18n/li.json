@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ooswesthoesbes"
+		]
+	},
+	"bootstrap-components-desc": "Mik t'rop bewirkers mekkeliken tougank te beje veur bepaolde óngerdeile geïntroduceerd door Twitter Bootstrap 3",
+	"bootstrap-components-error-tracking-category": "Pagina's mit bootstrapkómponentefoute",
+	"bootstrap-components-close-element": "Sloet",
+	"bootstrap-components-image-modal-source-button": "Betrach brón",
+	"bootstrap-components-lua-error-no-component": "Geine componentnaam gebaoje veur mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Óngeljige componentnaam doorgegaove aan mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "Doe mós 'nen teks specifiëre veur dees lajing.",
+	"bootstrap-components-button-target-missing": "Doe mós e doel specifiëre veur deze knoep.",
+	"bootstrap-components-button-target-invalid": "Doe mós e geljig doel specifiëre veur deze knoep.",
+	"bootstrap-components-carousel-images-missing": "'t Geuf gein plaetjes in dees karresel.",
+	"bootstrap-components-glyph-icon-name-missing": "Doe mós 'ne labelnaam specifiëre.",
+	"bootstrap-components-label-content-missing": "Doe mós 'ne labelteks specifiëre.",
+	"bootstrap-components-modal-text-missing": "Doe mós 'ne teks specifiëre veur deze modaalknoep.",
+	"bootstrap-components-popover-heading-missing": "Doe mós e köpke specifiëre veur dezen popover.",
+	"bootstrap-components-popover-text-missing": "Doe mós 'nen teks specifiëre veur dezen popover.",
+	"bootstrap-components-tooltip-content-missing": "Deze zweefteks óntbrèk zien teksattribuut en is daoveur de feitelike zweefteks.",
+	"bootstrap-components-tooltip-target-missing": "Doe mós teks of e plaetje specifiëre; de zweefteks mót touveug waere"
+}

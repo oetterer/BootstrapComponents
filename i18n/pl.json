@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Chrumps",
+			"DeRudySoulStorm"
+		]
+	},
+	"bootstrap-components-close-element": "Zamknij",
+	"bootstrap-components-image-modal-source-button": "Zobacz źródło",
+	"bootstrap-components-button-target-missing": "Musisz określić cel dla tego przycisku.",
+	"bootstrap-components-button-target-invalid": "Musisz określić prawidłowy cel dla tego przycisku.",
+	"bootstrap-components-carousel-images-missing": "W karuzeli nie ma żadnych zdjęć.",
+	"bootstrap-components-glyph-icon-name-missing": "Musisz podać nazwę znacznika.",
+	"bootstrap-components-label-content-missing": "Musisz określić tekst etykiety."
+}

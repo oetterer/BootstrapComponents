@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Event",
+			"Imre Eilertsen",
+			"Orf3us"
+		]
+	},
+	"bootstrap-components-desc": "Sikter på at skaffe bidragsytere enkel adgang til visse komponenter innført gjennom Twitter Bootstrap 3",
+	"bootstrap-components-error-tracking-category": "Sider med feil i bootstrapkomponent",
+	"bootstrap-components-close-element": "Lukk",
+	"bootstrap-components-image-modal-source-button": "Vis kilde",
+	"bootstrap-components-lua-error-no-component": "Intet komponentnavn angitt for mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Ugyldig komponentnavn ble sendt til mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "Du må angi en tekst for dette emblemet.",
+	"bootstrap-components-button-target-missing": "Du må angi et mål for denne knappen.",
+	"bootstrap-components-button-target-invalid": "Du må angi et gyldig mål for denne knappen.",
+	"bootstrap-components-carousel-images-missing": "Det er ingen bilder angitt i denne karusellen.",
+	"bootstrap-components-glyph-icon-name-missing": "Du må angi et ikonnavn.",
+	"bootstrap-components-label-content-missing": "Du må angi en etikettekst.",
+	"bootstrap-components-modal-text-missing": "Du må angi en tekst for denne dialogknappen.",
+	"bootstrap-components-popover-heading-missing": "Du må angi en overskrift for denne overleggsmenyen.",
+	"bootstrap-components-popover-text-missing": "Du må angi en tekst for denne overleggsmenyen.",
+	"bootstrap-components-tooltip-content-missing": "Dette hintet mangler tekstattributtet og har derfor ingen funksjon.",
+	"bootstrap-components-tooltip-target-missing": "Du må angi en tekst eller et bilde som skal brukes i hintet."
+}

@@ -2,16 +2,24 @@
 	"@metadata": {
 		"authors": [
 			"Ykhwong",
-			"Nuevo Paso"
+			"Nuevo Paso",
+			"Jay94ks"
 		]
 	},
+	"bootstrap-components-desc": "Twitter Bootstrap 3에 도입된 특정 구성요소에 쉽게 접근할수 있는 편집기를 제공하는 것을 목표로 합니다.",
+	"bootstrap-components-error-tracking-category": "부트스트랩 컴포넌트 에러가 있는 페이지",
 	"bootstrap-components-close-element": "닫기",
 	"bootstrap-components-image-modal-source-button": "원본 보기",
 	"bootstrap-components-lua-error-no-component": "mw.bootstrap.parse에 지정된 구성 요소 이름이 없습니다.",
 	"bootstrap-components-lua-error-invalid-component": "mw.bootstrap.parse에 유효하지 않은 구성 요소 이름이 전달되었습니다: $1",
+	"bootstrap-components-badge-content-missing": "이 뱃지를 위한 텍스트를 반드시 지정해야 합니다.",
 	"bootstrap-components-button-target-missing": "이 버튼의 대상을 지정해야 합니다.",
 	"bootstrap-components-button-target-invalid": "이 버튼을 위한 유효한 대상을 지정해야 합니다.",
+	"bootstrap-components-carousel-images-missing": "로테이션될 이미지 세트가 없습니다.",
 	"bootstrap-components-glyph-icon-name-missing": "아이콘 이름을 지정해야 합니다.",
 	"bootstrap-components-label-content-missing": "레이블 텍스트를 지정해야 합니다.",
-	"bootstrap-components-modal-text-missing": "모달 버튼을 위한 텍스트를 지정해야 합니다."
+	"bootstrap-components-modal-text-missing": "모달 버튼을 위한 텍스트를 지정해야 합니다.",
+	"bootstrap-components-popover-heading-missing": "이 팝오버에 대한 표제를 지정하야 합니다.",
+	"bootstrap-components-popover-text-missing": "이 팝오버에 대한 텍스트를 지정하야 합니다.",
+	"bootstrap-components-tooltip-content-missing": "툴팁 텍스트가 누락되었습니다."
 }

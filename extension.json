@@ -1,6 +1,6 @@
 {
 	"name": "BootstrapComponents",
-	"version": "1.2.1",
+	"version": "1.2.2-alpha",
 	"author": [
 		"[https://www.semantic-mediawiki.org/wiki/User:Oetterer Tobias Oetterer]"
 	],
@@ -45,6 +45,7 @@
 		"BootstrapComponents\\Components\\Popover": "src/Components/Popover.php",
 		"BootstrapComponents\\Components\\Tooltip": "src/Components/Tooltip.php",
 		"BootstrapComponents\\Components\\Well": "src/Components/Well.php",
+		"BootstrapComponents\\Hooks\\OutputPageParserOutput": "src/Hooks/OutputPageParserOutput.php",
 		"BootstrapComponents\\Hooks\\ParserFirstCallInit": "src/Hooks/ParserFirstCallInit.php"
 	},
 	"@note2": "hooks are registered in BootstrapComponents\\Setup",

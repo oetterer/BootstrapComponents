@@ -53,7 +53,7 @@
 					"class=\"modal-dialog\"",
 					"class=\"modal-content\"",
 					"class=\"modal-header\"",
-					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
+					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>",
 					"class=\"modal-body\">\n<p>Modal content text\n</p>",
 					"class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
 				]
@@ -74,7 +74,7 @@
 					"class=\"modal-dialog\"",
 					"class=\"modal-content\"",
 					"class=\"modal-header\"",
-					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
+					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>",
 					"class=\"modal-body\">\n<p>Modal content text\n</p>",
 					"class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
 				]
@@ -91,7 +91,7 @@
 					"class=\"modal-dialog modal-lg\"",
 					"class=\"modal-content\"",
 					"class=\"modal-header\"",
-					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
+					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>",
 					"<span class=\"modal-title\">You can't take the sky from me</span></div>",
 					"class=\"modal-body\"",
 					">\n<p>Modal content text\n</p>",
@@ -111,7 +111,7 @@
 					"class=\"modal-dialog\"",
 					"class=\"modal-content\"",
 					"class=\"modal-header\"",
-					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
+					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>",
 					"class=\"modal-body\">\n<p>Modal content text\n</p>",
 					"class=\"modal-footer\"><button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"
 				],
@@ -137,7 +137,7 @@
 					"class=\"modal-dialog\"",
 					"class=\"modal-content\"",
 					"class=\"modal-header\"",
-					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&#215;</span></button>",
+					"<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>",
 					"class=\"modal-body\">",
 					"class=\"modal-footer\"",
 					"<button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\" aria-label=\"Close\">Close</button></div>"

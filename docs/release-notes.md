@@ -1,5 +1,15 @@
 ## Release Notes
 
+### BootstrapComponents 1.2.2
+
+Released on _not yet_
+
+Changes:
+* add translations via translatewiki
+
+Fixes:
+* fix modal popup <div> not generated (issue #12)
+
 ### BootstrapComponents 1.2.1
 
 Released on 22-Feb-2018

@@ -2,8 +2,9 @@
 
 namespace BootstrapComponents\Tests\Integration;
 
-use BootstrapComponents\Setup;
 use BootstrapComponents\ApplicationFactory;
+use BootstrapComponents\Hooks\OutputPageParserOutput;
+use BootstrapComponents\Setup;
 use SMW\DIWikiPage;
 use SMW\Tests\JsonTestCaseFileHandler;
 use SMW\Tests\JsonTestCaseScriptRunner;
@@ -56,10 +57,17 @@ class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JsonTestCaseScript
 
 		$this->stringValidator = $validatorFactory->newStringValidator();
 
-		// at this point, I normally would need to reset the lookup in the ApplicationFactory.
-		// only this causes problems with the re-registering of the parser function hooks and
+		// at this point, I normally would need to reset the complete lookup in the ApplicationFactory.
+		// Unfortunately, this causes problems with the re-registering of the parser function hooks and
 		// passing them the correct new NestingController
 		// here's to hoping, this is only botched in testing environment.
+		ApplicationFactory::getInstance()->resetLookup( 'ParserOutputHelper' );
+
+		#@fixme this is foobar to make modals work in integration tests. find a better solution
+		# see also \BootstrapComponents\AbstractComponent::getParserOutputHelper
+		if ( !defined( 'BSC_INTEGRATION_TEST' ) ) {
+			define( 'BSC_INTEGRATION_TEST', true );
+		}
 
 		$this->setup = new Setup( [] );
 		$this->setup->clear();
@@ -187,6 +195,17 @@ class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JsonTestCaseScript
 
 		/** @var \ParserOutput $parserOutput */
 		$parserOutput = $this->testEnvironment->getUtilityFactory()->newPageReader()->getEditInfo( $subject->getTitle() )->output;
+
+		try {
+			$outputPage = $this->getMockBuilder( 'OutputPage' )
+				->disableOriginalConstructor()
+				->getMock();
+			/** @noinspection PhpParamsInspection */
+			$hook = new OutputPageParserOutput( $outputPage, $parserOutput );
+			$hook->process();
+		} catch ( \Exception $e ) {
+			// nothing
+		}
 
 		if ( isset( $case['assert-output']['to-contain'] ) ) {
 			$this->stringValidator->assertThatStringContains(

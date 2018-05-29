@@ -4,9 +4,9 @@ namespace BootstrapComponents\Tests\Unit;
 
 use BootstrapComponents\ComponentLibrary;
 use BootstrapComponents\ParserOutputHelper;
-use BootstrapComponents\ParserRequest;
 use \MWException;
 use \Parser;
+use \ParserOutput;
 use \PHPUnit_Framework_MockObject_MockObject;
 use \PHPUnit_Framework_TestCase;
 
@@ -29,12 +29,23 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 	 */
 	private $parser;
 
+	/**
+	 * @var ParserOutput
+	 */
+	private $parserOutput;
+
 	public function setUp() {
 		parent::setUp();
+
+		$this->parserOutput = new ParserOutput( 'ParserOutputMockText' );
 
 		$this->parser = $this->getMockBuilder( 'Parser' )
 			->disableOriginalConstructor()
 			->getMock();
+
+		$this->parser->expects( $this->any() )
+			->method( 'getOutput' )
+			->willReturn( $this->parserOutput );
 	}
 
 	public function testCanConstruct() {
@@ -115,11 +126,11 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 	public function testCanGetContentForLaterInjection( $storedText, $expectedReturn ) {
 		$instance = new ParserOutputHelper( $this->parser );
 
-		$instance->injectLater( $storedText );
+		$instance->injectLater( 'FOOBAR', $storedText );
 
 		$this->assertEquals(
 			$expectedReturn,
-			$instance->getContentForLaterInjection()
+			$instance->getContentForLaterInjection( $this->parserOutput )
 		);
 	}
 

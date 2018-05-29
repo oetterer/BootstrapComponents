@@ -35,6 +35,15 @@ use \Html;
  * elements to be hardened by you (with the help of {@see Parser::recursiveTagParse}). All attribute elements
  * will be hardened here, through the use of {@see Html::rawElement}.
  *
+ * Tested hooks to insert the deferred content:
+ * * ParserBeforeTidy: Injects content anytime a parser is invoked. Including for instance the searchGoButton... :(
+ * * ParserAfterTidy: Same as ParserBeforeTidy
+ * * SkinAfterContent: Works; content inside mw-data-after-content container, which trails the "mw-content-text" and the "printfooter" divs.
+ *      Needs deferred content to be stored in parser cache. This runs into problems with fixed-head under chameleon 1.7.0+!
+ * * OutputPageParserOutput: Works; adds either at the bottom of the content (right after the tidy remarks and the comment containing caching information)
+ *      or at the top (at the start of the content div, direct after the "body text" comment); both options within the "mw-content-text" div container.
+ *      Needs deferred content to be stored in parser cache. This runs into problems with fixed-head under chameleon 1.7.0+!
+ *
  * @since 1.0
  */
 class ModalBuilder {
@@ -155,6 +164,7 @@ class ModalBuilder {
 	 */
 	public function parse() {
 		$this->parserOutputHelper->injectLater(
+			$this->getId(),
 			$this->buildModal()
 		);
 		return $this->buildTrigger();

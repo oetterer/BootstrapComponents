@@ -45,6 +45,11 @@ class ParserOutputHelper {
 	/**
 	 * @var string
 	 */
+	const EXTENSION_DATA_DEFERRED_CONTENT_KEY = 'bsc_deferredContent';
+
+	/**
+	 * @var string
+	 */
 	const INJECTION_PREFIX = '<!-- injected by Extension:BootstrapComponents -->';
 
 	/**
@@ -65,13 +70,6 @@ class ParserOutputHelper {
 	 * @var bool $articleTrackedOnError
 	 */
 	private $articleTrackedOnError;
-
-	/**
-	 * Here, components can store html to be added to the page at a later time.
-	 *
-	 * @var string $contentForLaterInjection
-	 */
-	private $contentForLaterInjection;
 
 	/**
 	 * Holds the name of the skin we use (or false, if there is no skin).
@@ -102,7 +100,6 @@ class ParserOutputHelper {
 		$this->nameOfActiveSkin = $this->detectSkinInUse(
 			defined( 'MW_NO_SESSION' )
 		);
-		$this->contentForLaterInjection = '';
 	}
 
 	/**
@@ -157,16 +154,20 @@ class ParserOutputHelper {
 	/**
 	 * Returns the raw html that is be inserted at the end of the page.
 	 *
+	 * @param \ParserOutput $parserOutput
+	 *
 	 * @return string
 	 */
-	public function getContentForLaterInjection() {
-		if ( $this->contentForLaterInjection == '' ) {
+	public function getContentForLaterInjection( \ParserOutput $parserOutput ) {
+		$deferredContent = $parserOutput->getExtensionData( self::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
+
+		if ( empty( $deferredContent ) || !is_array( $deferredContent ) ) {
 			return '';
 		}
-		$ret = self::INJECTION_PREFIX . $this->contentForLaterInjection . self::INJECTION_SUFFIX;
-		// clear the stored injection content, so that integration tests can run correctly
-		$this->contentForLaterInjection = '';
-		return $ret;
+
+		// clearing extension data for unit and integration tests to work
+		$parserOutput->setExtensionData( self::EXTENSION_DATA_DEFERRED_CONTENT_KEY, null );
+		return self::INJECTION_PREFIX . implode( array_values( $deferredContent ) ) . self::INJECTION_SUFFIX;
 	}
 
 	/**
@@ -177,15 +178,21 @@ class ParserOutputHelper {
 	}
 
 	/**
-	 * Allows to store html that will be added to the page at a later time.
+	 * Allows for html fragments for a given container id to be stored, so that it can be added to the page at a later time.
 	 *
+	 * @param string $id
 	 * @param string $rawHtml
 	 *
 	 * @return ParserOutputHelper $this (fluid)
 	 */
-	public function injectLater( $rawHtml ) {
+	public function injectLater( $id, $rawHtml ) {
 		if ( !empty( $rawHtml ) ) {
-			$this->contentForLaterInjection .= $rawHtml;
+			$deferredContent = $this->getParser()->getOutput()->getExtensionData( self::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
+			if ( empty( $deferredContent ) ) {
+				$deferredContent = [];
+			}
+			$deferredContent[$id] = $rawHtml;
+			$this->getParser()->getOutput()->setExtensionData( self::EXTENSION_DATA_DEFERRED_CONTENT_KEY, $deferredContent );
 		}
 		return $this;
 	}
@@ -253,7 +260,11 @@ class ParserOutputHelper {
 			return $skin->getSkinName();
 		}
 		$mainConfig = MediaWikiServices::getInstance()->getMainConfig();
-		$defaultSkin = $mainConfig->get( 'DefaultSkin' );
+		try {
+			$defaultSkin = $mainConfig->get( 'DefaultSkin' );
+		} catch ( \ConfigException $e ) {
+			$defaultSkin = 'unknown';
+		}
 		return empty( $defaultSkin ) ? 'unknown' : $defaultSkin;
 	}
 

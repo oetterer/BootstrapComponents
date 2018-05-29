@@ -26,6 +26,7 @@
 
 namespace BootstrapComponents;
 
+use BootstrapComponents\Hooks\OutputPageParserOutput;
 use \BootstrapComponents\Hooks\ParserFirstCallInit;
 use \Bootstrap\BootstrapManager;
 use \Hooks;
@@ -56,9 +57,10 @@ class Setup {
 	 */
 	const AVAILABLE_HOOKS = [
 		'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks',
-		'ParserBeforeTidy', 'ParserFirstCallInit', 'ScribuntoExternalLibraries',
-		'SetupAfterCache'
+		'OutputPageParserOutput', 'ParserFirstCallInit', 'ScribuntoExternalLibraries',
+		'SetupAfterCache',
 	];
+	// dev note: for modals, please see \BootstrapComponents\ModalBuilder for a list of tested hooks
 
 	/**
 	 * @var ComponentLibrary $componentLibrary
@@ -154,7 +156,7 @@ class Setup {
 	 * @return string[]
 	 */
 	public function compileRequestedHooksListFor( $myConfig ) {
-		$requestedHookList = [ 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ];
+		$requestedHookList = [ 'OutputPageParserOutput', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ];
 		if ( $myConfig->has( 'BootstrapComponentsEnableCarouselGalleryMode' )
 			&& $myConfig->get( 'BootstrapComponentsEnableCarouselGalleryMode' )
 		) {
@@ -209,19 +211,17 @@ class Setup {
 			'InternalParseBeforeLinks' => $this->createInternalParseBeforeLinksCallback(),
 
 			/**
-			 * Hook: ParserBeforeTidy
+			 * Hook: OutputPageParserOutput
 			 *
-			 * Used to process the nearly-rendered html code for the page (but before any html tidying occurs).
+			 * Called after parse, before the HTML is added to the output.
 			 *
-			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserBeforeTidy
+			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/OutputPageParserOutput
 			 */
-			'ParserBeforeTidy'         => function( \Parser &$parser, &$text, $parserOutputHelper = null ) {
-				// injects right before the tidy marker report (e.g. <!-- Tidy found no errors -->), at the very end of the wiki text content
-				if ( is_null( $parserOutputHelper ) ) {
-					$parserOutputHelper = ApplicationFactory::getInstance()->getParserOutputHelper( $parser );
-				}
-				$text .= $parserOutputHelper->getContentForLaterInjection();
-				return true;
+			'OutputPageParserOutput'   => function( \OutputPage &$outputPage, \ParserOutput $parserOutput, ParserOutputHelper &$parserOutputHelper = null ) {
+				// check, if we need to omit execution on actions edit, submit, or history
+				// $action = $outputPage->parserOptions()->getUser()->getRequest()->getVal( "action" );
+				$hook = new OutputPageParserOutput( $outputPage, $parserOutput, $parserOutputHelper );
+				return $hook->process();
 			},
 
 			/**

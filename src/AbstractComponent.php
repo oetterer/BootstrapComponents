@@ -26,6 +26,7 @@
 
 namespace BootstrapComponents;
 
+use function Couchbase\defaultDecoder;
 use \MWException;
 
 /**
@@ -215,7 +216,12 @@ abstract class AbstractComponent implements NestableInterface {
 	 * @return ParserOutputHelper
 	 */
 	protected function getParserOutputHelper() {
-		return $this->parserOutputHelper;
+		if ( !defined( 'BSC_INTEGRATION_TEST' ) ) {
+			#@fixme this is foobar to make modals work in integration tests. find a better solution
+			# see also \BootstrapComponents\Tests\Integration\BootstrapComponentsJsonTestCaseScriptRunnerTest::setUp
+			return $this->parserOutputHelper;
+		}
+		return ApplicationFactory::getInstance()->getParserOutputHelper();
 	}
 
 	/**

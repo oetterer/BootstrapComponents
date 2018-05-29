@@ -55,7 +55,7 @@ class ModalTest extends ComponentsTestBase {
 			->getMock();
 		$parserOutputHelper->expects( $this->any() )
 			->method( 'injectLater' )
-			->will( $this->returnCallback( function( $text ) use ( &$modalInjection ) {
+			->will( $this->returnCallback( function( $id, $text ) use ( &$modalInjection ) {
 				$modalInjection .= $text;
 			} ) );
 		$parserOutputHelper->expects( $this->any() )

@@ -355,7 +355,7 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 			->getMock();
 		$parserOutputHelper->expects( $this->any() )
 			->method( 'injectLater' )
-			->will( $this->returnCallback( function( $text ) use ( &$modalInjection ) {
+			->will( $this->returnCallback( function( $id, $text ) use ( &$modalInjection ) {
 				$modalInjection .= $text;
 			} ) );
 

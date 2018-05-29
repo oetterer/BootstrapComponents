@@ -2,6 +2,7 @@
 
 namespace BootstrapComponents\Tests\Unit;
 
+use BootstrapComponents\ParserOutputHelper;
 use BootstrapComponents\Setup as Setup;
 use \PHPUnit_Framework_TestCase;
 
@@ -294,6 +295,7 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 				$this->stringContains( 'bsc_no_image_modal' ),
 				$this->isType( 'boolean' )
 			);
+
 		$parser = $this->getMockBuilder( 'Parser' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -325,33 +327,52 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	 * @throws \ConfigException
 	 * @throws \MWException
 	 */
-	public function testHookParserBeforeTidy() {
+	public function testHookOutputPageParserOutput() {
+		$content = 'CONTENT';
 		$parser = $this->getMockBuilder( 'Parser' )
 			->disableOriginalConstructor()
 			->getMock();
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
+		$parserOutput = $this->getMockBuilder( 'ParserOutput' )
 			->disableOriginalConstructor()
 			->getMock();
-		$parserOutputHelper->expects( $this->exactly( 2 ) )
-			->method( 'getContentForLaterInjection' )
-			->willReturnOnConsecutiveCalls( '', 'call2' );
+		$parserOutput->expects( $this->exactly( 2 ) )
+			->method( 'getExtensionData' )
+			->with(
+				$this->stringContains( 'bsc_deferredContent' )
+			)
+			->willReturnOnConsecutiveCalls( [], [ 'call2' ] );
+		$parserOutput->expects( $this->exactly( 2 ) )
+			->method( 'getText' )
+			->will( $this->returnCallback( function() use ( &$content ) {
+				return $content;
+			} ) );
+		$parserOutput->expects( $this->exactly( 2 ) )
+			->method( 'setText' )
+			->will( $this->returnCallback( function( $injection ) use ( &$content ) {
+				$content = $injection;
+			} ) );
+		$outputPage = $this->getMockBuilder( 'OutputPage' )
+			->disableOriginalConstructor()
+			->getMock();
 
-		$callback = $this->getCallBackForHook( 'ParserBeforeTidy' );
+		/** @noinspection PhpParamsInspection */
+		$parserOutputHelper = new ParserOutputHelper( $parser );
 
-		$text = '';
+		$callback = $this->getCallBackForHook( 'OutputPageParserOutput' );
+
 		$this->assertTrue(
-			$callback( $parser, $text, $parserOutputHelper )
+			$callback( $outputPage, $parserOutput, $parserOutputHelper )
 		);
 		$this->assertEquals(
-			'',
-			$text
+			'CONTENT',
+			$content
 		);
 		$this->assertTrue(
-			$callback( $parser, $text, $parserOutputHelper )
+			$callback( $outputPage, $parserOutput, $parserOutputHelper )
 		);
 		$this->assertEquals(
-			'call2',
-			$text
+			'CONTENT<!-- injected by Extension:BootstrapComponents -->call2<!-- /injected by Extension:BootstrapComponents -->',
+			$content
 		);
 	}
 
@@ -434,22 +455,22 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 		return [
 			'onlydefault' => [
 				[],
-				[ 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', ],
+				[ 'OutputPageParserOutput', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', ],
 				[ 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
 			],
 			'gallery activated' => [
 				[ 'BootstrapComponentsEnableCarouselGalleryMode' ],
-				[ 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'GalleryGetModes', ],
+				[ 'OutputPageParserOutput', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'GalleryGetModes', ],
 				[ 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
 			],
 			'image replacement activated' => [
 				[ 'BootstrapComponentsModalReplaceImageTag' ],
-				[ 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
+				[ 'OutputPageParserOutput', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
 				[ 'GalleryGetModes', ],
 			],
 			'both activated' => [
 				[ 'BootstrapComponentsEnableCarouselGalleryMode', 'BootstrapComponentsModalReplaceImageTag' ],
-				[ 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
+				[ 'OutputPageParserOutput', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
 				[],
 			],
 		];

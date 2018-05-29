@@ -7,20 +7,27 @@ use PHPUnit_Framework_AssertionFailedError;
 use PHPUnit_Framework_Test;
 use PHPUnit_Framework_TestListener;
 use PHPUnit_Framework_TestSuite;
+use PHPUnit_Framework_Warning;
 
 /**
  * Class ExecutionTimeTestListener
  *
- * @since 1.1
+ * @since   1.1
  *
  * @package BootstrapComponents\Tests
  */
 class ExecutionTimeTestListener implements PHPUnit_Framework_TestListener {
 
-	protected $testCollector = array();
+	protected $testCollector = [];
 	protected $executionTimeThresholdInSeconds = 10;
 	protected $isEnabledToListen = true;
 
+	/**
+	 * ExecutionTimeTestListener constructor.
+	 *
+	 * @param bool $isEnabledToListen
+	 * @param int  $executionTimeThresholdInSeconds
+	 */
 	public function __construct( $isEnabledToListen, $executionTimeThresholdInSeconds ) {
 		$this->isEnabledToListen = $isEnabledToListen;
 		$this->executionTimeThresholdInSeconds = $executionTimeThresholdInSeconds;
@@ -36,7 +43,7 @@ class ExecutionTimeTestListener implements PHPUnit_Framework_TestListener {
 	 * @see PHPUnit_Framework_TestListener::endTest
 	 */
 	public function endTest( PHPUnit_Framework_Test $test, $length ) {
-		if ( $this->isEnabledToListen && ( $length > $this->executionTimeThresholdInSeconds ) ) {
+		if ( $this->isEnabledToListen && ($length > $this->executionTimeThresholdInSeconds) ) {
 			$this->testCollector[$test->getName()] = round( $length, 3 );
 		}
 	}
@@ -60,7 +67,7 @@ class ExecutionTimeTestListener implements PHPUnit_Framework_TestListener {
 	}
 
 	/**
-	 * @see PHPUnit_Framework_TestListener::addRiskyTest
+	 * @see   PHPUnit_Framework_TestListener::addRiskyTest
 	 * @since 4.0.0
 	 */
 	public function addRiskyTest( PHPUnit_Framework_Test $test, Exception $e, $time ) {
@@ -70,6 +77,13 @@ class ExecutionTimeTestListener implements PHPUnit_Framework_TestListener {
 	 * @see PHPUnit_Framework_TestListener::addSkippedTest
 	 */
 	public function addSkippedTest( PHPUnit_Framework_Test $test, Exception $e, $time ) {
+	}
+
+	/**
+	 * @see   PHPUnit_Framework_TestListener::addWarning
+	 * @since 6.0.0
+	 */
+	public function addWarning( PHPUnit_Framework_Test $test, PHPUnit_Framework_Warning $e, $time ) {
 	}
 
 	/**
@@ -83,7 +97,7 @@ class ExecutionTimeTestListener implements PHPUnit_Framework_TestListener {
 	 */
 	public function endTestSuite( PHPUnit_Framework_TestSuite $suite ) {
 		foreach ( $this->testCollector as $name => $length ) {
-			print ( "\n" . $suite->getName() . " {$name} ran for {$length} seconds" . "\n" );
+			print ("\n" . $suite->getName() . " {$name} ran for {$length} seconds" . "\n");
 			unset( $this->testCollector[$name] );
 		}
 	}

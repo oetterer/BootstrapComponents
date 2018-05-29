@@ -138,7 +138,11 @@ class AbstractComponentTest extends ComponentsTestBase {
 			$this->getParserOutputHelper(),
 			$this->getNestingController()
 		);
-		$this->setExpectedException( 'MWException' );
+		if ( method_exists( $this, 'expectException' ) ) {
+			$this->expectException( 'MWException' );
+		} else {
+			$this->setExpectedException( 'MWException' );
+		}
 		/** @noinspection PhpParamsInspection */
 		$instance->parseComponent(
 			'noParser'

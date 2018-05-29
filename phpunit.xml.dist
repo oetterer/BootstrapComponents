@@ -13,7 +13,7 @@
          stopOnSkipped="false"
          verbose="true">
     <listeners>
-        <listener file="tests/phpunit/ExecutionTimeTestListener.php" class="BootstrapComponents\Tests\Unit\ExecutionTimeTestListener">
+        <listener file="tests/phpunit/ExecutionTimeTestListener.php" class="BootstrapComponents\Tests\ExecutionTimeTestListener">
             <arguments>
                 <boolean>true</boolean>
                 <integer>10</integer>

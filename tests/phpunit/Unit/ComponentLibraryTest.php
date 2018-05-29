@@ -230,7 +230,11 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	public function testFails( $method ) {
 		$instance = new ComponentLibrary();
 
-		$this->setExpectedException( 'MWException' );
+		if ( method_exists( $this, 'expectException' ) ) {
+			$this->expectException( 'MWException' );
+		} else {
+			$this->setExpectedException( 'MWException' );
+		}
 
 		call_user_func_array( [ $instance, $method ], [ null ] );
 	}
@@ -258,7 +262,11 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 				$instance->getModulesFor( $component, $skin )
 			);
 		}
-		$this->setExpectedException( 'MWException' );
+		if ( method_exists( $this, 'expectException' ) ) {
+			$this->expectException( 'MWException' );
+		} else {
+			$this->setExpectedException( 'MWException' );
+		}
 
 		$instance->getClassFor( 'well' );
 	}

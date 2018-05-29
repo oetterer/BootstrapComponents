@@ -93,7 +93,11 @@ class NestingControllerTest extends PHPUnit_Framework_TestCase {
 	public function testCloseFailOnEmptyStack() {
 		$instance = new NestingController();
 
-		$this->setExpectedException( 'MWException' );
+		if ( method_exists( $this, 'expectException' ) ) {
+			$this->expectException( 'MWException' );
+		} else {
+			$this->setExpectedException( 'MWException' );
+		}
 
 		$instance->close( 'invalid' );
 	}
@@ -106,7 +110,11 @@ class NestingControllerTest extends PHPUnit_Framework_TestCase {
 	public function testOpenFail() {
 		$instance = new NestingController();
 
-		$this->setExpectedException( 'MWException' );
+		if ( method_exists( $this, 'expectException' ) ) {
+			$this->expectException( 'MWException' );
+		} else {
+			$this->setExpectedException( 'MWException' );
+		}
 
 		$component = 'invalid';
 		/** @noinspection PhpParamsInspection */
@@ -121,7 +129,11 @@ class NestingControllerTest extends PHPUnit_Framework_TestCase {
 	public function testCloseFailOnInvalidId() {
 		$instance = new NestingController();
 
-		$this->setExpectedException( 'MWException' );
+		if ( method_exists( $this, 'expectException' ) ) {
+			$this->expectException( 'MWException' );
+		} else {
+			$this->setExpectedException( 'MWException' );
+		}
 
 		/** @var AbstractComponent $component */
 		$component = $this->getComponent( 'panel', 'BootstrapComponents\\Components\\Panel' );

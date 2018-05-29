@@ -67,7 +67,11 @@ class ParserRequestTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testCanNotConstruct( $arguments, $isParserFunction ) {
 
-		$this->setExpectedException( 'MWException' );
+		if ( method_exists( $this, 'expectException' ) ) {
+			$this->expectException( 'MWException' );
+		} else {
+			$this->setExpectedException( 'MWException' );
+		}
 
 		$this->assertInstanceOf(
 			'BootstrapComponents\\ParserRequest',

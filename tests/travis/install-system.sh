@@ -75,6 +75,12 @@ function installDependencies {
  composer require 'mediawiki/semantic-media-wiki=~2.5' --update-with-dependencies --no-suggest
  composer require 'mediawiki/bootstrap=*' --update-with-dependencies
 
+ if [ "$PHPUNIT" != "" ]; then
+  composer require 'phpunit/phpunit='$PHPUNIT --update-with-dependencies
+ else
+  composer require 'phpunit/phpunit=4.8.*' --update-with-dependencies
+ fi
+
  SCRIB="dev-$BRANCH"
  if [ "$MW" = "master" ]; then
   SCRIB="dev-REL1_30"

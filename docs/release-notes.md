@@ -9,6 +9,7 @@ Changes:
 
 Fixes:
 * fix modal popup <div> not generated (issue #12)
+* fix fatal error in BootstrapComponents\Tests\ExecutionTimeTestListener on mw master
 
 ### BootstrapComponents 1.2.1
 

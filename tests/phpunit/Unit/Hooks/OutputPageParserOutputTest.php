@@ -43,7 +43,7 @@ class OutputPageParserOutputTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testHookParserFirstCallInit() {
+	public function testHookOutputPageParserOutput() {
 		$content = 'CONTENT';
 		$parser = $this->getMockBuilder( 'Parser' )
 			->disableOriginalConstructor()

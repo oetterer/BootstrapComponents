@@ -122,7 +122,11 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 	public function testFailingGetNewParserRequest( $arguments, $isParserFunction ) {
 		$instance = new ApplicationFactory();
 
-		$this->setExpectedException( 'MWException' );
+		if ( method_exists( $this, 'expectException' ) ) {
+			$this->expectException( 'MWException' );
+		} else {
+			$this->setExpectedException( 'MWException' );
+		}
 
 		$instance->getNewParserRequest( $arguments, $isParserFunction );
 	}
@@ -155,7 +159,11 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testCanNotRegisterApplicationOnInvalidClass() {
 		$instance = new ApplicationFactory();
-		$this->setExpectedException( 'MWException' );
+		if ( method_exists( $this, 'expectException' ) ) {
+			$this->expectException( 'MWException' );
+		} else {
+			$this->setExpectedException( 'MWException' );
+		}
 		$instance->registerApplication( 'test', 'FooBar' );
 	}
 

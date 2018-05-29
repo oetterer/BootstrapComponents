@@ -1,8 +1,16 @@
 ## Release Notes
 
-### BootstrapComponents 1.2.2
+### BootstrapComponents 1.2.3
 
 Released on _not yet_
+
+Changes:
+
+Fixes:
+
+### BootstrapComponents 1.2.2
+
+Released on 29-May-2018
 
 Changes:
 * add translations via translatewiki

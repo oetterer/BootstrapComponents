@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Esk78"
+		]
+	},
+	"bootstrap-components-desc": "Надає редакторам легкий доступ до деяких компонентів, введених в Twitter Bootstrap 3",
+	"bootstrap-components-error-tracking-category": "Сторінки з помилками компонента bootstrap",
+	"bootstrap-components-close-element": "Закрити",
+	"bootstrap-components-image-modal-source-button": "Переглянути джерело",
+	"bootstrap-components-lua-error-no-component": "Не вказана назва компонента для mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Недопустима назва компонента, який передається до mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "Ви повинні вказати текст для цього значка.",
+	"bootstrap-components-button-target-missing": "Ви повинні вказати ціль для цієї кнопки.",
+	"bootstrap-components-button-target-invalid": "Ви повинні вказати дійсну ціль для цієї кнопки.",
+	"bootstrap-components-carousel-images-missing": "В компоненті carousel немає зображень.",
+	"bootstrap-components-glyph-icon-name-missing": "Ви повинні вказати назву іконки.",
+	"bootstrap-components-label-content-missing": "Ви повинні вказати текст мітки.",
+	"bootstrap-components-modal-text-missing": "Ви повинні вказати текст для цієї модальної кнопки.",
+	"bootstrap-components-popover-heading-missing": "Ви повинні вказати заголовок для цього popover.",
+	"bootstrap-components-popover-text-missing": "Ви повинні вказати текст для цього popover.",
+	"bootstrap-components-tooltip-content-missing": "У цій підказці відсутній її текстовий атрибут і, отже, відсутня фактична підказка.",
+	"bootstrap-components-tooltip-target-missing": "Ви повинні вказати текст або зображення, до якого додається підказка."
+}

@@ -10,6 +10,7 @@
 	"bootstrap-components-image-modal-source-button": "Visitar la fonte",
 	"bootstrap-components-lua-error-no-component": "Nun s'apurrió nengún nome de componente pa mw.bootstrap.parse.",
 	"bootstrap-components-lua-error-invalid-component": "Pasóse un nome de componente inválidu a mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "Tienes d'especificar el testu d'esta insinia.",
 	"bootstrap-components-button-target-missing": "Tienes d'especificar el destín d'esti botón.",
 	"bootstrap-components-button-target-invalid": "Tienes d'especificar un destín válidu pa esti botón.",
 	"bootstrap-components-carousel-images-missing": "Nun hai nenguna imaxe definida nel carrusel.",

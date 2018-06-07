@@ -21,5 +21,6 @@
 	"bootstrap-components-modal-text-missing": "모달 버튼을 위한 텍스트를 지정해야 합니다.",
 	"bootstrap-components-popover-heading-missing": "이 팝오버에 대한 표제를 지정하야 합니다.",
 	"bootstrap-components-popover-text-missing": "이 팝오버에 대한 텍스트를 지정하야 합니다.",
-	"bootstrap-components-tooltip-content-missing": "툴팁 텍스트가 누락되었습니다."
+	"bootstrap-components-tooltip-content-missing": "툴팁 텍스트가 누락되었습니다.",
+	"bootstrap-components-tooltip-target-missing": "도구 설명을 추가할 텍스트나 그림을 지정해야 합니다."
 }

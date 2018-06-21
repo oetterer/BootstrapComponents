@@ -3,7 +3,8 @@
 		"authors": [
 			"Mouse21",
 			"Okras",
-			"Patrick Star"
+			"Patrick Star",
+			"Movses"
 		]
 	},
 	"bootstrap-components-desc": "Стремитесь предоставить редакторам легкий доступ к определенным компонентам, представленным Twitter Bootstrap 3",
@@ -16,11 +17,11 @@
 	"bootstrap-components-button-target-missing": "Вы должны указать цель для этой кнопки.",
 	"bootstrap-components-button-target-invalid": "Вы должны указать действительную цель для этой кнопки.",
 	"bootstrap-components-carousel-images-missing": "В каруселях нет изображений.",
-	"bootstrap-components-glyph-icon-name-missing": "Вы должны указать имя значка.",
+	"bootstrap-components-glyph-icon-name-missing": "Вы должны указать имя иконки.",
 	"bootstrap-components-label-content-missing": "Вы должны указать текст ярлыка.",
 	"bootstrap-components-modal-text-missing": "Вы должны указать текст для этой модальной кнопки.",
 	"bootstrap-components-popover-heading-missing": "Вы должны указать заголовок для этого popover.",
 	"bootstrap-components-popover-text-missing": "Вы должны указать текст для этого popover.",
 	"bootstrap-components-tooltip-content-missing": "В этой всплывающей подсказке отсутствует его текстовый атрибут и, следовательно, фактическая подсказка.",
-	"bootstrap-components-tooltip-target-missing": "Вы должны указать текст или изображение, к нему следует добавить всплывающую подсказку."
+	"bootstrap-components-tooltip-target-missing": "Вы должны указать текст или изображение, к которому добавляется всплывающая подсказка."
 }

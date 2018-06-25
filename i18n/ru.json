@@ -7,12 +7,12 @@
 			"Movses"
 		]
 	},
-	"bootstrap-components-desc": "Стремитесь предоставить редакторам легкий доступ к определенным компонентам, представленным Twitter Bootstrap 3",
+	"bootstrap-components-desc": "Стремитесь предоставить редакторам легкий доступ к определённым компонентам, представленным Twitter Bootstrap 3",
 	"bootstrap-components-error-tracking-category": "Страницы с ошибками компонента bootstrap",
 	"bootstrap-components-close-element": "Закрыть",
 	"bootstrap-components-image-modal-source-button": "Просмотреть источник",
 	"bootstrap-components-lua-error-no-component": "Не предоставлено имя компонента для mw.bootstrap.parse.",
-	"bootstrap-components-lua-error-invalid-component": "Недопустимое имя компонента передается в файл mw.bootstrap.parse: $1.",
+	"bootstrap-components-lua-error-invalid-component": "Недопустимое имя компонента передаётся в mw.bootstrap.parse: $1.",
 	"bootstrap-components-badge-content-missing": "Вы должны указать текст для этого значка.",
 	"bootstrap-components-button-target-missing": "Вы должны указать цель для этой кнопки.",
 	"bootstrap-components-button-target-invalid": "Вы должны указать действительную цель для этой кнопки.",

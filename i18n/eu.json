@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"Amaia"
+		]
+	},
+	"bootstrap-components-desc": "Editoreei Twitter Bootstrap 3 bidez sartutako konponente zehatz batzuetara sarbide erraza eskaintzea du helburu",
+	"bootstrap-components-error-tracking-category": "Bootstrap konponenteen akatsak dituzten orriak",
+	"bootstrap-components-close-element": "Itxi",
+	"bootstrap-components-image-modal-source-button": "Iturrira joan",
+	"bootstrap-components-lua-error-no-component": "Ez da mw.bootstrap.parse konponenterako izenik eman.",
+	"bootstrap-components-lua-error-invalid-component": "Balio ez duen izena eman zaio mw.bootstrap.parse konponenteari: $1",
+	"bootstrap-components-button-target-missing": "Botoi honetarako helburua zehaztu behar duzu.",
+	"bootstrap-components-button-target-invalid": "Botoi honetarako baliozko helburua zehaztu behar duzu.",
+	"bootstrap-components-label-content-missing": "Etiketaren testua zehaztu behar duzu.",
+	"bootstrap-components-modal-text-missing": "Botoi modal honetarako testua zehaztu behar duzu.",
+	"bootstrap-components-tooltip-content-missing": "Deskribapen honek bere testu ezaugarria falta du, eta beraz, baita deskribapena bera.",
+	"bootstrap-components-tooltip-target-missing": "Deskribapena atxikiko den testu edo irudia zehaztu behar duzu."
+}

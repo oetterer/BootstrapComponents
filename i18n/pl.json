@@ -7,6 +7,8 @@
 	},
 	"bootstrap-components-close-element": "Zamknij",
 	"bootstrap-components-image-modal-source-button": "Zobacz źródło",
+	"bootstrap-components-lua-error-no-component": "Nie podano nazwy komponentu dla mw.bootstrap.parse.",
+	"bootstrap-components-badge-content-missing": "Musisz określić tekst tej odznaki.",
 	"bootstrap-components-button-target-missing": "Musisz określić cel dla tego przycisku.",
 	"bootstrap-components-button-target-invalid": "Musisz określić prawidłowy cel dla tego przycisku.",
 	"bootstrap-components-carousel-images-missing": "W karuzeli nie ma żadnych zdjęć.",

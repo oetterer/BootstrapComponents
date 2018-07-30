@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"OneMember",
+			"Pahkiqaz",
+			"Pyscowicz"
+		]
+	},
+	"bootstrap-components-close-element": "Sulje",
+	"bootstrap-components-image-modal-source-button": "Vieraile lähteessä",
+	"bootstrap-components-button-target-missing": "Sinun on annettava kohde tälle napille.",
+	"bootstrap-components-button-target-invalid": "Sinun on annettava arvo tälle napille.",
+	"bootstrap-components-glyph-icon-name-missing": "Sinun on annettava kuvakkeelle nimi."
+}

@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"bootstrap-components-desc": "Visa a fornir al redactores un accesso facile a certe componentes introducite per Twitter Bootstrap 3",
+	"bootstrap-components-error-tracking-category": "Paginas con errores de componente bootstrap",
+	"bootstrap-components-close-element": "Clauder",
+	"bootstrap-components-image-modal-source-button": "Visitar fonte",
+	"bootstrap-components-lua-error-no-component": "Nulle nomine de componente fornite pro mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Nomine de componente non valide passate a mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "Tu debe specificar le texto de iste emblema.",
+	"bootstrap-components-button-target-missing": "Tu debe specificar le destination de iste button.",
+	"bootstrap-components-button-target-invalid": "Tu debe specificar un destination valide pro iste button.",
+	"bootstrap-components-carousel-images-missing": "Il non ha imagines definite in le carosello.",
+	"bootstrap-components-glyph-icon-name-missing": "Tu debe specificar un nomine de icone.",
+	"bootstrap-components-label-content-missing": "Tu debe specificar le texto del etiquetta.",
+	"bootstrap-components-modal-text-missing": "Tu debe specificar le texto de iste button modal."
+}

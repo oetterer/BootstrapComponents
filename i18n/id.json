@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bagas Chrisara"
+		]
+	},
+	"bootstrap-components-desc": "Bertujuan untuk menyediakan penyunting akses mudah terhadap sejumlah komponen tertentu yang diperkenalkan oleh Twitter Bootstrap 3.",
+	"bootstrap-components-error-tracking-category": "Halaman-halaman dengan galat komponen bootstrap",
+	"bootstrap-components-close-element": "Tutup",
+	"bootstrap-components-image-modal-source-button": "Lihat Sumber",
+	"bootstrap-components-lua-error-no-component": "Tidak ada nama komponen yang disediakan untuk mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Nama komponen tidak sah yang diberikan ke mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "Anda harus memberikan teks untuk lencana ini.",
+	"bootstrap-components-button-target-missing": "Anda harus menentukan target untuk tombol ini.",
+	"bootstrap-components-button-target-invalid": "Anda harus menentukan target yang sah untuk tombol ini."
+}

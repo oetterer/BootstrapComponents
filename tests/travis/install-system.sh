@@ -157,7 +157,7 @@ function injectResources {
 
  cd ${baseDir}/${mwDir}
  php maintenance/importImages.php ${baseDir}/${mwDir}/extensions/BootstrapComponents/tests/resources/ png
- php maintenance/runJobs.php -s
+ php maintenance/runJobs.php --quiet
 }
 
 

@@ -386,7 +386,7 @@ class ComponentLibrary {
 					'text',
 				],
 				'modules'     => [
-					'vector' => 'ext.bootstrapComponents.button.vector-fix',
+					'default' => 'ext.bootstrapComponents.button.fix',
 				],
 			],
 			'carousel'  => [
@@ -411,7 +411,7 @@ class ComponentLibrary {
 					'text',
 				],
 				'modules'     => [
-					'vector' => 'ext.bootstrapComponents.button.vector-fix',
+					'default' => 'ext.bootstrapComponents.button.fix',
 				],
 			],
 			'icon'      => [
@@ -448,9 +448,11 @@ class ComponentLibrary {
 					'text',
 				],
 				'modules'     => [
-					'default' => 'ext.bootstrapComponents.modal.fix',
+					'default' => [
+						'ext.bootstrapComponents.button.fix',
+						'ext.bootstrapComponents.modal.fix',
+					],
 					'vector'  => [
-						'ext.bootstrapComponents.button.vector-fix',
 						'ext.bootstrapComponents.modal.vector-fix',
 					],
 				],
@@ -480,9 +482,11 @@ class ComponentLibrary {
 					'trigger',
 				],
 				'modules'     => [
-					'default' => 'ext.bootstrapComponents.popover',
+					'default' => [
+						'ext.bootstrapComponents.button.fix',
+						'ext.bootstrapComponents.popover',
+					],
 					'vector'  => [
-						'ext.bootstrapComponents.button.vector-fix',
 						'ext.bootstrapComponents.popover.vector-fix',
 					],
 				],

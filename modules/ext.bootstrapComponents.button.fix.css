@@ -23,6 +23,7 @@
  * @author        Tobias Oetterer
  */
 a.btn-default,
+a.btn-default:link,
 a.btn-default:visited,
 a.btn-default:active,
 a.btn-default:hover {
@@ -30,22 +31,27 @@ a.btn-default:hover {
 }
 
 a.btn-primary,
+a.btn-primary:link,
 a.btn-primary:visited,
 a.btn-primary:active,
 a.btn-primary:hover,
 a.btn-success,
+a.btn-success:link,
 a.btn-success:visited,
 a.btn-success:active,
 a.btn-success:hover,
 a.btn-info,
+a.btn-info:link,
 a.btn-info:visited,
 a.btn-info:active,
 a.btn-info:hover,
 a.btn-warning,
+a.btn-warning:link,
 a.btn-warning:visited,
 a.btn-warning:active,
 a.btn-warning:hover,
 a.btn-danger,
+a.btn-danger:link,
 a.btn-danger:visited,
 a.btn-danger:active,
 a.btn-danger:hover {

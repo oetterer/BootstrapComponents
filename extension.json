@@ -70,9 +70,9 @@
 			"position": "bottom",
 			"styles": "ext.bootstrapComponents.alert.fix.css"
 		},
-		"ext.bootstrapComponents.button.vector-fix": {
+		"ext.bootstrapComponents.button.fix": {
 			"position": "bottom",
-			"styles": "ext.bootstrapComponents.button.vector-fix.css"
+			"styles": "ext.bootstrapComponents.button.fix.css"
 		},
 		"ext.bootstrapComponents.carousel.fix": {
 			"position": "bottom",

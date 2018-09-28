@@ -359,12 +359,12 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'button'          => [
 				'button',
 				null,
-				[],
+				[ 'ext.bootstrapComponents.button.fix' ],
 			],
 			'button_vector'   => [
 				'button',
 				'vector',
-				[ 'ext.bootstrapComponents.button.vector-fix' ],
+				[ 'ext.bootstrapComponents.button.fix' ],
 			],
 			'carousel'        => [
 				'carousel',
@@ -379,22 +379,22 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'modal'           => [
 				'modal',
 				null,
-				[ 'ext.bootstrapComponents.modal.fix' ],
+				[ 'ext.bootstrapComponents.button.fix', 'ext.bootstrapComponents.modal.fix' ],
 			],
 			'modal_vector'    => [
 				'modal',
 				'vector',
-				[ 'ext.bootstrapComponents.modal.fix', 'ext.bootstrapComponents.button.vector-fix', 'ext.bootstrapComponents.modal.vector-fix' ],
+				[ 'ext.bootstrapComponents.button.fix', 'ext.bootstrapComponents.modal.fix', 'ext.bootstrapComponents.modal.vector-fix' ],
 			],
 			'popover'         => [
 				'popover',
 				null,
-				[ 'ext.bootstrapComponents.popover' ],
+				[ 'ext.bootstrapComponents.button.fix', 'ext.bootstrapComponents.popover' ],
 			],
 			'popover_vector'  => [
 				'popover',
 				'vector',
-				[ 'ext.bootstrapComponents.popover', 'ext.bootstrapComponents.button.vector-fix', 'ext.bootstrapComponents.popover.vector-fix', ],
+				[ 'ext.bootstrapComponents.button.fix', 'ext.bootstrapComponents.popover', 'ext.bootstrapComponents.popover.vector-fix', ],
 			],
 			'tooltip'         => [
 				'tooltip',

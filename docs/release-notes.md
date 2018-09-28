@@ -1,12 +1,22 @@
 ## Release Notes
 
-### BootstrapComponents 1.2.3
+### BootstrapComponents 1.2.4
 
 Released on _not yet_
 
 Changes:
 
 Fixes:
+
+### BootstrapComponents 1.2.3
+
+Released on 28-Sep-2018
+
+Changes:
+* add translations via translatewiki
+
+Fixes:
+* fix error in travis install script
 
 ### BootstrapComponents 1.2.2
 
@@ -16,7 +26,7 @@ Changes:
 * add translations via translatewiki
 
 Fixes:
-* fix modal popup <div> not generated (issue #12)
+* fix modal popup `<div>` not generated (issue #12)
 * fix fatal error in BootstrapComponents\Tests\ExecutionTimeTestListener on mw master
 
 ### BootstrapComponents 1.2.1

@@ -142,7 +142,7 @@ class ModalBuilder {
 	 * instead.
 	 *
 	 * @see ApplicationFactory::getModalBuilder
-	 * @see \BootstrapComponents\Components\Modal::generateButton
+	 * @see \BootstrapComponents\Component\Modal::generateButton
 	 *
 	 * @param string             $id
 	 * @param string             $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})

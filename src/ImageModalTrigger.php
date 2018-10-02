@@ -117,7 +117,7 @@ class ImageModalTrigger {
 		}
 		$options = [
 			'alt'       => $sanitizedFrameParams['alt'],
-			'img-class' => $sanitizedFrameParams['class'] . ' img-responsive',  // watch: does this cause line breaks around the trigger?
+			'img-class' => $sanitizedFrameParams['class'],  // removed: . ' img-responsive'; keeping it in, causes line breaks around the trigger.
 			'title'     => $sanitizedFrameParams['title'],
 			'valign'    => $sanitizedFrameParams['valign'],
 		];

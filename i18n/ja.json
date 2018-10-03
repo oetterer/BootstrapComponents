@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Omotecho",
+			"Suyama",
+			"Yusuke1109"
+		]
+	},
+	"bootstrap-components-desc": "Twitter Bootstrap 3を介して、特定のコンポーネントへの簡単なアクセスを編集者に提供する",
+	"bootstrap-components-close-element": "閉じる",
+	"bootstrap-components-image-modal-source-button": "ソースを閲覧",
+	"bootstrap-components-glyph-icon-name-missing": "アイコン名は必須です。",
+	"bootstrap-components-label-content-missing": "ラベルへの入力は必須です。"
+}

@@ -16,5 +16,9 @@
 	"bootstrap-components-carousel-images-missing": "Il non ha imagines definite in le carosello.",
 	"bootstrap-components-glyph-icon-name-missing": "Tu debe specificar un nomine de icone.",
 	"bootstrap-components-label-content-missing": "Tu debe specificar le texto del etiquetta.",
-	"bootstrap-components-modal-text-missing": "Tu debe specificar le texto de iste button modal."
+	"bootstrap-components-modal-text-missing": "Tu debe specificar le texto de iste button modal.",
+	"bootstrap-components-popover-heading-missing": "Es necessari specificar un titulo pro iste quadro emergente.",
+	"bootstrap-components-popover-text-missing": "Es necessari specificar un texto pro iste quadro emergente.",
+	"bootstrap-components-tooltip-content-missing": "Iste description de instrumento non ha su attributo de texto, le qual es essential pro un description de instrumento.",
+	"bootstrap-components-tooltip-target-missing": "Es necessari specificar le texto o le imagine al qual le description de instrumento debe esser addite."
 }

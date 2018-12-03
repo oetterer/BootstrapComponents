@@ -3,7 +3,8 @@
 		"authors": [
 			"Chrumps",
 			"DeRudySoulStorm",
-			"Railfail536"
+			"Railfail536",
+			"CiaPan"
 		]
 	},
 	"bootstrap-components-desc": "Ma na celu zapewnić edytorom łatwy dostęp do niektórych komponentów wprowadzonych przez Twitter Bootstrap 3",
@@ -16,5 +17,8 @@
 	"bootstrap-components-button-target-invalid": "Musisz określić prawidłowy cel dla tego przycisku.",
 	"bootstrap-components-carousel-images-missing": "W karuzeli nie ma żadnych zdjęć.",
 	"bootstrap-components-glyph-icon-name-missing": "Musisz podać nazwę znacznika.",
-	"bootstrap-components-label-content-missing": "Musisz określić tekst etykiety."
+	"bootstrap-components-label-content-missing": "Musisz określić tekst etykiety.",
+	"bootstrap-components-modal-text-missing": "Podaj tekst dla tego przycisku modalnego.",
+	"bootstrap-components-popover-heading-missing": "Podaj nagłówek dla tego okienka.",
+	"bootstrap-components-popover-text-missing": "Podaj tekst dla tego okienka."
 }

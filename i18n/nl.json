@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mainframe98",
+			"Optilete",
+			"Wiki13"
+		]
+	},
+	"bootstrap-components-close-element": "Sluiten",
+	"bootstrap-components-image-modal-source-button": "Bron bekijken",
+	"bootstrap-components-badge-content-missing": "U moet een tekst voor deze badge opgeven.",
+	"bootstrap-components-button-target-missing": "U moet een doel voor deze knop opgeven.",
+	"bootstrap-components-button-target-invalid": "U moet een geldig doel opgegeven voor deze knop.",
+	"bootstrap-components-glyph-icon-name-missing": "U moet een iconnaam opgeven."
+}

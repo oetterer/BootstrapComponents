@@ -1,13 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"ديفيد"
+			"ديفيد",
+			"Meno25"
 		]
 	},
 	"bootstrap-components-desc": "يهدف إلى تزويد المحررين بسهولة الوصول إلى بعض المكونات التي أدخلها تويتر بوتستراب 3",
 	"bootstrap-components-error-tracking-category": "الصفحات ذات أخطاء مكون التمهيد",
 	"bootstrap-components-close-element": "أغلق",
-	"bootstrap-components-image-modal-source-button": "اعرض المصدر",
+	"bootstrap-components-image-modal-source-button": "عرض المصدر",
 	"bootstrap-components-lua-error-no-component": "م يتم توفير اسم مكون لـmw.bootstrap.parse.",
 	"bootstrap-components-lua-error-invalid-component": "تم تمرير اسم مكون غير صالح إلى mw.bootstrap.parse: $1.",
 	"bootstrap-components-badge-content-missing": "يجب تحديد نص لهذه الشارة.",

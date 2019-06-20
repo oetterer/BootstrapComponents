@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"bootstrap-components-desc": "Se vole dà a le cangiature 'na trasuta facile a certe combonende 'ndrodotte da Tuitter BootStrap 3",
+	"bootstrap-components-error-tracking-category": "Pàggene cu errore de le combonende de bootstrap",
+	"bootstrap-components-close-element": "Achiude",
+	"bootstrap-components-image-modal-source-button": "Fà 'ndrucà 'a sorgende",
+	"bootstrap-components-lua-error-no-component": "Nisciune nome de combonende date pe mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Nome d'u combonende invaldie passate a mw.bootstrap.parse: $1.",
+	"bootstrap-components-badge-content-missing": "A specificà 'nu teste pe stu badge.",
+	"bootstrap-components-button-target-missing": "A specificà 'na destinazione pe stu buttone.",
+	"bootstrap-components-button-target-invalid": "A specificà 'na destinazione valide pe stu buttone.",
+	"bootstrap-components-carousel-images-missing": "Non ge stonne immaggine da 'mbostà jndr'à 'u caroselle.",
+	"bootstrap-components-glyph-icon-name-missing": "A specificà 'nu nome de l'icone.",
+	"bootstrap-components-label-content-missing": "A specificà 'nu teste de l'etichette.",
+	"bootstrap-components-modal-text-missing": "A specificà 'nu teste pe stu buttone modale.",
+	"bootstrap-components-popover-heading-missing": "A specificà 'na 'ndestazione pe stu popover.",
+	"bootstrap-components-popover-text-missing": "A specificà 'nu 'teste pe stu popover.",
+	"bootstrap-components-tooltip-content-missing": "A stu tooltip le menghe l'attribbute teste e allore non ge iesse.",
+	"bootstrap-components-tooltip-target-missing": "A specificà teste o 'n'immaggine, addò 'u tooltip avessa assè."
+}

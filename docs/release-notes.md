@@ -2,11 +2,17 @@
 
 ### BootstrapComponents 1.2.4
 
-Released on _not yet_
+Released on 22-January-2020
+
+Please note, that this is the last version to support Mediawiki core 1.27. It still utilizes Bootstrap 3. Upcoming releases will
+use Bootstrap 4 but require MW >= 1.31.
 
 Changes:
+* add translations via translatewiki
 
 Fixes:
+* fixed some typos
+* removed master tests
 
 ### BootstrapComponents 1.2.3
 

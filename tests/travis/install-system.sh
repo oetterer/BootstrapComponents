@@ -37,6 +37,11 @@ function installMWCoreAndDB {
  cd ${mwDir}
 
  composer self-update
+
+ # Hack to fix "... jetbrains/phpstorm-stubs/PhpStormStubsMap.php): failed to open stream: No such file or directory ..."
+ # https://phabricator.wikimedia.org/T226766
+ composer remove jetbrains/phpstorm-stubs --no-interaction
+
  composer install --no-suggest
 
  echo -e "*** Installing database ${DB}\n"
@@ -73,7 +78,7 @@ function installDependencies {
  cd ${baseDir}/${mwDir}
 
  composer require 'mediawiki/semantic-media-wiki=~2.5' --update-with-dependencies --no-suggest
- composer require 'mediawiki/bootstrap=*' --update-with-dependencies
+ composer require 'mediawiki/bootstrap=~1.2' --update-with-dependencies
 
  if [ "$PHPUNIT" != "" ]; then
   composer require 'phpunit/phpunit='$PHPUNIT --update-with-dependencies

@@ -27,9 +27,7 @@
 namespace BootstrapComponents;
 
 /**
- * Class TagManager
- *
- * Manages the execution of the <bootstrap> tag
+ * Class AttributeManager
  *
  * @since 1.0
  */

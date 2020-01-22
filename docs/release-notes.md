@@ -1,5 +1,13 @@
 ## Release Notes
 
+### BootstrapComponents 4.0
+
+Released on _not yet_
+
+Changes:
+
+Fixes:
+
 ### BootstrapComponents 1.2.4
 
 Released on 22-January-2020

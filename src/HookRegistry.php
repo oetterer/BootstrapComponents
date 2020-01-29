@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains the class doing preparing the environment and registering the needed/wanted hooks.
+ * Contains the class registering the needed/wanted hooks.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -27,30 +27,29 @@
 namespace BootstrapComponents;
 
 use BootstrapComponents\Hooks\OutputPageParserOutput;
-use \BootstrapComponents\Hooks\ParserFirstCallInit;
-use \Bootstrap\BootstrapManager;
-use \Hooks;
-use \MagicWord;
-use \MediaWiki\MediaWikiServices;
-use \MWException;
-use \Parser;
+use BootstrapComponents\Hooks\ParserFirstCallInit;
+use Bootstrap\BootstrapManager;
+use Hooks;
+use MagicWord;
+use MediaWiki\MediaWikiServices;
+use Parser;
 
 /**
- * Class Setup
+ * Class HookRegistry
  *
  * Registers all hooks and components for Extension BootstrapComponents.
  *
  * Information on how to add an additional hook
- *  1. add it to {@see Setup::AVAILABLE_HOOKS}.
- *  2. add an appropriate entry in the array inside {@see Setup::getCompleteHookDefinitionList}
+ *  1. add it to {@see HookRegistry::AVAILABLE_HOOKS}.
+ *  2. add an appropriate entry in the array inside {@see HookRegistry::getCompleteHookDefinitionList}
  *     with the hook as array key and the callback as value.
- *  3. have {@see Setup::compileRequestedHooksListFor} add the hook to its result array. Based on
+ *  3. have {@see HookRegistry::compileRequestedHooksListFor} add the hook to its result array. Based on
  *     a certain condition, if necessary.
- *  4. add appropriate tests to {@see \BootstrapComponents\Tests\Unit\SetupTest}.
+ *  4. add appropriate tests to {@see \BootstrapComponents\Tests\Unit\HookRegistryTest}.
  *
  * @since 1.0
  */
-class Setup {
+class HookRegistry {
 
 	/**
 	 * @var array
@@ -78,47 +77,17 @@ class Setup {
 	private $nestingController;
 
 	/**
-	 * Callback function when extension is loaded via extension.json or composer.
+	 * HookRegistry constructor.
 	 *
-	 * Note: With this we omit hook registration in extension.json and define our own here
-	 * to better allow for unit testing.
-	 *
-	 * @param array $info
-	 *
-	 * @throws \ConfigException cascading {@see Setup::run}
-	 * @throws \MWException cascading {@see Setup::__construct()} and {@see Setup::run}
-	 *
-	 * @return bool
-	 */
-	public static function onExtensionLoad( $info ) {
-		$setup = new self( $info );
-
-		$setup->run();
-		return true;
-	}
-
-	/**
-	 * Setup constructor.
-	 *
-	 * @param $info
-	 *
-	 * @throws \ConfigException cascading {@see \BootstrapComponents\Setup::getHooksToRegister}
-	 * @throws \MWException cascading {@see \BootstrapComponents\Setup::getHooksToRegister}
+	 * @throws \ConfigException cascading {@see \BootstrapComponents\HookRegistry::getHooksToRegister}
+	 * @throws \MWException cascading {@see \BootstrapComponents\HookRegistry::getHooksToRegister}
 	 *
 	 */
-	public function __construct( $info ) {
+	public function __construct() {
 
-		$this->assertExtensionBootstrapPresent();
+		$this->myConfig = $this->registerMyConfiguration();
 
-		if ( !empty( $info['version'] ) ) {
-			$this->prepareEnvironment( $info['version'] );
-		}
-
-		$configFactory = MediaWikiServices::getInstance()->getConfigFactory();
-		$this->registerMyConfiguration( $configFactory );
-		$this->myConfig = $configFactory->makeConfig( 'BootstrapComponents' );
-
-		list( $this->componentLibrary, $this->nestingController ) = $this->initializeApplications( $this->myConfig );
+		list ( $this->componentLibrary, $this->nestingController ) = $this->initializeApplications( $this->myConfig );
 	}
 
 	/**
@@ -250,7 +219,7 @@ class Setup {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SetupAfterCache
 			 */
-			'SetupAfterCache'          => function() {
+			'SetupAfterCache'            => function() {
 				BootstrapManager::getInstance()->addAllBootstrapModules();
 				return true;
 			},
@@ -284,25 +253,17 @@ class Setup {
 	}
 
 	/**
-	 * @param array $hookList
+	 * Registers all supplied hooks.
 	 *
-	 * @return int
+	 * @param array $hookList $hook => $callback
+	 *
+	 * @return int  number of registered hooks
 	 */
 	public function register( $hookList ) {
 		foreach ( $hookList as $hook => $callback ) {
 			Hooks::register( $hook, $callback );
 		}
 		return count( $hookList );
-	}
-
-	/**
-	 * @param \ConfigFactory $configFactory
-	 * Registers my own configuration, so that it is present during onLoad. See phabricator issue T184837
-	 *
-	 * @see https://phabricator.wikimedia.org/T184837
-	 */
-	public function registerMyConfiguration( $configFactory ) {
-		$configFactory->register( 'BootstrapComponents', 'GlobalVarConfig::newInstance' );
 	}
 
 	/**
@@ -324,17 +285,6 @@ class Setup {
 	}
 
 	/**
-	 * @throws \MWException
-	 */
-	private function assertExtensionBootstrapPresent() {
-		if ( !defined( 'BS_VERSION' ) ) {
-			echo 'The BootstrapComponents extension requires Extension Bootstrap to be installed. '
-				. 'Please check <a href="https://github.com/oetterer/BootstrapComponents/">the online help</a>' . PHP_EOL;
-			throw new MWException( 'BootstrapComponents needs extension Bootstrap present.' );
-		}
-	}
-
-	/**
 	 * Callback for Hook: ImageBeforeProduceHTML
 	 *
 	 * Called before producing the HTML created by a wiki image insertion
@@ -342,9 +292,9 @@ class Setup {
 	 * @param NestingController $nestingController
 	 * @param \Config           $myConfig
 	 *
+	 * @return \Closure
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ImageBeforeProduceHTML
 	 *
-	 * @return \Closure
 	 */
 	private function createImageBeforeProduceHTMLCallback( $nestingController, $myConfig ) {
 
@@ -374,7 +324,11 @@ class Setup {
 	 */
 	private function createInternalParseBeforeLinksCallback() {
 		return function( Parser &$parser, &$text ) {
-			$mw = MagicWord::get( 'BSC_NO_IMAGE_MODAL' );
+			if ( class_exists( '\MediaWiki\MediaWikiServices' ) && method_exists( '\MediaWiki\MediaWikiServices', 'getMagicWordFactory' ) ) {
+				$mw = MediaWikiServices::getInstance()->getMagicWordFactory()->get( 'BSC_NO_IMAGE_MODAL' );;
+			} else {
+				$mw = MagicWord::get( 'BSC_NO_IMAGE_MODAL' );
+			}
 			// we do not use our ParserOutputHelper class here, for we would need to reset it in integration tests.
 			// resetting our factory build classes is unfortunately a little skittish
 			$parser->getOutput()->setExtensionData(
@@ -386,13 +340,15 @@ class Setup {
 	}
 
 	/**
-	 * Version number retrieved from extension info array.
+	 * Registers and returns my own configuration, so that it is present during pre-init onExtensionLoad(). See phabricator issue T184837
 	 *
-	 * @param string $version
+	 * @see https://phabricator.wikimedia.org/T184837
 	 *
-	 * @return bool
+	 * @return \Config
 	 */
-	private function prepareEnvironment( $version ) {
-		return @define( 'BOOTSTRAP_COMPONENTS_VERSION', (string) $version );
+	private function registerMyConfiguration(  ) {
+		$configFactory = MediaWikiServices::getInstance()->getConfigFactory();
+		$configFactory->register( 'BootstrapComponents', 'GlobalVarConfig::newInstance' );
+		return $configFactory->makeConfig( 'BootstrapComponents' );
 	}
 }

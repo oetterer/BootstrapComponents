@@ -3,11 +3,11 @@
 namespace BootstrapComponents\Tests\Unit;
 
 use BootstrapComponents\ParserOutputHelper;
-use BootstrapComponents\Setup as Setup;
+use BootstrapComponents\HookRegistry as HookRegistry;
 use \PHPUnit_Framework_TestCase;
 
 /**
- * @covers  \BootstrapComponents\Setup
+ * @covers  \BootstrapComponents\HookRegistry
  *
  * @ingroup Test
  *
@@ -19,7 +19,7 @@ use \PHPUnit_Framework_TestCase;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class SetupTest extends PHPUnit_Framework_TestCase {
+class HookRegistryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @throws \ConfigException
 	 * @throws \MWException
@@ -27,18 +27,8 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\Setup',
-			new Setup( [] )
-		);
-	}
-
-	/**
-	 * @throws \ConfigException cascading {@see \BootstrapComponents\Setup::onExtensionLoad}
-	 * @throws \MWException
-	 */
-	public function testOnExtensionLoad() {
-		$this->assertTrue(
-			Setup::onExtensionLoad( [ 'version' => 'test' ] )
+			'BootstrapComponents\\HookRegistry',
+			new HookRegistry()
 		);
 	}
 
@@ -52,9 +42,8 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testCanBuildHookCallbackListFor( $hookList ) {
 
-		$instance = new Setup( [] );
+		$instance = new HookRegistry();
 
-		/** @noinspection PhpParamsInspection */
 		$hookCallbackList = $instance->buildHookCallbackListFor( $hookList );
 		list ( $expectedHookList, $invertedHookList ) = $this->buildHookListsForCanBuildHookListCheck( $hookList );
 
@@ -72,11 +61,11 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testCanClear() {
 
-		$instance = new Setup( [] );
+		$instance = new HookRegistry();
 		$instance->register(
-			$instance->buildHookCallbackListFor( Setup::AVAILABLE_HOOKS )
+			$instance->buildHookCallbackListFor( HookRegistry::AVAILABLE_HOOKS )
 		);
-		foreach ( Setup::AVAILABLE_HOOKS as $hook ) {
+		foreach ( HookRegistry::AVAILABLE_HOOKS as $hook ) {
 			$this->assertTrue(
 				$instance->isRegistered( $hook ),
 				'Hook ' . $hook . ' is not registered!'
@@ -121,7 +110,7 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 				}
 			) );
 
-		$instance = new Setup( [] );
+		$instance = new HookRegistry();
 
 		/** @noinspection PhpParamsInspection */
 		$compiledHookList = $instance->compileRequestedHooksListFor( $myConfig );
@@ -148,12 +137,12 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$instance = new Setup( [] );
+		$instance = new HookRegistry();
 
 		/** @noinspection PhpParamsInspection */
 		$completeHookDefinitionList = $instance->getCompleteHookDefinitionList( $myConfig, $componentLibrary, $nestingController );
 		$this->assertEquals(
-			Setup::AVAILABLE_HOOKS,
+			HookRegistry::AVAILABLE_HOOKS,
 			array_keys( $completeHookDefinitionList )
 		);
 
@@ -174,10 +163,10 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$instance = new Setup( [] );
+		$instance = new HookRegistry();
 
 		/** @noinspection PhpParamsInspection */
-		list( $componentLibrary, $nestingController ) = $instance->initializeApplications( $myConfig );
+		list ( $componentLibrary, $nestingController ) = $instance->initializeApplications( $myConfig );
 
 		$this->assertInstanceOf(
 			'BootstrapComponents\\ComponentLibrary',
@@ -201,7 +190,7 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testHookRegistrationProcess( $listOfConfigSettingsSet, $expectedRegisteredHooks, $expectedNotRegisteredHooks ) {
 
-		$instance = new Setup( [] );
+		$instance = new HookRegistry();
 
 		$hookCallbackList = $instance->buildHookCallbackListFor(
 			$expectedRegisteredHooks
@@ -231,7 +220,7 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testCanRun() {
 
-		$instance = new Setup( [] );
+		$instance = new HookRegistry();
 
 		$this->assertInternalType(
 			'integer',
@@ -485,11 +474,11 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 		$expectedHookList = [];
 		$invertedHookList = [];
 		foreach ( $hookList as $hook ) {
-			if ( in_array( $hook, Setup::AVAILABLE_HOOKS ) ) {
+			if ( in_array( $hook, HookRegistry::AVAILABLE_HOOKS ) ) {
 				$expectedHookList[] = $hook;
 			}
 		}
-		foreach ( Setup::AVAILABLE_HOOKS as $availableHook ) {
+		foreach ( HookRegistry::AVAILABLE_HOOKS as $availableHook ) {
 			if ( !in_array( $availableHook, $hookList ) ) {
 				$invertedHookList[] = $availableHook;
 			}
@@ -498,12 +487,12 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @param Setup  $instance
-	 * @param array  $registeredHooks
-	 * @param string $expectedHook
-	 * @param bool   $hardRegisterTest
+	 * @param HookRegistry $instance
+	 * @param array        $registeredHooks
+	 * @param string       $expectedHook
+	 * @param bool         $hardRegisterTest
 	 */
-	private function doTestHookIsRegistered( Setup $instance, $registeredHooks, $expectedHook, $hardRegisterTest = true ) {
+	private function doTestHookIsRegistered( HookRegistry $instance, $registeredHooks, $expectedHook, $hardRegisterTest = true ) {
 		if ( $hardRegisterTest ) {
 			$this->assertTrue(
 				$instance->isRegistered( $expectedHook )
@@ -540,7 +529,7 @@ class SetupTest extends PHPUnit_Framework_TestCase {
 	 * @return \Closure
 	 */
 	private function getCallBackForHook( $hook ) {
-		$instance = new Setup( [] );
+		$instance = new HookRegistry();
 		$hookCallbackList = $instance->buildHookCallbackListFor(
 			[ $hook ]
 		);

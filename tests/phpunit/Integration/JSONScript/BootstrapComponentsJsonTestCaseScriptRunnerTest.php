@@ -4,7 +4,7 @@ namespace BootstrapComponents\Tests\Integration;
 
 use BootstrapComponents\ApplicationFactory;
 use BootstrapComponents\Hooks\OutputPageParserOutput;
-use BootstrapComponents\Setup;
+use BootstrapComponents\HookRegistry;
 use SMW\DIWikiPage;
 use SMW\Tests\JsonTestCaseFileHandler;
 use SMW\Tests\JsonTestCaseScriptRunner;
@@ -41,9 +41,9 @@ class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JsonTestCaseScript
 	private $stringValidator;
 
 	/**
-	 * @var Setup
+	 * @var HookRegistry
 	 */
-	private $setup;
+	private $hookRegistry;
 
 	/**
 	 * @throws \ConfigException
@@ -69,12 +69,12 @@ class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JsonTestCaseScript
 			define( 'BSC_INTEGRATION_TEST', true );
 		}
 
-		$this->setup = new Setup( [] );
-		$this->setup->clear();
-		$hookCallbackList = $this->setup->buildHookCallbackListFor(
-			Setup::AVAILABLE_HOOKS
+		$this->hookRegistry = new HookRegistry();
+		$this->hookRegistry->clear();
+		$hookCallbackList = $this->hookRegistry->buildHookCallbackListFor(
+			HookRegistry::AVAILABLE_HOOKS
 		);
-		$this->setup->register( $hookCallbackList );
+		$this->hookRegistry->register( $hookCallbackList );
 	}
 
 	/**

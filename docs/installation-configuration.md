@@ -36,11 +36,16 @@ You can also download the [archive][GitArchive] and extract it yourself.
 Note that getting the extension manually from GitHub leaves you with the
 must current version of the extension.
 
-Finally, you need to add the following to your `LocalSettings.php` file:
+## Loading
+
+You need to add the following to your `LocalSettings.php` file, no matter
+whether you installed the extension via composer or manually:
 
 ```
 wfLoadExtension( 'BootstrapComponents' );
 ```
+
+Check your wiki's Version special page to verify, that the extension is loaded.
 
 ## Configuration
 You can change some of the behaviour of this extension with the

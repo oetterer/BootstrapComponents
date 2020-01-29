@@ -12,7 +12,8 @@
  */
 
 /**
- * The main file of the BootstrapComponents extension, when loaded via Composer.
+ * The main file of the BootstrapComponents extension, responsible for initialization
+ * the whole shabang.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -33,7 +34,8 @@
  *
  * My thanks go to Stephan Gambke for creating the Bootstrap extension and to
  * mwjames and JeroenDeDauw who both where kind enough to help me getting better
- * in coding for mediawiki.
+ * in coding for mediawiki. And finally a shout-out to Karsten Hoffmeyer,
+ * always an inspiration and quick in lending a hand.
  *
  * @file
  * @ingroup       BootstrapComponents
@@ -41,6 +43,7 @@
 
 namespace BootstrapComponents;
 
+use \ExtensionRegistryHelper\ExtensionRegistryHelper;
 use \MWException;
 
 /**
@@ -53,13 +56,32 @@ use \MWException;
 class BootstrapComponents {
 
 	/**
-	 * @throws \MWException
+	 * @param array $info
+	 *
+	 * @throws \Exception when extension Bootstrap cannot be loaded recursively
 	 */
-	public static function load() {
+	public static function init( $info ) {
+
+		// loads local composer libraries, if present
+		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
+			include_once __DIR__ . '/vendor/autoload.php';
+		}
 
 		if ( self::doCheckRequirements() ) {
-			wfLoadExtension( 'BootstrapComponents' );
+			ExtensionRegistryHelper::singleton()->loadExtensionRecursive( 'Bootstrap' );
+
+			define( 'BOOTSTRAP_COMPONENTS_VERSION', isset( $info['version'] ) ? $info['version'] : 'UNKNOWN' );
 		}
+	}
+
+	/**
+	 * @throws \ConfigException cascading {@see \BootstrapComponents\HookRegistry::__construct}
+	 *      and {@see \BootstrapComponents\HookRegistry::run}
+	 * @throws \MWException cascading {@see \BootstrapComponents\HookRegistry::__construct}
+	 */
+	public static function onExtensionLoad() {
+		$hookRegistry = new HookRegistry();
+		$hookRegistry->run();
 	}
 
 	/**
@@ -74,9 +96,9 @@ class BootstrapComponents {
 			throw new MWException( 'This file is part of a Mediawiki Extension, it is not a valid entry point.' );
 		}
 
-		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.27', 'lt' ) ) {
+		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.31', 'lt' ) ) {
 			echo '<b>Error:</b> <a href="https://github.com/oetterer/BootstrapComponents/">Bootstrap Components</a> '
-				. 'is only compatible with MediaWiki 1.27 or above. You need to upgrade MediaWiki first.' . PHP_EOL;
+				. 'is only compatible with MediaWiki 1.31 or above. You need to upgrade MediaWiki first.' . PHP_EOL;
 			throw new MWException( 'BootstrapComponents detected an incompatible MediaWiki version. Exiting.' );
 		}
 
@@ -92,14 +114,6 @@ class BootstrapComponents {
 	 * @return float
 	 */
 	public static function getVersion() {
-		return BOOTSTRAP_COMPONENTS_VERSION;
+		return defined( 'BOOTSTRAP_COMPONENTS_VERSION' ) ? BOOTSTRAP_COMPONENTS_VERSION : 'UNDEFINED';
 	}
 }
-
-
-/**
- * This file is loaded, when using composer. Defers initialization to wfLoadExtension as if called by LocalSettings.
- *
- * @see https://github.com/oetterer/BootstrapComponents/
- */
-BootstrapComponents::load();

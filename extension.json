@@ -44,7 +44,10 @@
 			"public": true
 		}
 	},
-	"callback": "BootstrapComponents\\Setup::onExtensionLoad",
+	"callback": "BootstrapComponents\\BootstrapComponents::init",
+	"ExtensionFunctions": [
+		"BootstrapComponents\\BootstrapComponents::onExtensionLoad"
+	],
 	"MessagesDirs": {
 		"BootstrapComponents": [
 			"i18n"
@@ -102,6 +105,5 @@
 		"bootstrap-components-error-tracking-category",
 		"bootstrap-components-tracking-category"
 	],
-	"load_composer_autoloader": true,
 	"manifest_version": 2
 }

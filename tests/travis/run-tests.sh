@@ -10,11 +10,11 @@ mwDir=mw
 cd ${baseDir}/${mwDir}/extensions/BootstrapComponents
 
 if [[ "${TYPE}" == "coverage" ]]; then
-	composer phpunit -- --coverage-clover ${originalDirectory}/build/coverage.clover
+	composer unit -- --coverage-clover ${originalDirectory}/build/coverage.clover
 elif [[ "${TYPE}" == "integration" ]]; then
 	composer integration
 elif [[ "${TYPE}" == "unit" ]]; then
 	composer unit
 else
-	composer phpunit
+	composer unit
 fi

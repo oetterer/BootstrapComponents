@@ -24,7 +24,7 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
 
-		$parser = $this->getMockBuilder( 'Parser' )
+		$parser = $this->getMockBuilder( Parser::class )
 			->disableOriginalConstructor()
 			->getMock();
 		$componentLibrary = $this->getMockBuilder( 'BootstrapComponents\ComponentLibrary' )

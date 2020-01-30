@@ -51,7 +51,7 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ParserOutputHelper',
+			ParserOutputHelper::class,
 			new ParserOutputHelper( $this->parser )
 		);
 	}
@@ -150,10 +150,7 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 		$parserOutput->expects( $this->once() )
 			->method( 'addModuleStyles' )
 			->will( $this->returnArgument( 0 ) );
-		$parserOutput->expects( $this->once() )
-			->method( 'addModuleScripts' )
-			->will( $this->returnArgument( 0 ) );
-		$parserOutput->expects( $this->once() )
+		$parserOutput->expects( $this->atMost(2) )
 			->method( 'addModules' )
 			->will( $this->returnArgument( 0 ) );
 		$parser = $this->getMockBuilder( 'Parser' )

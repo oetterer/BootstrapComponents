@@ -203,9 +203,9 @@ class ParserOutputHelper {
 	public function loadBootstrapModules() {
 		$parserOutput = $this->getParser()->getOutput();
 		if ( is_a( $parserOutput, ParserOutput::class ) ) {
-			// Q: when do we expect \Parser->getOutput() no to be a \ParserOutput? A: During tests.
+			// Q: when do we expect \Parser->getOutput() not to be a \ParserOutput? A: During tests.
 			$parserOutput->addModuleStyles( 'ext.bootstrap.styles' );
-			$parserOutput->addModuleScripts( 'ext.bootstrap.scripts' );
+			$parserOutput->addModules( 'ext.bootstrap.scripts' );
 			if ( $this->vectorSkinInUse() ) {
 				$parserOutput->addModules( 'ext.bootstrapComponents.vector-fix' );
 			}

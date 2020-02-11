@@ -58,7 +58,7 @@ class Modal extends AbstractComponent {
 			true
 		);
 
-		$modal = ApplicationFactory::getInstance()->getModalBuilder(
+		$modal = ApplicationFactory::getInstance()->getNewModalBuilder(
 			$this->getId(),
 			$text,
 			$safeInput,

@@ -145,7 +145,6 @@ function augmentConfiguration() {
 		echo '$wgLanguageCode = "'${SITELANG}'";' >>LocalSettings.php
 	fi
 	echo 'wfLoadExtension( "Scribunto" );' >> LocalSettings.php
-  #echo 'require_once "$IP/extensions/Scribunto/Scribunto.php";' >>LocalSettings.php
 	echo '$wgScribuntoDefaultEngine = "luastandalone";' >>LocalSettings.php
 	echo '$wgBootstrapComponentsModalReplaceImageTag = true;' >>LocalSettings.php
 	echo '$wgEnableUploads = true;' >>LocalSettings.php

@@ -336,7 +336,7 @@ class ImageModal implements NestableInterface {
 			return '';
 		}
 
-		$modal = ApplicationFactory::getInstance()->getModalBuilder(
+		$modal = ApplicationFactory::getInstance()->getNewModalBuilder(
 			$this->getId(),
 			$triggerString,
 			$content,

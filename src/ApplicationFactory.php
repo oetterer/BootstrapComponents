@@ -106,6 +106,15 @@ class ApplicationFactory {
 	}
 
 	/**
+	 * @throws MWException  cascading {@see \BootstrapComponents\ApplicationFactory::getApplication}
+	 *
+	 * @return NestingController
+	 */
+	public function getNestingController() {
+		return $this->getApplication( 'NestingController' );
+	}
+
+	/**
 	 * @param string             $id
 	 * @param string             $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
 	 * @param string             $content must be safe raw html (best run through {@see Parser::recursiveTagParse})
@@ -115,17 +124,8 @@ class ApplicationFactory {
 	 *
 	 * @return ModalBuilder
 	 */
-	public function getModalBuilder( $id, $trigger, $content, $parserOutputHelper ) {
+	public function getNewModalBuilder( $id, $trigger, $content, $parserOutputHelper ) {
 		return new ModalBuilder( $id, $trigger, $content, $parserOutputHelper );
-	}
-
-	/**
-	 * @throws MWException  cascading {@see \BootstrapComponents\ApplicationFactory::getApplication}
-	 *
-	 * @return NestingController
-	 */
-	public function getNestingController() {
-		return $this->getApplication( 'NestingController' );
 	}
 
 	/**

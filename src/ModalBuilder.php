@@ -138,16 +138,17 @@ class ModalBuilder {
 	 * a correct trigger for yourself, using the necessary attributes and especially the id, you supplied
 	 * here (see {@see \BootstrapComponents\Component\Modal::generateButton} for example).
 	 *
-	 * Do not instantiate directly, but use {@see ApplicationFactory::getModalBuilder}
+	 * Do not instantiate directly, but use {@see ApplicationFactory::getNewModalBuilder}
 	 * instead.
-	 *
-	 * @see ApplicationFactory::getModalBuilder
-	 * @see \BootstrapComponents\Component\Modal::generateButton
 	 *
 	 * @param string             $id
 	 * @param string             $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
 	 * @param string             $content must be fully parsed html (use {@see Parser::recursiveTagParseFully})
 	 * @param ParserOutputHelper $parserOutputHelper
+	 *
+	 *@see ApplicationFactory::getNewModalBuilder
+	 * @see \BootstrapComponents\Component\Modal::generateButton
+	 *
 	 */
 
 	public function __construct( $id, $trigger, $content, $parserOutputHelper ) {

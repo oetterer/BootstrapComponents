@@ -32,7 +32,7 @@ class AttributeManagerTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(
 			[
 				'active', 'class', 'color', 'collapsible', 'disabled', 'dismissible', 'footer',
-				'heading', 'id', 'link', 'placement', 'size', 'style', 'text', 'trigger',
+				'heading', 'id', 'link', 'pill', 'placement', 'size', 'style', 'text', 'trigger',
 			],
 			$instance->getAllKnownAttributes()
 		);
@@ -161,6 +161,7 @@ class AttributeManagerTest extends PHPUnit_Framework_TestCase {
 			'heading'     => [ 'heading', true ],
 			'id'          => [ 'id', true ],
 			'link'        => [ 'link', true ],
+			'pill'        => [ 'disabled', false ],
 			'placement'   => [ 'placement', [ 'top', 'bottom', 'left', 'right' ] ],
 			'size'        => [ 'size', [ 'xs', 'sm', 'md', 'lg' ] ],
 			'style'       => [ 'style', true ],

@@ -372,6 +372,8 @@ class ComponentLibrary {
 				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
 				'attributes'  => [
 					'default' => true,
+					'color',
+					'pill'
 				],
 			],
 			'button'    => [

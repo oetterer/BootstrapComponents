@@ -444,22 +444,22 @@ class HookRegistryTest extends PHPUnit_Framework_TestCase {
 		return [
 			'onlydefault' => [
 				[],
-				[ 'OutputPageParserOutput', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', ],
+				[ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', ],
 				[ 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
 			],
 			'gallery activated' => [
 				[ 'BootstrapComponentsEnableCarouselGalleryMode' ],
-				[ 'OutputPageParserOutput', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'GalleryGetModes', ],
+				[ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'GalleryGetModes', ],
 				[ 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
 			],
 			'image replacement activated' => [
 				[ 'BootstrapComponentsModalReplaceImageTag' ],
-				[ 'OutputPageParserOutput', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
+				[ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
 				[ 'GalleryGetModes', ],
 			],
 			'both activated' => [
 				[ 'BootstrapComponentsEnableCarouselGalleryMode', 'BootstrapComponentsModalReplaceImageTag' ],
-				[ 'OutputPageParserOutput', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
+				[ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
 				[],
 			],
 		];

@@ -43,7 +43,7 @@
 	"scripts": {
 		"phpunit": "php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist",
 		"unit": "composer phpunit -- --testsuite bootstrap-components-unit",
-		"test": "composer phpunit",
+		"test": "composer unit",
 		"integration": "composer phpunit -- --testsuite bootstrap-components-integration",
 		"cs": [
 			"vendor/bin/phpcs src/* tests/* --standard=phpcs.xml --extensions=php -sp",

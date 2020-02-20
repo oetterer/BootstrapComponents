@@ -42,9 +42,6 @@
 		}
 	},
 	"callback": "BootstrapComponents\\BootstrapComponents::init",
-	"ExtensionFunctions": [
-		"BootstrapComponents\\BootstrapComponents::onExtensionLoad"
-	],
 	"MessagesDirs": {
 		"BootstrapComponents": [
 			"i18n"

@@ -56,8 +56,24 @@ use \MWException;
 class BootstrapComponents {
 
 	/**
+	 * @var bool $hooksRegistered
+	 */
+	private static $hooksRegistered = false;
+
+	/**
+	 * @var string $version
+	 */
+	private static $version;
+
+	/**
+	 * Add this to extension.json's 'callable' entry. 'ExtensionFunctions' is too late for the hook SetupAfterCache used for
+	 * Extension:Bootstrap's module initialization.
+	 *
 	 * @param array $info
 	 *
+	 * @throws \ConfigException cascading {@see \BootstrapComponents\HookRegistry::__construct}
+	 *      and {@see \BootstrapComponents\HookRegistry::run}
+	 * @throws \MWException cascading {@see \BootstrapComponents\HookRegistry::__construct}
 	 * @throws \Exception when extension Bootstrap cannot be loaded recursively
 	 */
 	public static function init( $info ) {
@@ -67,21 +83,14 @@ class BootstrapComponents {
 			include_once __DIR__ . '/vendor/autoload.php';
 		}
 
+		self::$version = isset( $info['version'] ) ? $info['version'] : 'UNKNOWN';
 		if ( self::doCheckRequirements() ) {
 			ExtensionRegistryHelper::singleton()->loadExtensionRecursive( 'Bootstrap' );
 
-			define( 'BOOTSTRAP_COMPONENTS_VERSION', isset( $info['version'] ) ? $info['version'] : 'UNKNOWN' );
+			$hookRegistry = new HookRegistry();
+			$hookRegistry->run();
+			self::$hooksRegistered = true;
 		}
-	}
-
-	/**
-	 * @throws \ConfigException cascading {@see \BootstrapComponents\HookRegistry::__construct}
-	 *      and {@see \BootstrapComponents\HookRegistry::run}
-	 * @throws \MWException cascading {@see \BootstrapComponents\HookRegistry::__construct}
-	 */
-	public static function onExtensionLoad() {
-		$hookRegistry = new HookRegistry();
-		$hookRegistry->run();
 	}
 
 	/**
@@ -102,7 +111,7 @@ class BootstrapComponents {
 			throw new MWException( 'BootstrapComponents detected an incompatible MediaWiki version. Exiting.' );
 		}
 
-		if ( defined( 'BOOTSTRAP_COMPONENTS_VERSION' ) ) {
+		if ( self::hooksRegistrationDone() ) {
 			// Do not initialize more than once.
 			return false;
 		}
@@ -111,9 +120,17 @@ class BootstrapComponents {
 
 	/**
 	 * Returns version number of Extension BootstrapComponents
-	 * @return float
+	 *
+	 * @return string
 	 */
 	public static function getVersion() {
-		return defined( 'BOOTSTRAP_COMPONENTS_VERSION' ) ? BOOTSTRAP_COMPONENTS_VERSION : 'UNDEFINED';
+		return self::$version ?: 'UNDEFINED';
+	}
+
+	/**
+	 * @return bool
+	 */
+	public static function hooksRegistrationDone() {
+		return self::$hooksRegistered;
 	}
 }

@@ -55,9 +55,8 @@ class HookRegistry {
 	 * @var array
 	 */
 	const AVAILABLE_HOOKS = [
-		'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks',
-		'OutputPageParserOutput', 'ParserFirstCallInit', 'ScribuntoExternalLibraries',
-		'SetupAfterCache',
+		'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'OutputPageParserOutput',
+		'ParserAfterParse', 'ParserFirstCallInit', 'ScribuntoExternalLibraries', 'SetupAfterCache',
 	];
 	// dev note: for modals, please see \BootstrapComponents\ModalBuilder for a list of tested hooks
 
@@ -125,7 +124,10 @@ class HookRegistry {
 	 * @return string[]
 	 */
 	public function compileRequestedHooksListFor( $myConfig ) {
-		$requestedHookList = [ 'OutputPageParserOutput', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ];
+		$requestedHookList = [
+			'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit',
+			'SetupAfterCache', 'ScribuntoExternalLibraries',
+		];
 		if ( $myConfig->has( 'BootstrapComponentsEnableCarouselGalleryMode' )
 			&& $myConfig->get( 'BootstrapComponentsEnableCarouselGalleryMode' )
 		) {
@@ -156,7 +158,7 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GalleryGetModes
 			 */
-			'GalleryGetModes'          => function( &$modeArray ) {
+			'GalleryGetModes'            => function( &$modeArray ) {
 				$modeArray['carousel'] = 'BootstrapComponents\\CarouselGallery';
 				return true;
 			},
@@ -168,7 +170,7 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ImageBeforeProduceHTML
 			 */
-			'ImageBeforeProduceHTML'   => $this->createImageBeforeProduceHTMLCallback( $nestingController, $myConfig ),
+			'ImageBeforeProduceHTML'     => $this->createImageBeforeProduceHTMLCallback( $nestingController, $myConfig ),
 
 			/**
 			 * Hook: InternalParseBeforeLinks
@@ -177,7 +179,7 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/InternalParseBeforeLinks
 			 */
-			'InternalParseBeforeLinks' => $this->createInternalParseBeforeLinksCallback(),
+			'InternalParseBeforeLinks'   => $this->createInternalParseBeforeLinksCallback(),
 
 			/**
 			 * Hook: OutputPageParserOutput
@@ -186,11 +188,25 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/OutputPageParserOutput
 			 */
-			'OutputPageParserOutput'   => function( \OutputPage &$outputPage, \ParserOutput $parserOutput, ParserOutputHelper &$parserOutputHelper = null ) {
-				// check, if we need to omit execution on actions edit, submit, or history
+			'OutputPageParserOutput'     => function( \OutputPage &$outputPage, \ParserOutput $parserOutput, ParserOutputHelper &$parserOutputHelper = null ) {
+				// @todo check, if we need to omit execution on actions edit, submit, or history
 				// $action = $outputPage->parserOptions()->getUser()->getRequest()->getVal( "action" );
 				$hook = new OutputPageParserOutput( $outputPage, $parserOutput, $parserOutputHelper );
 				return $hook->process();
+			},
+
+			/**
+			 * Hook: ParserAfterParse
+			 *
+			 * Called from Parser::parse() just after the call to Parser::internalParse() returns.
+			 *
+			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserAfterParse
+			 */
+			'ParserAfterParse'           => function( Parser &$parser, &$text, \StripState &$stripState ) {
+				#@todo make this conditional, i.e. only include styles and scripts for used components?
+				$parser->getOutput()->addModules( 'ext.bootstrap.styles' );
+				$parser->getOutput()->addModules( 'ext.bootstrap.scripts' );
+				return true;
 			},
 
 			/**
@@ -200,11 +216,18 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
 			 */
-			'ParserFirstCallInit'      => function( Parser $parser ) use ( $componentLibrary, $nestingController ) {
+			'ParserFirstCallInit'        => function( Parser $parser ) use ( $componentLibrary, $nestingController ) {
 				$hook = new ParserFirstCallInit( $parser, $componentLibrary, $nestingController );
 				return $hook->process();
 			},
 
+			/**
+			 * Hook: ScribuntoExternalLibraries
+			 *
+			 * Allow extensions to add Scribunto libraries
+			 *
+			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ScribuntoExternalLibraries
+			 */
 			'ScribuntoExternalLibraries' => function( $engine, &$extraLibraries ) {
 				if ( $engine == 'lua' ) {
 					$extraLibraries['mw.bootstrap'] = 'BootstrapComponents\\LuaLibrary';
@@ -220,6 +243,7 @@ class HookRegistry {
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SetupAfterCache
 			 */
 			'SetupAfterCache'            => function() {
+				// @todo change 'adding all bootstrap modules' to 'only add used modules' during parse.
 				BootstrapManager::getInstance()->addAllBootstrapModules();
 				return true;
 			},
@@ -324,7 +348,9 @@ class HookRegistry {
 	 */
 	private function createInternalParseBeforeLinksCallback() {
 		return function( Parser &$parser, &$text ) {
-			if ( class_exists( '\MediaWiki\MediaWikiServices' ) && method_exists( '\MediaWiki\MediaWikiServices', 'getMagicWordFactory' ) ) {
+			if ( class_exists( '\MediaWiki\MediaWikiServices' )
+				&& method_exists( '\MediaWiki\MediaWikiServices', 'getMagicWordFactory' )
+			) {
 				$mw = MediaWikiServices::getInstance()->getMagicWordFactory()->get( 'BSC_NO_IMAGE_MODAL' );;
 			} else {
 				$mw = MagicWord::get( 'BSC_NO_IMAGE_MODAL' );
@@ -346,7 +372,7 @@ class HookRegistry {
 	 *
 	 * @return \Config
 	 */
-	private function registerMyConfiguration(  ) {
+	private function registerMyConfiguration() {
 		$configFactory = MediaWikiServices::getInstance()->getConfigFactory();
 		$configFactory->register( 'BootstrapComponents', 'GlobalVarConfig::newInstance' );
 		return $configFactory->makeConfig( 'BootstrapComponents' );

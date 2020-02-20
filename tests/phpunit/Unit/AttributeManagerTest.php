@@ -153,7 +153,7 @@ class AttributeManagerTest extends PHPUnit_Framework_TestCase {
 		return [
 			'active'      => [ 'active', false ],
 			'class'       => [ 'class', true ],
-			'color'       => [ 'color', [ 'default', 'primary', 'success', 'info', 'warning', 'danger' ] ],
+			'color'       => [ 'color', [ 'default', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ] ],
 			'collapsible' => [ 'collapsible', false ],
 			'disabled'    => [ 'disabled', false ],
 			'dismissible' => [ 'dismissible', false ],

@@ -255,7 +255,7 @@ class AttributeManager {
 		return [
 			'active'      => self::NO_FALSE_VALUE,
 			'class'       => self::ANY_VALUE,
-			'color'       => [ 'default', 'primary', 'success', 'info', 'warning', 'danger' ],
+			'color'       => [ 'default', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
 			'collapsible' => self::NO_FALSE_VALUE,
 			'disabled'    => self::NO_FALSE_VALUE,
 			'dismissible' => self::NO_FALSE_VALUE,

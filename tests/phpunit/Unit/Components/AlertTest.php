@@ -58,7 +58,10 @@ class AlertTest extends ComponentsTestBase {
 		/** @noinspection PhpParamsInspection */
 		$generatedOutput = $instance->parseComponent( $parserRequest );
 
-		$this->assertRegExp( '~^<div.+class="alert alert-.+".*role="alert".*>' . $this->input . '</div>$~', $generatedOutput );
+		$this->assertRegExp(
+			'~^<div.+class="alert alert-.+".*role="alert".*>' . $this->input . '(<button.*button>)?</div>$~',
+			$generatedOutput
+		);
 		$this->assertEquals( $expectedOutput, $generatedOutput );
 	}
 
@@ -70,27 +73,27 @@ class AlertTest extends ComponentsTestBase {
 			'simple'                => [
 				$this->input,
 				[],
-				'<div class="alert alert-info" id="bsc_alert_NULL" role="alert">' . $this->input . '</div>',
+				'<div class="alert alert-primary" id="bsc_alert_NULL" role="alert">' . $this->input . '</div>',
 			],
 			'color_unknown'         => [
 				$this->input,
 				[ 'color' => 'unknown' ],
-				'<div class="alert alert-info" id="bsc_alert_NULL" role="alert">' . $this->input . '</div>',
+				'<div class="alert alert-primary" id="bsc_alert_NULL" role="alert">' . $this->input . '</div>',
 			],
-			'dismiss_invalid'       => [
+			'dismiss_arbitrary'       => [
 				$this->input,
 				[ 'dismissible' => 'bla' ],
-				'<div class="alert alert-info alert-dismissible" id="bsc_alert_NULL" role="alert"><div type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></div>' . $this->input . '</div>',
+				'<div class="alert alert-primary alert-dismissible" id="bsc_alert_NULL" role="alert">' . $this->input . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>',
 			],
 			'dismiss'               => [
 				$this->input,
 				[ 'dismissible' => true ],
-				'<div class="alert alert-info alert-dismissible" id="bsc_alert_NULL" role="alert"><div type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></div>' . $this->input . '</div>',
+				'<div class="alert alert-primary alert-dismissible" id="bsc_alert_NULL" role="alert">' . $this->input . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>',
 			],
 			'fading'                => [
 				$this->input,
 				[ 'dismissible' => 'fade', 'color' => 'warning' ],
-				'<div class="alert alert-warning fade in" id="bsc_alert_NULL" role="alert"><div type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></div>' . $this->input . '</div>',
+				'<div class="alert alert-warning alert-dismissible fade show" id="bsc_alert_NULL" role="alert">' . $this->input . '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>',
 			],
 			'manual id, no dismiss' => [
 				$this->input,
@@ -100,7 +103,7 @@ class AlertTest extends ComponentsTestBase {
 			'style and class'       => [
 				$this->input,
 				[ 'class' => 'dummy nice', 'style' => 'float:right;background-color:green' ],
-				'<div class="alert alert-info dummy nice" style="float:right;background-color:green" id="bsc_alert_NULL" role="alert">' . $this->input . '</div>',
+				'<div class="alert alert-primary dummy nice" style="float:right;background-color:green" id="bsc_alert_NULL" role="alert">' . $this->input . '</div>',
 			],
 		];
 	}

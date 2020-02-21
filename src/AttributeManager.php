@@ -263,6 +263,7 @@ class AttributeManager {
 			'heading'     => self::ANY_VALUE,
 			'id'          => self::ANY_VALUE,
 			'link'        => self::ANY_VALUE,
+			'outline'     => self::NO_FALSE_VALUE,
 			'pill'        => self::NO_FALSE_VALUE,
 			'placement'   => [ 'top', 'bottom', 'left', 'right' ],
 			'size'        => [ 'xs', 'sm', 'md', 'lg' ],

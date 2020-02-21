@@ -384,6 +384,7 @@ class ComponentLibrary {
 					'active',
 					'color',
 					'disabled',
+					'outline',
 					'size',
 					'text',
 				],

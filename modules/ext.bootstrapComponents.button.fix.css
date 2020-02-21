@@ -22,12 +22,21 @@
  * @ingroup       BootstrapComponents
  * @author        Tobias Oetterer
  */
+
+/*
+ * a href prioritizes the mw link color. overwrite this here to a more suitable one
+ */
 a.btn-default,
 a.btn-default:link,
 a.btn-default:visited,
 a.btn-default:active,
-a.btn-default:hover {
-    color:#000000;
+a.btn-default:hover,
+a.btn-light,
+a.btn-light:link,
+a.btn-light:visited,
+a.btn-light:active,
+a.btn-light:hover {
+	color: #212529;
 }
 
 a.btn-primary,
@@ -35,25 +44,124 @@ a.btn-primary:link,
 a.btn-primary:visited,
 a.btn-primary:active,
 a.btn-primary:hover,
+a.btn-secondary,
+a.btn-secondary:link,
+a.btn-secondary:visited,
+a.btn-secondary:active,
+a.btn-secondary:hover,
 a.btn-success,
 a.btn-success:link,
 a.btn-success:visited,
 a.btn-success:active,
 a.btn-success:hover,
-a.btn-info,
-a.btn-info:link,
-a.btn-info:visited,
-a.btn-info:active,
-a.btn-info:hover,
+a.btn-danger,
+a.btn-danger:link,
+a.btn-danger:visited,
+a.btn-danger:active,
+a.btn-danger:hover,
 a.btn-warning,
 a.btn-warning:link,
 a.btn-warning:visited,
 a.btn-warning:active,
 a.btn-warning:hover,
-a.btn-danger,
-a.btn-danger:link,
-a.btn-danger:visited,
-a.btn-danger:active,
-a.btn-danger:hover {
-    color: #ffffff;
+a.btn-info,
+a.btn-info:link,
+a.btn-info:visited,
+a.btn-info:active,
+a.btn-info:hover,
+a.btn-dark,
+a.btn-dark:link,
+a.btn-dark:visited,
+a.btn-dark:active,
+a.btn-dark:hover {
+    color: var(--white);
+}
+
+/**
+ * outline link colors have to be defined separately
+ */
+
+a.btn-outline-default,
+a.btn-outline-default:link,
+a.btn-outline-default:visited,
+a.btn-outline-default:active,
+a.btn-outline-light,
+a.btn-outline-light:link,
+a.btn-outline-light:visited,
+a.btn-outline-light:active {
+	color: var(--white);
+}
+a.btn-outline-default:hover,
+a.btn-outline-light:hover {
+	color: #212529;
+}
+
+a.btn-outline-primary,
+a.btn-outline-primary:link,
+a.btn-outline-primary:visited,
+a.btn-outline-primary:active {
+	color: var(--primary);
+}
+a.btn-outline-primary:hover {
+	color: var(--white);
+}
+
+a.btn-outline-secondary,
+a.btn-outline-secondary:link,
+a.btn-outline-secondary:visited,
+a.btn-outline-secondary:active {
+	color: var(--secondary);
+}
+a.btn-outline-secondary:hover {
+	color: var(--white);
+}
+
+a.btn-outline-success,
+a.btn-outline-success:link,
+a.btn-outline-success:visited,
+a.btn-outline-success:active {
+	color: var(--success);
+}
+a.btn-outline-success:hover {
+	color: var(--white);
+}
+
+a.btn-outline-danger,
+a.btn-outline-danger:link,
+a.btn-outline-danger:visited,
+a.btn-outline-danger:active {
+	color: var(--danger);
+}
+a.btn-outline-danger:hover {
+	color: var(--white);
+}
+
+a.btn-outline-warning,
+a.btn-outline-warning:link,
+a.btn-outline-warning:visited,
+a.btn-outline-warning:active {
+	color: var(--warning);
+}
+a.btn-outline-warning:hover {
+	color: #212529;
+}
+
+a.btn-outline-info,
+a.btn-outline-info:link,
+a.btn-outline-info:visited,
+a.btn-outline-info:active {
+	color: var(--info);
+}
+a.btn-outline-info:hover {
+	color: var(--white);
+}
+
+a.btn-outline-dark,
+a.btn-outline-dark:link,
+a.btn-outline-dark:visited,
+a.btn-outline-dark:active {
+	color: var(--dark);
+}
+a.btn-outline-dark:hover {
+	color: var(--white);
 }

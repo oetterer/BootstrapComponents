@@ -78,16 +78,32 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 * @throws \ConfigException
 	 * @throws \MWException
 	 *
+	 * @dataProvider componentAliasesProvider
+	 */
+	public function testGetAliasesFor( $component, $expectedAliases ) {
+		$instance = new ComponentLibrary();
+		$this->assertEquals(
+			$expectedAliases,
+			$instance->getAliasesFor( $component )
+		);
+	}
+
+	/**
+	 * @param string   $component
+	 * @param string[] $expectedAttributes
+	 *
+	 * @throws \ConfigException
+	 * @throws \MWException
+	 *
 	 * @dataProvider componentAttributesProvider
 	 */
-	public function testCanGetAttributesFor( $component, $expectedAttributes ) {
+	public function testGetAttributesFor( $component, $expectedAttributes ) {
 		$instance = new ComponentLibrary();
 		$this->assertEquals(
 			$expectedAttributes,
 			$instance->getAttributesFor( $component )
 		);
 	}
-
 
 	/**
 	 * @param string $componentName
@@ -281,6 +297,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'badge'     => [ 'badge', 'bootstrap_badge' ],
 			'button'    => [ 'button', 'bootstrap_button' ],
 			'carousel'  => [ 'carousel', 'bootstrap_carousel' ],
+			'card'      => [ 'card', 'bootstrap_card' ],
 			'collapse'  => [ 'collapse', 'bootstrap_collapse' ],
 			'icon'      => [ 'icon', 'bootstrap_icon' ],
 			'jumbotron' => [ 'jumbotron', 'bootstrap_jumbotron' ],
@@ -302,6 +319,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'alert'     => [ 'alert', 'BootstrapComponents\\Components\\Alert' ],
 			'badge'     => [ 'badge', 'BootstrapComponents\\Components\\Badge' ],
 			'button'    => [ 'button', 'BootstrapComponents\\Components\\Button' ],
+			'card'      => [ 'panel', 'BootstrapComponents\\Components\\Panel' ],
 			'carousel'  => [ 'carousel', 'BootstrapComponents\\Components\\Carousel' ],
 			'collapse'  => [ 'collapse', 'BootstrapComponents\\Components\\Collapse' ],
 			'icon'      => [ 'icon', 'BootstrapComponents\\Components\\Icon' ],
@@ -312,6 +330,18 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'popover'   => [ 'popover', 'BootstrapComponents\\Components\\Popover' ],
 			'tooltip'   => [ 'tooltip', 'BootstrapComponents\\Components\\Tooltip' ],
 			'well'      => [ 'well', 'BootstrapComponents\\Components\\Well' ],
+		];
+	}
+
+	/**
+	 * @return array
+	 */
+	public function componentAliasesProvider() {
+		return [
+			'alert' => [ 'alert', [] ],
+			'button' => [ 'button', [] ],
+			'card' => [ 'card', [ 'footing' => 'footer', 'heading' => 'header', 'title' => 'header', ], ],
+			'panel' => [ 'panel', [ 'footing' => 'footer', 'heading' => 'header', 'title' => 'header', ], ],
 		];
 	}
 

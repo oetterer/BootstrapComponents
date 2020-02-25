@@ -1,0 +1,167 @@
+{
+	"accordion": {
+		"class": "BootstrapComponents\\Components\\Accordion",
+		"handlerType": "tag"
+	},
+	"alert": {
+		"class": "BootstrapComponents\\Components\\Alert",
+		"handlerType": "tag",
+		"attributes": [
+			"color",
+			"dismissible"
+		],
+		"modules": {
+			"default": "ext.bootstrapComponents.alert.fix"
+		}
+	},
+	"badge": {
+		"class": "BootstrapComponents\\Components\\Badge",
+		"handlerType": "function",
+		"attributes": [
+			"color",
+			"pill"
+		]
+	},
+	"button": {
+		"class": "BootstrapComponents\\Components\\Button",
+		"handlerType": "function",
+		"attributes": [
+			"active",
+			"color",
+			"disabled",
+			"outline",
+			"size",
+			"text"
+		],
+		"modules": {
+			"default": "ext.bootstrapComponents.button.fix"
+		}
+	},
+	"card": {
+		"class": "BootstrapComponents\\Components\\Panel",
+		"handlerType": "tag",
+		"attributes": [
+			"active",
+			"collapsible",
+			"color",
+			"footer",
+			"heading"
+		],
+		"aliases": {
+			"footing": "footer",
+			"heading": "header",
+			"title": "header"
+		}
+	},
+	"carousel": {
+		"class": "BootstrapComponents\\Components\\Carousel",
+		"handlerType": "function",
+		"modules": {
+			"default": "ext.bootstrapComponents.carousel.fix"
+		}
+	},
+	"collapse": {
+		"class": "BootstrapComponents\\Components\\Collapse",
+		"handlerType": "tag",
+		"attributes": [
+			"active",
+			"color",
+			"disabled",
+			"size",
+			"text"
+		],
+		"modules": {
+			"default": "ext.bootstrapComponents.button.fix"
+		}
+	},
+	"icon": {
+		"class": "BootstrapComponents\\Components\\Icon",
+		"handlerType": "function"
+	},
+	"jumbotron": {
+		"class": "BootstrapComponents\\Components\\Jumbotron",
+		"handlerType": "tag"
+	},
+	"label": {
+		"class": "BootstrapComponents\\Components\\Label",
+		"handlerType": "function",
+		"attributes": [
+			"color"
+		]
+	},
+	"modal": {
+		"class": "BootstrapComponents\\Components\\Modal",
+		"handlerType": "tag",
+		"attributes": [
+			"color",
+			"footer",
+			"heading",
+			"size",
+			"text"
+		],
+		"modules": {
+			"default": [
+				"ext.bootstrapComponents.button.fix",
+				"ext.bootstrapComponents.modal.fix"
+			],
+			"vector": [
+				"ext.bootstrapComponents.modal.vector-fix"
+			]
+		}
+	},
+	"panel": {
+		"class": "BootstrapComponents\\Components\\Panel",
+		"handlerType": "tag",
+		"attributes": [
+			"active",
+			"collapsible",
+			"color",
+			"footer",
+			"header"
+		],
+		"aliases": {
+			"footing": "footer",
+			"heading": "header",
+			"title": "header"
+		}
+	},
+	"popover": {
+		"class": "BootstrapComponents\\Components\\Popover",
+		"handlerType": "tag",
+		"attributes": [
+			"color",
+			"heading",
+			"placement",
+			"size",
+			"text",
+			"trigger"
+		],
+		"modules": {
+			"default": [
+				"ext.bootstrapComponents.button.fix",
+				"ext.bootstrapComponents.popover"
+			],
+			"vector": [
+				"ext.bootstrapComponents.popover.vector-fix"
+			]
+		}
+	},
+	"tooltip": {
+		"class": "BootstrapComponents\\Components\\Tooltip",
+		"handlerType": "function",
+		"attributes": [
+			"placement",
+			"text"
+		],
+		"modules": {
+			"default": "ext.bootstrapComponents.tooltip"
+		}
+	},
+	"well": {
+		"class": "BootstrapComponents\\Components\\Well",
+		"handlerType": "tag",
+		"attributes": [
+			"size"
+		]
+	}
+}

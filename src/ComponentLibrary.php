@@ -43,14 +43,21 @@ class ComponentLibrary {
 	const DEFAULT_ATTRIBUTES = [ 'class', 'id', 'style' ];
 
 	/**
+	 * File, that holds the component definition list.
+	 *
 	 * @var string
 	 */
-	const HANDLER_TYPE_PARSER_FUNCTION = 'ParserFunction';
+	const DEFINITIONS_FILE = __DIR__ . DIRECTORY_SEPARATOR . 'ComponentsDefinition.json';
 
 	/**
 	 * @var string
 	 */
-	const HANDLER_TYPE_TAG_EXTENSION = 'TagExtension';
+	const HANDLER_TYPE_PARSER_FUNCTION = 'function';
+
+	/**
+	 * @var string
+	 */
+	const HANDLER_TYPE_TAG_EXTENSION = 'tag';
 
 	/**
 	 * @var string
@@ -66,6 +73,7 @@ class ComponentLibrary {
 	 *      "class" => <className>,
 	 *      "handlerType" => <handlerType>,
 	 *      "attributes" => [ "attr1", "attr2", ... ],
+	 *      "aliases" => [ "alias" => "attribute", ... ]
 	 *      "modules" => [
 	 *          "default" => [ "module1", "module2", ... ],
 	 *          "<skin>" => [ "module1", "module2", ... ],
@@ -150,6 +158,19 @@ class ComponentLibrary {
 	 */
 	public function componentIsRegistered( $component ) {
 		return in_array( $component, $this->registeredComponents );
+	}
+
+	/**
+	 * @param string $component
+	 *
+	 * @return array
+	 * @throws MWException provided component is not known
+	 */
+	public function getAliasesFor( $component ) {
+		if ( !isset( $this->componentDataStore[$component] ) ) {
+			throw new MWException( 'Trying to get the alias list for unknown component "' . (string) $component . '"!' );
+		}
+		return $this->componentDataStore[$component]['aliases'];
 	}
 
 	/**
@@ -292,8 +313,7 @@ class ComponentLibrary {
 	}
 
 	/**
-	 * The attribute array in the register can contain an `default => true` entry. This adds the
-	 * appropriate default attributes.
+	 * This adds the default attributes to the attribute list.
 	 *
 	 * @param array $componentAttributes
 	 *
@@ -301,15 +321,12 @@ class ComponentLibrary {
 	 */
 	private function normalizeAttributes( $componentAttributes ) {
 		$componentAttributes = (array) $componentAttributes;
-		if ( $componentAttributes['default'] ) {
-			$componentAttributes = array_unique(
-				array_merge(
-					$componentAttributes,
-					self::DEFAULT_ATTRIBUTES
-				)
-			);
-		}
-		unset( $componentAttributes['default'] );
+		$componentAttributes = array_unique(
+			array_merge(
+				$componentAttributes,
+				self::DEFAULT_ATTRIBUTES
+			)
+		);
 		return $componentAttributes;
 	}
 
@@ -326,7 +343,9 @@ class ComponentLibrary {
 		$registeredComponents = [];
 		foreach ( $this->rawComponentsDefinition() as $componentName => $componentData ) {
 
-			$componentData['attributes'] = $this->normalizeAttributes( $componentData['attributes'] );
+			$attributes = isset( $componentData['attributes'] ) ? $componentData['attributes'] : [];
+			$componentData['attributes'] = $this->normalizeAttributes( $attributes );
+			$componentData['aliases'] = isset( $componentData['aliases'] ) ? $componentData['aliases'] : [];
 			$componentDataStore[$componentName] = $componentData;
 
 			if ( !$componentWhiteList || (is_array( $componentWhiteList ) && !in_array( $componentName, $componentWhiteList )) ) {
@@ -347,173 +366,6 @@ class ComponentLibrary {
 	 * @return array
 	 */
 	private function rawComponentsDefinition() {
-		return [
-			'accordion' => [
-				'class'       => 'BootstrapComponents\\Components\\Accordion',
-				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
-				'attributes'  => [
-					'default' => true,
-				],
-			],
-			'alert'     => [
-				'class'       => 'BootstrapComponents\\Components\\Alert',
-				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
-				'attributes'  => [
-					'default' => true,
-					'color',
-					'dismissible',
-				],
-				'modules'     => [
-					'default' => 'ext.bootstrapComponents.alert.fix',
-				],
-			],
-			'badge'     => [
-				'class'       => 'BootstrapComponents\\Components\\Badge',
-				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
-				'attributes'  => [
-					'default' => true,
-					'color',
-					'pill'
-				],
-			],
-			'button'    => [
-				'class'       => 'BootstrapComponents\\Components\\Button',
-				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
-				'attributes'  => [
-					'default' => true,
-					'active',
-					'color',
-					'disabled',
-					'outline',
-					'size',
-					'text',
-				],
-				'modules'     => [
-					'default' => 'ext.bootstrapComponents.button.fix',
-				],
-			],
-			'carousel'  => [
-				'class'       => 'BootstrapComponents\\Components\\Carousel',
-				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
-				'attributes'  => [
-					'default' => true,
-				],
-				'modules'     => [
-					'default' => 'ext.bootstrapComponents.carousel.fix',
-				],
-			],
-			'collapse'  => [
-				'class'       => 'BootstrapComponents\\Components\\Collapse',
-				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
-				'attributes'  => [
-					'default' => true,
-					'active',
-					'color',
-					'disabled',
-					'size',
-					'text',
-				],
-				'modules'     => [
-					'default' => 'ext.bootstrapComponents.button.fix',
-				],
-			],
-			'icon'      => [
-				'class'       => 'BootstrapComponents\\Components\\Icon',
-				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
-				'attributes'  => [
-					'default' => false,
-				],
-			],
-			'jumbotron' => [
-				'class'       => 'BootstrapComponents\\Components\\Jumbotron',
-				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
-				'attributes'  => [
-					'default' => true,
-				],
-			],
-			'label'     => [
-				'class'       => 'BootstrapComponents\\Components\\Label',
-				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
-				'attributes'  => [
-					'default' => true,
-					'color',
-				],
-			],
-			'modal'     => [
-				'class'       => 'BootstrapComponents\\Components\\Modal',
-				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
-				'attributes'  => [
-					'default' => true,
-					'color',
-					'footer',
-					'heading',
-					'size',
-					'text',
-				],
-				'modules'     => [
-					'default' => [
-						'ext.bootstrapComponents.button.fix',
-						'ext.bootstrapComponents.modal.fix',
-					],
-					'vector'  => [
-						'ext.bootstrapComponents.modal.vector-fix',
-					],
-				],
-			],
-			'panel'     => [
-				'class'       => 'BootstrapComponents\\Components\\Panel',
-				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
-				'attributes'  => [
-					'default' => true,
-					'active',
-					'collapsible',
-					'color',
-					'footer',
-					'heading',
-				],
-			],
-			'popover'   => [
-				'class'       => 'BootstrapComponents\\Components\\Popover',
-				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
-				'attributes'  => [
-					'default' => true,
-					'color',
-					'heading',
-					'placement',
-					'size',
-					'text',
-					'trigger',
-				],
-				'modules'     => [
-					'default' => [
-						'ext.bootstrapComponents.button.fix',
-						'ext.bootstrapComponents.popover',
-					],
-					'vector'  => [
-						'ext.bootstrapComponents.popover.vector-fix',
-					],
-				],
-			],
-			'tooltip'   => [
-				'class'       => 'BootstrapComponents\\Components\\Tooltip',
-				'handlerType' => self::HANDLER_TYPE_PARSER_FUNCTION,
-				'attributes'  => [
-					'default' => true,
-					'placement',
-					'text',
-				],
-				'modules'     => [
-					'default' => 'ext.bootstrapComponents.tooltip',
-				],
-			],
-			'well'      => [
-				'class'       => 'BootstrapComponents\\Components\\Well',
-				'handlerType' => self::HANDLER_TYPE_TAG_EXTENSION,
-				'attributes'  => [
-					'default' => true,
-					'size',
-				],
-			],
-		];
+		return json_decode( file_get_contents( self::DEFINITIONS_FILE ), JSON_OBJECT_AS_ARRAY );
 	}
 }

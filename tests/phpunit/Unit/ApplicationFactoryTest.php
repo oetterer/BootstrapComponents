@@ -54,6 +54,15 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testGetNewAttributeManager() {
+		$instance = new ApplicationFactory();
+
+		$this->assertInstanceOf(
+			'BootstrapComponents\\AttributeManager',
+			$instance->getNewAttributeManager( [], [] )
+		);
+	}
+
 	public function testGetNewModalBuilder() {
 		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
 			->disableOriginalConstructor()
@@ -67,15 +76,6 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 		$this->assertInstanceOf(
 			'BootstrapComponents\\ModalBuilder',
 			$modalBuilder
-		);
-	}
-
-	public function testGetAttributeManager() {
-		$instance = new ApplicationFactory();
-
-		$this->assertInstanceOf(
-			'BootstrapComponents\\AttributeManager',
-			$instance->getAttributeManager( [] )
 		);
 	}
 

@@ -91,17 +91,6 @@ class ApplicationFactory {
 	}
 
 	/**
-	 * @param string[] $validAttributes
-	 *
-	 * @see AttributeManager::__construct
-	 *
-	 * @return AttributeManager
-	 */
-	public function getAttributeManager( $validAttributes ) {
-		return new AttributeManager( $validAttributes );
-	}
-
-	/**
 	 * @param null|bool|array $componentWhiteList
 	 *
 	 * @throws MWException  cascading {@see \BootstrapComponents\ApplicationFactory::getApplication}
@@ -119,6 +108,18 @@ class ApplicationFactory {
 	 */
 	public function getNestingController() {
 		return $this->getApplication( 'NestingController' );
+	}
+
+	/**
+	 * @param string[] $validAttributes
+	 * @param string[] $aliases
+	 *
+	 * @see AttributeManager::__construct
+	 *
+	 * @return AttributeManager
+	 */
+	public function getNewAttributeManager( $validAttributes, $aliases ) {
+		return new AttributeManager( $validAttributes, $aliases );
 	}
 
 	/**

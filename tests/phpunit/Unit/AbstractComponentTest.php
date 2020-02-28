@@ -4,6 +4,7 @@ namespace BootstrapComponents\Tests\Unit;
 
 use BootstrapComponents\AbstractComponent;
 use BootstrapComponents\ComponentLibrary;
+use BootstrapComponents\NestableInterface;
 use \MWException;
 use \PHPUnit_Framework_MockObject_MockObject;
 
@@ -29,7 +30,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 	 * @return AbstractComponent|PHPUnit_Framework_MockObject_MockObject
 	 */
 	private function createStub() {
-		$componentLibrary = $this->getMockBuilder( 'BootstrapComponents\\ComponentLibrary' )
+		$componentLibrary = $this->getMockBuilder( ComponentLibrary::class )
 			->disableOriginalConstructor()
 			->getMock();
 		$componentLibrary->expects( $this->any() )
@@ -38,9 +39,12 @@ class AbstractComponentTest extends ComponentsTestBase {
 		$componentLibrary->expects( $this->any() )
 			->method( 'getAttributesFor' )
 			->will( $this->returnValue( [] ) );
+		$componentLibrary->expects( $this->any() )
+			->method( 'getAliasesFor' )
+			->will( $this->returnValue( [] ) );
 
 		$stub = $this->getMockForAbstractClass(
-			'BootstrapComponents\\AbstractComponent',
+			AbstractComponent::class,
 			[ $componentLibrary, $this->getParserOutputHelper(), $this->getNestingController() ]
 		);
 		$stub->expects( $this->any() )
@@ -51,11 +55,11 @@ class AbstractComponentTest extends ComponentsTestBase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
-			'BootstrapComponents\\AbstractComponent',
+			AbstractComponent::class,
 			$this->createStub()
 		);
 		$this->assertInstanceOf(
-			'BootstrapComponents\\NestableInterface',
+			NestableInterface::class,
 			$this->createStub()
 		);
 	}
@@ -97,7 +101,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 	public function testSimpleOutput( $component ) {
 		$parserRequest = $this->buildParserRequest(
 			'test input',
-			[ 'class' => 'test-class', 'style' => 'color:black', 'text' => 'test text', 'heading' => 'test heading' ]
+			[ 'class' => 'test-class', 'style' => 'color:black', 'text' => 'test text', 'header' => 'test header' ]
 		);
 		$class = $this->getComponentLibrary()->getClassFor( $component );
 		/** @var AbstractComponent $instance */
@@ -138,11 +142,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 			$this->getParserOutputHelper(),
 			$this->getNestingController()
 		);
-		if ( method_exists( $this, 'expectException' ) ) {
-			$this->expectException( 'MWException' );
-		} else {
-			$this->setExpectedException( 'MWException' );
-		}
+		$this->expectException( 'MWException' );
 		/** @noinspection PhpParamsInspection */
 		$instance->parseComponent(
 			'noParser'
@@ -160,6 +160,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 			'alert'     => [ 'alert' ],
 			'badge'     => [ 'badge' ],
 			'button'    => [ 'button' ],
+			'card'      => [ 'card' ],
 			'collapse'  => [ 'collapse' ],
 			'jumbotron' => [ 'jumbotron' ],
 			'label'     => [ 'label' ],

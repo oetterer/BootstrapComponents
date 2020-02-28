@@ -130,12 +130,16 @@
 		"handlerType": "tag",
 		"attributes": [
 			"color",
-			"heading",
+			"header",
 			"placement",
 			"size",
 			"text",
 			"trigger"
 		],
+		"aliases": {
+			"heading": "header",
+			"title": "header"
+		},
 		"modules": {
 			"default": [
 				"ext.bootstrapComponents.button.fix",

@@ -117,12 +117,11 @@ abstract class AbstractComponent implements NestableInterface {
 		$this->name = $componentLibrary->getNameFor(
 			get_class( $this )
 		);
-		$this->attributeManager = ApplicationFactory::getInstance()->getAttributeManager(
-			$this->componentLibrary->getAttributesFor( $this->getComponentName() )
+		$this->attributeManager = ApplicationFactory::getInstance()->getNewAttributeManager(
+			$this->componentLibrary->getAttributesFor( $this->getComponentName() ),
+			$this->componentLibrary->getAliasesFor( $this->getComponentName() )
 		);
-		$this->storeParentComponent(
-			$this->getNestingController()->getCurrentElement()
-		);
+		$this->parentComponent = $this->getNestingController()->getCurrentElement();
 	}
 
 	/**
@@ -151,7 +150,7 @@ abstract class AbstractComponent implements NestableInterface {
 	 * @return string|array
 	 */
 	public function parseComponent( $parserRequest ) {
-		if ( !is_a( $parserRequest, 'BootstrapComponents\ParserRequest' ) ) {
+		if ( !is_a( $parserRequest, ParserRequest::class ) ) {
 			throw new MWException( 'Invalid ParserRequest supplied to component ' . $this->getComponentName() . '!' );
 		}
 		$this->getNestingController()->open( $this );
@@ -245,10 +244,21 @@ abstract class AbstractComponent implements NestableInterface {
 	 * @return bool|string
 	 */
 	protected function getValueFor( $attribute, $fallback = false ) {
-		if ( !isset( $this->sanitizedAttributes[$attribute] ) || $this->sanitizedAttributes[$attribute] === false ) {
+		if ( !$this->hasValueFor( $attribute ) ) {
 			return $fallback;
 		}
 		return $this->sanitizedAttributes[$attribute];
+	}
+
+	/**
+	 * Checks, if component has a value supplied for $attribute. Note, that $value can be empty string or evaluate to false.
+	 *
+	 * @param string $attribute
+	 *
+	 * @return bool
+	 */
+	protected function hasValueFor( $attribute ) {
+		return isset( $this->sanitizedAttributes[$attribute] );
 	}
 
 	/**
@@ -257,9 +267,9 @@ abstract class AbstractComponent implements NestableInterface {
 	 * @param ParserRequest $parserRequest
 	 * @param bool          $fullParse
 	 *
+	 * @return string
 	 * @since 1.1.0
 	 *
-	 * @return string
 	 */
 	protected function prepareInput( $parserRequest, $fullParse = false ) {
 		$parser = $parserRequest->getParser();
@@ -335,24 +345,25 @@ abstract class AbstractComponent implements NestableInterface {
 	/**
 	 * For every registered attribute, sanitizes (parses and verifies) the corresponding value in supplied attributes.
 	 *
-	 * @param \Parser  $parser
-	 * @param string[] $attributes
+	 * @param \Parser $parser
+	 * @param array   $attributes
 	 *
 	 * @return array
 	 */
 	private function sanitizeAttributes( $parser, $attributes ) {
-
 		$parsedAttributes = [];
 		foreach ( $attributes as $attribute => $unParsedValue ) {
-			$parsedAttributes[$attribute] = $parser->recursiveTagParse( $unParsedValue );
+			if ( !$this->getAttributeManager()->isValid( $attribute ) ) {
+				continue;
+			}
+			list( $attribute, $verifiedValue ) = $this->getAttributeManager()->validateAttributeAndValue(
+				$attribute,
+				$parser->recursiveTagParse( $unParsedValue )
+			);
+			if ( !is_null( $verifiedValue ) ) {
+				$parsedAttributes[$attribute] = $verifiedValue;
+			}
 		}
-		return $this->getAttributeManager()->verifyAttributes( $parsedAttributes );
-	}
-
-	/**
-	 * @param NestableInterface|false $parentComponent
-	 */
-	private function storeParentComponent( $parentComponent ) {
-		$this->parentComponent = $parentComponent;
+		return $parsedAttributes;
 	}
 }

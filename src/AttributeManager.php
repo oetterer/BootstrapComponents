@@ -106,7 +106,7 @@ class AttributeManager {
 	/**
 	 * Checks, if the attribute $neededAttribute or its alias is found in $suppliedAttributes.
 	 *
-	 * @param string $neededAttribute
+	 * @param string   $neededAttribute
 	 * @param string[] $suppliedAttributes
 	 *
 	 * @return bool
@@ -248,6 +248,7 @@ class AttributeManager {
 	private function getAttributeRegister() {
 		return [
 			'active'      => self::NO_FALSE_VALUE,
+			'background'  => [ 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
 			'class'       => self::ANY_VALUE,
 			'color'       => [ 'default', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
 			'collapsible' => self::NO_FALSE_VALUE,

@@ -23,7 +23,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ComponentLibrary',
+			ComponentLibrary::class,
 			new ComponentLibrary()
 		);
 	}
@@ -67,13 +67,13 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 		$instance = new ComponentLibrary();
 		$this->assertEquals(
 			true,
-			$instance->componentIsRegistered( $componentName )
+			$instance->isRegistered( $componentName )
 		);
 	}
 
 	/**
 	 * @param string   $component
-	 * @param string[] $expectedAttributes
+	 * @param string[] $expectedAliases
 	 *
 	 * @throws \ConfigException
 	 * @throws \MWException
@@ -228,10 +228,6 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			$expectedComponents,
 			$instance->getRegisteredComponents()
 		);
-		$this->assertEquals(
-			array_keys( $this->componentNameAndClassProvider() ),
-			$instance->getKnownComponents()
-		);
 	}
 
 	/**
@@ -246,20 +242,13 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	public function testFails( $method ) {
 		$instance = new ComponentLibrary();
 
-		if ( method_exists( $this, 'expectException' ) ) {
-			$this->expectException( 'MWException' );
-		} else {
-			$this->setExpectedException( 'MWException' );
-		}
+		$this->expectException( 'MWException' );
 
 		call_user_func_array( [ $instance, $method ], [ null ] );
 	}
 
 	/**
-	 * @expectedException \MWException
-	 *
 	 * @throws \ConfigException
-	 * @throws \MWException cascading {@see \BootstrapComponents\ComponentLibrary::getClassFor}
 	 */
 	public function testRegisterVsKnown() {
 		$instance = new ComponentLibrary( [ 'alert', 'modal', 'panel' ] );
@@ -272,19 +261,39 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			$instance->getHandlerTypeFor( 'well' )
 		);
 		foreach ( $this->modulesForComponentsProvider() as $args ) {
-			list( $component, $skin, $expectedModules ) = $args;
+			[ $component, $skin, $expectedModules ] = $args;
 			$this->assertEquals(
 				$expectedModules,
 				$instance->getModulesFor( $component, $skin )
 			);
 		}
-		if ( method_exists( $this, 'expectException' ) ) {
-			$this->expectException( 'MWException' );
-		} else {
-			$this->setExpectedException( 'MWException' );
-		}
+		$this->assertFalse(
+			$instance->isRegistered( 'well' )
+		);
+	}
 
-		$instance->getClassFor( 'well' );
+	/**
+	 * @throws \ConfigException
+	 *
+	 * @expectedException \MWException
+	 */
+	public function testUnknownComponentName() {
+		$instance = new ComponentLibrary( true );
+
+		$this->expectException( 'MWException' );
+		$instance->getClassFor( 'foobar' );
+	}
+
+	/**
+	 * @throws \ConfigException
+	 *
+	 * @expectedException \MWException
+	 */
+	public function testUnknownComponentClass() {
+		$instance = new ComponentLibrary( true );
+
+		$this->expectException( 'MWException' );
+		$instance->getNameFor( '\BootstrapComponents\Components\Foobar' );
 	}
 
 	/**
@@ -319,17 +328,17 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'alert'     => [ 'alert', 'BootstrapComponents\\Components\\Alert' ],
 			'badge'     => [ 'badge', 'BootstrapComponents\\Components\\Badge' ],
 			'button'    => [ 'button', 'BootstrapComponents\\Components\\Button' ],
-			'card'      => [ 'panel', 'BootstrapComponents\\Components\\Panel' ],
+			'card'      => [ 'card', 'BootstrapComponents\\Components\\Card' ],
 			'carousel'  => [ 'carousel', 'BootstrapComponents\\Components\\Carousel' ],
 			'collapse'  => [ 'collapse', 'BootstrapComponents\\Components\\Collapse' ],
 			'icon'      => [ 'icon', 'BootstrapComponents\\Components\\Icon' ],
 			'jumbotron' => [ 'jumbotron', 'BootstrapComponents\\Components\\Jumbotron' ],
 			'label'     => [ 'label', 'BootstrapComponents\\Components\\Label' ],
 			'modal'     => [ 'modal', 'BootstrapComponents\\Components\\Modal' ],
-			'panel'     => [ 'panel', 'BootstrapComponents\\Components\\Panel' ],
 			'popover'   => [ 'popover', 'BootstrapComponents\\Components\\Popover' ],
 			'tooltip'   => [ 'tooltip', 'BootstrapComponents\\Components\\Tooltip' ],
 			'well'      => [ 'well', 'BootstrapComponents\\Components\\Well' ],
+			'panel'     => [ 'card', 'BootstrapComponents\\Components\\Card' ],
 		];
 	}
 
@@ -352,7 +361,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 		return [
 			'accordion' => [ 'accordion', [ 'class', 'id', 'style' ] ],
 			'alert'     => [ 'alert', [ 'color', 'dismissible', 'class', 'id', 'style' ] ],
-			'modal'     => [ 'modal', [ 'color', 'footer', 'heading', 'size', 'text', 'class', 'id', 'style' ] ],
+			'modal'     => [ 'modal', [ 'color', 'footer', 'header', 'size', 'text', 'class', 'id', 'style' ] ],
 		];
 	}
 
@@ -450,7 +459,15 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'false'    => [
 				false, [],
 			],
-			'manual 1' => [
+			'normal' => [
+				[ 'alert', 'card', 'modal' ],
+				[ 'alert', 'card', 'modal', ],
+			],
+			'alias w/ corresponding component' => [
+				[ 'alert', 'card', 'modal', 'panel' ],
+				[ 'alert', 'card', 'modal', 'panel' ],
+			],
+			'alias w/o corresponding component' => [
 				[ 'alert', 'modal', 'panel' ],
 				[ 'alert', 'modal', 'panel', ],
 			],

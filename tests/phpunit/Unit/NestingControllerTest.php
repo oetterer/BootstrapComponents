@@ -136,7 +136,7 @@ class NestingControllerTest extends PHPUnit_Framework_TestCase {
 		}
 
 		/** @var AbstractComponent $component */
-		$component = $this->getComponent( 'panel', 'BootstrapComponents\\Components\\Panel' );
+		$component = $this->getComponent( 'panel', 'BootstrapComponents\\Components\\Card' );
 		$instance->open( $component );
 
 		$instance->close( 'invalid' );

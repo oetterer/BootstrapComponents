@@ -40,6 +40,8 @@ use \Html;
  * @since 1.0
  */
 class Modal extends AbstractComponent {
+
+	#@todo replace heading with title, account for deprecation, fix language files!
 	/**
 	 * @inheritdoc
 	 *
@@ -71,7 +73,7 @@ class Modal extends AbstractComponent {
 		)->setDialogClass(
 			$this->calculateInnerClass()
 		)->setHeader(
-			(string)$this->getValueFor( 'heading' )
+			(string)$this->getValueFor( 'header' )
 		)->setFooter(
 			(string)$this->getValueFor( 'footer' )
 		)->parse();

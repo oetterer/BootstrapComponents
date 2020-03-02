@@ -38,19 +38,23 @@
 		}
 	},
 	"card": {
-		"class": "BootstrapComponents\\Components\\Panel",
+		"class": "BootstrapComponents\\Components\\Card",
 		"handlerType": "tag",
 		"attributes": [
 			"active",
+			"background",
 			"collapsible",
 			"color",
 			"footer",
-			"heading"
+			"header"
 		],
 		"aliases": {
 			"footing": "footer",
 			"heading": "header",
 			"title": "header"
+		},
+		"modules": {
+			"default": "ext.bootstrapComponents.card.fix"
 		}
 	},
 	"carousel": {
@@ -95,10 +99,15 @@
 		"attributes": [
 			"color",
 			"footer",
-			"heading",
+			"header",
 			"size",
 			"text"
 		],
+		"aliases": {
+			"footing": "footer",
+			"heading": "header",
+			"title": "header"
+		},
 		"modules": {
 			"default": [
 				"ext.bootstrapComponents.button.fix",
@@ -109,22 +118,7 @@
 			]
 		}
 	},
-	"panel": {
-		"class": "BootstrapComponents\\Components\\Panel",
-		"handlerType": "tag",
-		"attributes": [
-			"active",
-			"collapsible",
-			"color",
-			"footer",
-			"header"
-		],
-		"aliases": {
-			"footing": "footer",
-			"heading": "header",
-			"title": "header"
-		}
-	},
+	"panel": "card",
 	"popover": {
 		"class": "BootstrapComponents\\Components\\Popover",
 		"handlerType": "tag",

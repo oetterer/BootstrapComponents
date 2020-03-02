@@ -69,8 +69,9 @@ class ComponentLibrary {
 	 *
 	 * Array has form
 	 * <pre>
-	 *  "componentName" => [
+	 *  "componentIdentifier" => [
 	 *      "class" => <className>,
+	 *      "name" => <componentName>
 	 *      "handlerType" => <handlerType>,
 	 *      "attributes" => [ "attr1", "attr2", ... ],
 	 *      "aliases" => [ "alias" => "attribute", ... ]
@@ -86,14 +87,7 @@ class ComponentLibrary {
 	private $componentDataStore;
 
 	/**
-	 * Array that maps a class name to the corresponding component name
-	 *
-	 * @var array $componentNamesByClass
-	 */
-	private $componentNamesByClass;
-
-	/**
-	 * The list of available bootstrap components
+	 * The list of registered/allowed bootstrap components, name or alias
 	 *
 	 * @var string[] $registeredComponents
 	 */
@@ -115,9 +109,9 @@ class ComponentLibrary {
 	 *
 	 * @param bool|array $componentWhiteList (see {@see \BootstrapComponents\ComponentLibrary::$componentWhiteList})
 	 *
+	 * @throws \ConfigException cascading {@see \ConfigFactory::makeConfig} and
 	 * @see ApplicationFactory::getComponentLibrary
 	 *
-	 * @throws \ConfigException cascading {@see \ConfigFactory::makeConfig} and
 	 */
 	public function __construct( $componentWhiteList = null ) {
 
@@ -129,8 +123,7 @@ class ComponentLibrary {
 				: true;
 		}
 		$componentWhiteList = $this->mangle( $componentWhiteList );
-		list ( $this->registeredComponents, $this->componentNamesByClass, $this->componentDataStore )
-			= $this->registerComponents( $componentWhiteList );
+		$this->registeredComponents = $this->registerComponents( $componentWhiteList );
 	}
 
 	/**
@@ -150,101 +143,99 @@ class ComponentLibrary {
 	}
 
 	/**
-	 * Checks, if component $component is registered with the tag manager
+	 * Checks, if component $componentIdentifier is registered
 	 *
-	 * @param string $component
+	 * @param string $componentIdentifier
 	 *
 	 * @return bool
 	 */
-	public function componentIsRegistered( $component ) {
-		return in_array( $component, $this->registeredComponents );
+	public function isRegistered( $componentIdentifier ) {
+		return in_array( $componentIdentifier, $this->registeredComponents, true );
 	}
 
 	/**
-	 * @param string $component
+	 * Returns the defined/allowed attribute aliases for component/alias $componentIdentifier.
+	 *
+	 * @param string $componentIdentifier
 	 *
 	 * @return array
 	 * @throws MWException provided component is not known
 	 */
-	public function getAliasesFor( $component ) {
-		if ( !isset( $this->componentDataStore[$component] ) ) {
-			throw new MWException( 'Trying to get the alias list for unknown component "' . (string) $component . '"!' );
-		}
-		return $this->componentDataStore[$component]['aliases'];
+	public function getAliasesFor( $componentIdentifier ) {
+		return $this->accessComponentDataStore( $componentIdentifier, 'aliases' );
 	}
 
 	/**
-	 * @param string $component
+	 * Returns the defined/allowed attributes for component/alias $componentIdentifier.
+	 *
+	 * @param string $componentIdentifier
 	 *
 	 * @return array
 	 * @throws MWException provided component is not known
 	 */
-	public function getAttributesFor( $component ) {
-		if ( !isset( $this->componentDataStore[$component] ) ) {
-			throw new MWException( 'Trying to get attribute list for unknown component "' . (string) $component . '"!' );
-		}
-		return $this->componentDataStore[$component]['attributes'];
+	public function getAttributesFor( $componentIdentifier ) {
+		return $this->accessComponentDataStore( $componentIdentifier, 'attributes' );
 	}
 
 	/**
-	 * Returns class name for a registered component
+	 * Returns class name for a registered component/alias.
 	 *
-	 * @param string $componentName
+	 * @param string $componentIdentifier
 	 *
-	 * @throws MWException provided component is not registered
 	 * @return string
 	 */
-	public function getClassFor( $componentName ) {
-		if ( !$this->componentIsRegistered( $componentName ) ) {
-			throw new MWException( 'Trying to get a class for an unregistered component "' . (string) $componentName . '"!' );
-		}
-		return $this->componentDataStore[$componentName]['class'];
+	public function getClassFor( $componentIdentifier ) {
+		return $this->accessComponentDataStore( $componentIdentifier, 'class' );
 	}
 
 	/**
-	 * Returns handler type for a registered component. 'UNKNOWN' for unknown components.
+	 * Returns handler type for a registered component/alias. 'UNKNOWN' if unknown component.
 	 *
-	 * @see \BootstrapComponents\ComponentLibrary::HANDLER_TYPE_PARSER_FUNCTION, \BootstrapComponents\ComponentLibrary::HANDLER_TYPE_TAG_EXTENSION
-	 *
-	 * @param string $component
+	 * @param string $componentIdentifier
 	 *
 	 * @return string
+	 * @see \BootstrapComponents\ComponentLibrary::HANDLER_TYPE_PARSER_FUNCTION,
+	 *      \BootstrapComponents\ComponentLibrary::HANDLER_TYPE_TAG_EXTENSION
+	 *
 	 */
-	public function getHandlerTypeFor( $component ) {
-		if ( !isset( $this->componentDataStore[$component] ) ) {
+	public function getHandlerTypeFor( $componentIdentifier ) {
+		try {
+			return $this->accessComponentDataStore( $componentIdentifier, 'handlerType' );
+		} catch ( MWException $e ) {
 			return 'UNKNOWN';
 		}
-		return $this->componentDataStore[$component]['handlerType'];
 	}
 
 	/**
-	 * Returns an array of all the known components' names.
+	 * Returns an array of all the known components' names, _excluding_ aliases,
 	 *
 	 * @return array
 	 */
 	public function getKnownComponents() {
-		return array_keys( $this->componentDataStore );
+		return array_keys( $this->getComponentDataStore() );
 	}
 
 	/**
-	 * Returns all the needed modules for a registered component. False, if there are none.
+	 * Returns all the needed modules for a component/alias. False, if there are none.
 	 * If skin is set, returns all modules especially registered for that skin as well
 	 *
-	 * @param string $componentName
+	 * @param string $componentIdentifier
 	 * @param string $skin
 	 *
 	 * @return array
 	 */
-	public function getModulesFor( $componentName, $skin = null ) {
-		$modules = isset( $this->componentDataStore[$componentName]['modules']['default'] )
-			? (array) $this->componentDataStore[$componentName]['modules']['default']
+	public function getModulesFor( $componentIdentifier, $skin = null ) {
+		$allModules = $this->accessComponentDataStore( $componentIdentifier, 'modules' );
+
+		$modules = isset( $allModules['default'] )
+			? (array) $allModules['default']
 			: [];
-		if ( $skin === null || !isset( $this->componentDataStore[$componentName]['modules'][$skin] ) ) {
+		if ( $skin === null || !isset( $allModules[$skin] ) ) {
 			return $modules;
 		}
-		return (array) array_merge(
+		return array_merge(
 			$modules,
-			(array) $this->componentDataStore[$componentName]['modules'][$skin]
+			(array) $allModules[$skin]
 		);
 	}
 
@@ -254,17 +245,27 @@ class ComponentLibrary {
 	 * @param string $componentClass
 	 *
 	 * @throws MWException if supplied class is not registered
+	 *
 	 * @return string
 	 */
 	public function getNameFor( $componentClass ) {
-		if ( !isset( $this->componentNamesByClass[$componentClass] ) ) {
+		$component = null;
+
+		// if $componentClass is not in values in $this->registeredComponentClasses, this has to fail
+		foreach ( $this->getComponentDataStore() as $componentIdentifier => $componentData ) {
+			if ( isset( $componentData['class'] ) && ( $componentData['class'] == $componentClass ) && isset( $componentData['name'] ) ) {
+				$component = $componentData['name'];
+				break;
+			}
+		}
+		if ( is_null( $component ) ) {
 			throw new MWException( 'Trying to get a component name for unregistered class "' . (string) $componentClass . '"!' );
 		}
-		return $this->componentNamesByClass[$componentClass];
+		return $this->accessComponentDataStore( $component, 'name' );
 	}
 
 	/**
-	 * Returns an array of all the registered component's names.
+	 * Returns an array of all the registered component's names. Including aliases.
 	 *
 	 * @return string[]
 	 */
@@ -295,6 +296,22 @@ class ComponentLibrary {
 	}
 
 	/**
+	 * @param string $componentIdentifier
+	 * @param string $field
+	 *
+	 * @throws MWException on non existing $componentIdentifier or $field
+	 * @return mixed
+	 */
+	protected function accessComponentDataStore( $componentIdentifier, $field ) {
+		if ( !isset( $this->getComponentDataStore()[$componentIdentifier][$field] ) ) {
+			throw new MWException(
+				'Trying to access undefined field \'' . $field . '\' of component \'' . $componentIdentifier . '\'. Aborting'
+			);
+		}
+		return $this->getComponentDataStore()[$componentIdentifier][$field];
+	}
+
+	/**
 	 * Sees to it, that the whitelist (if it is an array) contains only lowercase strings.
 	 *
 	 * @param bool|array $componentWhiteList
@@ -307,7 +324,7 @@ class ComponentLibrary {
 		}
 		$newWhiteList = [];
 		foreach ( $componentWhiteList as $element ) {
-			$newWhiteList[] = strtolower( $element );
+			$newWhiteList[] = strtolower( trim( $element ) );
 		}
 		return $newWhiteList;
 	}
@@ -331,33 +348,23 @@ class ComponentLibrary {
 	}
 
 	/**
-	 * Generates the array for registered components containing all whitelisted components and the two supporting data arrays.
+	 * Generates the array for registered components containing all whitelisted component identifiers
 	 *
 	 * @param bool|array $componentWhiteList
 	 *
-	 * @return array[] $registeredComponents, $componentNamesByClass, $componentDataStore
+	 * @return string[] list of registered component identifiers
 	 */
 	private function registerComponents( $componentWhiteList ) {
-		$componentDataStore = [];
-		$componentNamesByClass = [];
 		$registeredComponents = [];
-		foreach ( $this->rawComponentsDefinition() as $componentName => $componentData ) {
+		foreach ( $this->getKnownComponents() as $componentIdentifier ) {
 
-			$attributes = isset( $componentData['attributes'] ) ? $componentData['attributes'] : [];
-			$componentData['attributes'] = $this->normalizeAttributes( $attributes );
-			$componentData['aliases'] = isset( $componentData['aliases'] ) ? $componentData['aliases'] : [];
-			$componentDataStore[$componentName] = $componentData;
-
-			if ( !$componentWhiteList || (is_array( $componentWhiteList ) && !in_array( $componentName, $componentWhiteList )) ) {
-				// if $componentWhiteList is false, or and array and does not contain the componentName, we will not register it
+			if ( !$componentWhiteList || (is_array( $componentWhiteList ) && !in_array( $componentIdentifier, $componentWhiteList )) ) {
+				// if $componentWhiteList is false, or and array and does not contain the $componentIdentifier, we will not register it
 				continue;
 			}
-
-			$registeredComponents[] = $componentName;
-			$componentNamesByClass[$componentData['class']] = $componentName;
+			$registeredComponents[] = $componentIdentifier;
 		}
-
-		return [ $registeredComponents, $componentNamesByClass, $componentDataStore ];
+		return $registeredComponents;
 	}
 
 	/**
@@ -365,7 +372,36 @@ class ComponentLibrary {
 	 *
 	 * @return array
 	 */
-	private function rawComponentsDefinition() {
-		return json_decode( file_get_contents( self::DEFINITIONS_FILE ), JSON_OBJECT_AS_ARRAY );
+	private function getComponentDataStore() {
+		if ( !empty( $this->componentDataStore ) ) {
+			return $this->componentDataStore;
+		}
+		$rawData = json_decode( file_get_contents( self::DEFINITIONS_FILE ), JSON_OBJECT_AS_ARRAY );
+
+		$componentAliases = [];
+		$componentDataStore = [];
+		foreach ( $rawData as $componentName => $componentData ) {
+
+			if ( !is_array( $componentData ) ) {
+				$componentAliases[$componentName] = trim( (string) $componentData );
+				continue;
+			}
+
+			$componentData['name'] = $componentName;
+			$componentData['attributes'] = $this->normalizeAttributes(
+				(isset( $componentData['attributes'] ) ? $componentData['attributes'] : [])
+			);
+			$componentData['aliases'] = isset( $componentData['aliases'] ) ? $componentData['aliases'] : [];
+			$componentData['modules'] = isset( $componentData['modules'] ) ? $componentData['modules'] : [];
+			$componentDataStore[$componentName] = $componentData;
+		}
+
+		foreach ( $componentAliases as $alias => $componentName ) {
+			if ( isset( $componentDataStore[$componentName] ) ) {
+				$componentDataStore[$alias] = $componentDataStore[$componentName];
+			}
+		}
+
+		return $this->componentDataStore = $componentDataStore;
 	}
 }

@@ -34,14 +34,14 @@ use \Html;
 use \MWException;
 
 /**
- * Class Panel
+ * Class Card
  *
- * Class for component 'panel'
+ * Class for component 'card'
  *
- * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Panel
- * @since 1.0
+ * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Card
+ * @since 4.0
  */
-class Panel extends AbstractComponent {
+class Card extends AbstractComponent {
 
 	/**
 	 * Indicates, whether this panel is collapsible
@@ -58,7 +58,7 @@ class Panel extends AbstractComponent {
 	private $insideAccordion;
 
 	/**
-	 * Panel constructor.
+	 * Card constructor.
 	 *
 	 * @param ComponentLibrary   $componentLibrary
 	 * @param ParserOutputHelper $parserOutputHelper
@@ -83,6 +83,7 @@ class Panel extends AbstractComponent {
 
 		$outerClass = $this->calculateOuterClassAttribute();
 		$innerClass = $this->calculateInnerClassAttribute();
+		$bodyClass = $this->calculateBodyClassAttribute();
 
 		list ( $outerClass, $style ) = $this->processCss( $outerClass, [] );
 
@@ -92,7 +93,7 @@ class Panel extends AbstractComponent {
 				'class' => $this->arrayToString( $outerClass, ' ' ),
 				'style' => $this->arrayToString( $style, ';' ),
 			],
-			$this->processAdditionToPanel( 'heading' )
+			$this->processAdditionToPanel( 'header' )
 			. Html::rawElement(
 				'div',
 				[
@@ -102,7 +103,7 @@ class Panel extends AbstractComponent {
 				Html::rawElement(
 					'div',
 					[
-						'class' => 'panel-body',
+						'class' => $this->arrayToString( $bodyClass, ' ' ),
 					],
 					$input
 				)
@@ -112,14 +113,15 @@ class Panel extends AbstractComponent {
 	}
 
 	/**
-	 * Calculates the css class string from the attributes array
+	 * Calculates the css class from the attributes array for the text body
 	 *
-	 * @return string[]
+	 * @return array
 	 */
-	private function calculateOuterClassAttribute() {
-
-		$class = [ 'panel' ];
-		$class[] = 'panel-' . $this->getValueFor( 'color', 'default' );
+	private function calculateBodyClassAttribute() {
+		$class = [ 'card-body' ];
+		if ( $this->hasValueFor( 'color' ) && ( $this->getValueFor( 'color', 'primary' ) != 'light' ) ) {
+			$class[] = 'text-' . $this->getValueFor( 'color', 'primary' );
+		}
 		return $class;
 	}
 
@@ -132,10 +134,30 @@ class Panel extends AbstractComponent {
 
 		$class = false;
 		if ( $this->isCollapsible() ) {
-			$class = [ 'panel-collapse', 'collapse', 'fade' ];
+			$class = [ 'card-collapse', 'collapse', 'fade' ];
 			if ( $this->getValueFor( 'active' ) ) {
 				$class[] = 'in';
 			}
+		}
+		return $class;
+	}
+
+	/**
+	 * Calculates the css class string from the attributes array
+	 *
+	 * @return string[]
+	 */
+	private function calculateOuterClassAttribute() {
+
+		$class = [ 'card' ];
+		if ( $this->hasValueFor( 'background' ) ) {
+			$class[] = 'bg-' . $this->getValueFor( 'background', 'primary' );
+			if ( $this->getValueFor( 'background', 'primary' ) != 'light' ) {
+				$class[] = 'text-white';
+			}
+		}
+		if ( $this->hasValueFor( 'color' ) ) {
+			$class[] = 'border-' . $this->getValueFor( 'color', 'primary' );
 		}
 		return $class;
 	}
@@ -188,16 +210,16 @@ class Panel extends AbstractComponent {
 		$inside = $this->getValueFor( $type );
 
 		if ( empty( $inside ) ) {
-			if ( $type == 'heading' && $this->isInsideAccordion() ) {
+			if ( $type == 'header' && $this->isInsideAccordion() ) {
 				$inside = $this->getId();
 			} else {
 				return '';
 			}
 		}
 		$newAttributes = [
-			'class' => 'panel-' . $type,
+			'class' => 'card-' . $type,
 		];
-		if ( $type == 'heading' ) {
+		if ( $type == 'header' ) {
 			if ( $this->isCollapsible() ) {
 				$newAttributes += [
 						'data-parent' => $this->getDataParent(),
@@ -208,7 +230,7 @@ class Panel extends AbstractComponent {
 			$inside = Html::rawElement(
 				'h4',
 				[
-					'class' => 'panel-title',
+					'class' => 'card-title',
 					'style' => 'margin-top:0;padding-top:0;',
 				],
 				$inside

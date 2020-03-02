@@ -14,14 +14,15 @@
 # @ingroup BootstrapComponents
 #####
 
+os: linux
+
 # https://docs.travis-ci.com/user/languages/php
 language: php
-sudo: required
 
 # https://docs.travis-ci.com/user/trusty-ci-environment/
 dist: trusty
 
-matrix:
+jobs:
   fast_finish: true
   include:
     - env: DB=mysql; MW=REL1_31; TYPE=coverage; PHPUNIT=6.5.*

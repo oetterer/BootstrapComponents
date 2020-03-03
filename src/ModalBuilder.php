@@ -514,7 +514,7 @@ class ModalBuilder {
 		return Html::rawElement(
 				'div',
 				[ 'class' => 'modal-header' ],
-				$button 	. $header
+				$header . $button
 			);
 	}
 }

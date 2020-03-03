@@ -109,7 +109,6 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 * @param string $componentClass
 	 *
 	 * @throws \ConfigException
-	 * @throws \MWException
 	 *
 	 * @dataProvider componentNameAndClassProvider
 	 */
@@ -404,12 +403,12 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'carousel'        => [
 				'carousel',
 				null,
-				[ 'ext.bootstrapComponents.carousel.fix' ],
+				[ 'ext.bootstrapComponents.carousel' ],
 			],
 			'carousel_vector' => [
 				'carousel',
 				'vector',
-				[ 'ext.bootstrapComponents.carousel.fix' ],
+				[ 'ext.bootstrapComponents.carousel' ],
 			],
 			'modal'           => [
 				'modal',

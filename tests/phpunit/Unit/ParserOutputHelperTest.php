@@ -148,11 +148,10 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$parserOutput->expects( $this->once() )
-			->method( 'addModuleStyles' )
-			->will( $this->returnArgument( 0 ) );
-		$parserOutput->expects( $this->atMost(2) )
-			->method( 'addModules' )
-			->will( $this->returnArgument( 0 ) );
+			->method( 'setExtensionData' )
+			->with( $this->equalTo( 'bsc_load_modules' ), $this->equalTo( true ) );
+		$parserOutput->expects( $this->once() )
+			->method( 'addModules' );
 		$parser = $this->getMockBuilder( 'Parser' )
 			->disableOriginalConstructor()
 			->getMock();

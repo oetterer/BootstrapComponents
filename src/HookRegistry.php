@@ -203,9 +203,10 @@ class HookRegistry {
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserAfterParse
 			 */
 			'ParserAfterParse'           => function( Parser &$parser, &$text, \StripState &$stripState ) {
-				#@todo make this conditional, i.e. only include styles and scripts for used components?
-				$parser->getOutput()->addModules( 'ext.bootstrap.styles' );
-				$parser->getOutput()->addModules( 'ext.bootstrap.scripts' );
+				if ( $parser->getOutput()->getExtensionData( 'bsc_load_modules' ) ) {
+					$parser->getOutput()->addModules( 'ext.bootstrap.styles' );
+					$parser->getOutput()->addModules( 'ext.bootstrap.scripts' );
+				}
 				return true;
 			},
 

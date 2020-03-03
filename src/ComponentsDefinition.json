@@ -145,11 +145,5 @@
 			"default": "ext.bootstrapComponents.tooltip"
 		}
 	},
-	"well": {
-		"class": "BootstrapComponents\\Components\\Well",
-		"handlerType": "tag",
-		"attributes": [
-			"size"
-		]
-	}
+	"well": "card"
 }

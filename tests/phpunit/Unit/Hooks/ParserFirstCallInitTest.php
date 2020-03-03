@@ -71,8 +71,8 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 				[ $this->equalTo( $prefix . 'jumbotron' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'modal' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'popover' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'well' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'panel' ), $this->callback( 'is_callable' ) ]
+				[ $this->equalTo( $prefix . 'panel' ), $this->callback( 'is_callable' ) ],
+				[ $this->equalTo( $prefix . 'well' ), $this->callback( 'is_callable' ) ]
 			);
 		$componentLibrary = new ComponentLibrary( true );
 		$nestingController = $this->getMockBuilder( 'BootstrapComponents\NestingController' )

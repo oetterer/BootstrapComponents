@@ -333,9 +333,9 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'modal'     => [ 'modal', 'BootstrapComponents\\Components\\Modal' ],
 			'popover'   => [ 'popover', 'BootstrapComponents\\Components\\Popover' ],
 			'tooltip'   => [ 'tooltip', 'BootstrapComponents\\Components\\Tooltip' ],
-			'well'      => [ 'well', 'BootstrapComponents\\Components\\Well' ],
 			'label'     => [ 'badge', 'BootstrapComponents\\Components\\Badge' ],
 			'panel'     => [ 'card', 'BootstrapComponents\\Components\\Card' ],
+			'well'      => [ 'card', 'BootstrapComponents\\Components\\Card' ],
 		];
 	}
 

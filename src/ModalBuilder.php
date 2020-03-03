@@ -136,7 +136,7 @@ class ModalBuilder {
 	 * body content of the opening modal. For trigger, you can use a generic html code and wrap it in
 	 * {@see \BootstrapComponents\ModalBase::wrapTriggerElement}, or you make sure you generate
 	 * a correct trigger for yourself, using the necessary attributes and especially the id, you supplied
-	 * here (see {@see \BootstrapComponents\Component\Modal::generateButton} for example).
+	 * here (see {@see \BootstrapComponents\Components\Modal::generateButton} for example).
 	 *
 	 * Do not instantiate directly, but use {@see ApplicationFactory::getNewModalBuilder}
 	 * instead.
@@ -147,7 +147,7 @@ class ModalBuilder {
 	 * @param ParserOutputHelper $parserOutputHelper
 	 *
 	 *@see ApplicationFactory::getNewModalBuilder
-	 * @see \BootstrapComponents\Component\Modal::generateButton
+	 * @see \BootstrapComponents\Components\Modal::generateButton
 	 *
 	 */
 

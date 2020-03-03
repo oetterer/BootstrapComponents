@@ -89,9 +89,9 @@ class CarouselGalleryTest extends PHPUnit_Framework_TestCase {
 						. "\t". '<li data-target="#youcanttakethesky" data-slide-to="2"></li>' . PHP_EOL
 						. '</ol>' . PHP_EOL
 						. '<div class="carousel-inner">' . PHP_EOL
-						. "\t". '<div class="item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=img-responsive]]</div>' . PHP_EOL
-						. "\t". '<div class="item">[[File:Wash.jpg|Hoban Washburne|link=/List_of_best_Pilots_in_the_Verse|class=img-responsive]]</div>' . PHP_EOL
-						. "\t". '<div class="item">[[File:MirandaSecretFiles.pdf|(c) by Hands of Blue|page=13|float=none|class=img-responsive]]</div>' . PHP_EOL
+						. "\t". '<div class="item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=img-fluid]]</div>' . PHP_EOL
+						. "\t". '<div class="item">[[File:Wash.jpg|Hoban Washburne|link=/List_of_best_Pilots_in_the_Verse|class=img-fluid]]</div>' . PHP_EOL
+						. "\t". '<div class="item">[[File:MirandaSecretFiles.pdf|(c) by Hands of Blue|page=13|float=none|class=img-fluid]]</div>' . PHP_EOL
 						. '</div><a class="left carousel-control" href="#youcanttakethesky" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a><a class="right carousel-control" href="#youcanttakethesky" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a></div>',
 					'isHTML' => true,
 					'noparse' => true,
@@ -110,8 +110,8 @@ class CarouselGalleryTest extends PHPUnit_Framework_TestCase {
 						. "\t". '<li data-target="#bsc_carousel_0" data-slide-to="1"></li>' . PHP_EOL
 						. '</ol>' . PHP_EOL
 						. '<div class="carousel-inner">' . PHP_EOL
-						. "\t". '<div class="item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=img-responsive]]</div>' . PHP_EOL
-						. "\t". '<div class="item">[[File:Wash.jpg|Hoban Washburne|link=/List_of_best_Pilots_in_the_Verse|class=img-responsive]]</div>' . PHP_EOL
+						. "\t". '<div class="item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=img-fluid]]</div>' . PHP_EOL
+						. "\t". '<div class="item">[[File:Wash.jpg|Hoban Washburne|link=/List_of_best_Pilots_in_the_Verse|class=img-fluid]]</div>' . PHP_EOL
 						. '</div><a class="left carousel-control" href="#bsc_carousel_0" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a><a class="right carousel-control" href="#bsc_carousel_0" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a></div>',
 					'isHTML' => true,
 					'noparse' => true,

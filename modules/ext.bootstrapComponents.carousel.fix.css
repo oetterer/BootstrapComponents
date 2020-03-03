@@ -22,7 +22,7 @@
  * @ingroup       BootstrapComponents
  * @author        Tobias Oetterer
  */
-.img-responsive,
+.img-fluid,
 .thumbnail > img,
 .thumbnail a > img,
 .carousel-inner > .item > img,

@@ -58,8 +58,8 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 				[ $this->equalTo( $prefix . 'badge' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'button' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'carousel' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'label' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'tooltip' ), $this->callback( 'is_callable' ) ]
+				[ $this->equalTo( $prefix . 'tooltip' ), $this->callback( 'is_callable' ) ],
+				[ $this->equalTo( $prefix . 'label' ), $this->callback( 'is_callable' ) ]
 			);
 		$observerParser->expects( $this->exactly( 9 ) )
 			->method( 'setHook' )

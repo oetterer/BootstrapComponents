@@ -330,11 +330,11 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'carousel'  => [ 'carousel', 'BootstrapComponents\\Components\\Carousel' ],
 			'collapse'  => [ 'collapse', 'BootstrapComponents\\Components\\Collapse' ],
 			'jumbotron' => [ 'jumbotron', 'BootstrapComponents\\Components\\Jumbotron' ],
-			'label'     => [ 'label', 'BootstrapComponents\\Components\\Label' ],
 			'modal'     => [ 'modal', 'BootstrapComponents\\Components\\Modal' ],
 			'popover'   => [ 'popover', 'BootstrapComponents\\Components\\Popover' ],
 			'tooltip'   => [ 'tooltip', 'BootstrapComponents\\Components\\Tooltip' ],
 			'well'      => [ 'well', 'BootstrapComponents\\Components\\Well' ],
+			'label'     => [ 'badge', 'BootstrapComponents\\Components\\Badge' ],
 			'panel'     => [ 'card', 'BootstrapComponents\\Components\\Card' ],
 		];
 	}

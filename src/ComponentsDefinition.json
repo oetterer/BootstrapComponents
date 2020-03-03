@@ -82,13 +82,7 @@
 		"class": "BootstrapComponents\\Components\\Jumbotron",
 		"handlerType": "tag"
 	},
-	"label": {
-		"class": "BootstrapComponents\\Components\\Label",
-		"handlerType": "function",
-		"attributes": [
-			"color"
-		]
-	},
+	"label": "badge",
 	"modal": {
 		"class": "BootstrapComponents\\Components\\Modal",
 		"handlerType": "tag",

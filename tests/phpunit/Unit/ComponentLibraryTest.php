@@ -48,7 +48,6 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 				'bootstrap_badge'    => [ 0, 'bootstrap_badge' ],
 				'bootstrap_button'   => [ 0, 'bootstrap_button' ],
 				'bootstrap_carousel' => [ 0, 'bootstrap_carousel' ],
-				'bootstrap_icon'     => [ 0, 'bootstrap_icon' ],
 				'bootstrap_label'    => [ 0, 'bootstrap_label' ],
 				'bootstrap_tooltip'  => [ 0, 'bootstrap_tooltip' ],
 			],
@@ -308,7 +307,6 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'carousel'  => [ 'carousel', 'bootstrap_carousel' ],
 			'card'      => [ 'card', 'bootstrap_card' ],
 			'collapse'  => [ 'collapse', 'bootstrap_collapse' ],
-			'icon'      => [ 'icon', 'bootstrap_icon' ],
 			'jumbotron' => [ 'jumbotron', 'bootstrap_jumbotron' ],
 			'label'     => [ 'label', 'bootstrap_label' ],
 			'modal'     => [ 'modal', 'bootstrap_modal' ],
@@ -331,7 +329,6 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'card'      => [ 'card', 'BootstrapComponents\\Components\\Card' ],
 			'carousel'  => [ 'carousel', 'BootstrapComponents\\Components\\Carousel' ],
 			'collapse'  => [ 'collapse', 'BootstrapComponents\\Components\\Collapse' ],
-			'icon'      => [ 'icon', 'BootstrapComponents\\Components\\Icon' ],
 			'jumbotron' => [ 'jumbotron', 'BootstrapComponents\\Components\\Jumbotron' ],
 			'label'     => [ 'label', 'BootstrapComponents\\Components\\Label' ],
 			'modal'     => [ 'modal', 'BootstrapComponents\\Components\\Modal' ],
@@ -385,7 +382,6 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'panel'     => [ 'panel', false ],
 			'popover'   => [ 'popover', false ],
 			'button'    => [ 'button', true ],
-			'icon'      => [ 'icon', true ],
 			'tooltip'   => [ 'tooltip', true ],
 		];
 	}
@@ -472,8 +468,8 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 				[ 'alert', 'modal', 'panel', ],
 			],
 			'manual 2' => [
-				[ 'icon', 'jumbotron', 'well', 'foobar' ],
-				[ 'icon', 'jumbotron', 'well' ],
+				[ 'collapse', 'jumbotron', 'well', 'foobar' ],
+				[ 'collapse', 'jumbotron', 'well' ],
 			],
 		];
 	}

@@ -38,8 +38,8 @@ local tests = {
 	{
 		name = 'mw.bootstrap.parse.tests.lua: parse icon',
 		func = mw.bootstrap.parse,
-		args = { 'icon', 'asterisk', {} },
-		expect = { '<span class="glyphicon glyphicon-asterisk"></span>' }
+		args = { 'button', 'Page:Title', { id = 'FooBar' } },
+		expect = { '<a class=\"btn btn-primary\" role=\"button\" id=\"FooBar\" href=\"/REL1_34/Page:Title\">Page:Title</a>' }
 	},
 	{
 		name = 'mw.bootstrap.parse.tests.lua: parse alert with arguments',

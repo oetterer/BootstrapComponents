@@ -61,7 +61,7 @@
 		"class": "BootstrapComponents\\Components\\Carousel",
 		"handlerType": "function",
 		"modules": {
-			"default": "ext.bootstrapComponents.carousel.fix"
+			"default": "ext.bootstrapComponents.carousel"
 		}
 	},
 	"collapse": {
@@ -77,10 +77,6 @@
 		"modules": {
 			"default": "ext.bootstrapComponents.button.fix"
 		}
-	},
-	"icon": {
-		"class": "BootstrapComponents\\Components\\Icon",
-		"handlerType": "function"
 	},
 	"jumbotron": {
 		"class": "BootstrapComponents\\Components\\Jumbotron",

@@ -52,13 +52,12 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->setMethods( [ 'setFunctionHook', 'setHook' ] )
 			->getMock();
-		$observerParser->expects( $this->exactly( 6 ) )
+		$observerParser->expects( $this->exactly( 5 ) )
 			->method( 'setFunctionHook' )
 			->withConsecutive(
 				[ $this->equalTo( $prefix . 'badge' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'button' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'carousel' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'icon' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'label' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'tooltip' ), $this->callback( 'is_callable' ) ]
 			);
@@ -97,7 +96,7 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->setMethods( [ 'setFunctionHook', 'setHook' ] )
 			->getMock();
-		$extractionParser->expects( $this->exactly( 6 ) )
+		$extractionParser->expects( $this->exactly( 5 ) )
 			->method( 'setFunctionHook' )
 			->will( $this->returnCallback( function( $parserHookString, $callBack ) use ( &$registeredParserHooks ) {
 				$registeredParserHooks[$parserHookString] = [ $callBack, ComponentLibrary::HANDLER_TYPE_PARSER_FUNCTION ];
@@ -121,7 +120,7 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 		);
 
 		$this->assertEquals(
-			15,
+			14,
 			count( $registeredParserHooks )
 		);
 

@@ -11,8 +11,8 @@ use \MWException;
  *
  * @ingroup Test
  *
- * @group extension-bootstrap-components
- * @group mediawiki-databaseless
+ * @group   extension-bootstrap-components
+ * @group   mediawiki-databaseless
  *
  * @license GNU GPL v3+
  *
@@ -76,7 +76,7 @@ class CarouselTest extends ComponentsTestBase {
 	 */
 	public function placeMeArgumentsProvider() {
 		return [
-			'simple'               => [
+			'simple'                     => [
 				'[[File:Mal.jpg|Malcolm Reynolds_0]]',
 				[ '[[File:Mal.jpg|Malcolm Reynolds]]' => true, '[[File:Wash.jpg|link' => '|Hoban Washburne]]' ],
 				'<div class="carousel slide" id="bsc_carousel_NULL" data-ride="carousel">
@@ -86,31 +86,34 @@ class CarouselTest extends ComponentsTestBase {
 	<li data-target="#bsc_carousel_NULL" data-slide-to="2"></li>
 </ol>
 <div class="carousel-inner">
-	<div class="item active">[[File:Mal.jpg|Malcolm Reynolds_0]]</div>
-	<div class="item">[[File:Mal.jpg|Malcolm Reynolds]]</div>
-	<div class="item">[[File:Wash.jpg|link=|Hoban Washburne]]</div>
-</div><a class="left carousel-control" href="#bsc_carousel_NULL" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a><a class="right carousel-control" href="#bsc_carousel_NULL" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a></div>',
+	<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds_0]]</div>
+	<div class="carousel-item">[[File:Mal.jpg|Malcolm Reynolds]]</div>
+	<div class="carousel-item">[[File:Wash.jpg|link=|Hoban Washburne]]</div>
+</div><a class="carousel-control-prev" href="#bsc_carousel_NULL" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#bsc_carousel_NULL" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
 			],
-			'images missing'       => [
+			'images missing'             => [
 				$this->input,
 				[ 'class' => 'no_images' ],
 				'bootstrap-components-carousel-images-missing',
 			],
-			'id, style, and class' => [
+			'id, fade, style, and class' => [
 				$this->input,
 				[
-					'[[File:Mal.jpg|Malcolm Reynolds]]' => true, '[[File:Wash.jpg|link' => '|Hoban Washburne]]', 'class' => 'crew',
+					'[[File:Mal.jpg|Malcolm Reynolds]]' => true,
+					'[[File:Wash.jpg|link'              => '|Hoban Washburne]]',
+					'class'                             => 'crew',
+					'fade'                              => true,
 					'style'                             => 'float:none;background-color:black',
 				],
-				'<div class="carousel slide crew" style="float:none;background-color:black" id="bsc_carousel_NULL" data-ride="carousel">
+				'<div class="carousel slide carousel-fade crew" style="float:none;background-color:black" id="bsc_carousel_NULL" data-ride="carousel">
 <ol class="carousel-indicators">
 	<li data-target="#bsc_carousel_NULL" data-slide-to="0" class="active"></li>
 	<li data-target="#bsc_carousel_NULL" data-slide-to="1"></li>
 </ol>
 <div class="carousel-inner">
-	<div class="item active">[[File:Mal.jpg|Malcolm Reynolds]]</div>
-	<div class="item">[[File:Wash.jpg|link=|Hoban Washburne]]</div>
-</div><a class="left carousel-control" href="#bsc_carousel_NULL" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a><a class="right carousel-control" href="#bsc_carousel_NULL" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a></div>',
+	<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds]]</div>
+	<div class="carousel-item">[[File:Wash.jpg|link=|Hoban Washburne]]</div>
+</div><a class="carousel-control-prev" href="#bsc_carousel_NULL" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#bsc_carousel_NULL" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
 			],
 		];
 	}

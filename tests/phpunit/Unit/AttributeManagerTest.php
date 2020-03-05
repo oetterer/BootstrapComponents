@@ -36,7 +36,7 @@ class AttributeManagerTest extends PHPUnit_Framework_TestCase {
 		$manager = new AttributeManager( [], [] );
 		$this->assertEquals(
 			[
-				'active', 'background', 'class', 'color', 'collapsible', 'disabled', 'dismissible', 'footer', 'header',
+				'active', 'background', 'class', 'color', 'collapsible', 'disabled', 'dismissible', 'fade', 'footer', 'header',
 				'id', 'link', 'outline', 'pill', 'placement', 'size', 'style', 'text', 'trigger',
 			],
 			$manager->getAllKnownAttributes()

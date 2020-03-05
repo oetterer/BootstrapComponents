@@ -60,6 +60,9 @@
 	"carousel": {
 		"class": "BootstrapComponents\\Components\\Carousel",
 		"handlerType": "function",
+		"attributes": [
+			"fade"
+		],
 		"modules": {
 			"default": "ext.bootstrapComponents.carousel"
 		}

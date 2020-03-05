@@ -254,6 +254,7 @@ class AttributeManager {
 			'collapsible' => self::NO_FALSE_VALUE,
 			'disabled'    => self::NO_FALSE_VALUE,
 			'dismissible' => self::NO_FALSE_VALUE,
+			'fade'        => self::NO_FALSE_VALUE,
 			'footer'      => self::ANY_VALUE,
 			'header'      => self::ANY_VALUE,
 			'id'          => self::ANY_VALUE,

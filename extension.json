@@ -60,8 +60,10 @@
 		"ext.bootstrapComponents.card.fix": {
 			"styles": "ext.bootstrapComponents.card.fix.css"
 		},
-		"ext.bootstrapComponents.carousel.fix": {
-			"styles": "ext.bootstrapComponents.carousel.fix.css"
+		"ext.bootstrapComponents.carousel": {
+			"dependencies": "ext.bootstrap.scripts",
+			"styles": "ext.bootstrapComponents.carousel.fix.css",
+			"scripts": "ext.bootstrapComponents.carousel.js"
 		},
 		"ext.bootstrapComponents.modal.fix": {
 			"styles": "ext.bootstrapComponents.modal.fix.css"
@@ -70,14 +72,14 @@
 			"styles": "ext.bootstrapComponents.modal.vector-fix.css"
 		},
 		"ext.bootstrapComponents.popover": {
-			"dependencies": "ext.bootstrap",
+			"dependencies": "ext.bootstrap.scripts",
 			"scripts": "ext.bootstrapComponents.popover.js"
 		},
 		"ext.bootstrapComponents.popover.vector-fix": {
 			"styles": "ext.bootstrapComponents.popover.vector-fix.css"
 		},
 		"ext.bootstrapComponents.tooltip": {
-			"dependencies": "ext.bootstrap",
+			"dependencies": "ext.bootstrap.scripts",
 			"scripts": "ext.bootstrapComponents.tooltip.js",
 			"styles": "ext.bootstrapComponents.tooltip.css"
 		},

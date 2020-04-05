@@ -155,8 +155,7 @@ class Card extends AbstractComponent {
 			if ( $this->getValueFor( 'background', 'primary' ) != 'light' ) {
 				$class[] = 'text-white';
 			}
-		}
-		if ( $this->hasValueFor( 'color' ) ) {
+		} elseif ( $this->hasValueFor( 'color' ) ) {
 			$class[] = 'border-' . $this->getValueFor( 'color', 'primary' );
 		}
 		return $class;

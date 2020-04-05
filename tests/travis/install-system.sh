@@ -132,7 +132,6 @@ function installSourceFromPull() {
 	cp -r ${originalDirectory} BootstrapComponents
 
 	cd ..
-	echo 'wfLoadExtension( "BootstrapComponents" );' >>LocalSettings.php
 }
 
 function augmentConfiguration() {
@@ -144,9 +143,10 @@ function augmentConfiguration() {
 	if [[ "${SITELANG}" != "" ]]; then
 		echo '$wgLanguageCode = "'${SITELANG}'";' >>LocalSettings.php
 	fi
+	echo 'wfLoadExtension( "BootstrapComponents" );' >> LocalSettings.php
+	echo '$wgBootstrapComponentsModalReplaceImageTag = true;' >>LocalSettings.php
 	echo 'wfLoadExtension( "Scribunto" );' >> LocalSettings.php
 	echo '$wgScribuntoDefaultEngine = "luastandalone";' >>LocalSettings.php
-	echo '$wgBootstrapComponentsModalReplaceImageTag = true;' >>LocalSettings.php
 	echo '$wgEnableUploads = true;' >>LocalSettings.php
 #	echo 'wfLoadSkin( "Vector" );' >>LocalSettings.php
 	echo 'error_reporting(E_ALL| E_STRICT);' >>LocalSettings.php

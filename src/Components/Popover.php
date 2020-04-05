@@ -38,13 +38,15 @@ use \Html;
  * @since 1.0
  */
 class Popover extends AbstractComponent {
+
+	#@todo replace heading with title. account for deprecation! fix language files!
 	/**
 	 * @inheritdoc
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
-		$heading = $this->getValueFor( 'heading' );
+	protected function placeMe( $input ) {
+		$heading = $this->getValueFor( 'header' );
 		$text    = $this->getValueFor( 'text' );
 		if ( $heading === false || !strlen( $heading ) ) {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-popover-heading-missing' );

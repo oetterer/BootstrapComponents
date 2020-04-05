@@ -26,8 +26,9 @@
 
 namespace BootstrapComponents;
 
-use \MWException;
-use \ReflectionClass;
+use MediaWiki\Logger\LoggerFactory;
+use MWException;
+use ReflectionClass;
 
 /**
  * Class ApplicationFactory
@@ -58,6 +59,11 @@ class ApplicationFactory {
 	private $applicationClassRegister;
 
 	/**
+	 * @var \Psr\Log\LoggerInterface $logger
+	 */
+	private $logger;
+
+	/**
 	 * Returns the singleton instance
 	 *
 	 * @return ApplicationFactory
@@ -81,17 +87,7 @@ class ApplicationFactory {
 	public function __construct() {
 		$this->applicationStore = [];
 		$this->applicationClassRegister = $this->getApplicationClassRegister();
-	}
-
-	/**
-	 * @param string[] $validAttributes
-	 *
-	 * @see AttributeManager::__construct
-	 *
-	 * @return AttributeManager
-	 */
-	public function getAttributeManager( $validAttributes ) {
-		return new AttributeManager( $validAttributes );
+		$this->getLogger()->info( 'ApplicationFactory was build!' );
 	}
 
 	/**
@@ -106,6 +102,27 @@ class ApplicationFactory {
 	}
 
 	/**
+	 * @throws MWException  cascading {@see \BootstrapComponents\ApplicationFactory::getApplication}
+	 *
+	 * @return NestingController
+	 */
+	public function getNestingController() {
+		return $this->getApplication( 'NestingController' );
+	}
+
+	/**
+	 * @param string[] $validAttributes
+	 * @param string[] $aliases
+	 *
+	 * @see AttributeManager::__construct
+	 *
+	 * @return AttributeManager
+	 */
+	public function getNewAttributeManager( $validAttributes, $aliases ) {
+		return new AttributeManager( $validAttributes, $aliases );
+	}
+
+	/**
 	 * @param string             $id
 	 * @param string             $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
 	 * @param string             $content must be safe raw html (best run through {@see Parser::recursiveTagParse})
@@ -115,17 +132,8 @@ class ApplicationFactory {
 	 *
 	 * @return ModalBuilder
 	 */
-	public function getModalBuilder( $id, $trigger, $content, $parserOutputHelper ) {
+	public function getNewModalBuilder( $id, $trigger, $content, $parserOutputHelper ) {
 		return new ModalBuilder( $id, $trigger, $content, $parserOutputHelper );
-	}
-
-	/**
-	 * @throws MWException  cascading {@see \BootstrapComponents\ApplicationFactory::getApplication}
-	 *
-	 * @return NestingController
-	 */
-	public function getNestingController() {
-		return $this->getApplication( 'NestingController' );
 	}
 
 	/**
@@ -178,10 +186,7 @@ class ApplicationFactory {
 		} elseif ( $application != '' ) {
 			throw new MWException( 'ApplicationFactory was requested to register non existing class "' . $applicationClass . '"!' );
 		}
-		wfDebugLog(
-			'BootstrapComponents',
-			'ApplicationFactory was requested to register invalid application for class ' . $applicationClass . '!'
-		);
+		$this->getLogger()->error( 'ApplicationFactory was requested to register invalid application for class ' . $applicationClass . '!' );
 		return false;
 	}
 
@@ -229,18 +234,28 @@ class ApplicationFactory {
 		} catch ( \ReflectionException $e ) {
 			throw new MWException( 'Error while trying to build application "' . $name . '" with class ' . $this->applicationClassRegister[$name] );
 		}
-		wfDebugLog( 'BootstrapComponents', 'ApplicationFactory successfully build application ' . $name );
+		$this->getLogger()->info( 'ApplicationFactory successfully build application ' . $name );
 		return $this->applicationStore[$name] = $objectReflection->newInstanceArgs( $args );
 	}
 
 	/**
 	 * @return array
 	 */
-	private function getApplicationClassRegister() {
+	protected function getApplicationClassRegister() {
 		return [
 			'ComponentLibrary'   => 'BootstrapComponents\\ComponentLibrary',
 			'NestingController'  => 'BootstrapComponents\\NestingController',
 			'ParserOutputHelper' => 'BootstrapComponents\\ParserOutputHelper',
 		];
+	}
+
+	/**
+	 * @return \Psr\Log\LoggerInterface
+	 */
+	protected function getLogger() {
+		if ( !empty( $this->logger ) ) {
+			return $this->logger;
+		}
+		return $this->logger = LoggerFactory::getInstance( 'BootstrapComponents' );
 	}
 }

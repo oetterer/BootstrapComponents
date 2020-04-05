@@ -61,7 +61,7 @@ class Button extends AbstractComponent {
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 		if ( empty( $input ) ) {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-button-target-missing' );
 		}
@@ -73,7 +73,7 @@ class Button extends AbstractComponent {
 		}
 
 		list ( $class, $style ) = $this->processCss(
-			$this->calculateButtonClassAttribute(),
+			$this->calculateClassAttribute(),
 			[]
 		);
 
@@ -99,10 +99,14 @@ class Button extends AbstractComponent {
 	 *
 	 * @return string[]
 	 */
-	private function calculateButtonClassAttribute() {
+	private function calculateClassAttribute() {
 
 		$class = [ "btn" ];
-		$class[] = 'btn-' . $this->getValueFor( 'color', 'default' );
+		$colorClass = 'btn-';
+		if ( (bool)$this->getValueFor( 'outline' ) ) {
+			$colorClass .= 'outline-';
+		}
+		$class[] = $colorClass . $this->getValueFor( 'color', 'primary' );
 		if ( $size = $this->getValueFor( 'size' ) ) {
 			$class[] = "btn-" . $size;
 		}

@@ -1,9 +1,9 @@
 # Bootstrap Components
-[![Build Status](https://secure.travis-ci.org/oetterer/BootstrapComponents.svg?branch=master)](http://travis-ci.org/oetterer/BootstrapComponents)
+[![Latest Stable Version](https://poser.pugx.org/mediawiki/bootstrap-components/version.png)](https://packagist.org/packages/mediawiki/bootstrap-components)
+[![Packagist download count](https://poser.pugx.org/mediawiki/bootstrap-components/d/total.png)](https://packagist.org/packages/mediawiki/bootstrap-components)
+[![Build Status](https://api.travis-ci.org/oetterer/BootstrapComponents.svg?branch=master)](http://travis-ci.org/oetterer/BootstrapComponents)
 [![Code Coverage](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/oetterer/BootstrapComponents/version.png)](https://packagist.org/packages/mediawiki/bootstrap-components)
-[![Packagist download count](https://poser.pugx.org/oetterer/BootstrapComponents/d/total.png)](https://packagist.org/packages/mediawiki/bootstrap-components)
+[![Code Quality](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/?branch=master)
 
 Bootstrap Components is a [MediaWiki] extension that aims to provide
 editors with an easy access to certain components introduced by
@@ -20,7 +20,6 @@ configuration it can add a new [gallery][Gallery] mode, and replace normal
 * MediaWiki 1.31 or later
 
 ## Documentation
-
 - [Installation and configuration](docs/installation-configuration.md)
 - [Usage](docs/components.md)
 - [Lua support](docs/lua.md)
@@ -32,15 +31,21 @@ configuration it can add a new [gallery][Gallery] mode, and replace normal
 
 Please also see the [known issues][known-issues] section.
 
+There is also a [migration guide](docs/migration-guide.md) for users switching
+from bootstrap3 (BootstrapComponents ~1.2) to bootstrap4 (BootstrapComponents ~4.0).
+
 ## Contact
 For bug reports and feature requests please see, if it is already reported on
 the list of [open bugs][open bugs]. If not, [report it][report bugs]. Also see the
-[contribute](contribute.md) section for instructions on bug reporting and
+[contribute](docs/contributing.md) section for instructions on bug reporting and
 the list of [known issues][known-issues].
 
 For general questions, comments, or suggestions you might use the [talk page
 on MediaWiki.org][mw-talk]. For direct contact with the author
 please use the [Email functionality on MediaWiki.org.][mw-mail]
+
+## Bootstrap3
+If you are using bootstrap3, please use the [legacy documentation](docs/bs3/README.md). 
 
 
 [MediaWiki]: https://www.mediawiki.org/

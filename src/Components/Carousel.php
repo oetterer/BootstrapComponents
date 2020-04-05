@@ -44,13 +44,16 @@ class Carousel extends AbstractComponent {
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 		$images = $this->extractAndParseImageList( $this->getParserRequest() );
 		if ( !count( $images ) ) {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-carousel-images-missing' );
 		}
 
 		$class = [ 'carousel', 'slide' ];
+		if ( (bool)$this->getValueFor( 'fade' ) ) {
+			$class[] = 'carousel-fade';
+		}
 		list ( $class, $style ) = $this->processCss( $class, [] );
 
 		return [
@@ -84,19 +87,21 @@ class Carousel extends AbstractComponent {
 		return Html::rawElement(
 				'a',
 				[
-					'class'      => 'left carousel-control',
+					'class'      => 'carousel-control-prev',
 					'href'       => '#' . $this->getId(),
+					'role'       => 'button',
 					'data-slide' => 'prev',
 				],
-				Html::rawElement( 'span', [ 'class' => 'glyphicon glyphicon-chevron-left' ] )
+				Html::rawElement( 'span', [ 'class' => 'carousel-control-prev-icon', 'aria-hidden' => 'true' ] )
 			) . Html::rawElement(
 				'a',
 				[
-					'class'      => 'right carousel-control',
+					'class'      => 'carousel-control-next',
 					'href'       => '#' . $this->getId(),
+					'role'       => 'button',
 					'data-slide' => 'next',
 				],
-				Html::rawElement( 'span', [ 'class' => 'glyphicon glyphicon-chevron-right' ] )
+				Html::rawElement( 'span', [ 'class' => 'carousel-control-next-icon', 'aria-hidden' => 'true' ] )
 			);
 	}
 
@@ -134,7 +139,7 @@ class Carousel extends AbstractComponent {
 		foreach ( $images as $image ) {
 			$slides .= "\t" . Html::rawElement(
 					'div',
-					[ 'class' => 'item' . $active ],
+					[ 'class' => 'carousel-item' . $active ],
 					$image
 				) . PHP_EOL;
 			$active = '';

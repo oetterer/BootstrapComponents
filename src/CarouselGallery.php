@@ -106,9 +106,9 @@ class CarouselGallery extends ImageGalleryBase {
 			$carouselImage .= '|' . $imageCaption;
 		}
 		if ( empty( $imageParams['class'] ) ) {
-			$imageParams['class'] = 'img-responsive';
+			$imageParams['class'] = 'img-fluid';
 		} else {
-			$imageParams['class'] .= ' img-responsive';
+			$imageParams['class'] .= ' img-fluid';
 		}
 		foreach ( $imageParams as $key => $val ) {
 			if ( !empty( $val ) ) {

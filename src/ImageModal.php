@@ -336,7 +336,7 @@ class ImageModal implements NestableInterface {
 			return '';
 		}
 
-		$modal = ApplicationFactory::getInstance()->getModalBuilder(
+		$modal = ApplicationFactory::getInstance()->getNewModalBuilder(
 			$this->getId(),
 			$triggerString,
 			$content,
@@ -425,7 +425,7 @@ class ImageModal implements NestableInterface {
 		$imgParams = [
 			'alt'       => $sanitizedFrameParams['alt'],
 			'title'     => $sanitizedFrameParams['title'],
-			'img-class' => trim( $sanitizedFrameParams['class'] . ' img-responsive' ),
+			'img-class' => trim( $sanitizedFrameParams['class'] . ' img-fluid' ),
 		];
 		$imgString = $img->toHtml( $imgParams );
 		if ( $sanitizedFrameParams['caption'] ) {

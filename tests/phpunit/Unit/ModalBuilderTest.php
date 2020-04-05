@@ -101,8 +101,8 @@ class ModalBuilderTest extends PHPUnit_Framework_TestCase {
 				'outerStyle0',
 				'innerClass0',
 				'<span class="modal-trigger" data-toggle="modal" data-target="#id0">trigger0</span>',
-				'<div class="modal fade outerClass0" style="outerStyle0" role="dialog" id="id0" aria-hidden="true"><div class="modal-dialog innerClass0"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close">'
-				. '<span aria-hidden="true">&times;</span></button><span class="modal-title">header0</span></div><div class="modal-body">content0</div><div class="modal-footer">footer0<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
+				'<div class="modal fade outerClass0" style="outerStyle0" role="dialog" id="id0" aria-hidden="true"><div class="modal-dialog innerClass0"><div class="modal-content"><div class="modal-header"><span class="modal-title">header0</span>'
+				. '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body">content0</div><div class="modal-footer">footer0<button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
 			'scarce' => [
 				'id1',

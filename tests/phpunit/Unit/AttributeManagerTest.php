@@ -19,189 +19,123 @@ use \PHPUnit_Framework_TestCase;
  * @author  Tobias Oetterer
  */
 class AttributeManagerTest extends PHPUnit_Framework_TestCase {
-	public function testCanConstruct() {
 
+	public function testCanConstruct() {
 		$this->assertInstanceOf(
 			'BootstrapComponents\\AttributeManager',
-			new AttributeManager( [] )
+			new AttributeManager( [], [] )
 		);
+	}
+
+	public function testCannotConstructWithInvalidAlias() {
+		$this->expectException( \LogicException::class );
+		$instance = new AttributeManager( [ 'class', 'id', 'style' ], [ 'test' => 'unknown' ] );
 	}
 
 	public function testGetAllAttributes() {
-		$instance = new AttributeManager( [] );
+		$manager = new AttributeManager( [], [] );
 		$this->assertEquals(
 			[
-				'active', 'class', 'color', 'collapsible', 'disabled', 'dismissible', 'footer',
-				'heading', 'id', 'link', 'placement', 'size', 'style', 'text', 'trigger',
+				'active', 'background', 'class', 'color', 'collapsible', 'disabled', 'dismissible', 'fade', 'footer', 'header',
+				'id', 'link', 'outline', 'pill', 'placement', 'size', 'style', 'text', 'trigger',
 			],
-			$instance->getAllKnownAttributes()
+			$manager->getAllKnownAttributes()
 		);
 	}
 
 	/**
-	 * @param string $attribute
-	 * @param array  $allowedValues
+	 * @param string[] $attributes
+	 * @param array    $aliases
+	 * @param string   $attribute
+	 * @param bool     $expected
 	 *
-	 * @dataProvider allowedValuesForAttributeProvider
+	 * @dataProvider providerIsValid
 	 */
-	public function testGetAllowedValuesFor( $attribute, $allowedValues ) {
-		$instance = new AttributeManager( [ $attribute ] );
+	public function testIsValid( $attributes, $aliases, $attribute, $expected ) {
+		$manager = new AttributeManager( $attributes, $aliases );
 		$this->assertEquals(
-			$allowedValues,
-			$instance->getAllowedValuesFor( $attribute )
+			$expected,
+			$manager->isValid( $attribute )
 		);
 	}
 
 	/**
-	 * @param string    $newAttribute
-	 * @param int|array $allowedValue
+	 * @param string[] $attributes
+	 * @param array    $aliases
+	 * @param string   $attribute
+	 * @param string[] $request
+	 * @param bool     $expected
 	 *
-	 * @dataProvider canRegisterNewAttributesProvider
+	 * @dataProvider providerIsSuppliedInRequest
 	 */
-	public function testCanRegisterNewAttributes( $newAttribute, $allowedValue ) {
-		$instance = new AttributeManager( [] );
-		$this->assertTrue(
-			!$instance->isRegistered( $newAttribute )
-		);
-		$this->assertTrue(
-			$instance->register( $newAttribute, $allowedValue )
-		);
-		$this->assertTrue(
-			$instance->isRegistered( $newAttribute )
-		);
+	public function testIsSuppliedInRequest( $attributes, $aliases, $attribute, $request, $expected ) {
+		$manager = new AttributeManager( $attributes, $aliases );
 		$this->assertEquals(
-			$allowedValue,
-			$instance->getAllowedValuesFor( $newAttribute )
-		);
-	}
-
-	public function testFailRegister() {
-		$instance = new AttributeManager( [] );
-		$this->assertTrue(
-			!$instance->register( '', 1 )
-		);
-		$this->assertTrue(
-			!$instance->register( 'empty_array_fail', [] )
+			$expected,
+			$manager->isSuppliedInRequest( $attribute, $request )
 		);
 	}
 
 	/**
-	 * @param string $attribute
-	 * @param array  $valuesToTest
+	 * @param string[] $attributes
+	 * @param array    $aliases
+	 * @param string   $attribute
+	 * @param mixed    $value
+	 * @param string   $expectedAttribute
+	 * @param mixed    $expectedValue
 	 *
-	 * @dataProvider verifyValueProvider
+	 * @dataProvider providerVerifyAttributeAndValue
 	 */
-	public function testVerifyAttributes( $attribute, $valuesToTest ) {
-		$instance = new AttributeManager( [ 'id', 'style', $attribute ] );
-		foreach ( $valuesToTest as $value ) {
-			$attributesToVerify = [ $attribute => $value ];
-			$expectedVerifiedAttributes = [ 'id' => false, 'style' => false, $attribute => $value ];
-			$this->assertEquals(
-				$expectedVerifiedAttributes,
-				$instance->verifyAttributes( $attributesToVerify ),
-				'failed with value (' . gettype( $value ) . ') ' . $value . ' for attribute ' . $attribute
-			);
-		}
-	}
-
-	public function testVerifyAttributesAliases() {
-		$instance = new AttributeManager( [ 'heading', 'footer' ] );
-		$attributesToVerify = [
-			'header'  => 'heading text',
-			'footing' => 'footer text',
-		];
-		$this->assertEquals(
-			[
-				'heading'  => 'heading text',
-				'footer' => 'footer text',
-			],
-			$instance->verifyAttributes( $attributesToVerify )
-		);
+	public function testVerifyAttributeAndValue( $attributes, $aliases, $attribute, $value, $expectedAttribute, $expectedValue ) {
+		$manager = new AttributeManager( $attributes, $aliases );
+		list( $returnedAttribute, $returnedValue ) = $manager->validateAttributeAndValue( $attribute, $value );
+		$this->assertEquals( $expectedAttribute, $returnedAttribute );
+		$this->assertEquals( $expectedValue, $returnedValue );
 	}
 
 	/**
-	 * @param string $attribute
-	 * @param array  $valuesToTest
-	 *
-	 * @dataProvider failToVerifyValueProvider
+	 * @return array
 	 */
-	public function testFailToVerifyAttributes( $attribute, $valuesToTest ) {
-		$instance = new AttributeManager( [ $attribute ] );
-		foreach ( $valuesToTest as $value ) {
-			$attributesToVerify = [ $attribute => $value ];
-			$this->assertEquals(
-				[ $attribute => false ],
-				$instance->verifyAttributes( $attributesToVerify ),
-				'failed with false value (' . gettype( $value ) . ') ' . $value . ' for attribute ' . $attribute
-			);
-		}
-	}
-
-	public function testFailToVerifyUnknownAttributes() {
-		$instance = new AttributeManager( [ 'class', 'id', 'style' ] );
-		$attributesToVerify = [ 'rnd' => md5( microtime() ) ];
-		$this->assertEquals(
-			[ 'class' => false, 'id' => false, 'style' => false ],
-			$instance->verifyAttributes( $attributesToVerify )
-		);
-	}
-
-	/**
-	 * @return array[]
-	 */
-	public function allowedValuesForAttributeProvider() {
+	public function providerIsValid() {
 		return [
-			'active'      => [ 'active', false ],
-			'class'       => [ 'class', true ],
-			'color'       => [ 'color', [ 'default', 'primary', 'success', 'info', 'warning', 'danger' ] ],
-			'collapsible' => [ 'collapsible', false ],
-			'disabled'    => [ 'disabled', false ],
-			'dismissible' => [ 'dismissible', false ],
-			'footer'      => [ 'footer', true ],
-			'heading'     => [ 'heading', true ],
-			'id'          => [ 'id', true ],
-			'link'        => [ 'link', true ],
-			'placement'   => [ 'placement', [ 'top', 'bottom', 'left', 'right' ] ],
-			'size'        => [ 'size', [ 'xs', 'sm', 'md', 'lg' ] ],
-			'style'       => [ 'style', true ],
-			'text'        => [ 'text', true ],
-			'trigger'     => [ 'trigger', [ 'default', 'focus', 'hover' ] ],
-			'rnd'         => [ md5( microtime() ), null ],
+			// $attributes, $aliases, $attribute, $expected
+			'normal' => [ [ 'class', 'id' ], [], 'class', true ],
+			'fail'   => [ [ 'id', 'style' ], [], 'class', false ],
+			'alias'  => [ [ 'class', 'id' ], [ 'stand' => 'class' ], 'stand', true ],
 		];
 	}
 
 	/**
 	 * @return array
 	 */
-	public function canRegisterNewAttributesProvider() {
+	public function providerIsSuppliedInRequest() {
 		return [
-			'any_value' => [ 'any_value', AttributeManager::ANY_VALUE ],
-			'no_value'  => [ 'no_value', AttributeManager::NO_FALSE_VALUE ],
-			'array'     => [ 'array_value', [ 'yes', 'no' ] ],
+			// $attributes, $aliases, $attribute, $request, $expected
+			'normal' => [ [ 'class', 'id' ], [], 'class', [ 'class' ], true ],
+			'fail'   => [ [ 'class', 'id' ], [], 'class', [ 'id', 'style' ], false ],
+			'alias'  => [ [ 'class', 'id' ], [ 'stand' => 'class' ], 'class', [ 'stand' ], true ],
 		];
 	}
 
 	/**
-	 * @return array[]
+	 * @return array
 	 */
-	public function verifyValueProvider() {
-		return [
-			'active'  => [ 'active', [ md5( microtime() ), md5( microtime() . microtime() ) ] ],
-			'class'   => [ 'class', [ md5( microtime() ), md5( microtime() . microtime() ) ] ],
-			'color'   => [ 'color', [ 'default', 'primary', 'success', 'info', 'warning', 'danger' ] ],
+	public function providerVerifyAttributeAndValue() {
+		$data = [
+			// $attributes, $aliases, $attribute, $value, $expectedAttribute, $expectedValue
+			'any w/ value'                 => [ [ 'header' ], [], 'header', 'foo bar', 'header', 'foo bar' ],
+			'any w/ empty string'          => [ [ 'header' ], [], 'header', '', 'header', '' ],
+			'any w/ null'                  => [ [ 'header' ], [], 'header', null, 'header', null ],
+			'noFalseValue w/ empty string' => [ [ 'active' ], [], 'active', '', 'active', true ],
+			'noFalseValue w/ any'          => [ [ 'active' ], [], 'active', 'foobar', 'active', 'foobar' ],
+			'fixedList w/ match'           => [ [ 'color' ], [], 'color', 'danger', 'color', 'danger' ],
+			'fixedList w/o match'          => [ [ 'color' ], [], 'color', 'ease', 'color', null ],
+			'alias'                        => [ [ 'header' ], [ 'heading' => 'header '], 'heading', 'foo bar', 'header', 'foo bar' ],
 		];
-	}
-
-	/**
-	 * @return array[]
-	 */
-	public function failToVerifyValueProvider() {
-		return [
-			'active'      => [ 'active', [ 0, 'no', 'false', 'off', '0', 'disabled', 'ignored' ] ],
-			'collapsible' => [ 'collapsible', [ 0, 'no', 'false', 'off', '0', 'disabled', 'ignored' ] ],
-			'color'       => [ 'color', [ 0, 'no', 'false', 'off', '0', 'disabled', 'ignored' ] ],
-			'disabled'    => [ 'disabled', [ 0, 'no', 'false', 'off', '0', 'disabled', 'ignored' ] ],
-			'dismissible' => [ 'dismissible', [ 0, 'no', 'false', 'off', '0', 'disabled', 'ignored' ] ],
-		];
+		// adding no values
+		foreach ( [ false, 0, '0', 'no', 'false', 'off', 'disabled', 'ignored' ] as $key => $noValue ) {
+			$data['noFalseValue #' . $key] = [ [ 'active' ], [], 'active', $noValue, 'active', false ];
+		}
+		return $data;
 	}
 }

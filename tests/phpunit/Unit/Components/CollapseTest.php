@@ -69,27 +69,27 @@ class CollapseTest extends ComponentsTestBase {
 			'simple'          => [
 				$this->input,
 				[],
-				'<a class="btn btn-default" role="button" id="bsc_button_NULL" href="#bsc_collapse_NULL" data-toggle="collapse">#bsc_collapse_NULL</a><div class="collapse" id="bsc_collapse_NULL">' . $this->input . '</div>',
+				'<a class="btn btn-primary" role="button" id="bsc_button_NULL" href="#bsc_collapse_NULL" data-toggle="collapse">#bsc_collapse_NULL</a><div class="collapse" id="bsc_collapse_NULL">' . $this->input . '</div>',
 			],
 			'color_unknown'   => [
 				$this->input,
 				[ 'color' => 'unknown' ],
-				'<a class="btn btn-default" role="button" id="bsc_button_NULL" href="#bsc_collapse_NULL" data-toggle="collapse">#bsc_collapse_NULL</a><div class="collapse" id="bsc_collapse_NULL">' . $this->input . '</div>',
+				'<a class="btn btn-primary" role="button" id="bsc_button_NULL" href="#bsc_collapse_NULL" data-toggle="collapse">#bsc_collapse_NULL</a><div class="collapse" id="bsc_collapse_NULL">' . $this->input . '</div>',
 			],
 			'button text'     => [
 				$this->input,
 				[ 'text' => 'BUTTON' ],
-				'<a class="btn btn-default" role="button" id="bsc_button_NULL" href="#bsc_collapse_NULL" data-toggle="collapse">BUTTON</a><div class="collapse" id="bsc_collapse_NULL">' . $this->input . '</div>',
+				'<a class="btn btn-primary" role="button" id="bsc_button_NULL" href="#bsc_collapse_NULL" data-toggle="collapse">BUTTON</a><div class="collapse" id="bsc_collapse_NULL">' . $this->input . '</div>',
 			],
 			'manual id'       => [
 				$this->input,
-				[ 'color' => 'default', 'id' => 'alliance' ],
-				'<a class="btn btn-default" role="button" id="bsc_button_NULL" href="#alliance" data-toggle="collapse">#alliance</a><div class="collapse" id="alliance">' . $this->input . '</div>',
+				[ 'color' => 'success', 'id' => 'alliance' ],
+				'<a class="btn btn-success" role="button" id="bsc_button_NULL" href="#alliance" data-toggle="collapse">#alliance</a><div class="collapse" id="alliance">' . $this->input . '</div>',
 			],
 			'style and class' => [
 				$this->input,
 				[ 'class' => 'dummy nice', 'style' => 'float:right;background-color:green' ],
-				'<a class="btn btn-default dummy nice" style="float:right;background-color:green" role="button" id="bsc_button_NULL" href="#bsc_collapse_NULL" data-toggle="collapse">#bsc_collapse_NULL</a><div class="collapse dummy nice" style="float:right;background-color:green" id="bsc_collapse_NULL">' . $this->input . '</div>',
+				'<a class="btn btn-primary dummy nice" style="float:right;background-color:green" role="button" id="bsc_button_NULL" href="#bsc_collapse_NULL" data-toggle="collapse">#bsc_collapse_NULL</a><div class="collapse dummy nice" style="float:right;background-color:green" id="bsc_collapse_NULL">' . $this->input . '</div>',
 			],
 		];
 	}

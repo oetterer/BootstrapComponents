@@ -94,7 +94,7 @@ class ButtonTest extends ComponentsTestBase {
 		}
 
 		$this->assertRegExp(
-			'~^<a class="btn btn-default btn-md manual" role="button" id="bsc_button_NULL" href=".*/' . str_replace( ' ', '_', $this->input ) . '" data-toggle="foo" data-target="#bar">' . $this->input . '</a>$~',
+			'~^<a class="btn btn-primary btn-md manual" role="button" id="bsc_button_NULL" href=".*/' . str_replace( ' ', '_', $this->input ) . '" data-toggle="foo" data-target="#bar">' . $this->input . '</a>$~',
 			$generatedOutput
 		);
 	}
@@ -107,7 +107,7 @@ class ButtonTest extends ComponentsTestBase {
 			'simple'             => [
 				$this->input,
 				[],
-				'~^<a class="btn btn-default" role="button" id="bsc_button_NULL" href=".*/' . str_replace( ' ', '_', $this->input ) . '">' . $this->input . '</a>$~',
+				'~^<a class="btn btn-primary" role="button" id="bsc_button_NULL" href=".*/' . str_replace( ' ', '_', $this->input ) . '">' . $this->input . '</a>$~',
 			],
 			'empty'              => [
 				'',
@@ -124,20 +124,25 @@ class ButtonTest extends ComponentsTestBase {
 				[ 'disabled' => true, 'color' => 'danger', 'text' => 'BUTTON', 'id' => 'red' ],
 				'~^<a class="btn btn-danger disabled" role="button" id="red" href=".*/' . str_replace( ' ', '_', $this->input ) . '">BUTTON</a>$~',
 			],
+			'outline' => [
+				$this->input,
+				[ 'outline' => true ],
+				'~^<a class="btn btn-outline-primary" role="button" id="bsc_button_NULL" href=".*/' . str_replace( ' ', '_', $this->input ) . '">' . $this->input . '</a>$~',
+			],
 			'size and active' => [
 				$this->input,
 				[ 'size' => 'lg', 'active' => true ],
-				'~^<a class="btn btn-default btn-lg active" role="button" id="bsc_button_NULL" href=".*/' . str_replace( ' ', '_', $this->input ) . '">' . $this->input . '</a>$~',
+				'~^<a class="btn btn-primary btn-lg active" role="button" id="bsc_button_NULL" href=".*/' . str_replace( ' ', '_', $this->input ) . '">' . $this->input . '</a>$~',
 			],
 			'invlid size' => [
 				$this->input,
 				[ 'size' => 'nice' ],
-				'~^<a class="btn btn-default" role="button" id="bsc_button_NULL" href=".*/' . str_replace( ' ', '_', $this->input ) . '">' . $this->input . '</a>$~',
+				'~^<a class="btn btn-primary" role="button" id="bsc_button_NULL" href=".*/' . str_replace( ' ', '_', $this->input ) . '">' . $this->input . '</a>$~',
 			],
 			'link inside button' => [
 				$this->input,
 				[ 'text' => 'This is a <a href="/wiki/index.php/Link>Link</a> inside the button text' ],
-				'~^<a class="btn btn-default" role="button" id="bsc_button_NULL" href=".*/' . str_replace( ' ', '_', $this->input ) . '">This is a Link inside the button text</a>$~',
+				'~^<a class="btn btn-primary" role="button" id="bsc_button_NULL" href=".*/' . str_replace( ' ', '_', $this->input ) . '">This is a Link inside the button text</a>$~',
 			],
 		];
 	}

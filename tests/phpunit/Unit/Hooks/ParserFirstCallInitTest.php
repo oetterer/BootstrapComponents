@@ -24,7 +24,7 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
 
-		$parser = $this->getMockBuilder( 'Parser' )
+		$parser = $this->getMockBuilder( Parser::class )
 			->disableOriginalConstructor()
 			->getMock();
 		$componentLibrary = $this->getMockBuilder( 'BootstrapComponents\ComponentLibrary' )
@@ -52,26 +52,26 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->setMethods( [ 'setFunctionHook', 'setHook' ] )
 			->getMock();
-		$observerParser->expects( $this->exactly( 6 ) )
+		$observerParser->expects( $this->exactly( 5 ) )
 			->method( 'setFunctionHook' )
 			->withConsecutive(
 				[ $this->equalTo( $prefix . 'badge' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'button' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'carousel' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'icon' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'label' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'tooltip' ), $this->callback( 'is_callable' ) ]
+				[ $this->equalTo( $prefix . 'tooltip' ), $this->callback( 'is_callable' ) ],
+				[ $this->equalTo( $prefix . 'label' ), $this->callback( 'is_callable' ) ]
 			);
-		$observerParser->expects( $this->exactly( 8 ) )
+		$observerParser->expects( $this->exactly( 9 ) )
 			->method( 'setHook' )
 			->withConsecutive(
 				[ $this->equalTo( $prefix . 'accordion' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'alert' ), $this->callback( 'is_callable' ) ],
+				[ $this->equalTo( $prefix . 'card' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'collapse' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'jumbotron' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'modal' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'panel' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'popover' ), $this->callback( 'is_callable' ) ],
+				[ $this->equalTo( $prefix . 'panel' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'well' ), $this->callback( 'is_callable' ) ]
 			);
 		$componentLibrary = new ComponentLibrary( true );
@@ -96,12 +96,12 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->setMethods( [ 'setFunctionHook', 'setHook' ] )
 			->getMock();
-		$extractionParser->expects( $this->exactly( 6 ) )
+		$extractionParser->expects( $this->exactly( 5 ) )
 			->method( 'setFunctionHook' )
 			->will( $this->returnCallback( function( $parserHookString, $callBack ) use ( &$registeredParserHooks ) {
 				$registeredParserHooks[$parserHookString] = [ $callBack, ComponentLibrary::HANDLER_TYPE_PARSER_FUNCTION ];
 			} ) );
-		$extractionParser->expects( $this->exactly( 8 ) )
+		$extractionParser->expects( $this->exactly( 9 ) )
 			->method( 'setHook' )
 			->will( $this->returnCallback( function( $parserHookString, $callBack ) use ( &$registeredParserHooks ) {
 				$registeredParserHooks[$parserHookString] = [ $callBack, ComponentLibrary::HANDLER_TYPE_TAG_EXTENSION ];

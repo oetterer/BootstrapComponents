@@ -1,0 +1,153 @@
+{
+	"accordion": {
+		"class": "BootstrapComponents\\Components\\Accordion",
+		"handlerType": "tag"
+	},
+	"alert": {
+		"class": "BootstrapComponents\\Components\\Alert",
+		"handlerType": "tag",
+		"attributes": [
+			"color",
+			"dismissible"
+		],
+		"modules": {
+			"default": "ext.bootstrapComponents.alert.fix"
+		}
+	},
+	"badge": {
+		"class": "BootstrapComponents\\Components\\Badge",
+		"handlerType": "function",
+		"attributes": [
+			"color",
+			"pill"
+		]
+	},
+	"button": {
+		"class": "BootstrapComponents\\Components\\Button",
+		"handlerType": "function",
+		"attributes": [
+			"active",
+			"color",
+			"disabled",
+			"outline",
+			"size",
+			"text"
+		],
+		"modules": {
+			"default": "ext.bootstrapComponents.button.fix"
+		}
+	},
+	"card": {
+		"class": "BootstrapComponents\\Components\\Card",
+		"handlerType": "tag",
+		"attributes": [
+			"active",
+			"background",
+			"collapsible",
+			"color",
+			"footer",
+			"header"
+		],
+		"aliases": {
+			"footing": "footer",
+			"heading": "header",
+			"title": "header"
+		},
+		"modules": {
+			"default": "ext.bootstrapComponents.card.fix"
+		}
+	},
+	"carousel": {
+		"class": "BootstrapComponents\\Components\\Carousel",
+		"handlerType": "function",
+		"attributes": [
+			"fade"
+		],
+		"modules": {
+			"default": "ext.bootstrapComponents.carousel"
+		}
+	},
+	"collapse": {
+		"class": "BootstrapComponents\\Components\\Collapse",
+		"handlerType": "tag",
+		"attributes": [
+			"active",
+			"color",
+			"disabled",
+			"outline",
+			"size",
+			"text"
+		],
+		"modules": {
+			"default": "ext.bootstrapComponents.button.fix"
+		}
+	},
+	"jumbotron": {
+		"class": "BootstrapComponents\\Components\\Jumbotron",
+		"handlerType": "tag"
+	},
+	"label": "badge",
+	"modal": {
+		"class": "BootstrapComponents\\Components\\Modal",
+		"handlerType": "tag",
+		"attributes": [
+			"color",
+			"footer",
+			"header",
+			"size",
+			"text"
+		],
+		"aliases": {
+			"footing": "footer",
+			"heading": "header",
+			"title": "header"
+		},
+		"modules": {
+			"default": [
+				"ext.bootstrapComponents.button.fix",
+				"ext.bootstrapComponents.modal.fix"
+			],
+			"vector": [
+				"ext.bootstrapComponents.modal.vector-fix"
+			]
+		}
+	},
+	"panel": "card",
+	"popover": {
+		"class": "BootstrapComponents\\Components\\Popover",
+		"handlerType": "tag",
+		"attributes": [
+			"color",
+			"header",
+			"placement",
+			"size",
+			"text",
+			"trigger"
+		],
+		"aliases": {
+			"heading": "header",
+			"title": "header"
+		},
+		"modules": {
+			"default": [
+				"ext.bootstrapComponents.button.fix",
+				"ext.bootstrapComponents.popover"
+			],
+			"vector": [
+				"ext.bootstrapComponents.popover.vector-fix"
+			]
+		}
+	},
+	"tooltip": {
+		"class": "BootstrapComponents\\Components\\Tooltip",
+		"handlerType": "function",
+		"attributes": [
+			"placement",
+			"text"
+		],
+		"modules": {
+			"default": "ext.bootstrapComponents.tooltip"
+		}
+	},
+	"well": "card"
+}

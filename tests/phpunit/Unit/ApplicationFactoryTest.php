@@ -3,7 +3,6 @@
 namespace BootstrapComponents\Tests\Unit;
 
 use BootstrapComponents\ApplicationFactory;
-use BootstrapComponents\ComponentLibrary;
 use \PHPUnit_Framework_TestCase;
 
 /**
@@ -55,28 +54,28 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testGetModalBuilder() {
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$instance = new ApplicationFactory();
-
-		/** @noinspection PhpParamsInspection */
-		$modalBuilder = $instance->getModalBuilder( '', '', '', $parserOutputHelper );
-
-		$this->assertInstanceOf(
-			'BootstrapComponents\\ModalBuilder',
-			$modalBuilder
-		);
-	}
-
-	public function testGetAttributeManager() {
+	public function testGetNewAttributeManager() {
 		$instance = new ApplicationFactory();
 
 		$this->assertInstanceOf(
 			'BootstrapComponents\\AttributeManager',
-			$instance->getAttributeManager( [] )
+			$instance->getNewAttributeManager( [], [] )
+		);
+	}
+
+	public function testGetNewModalBuilder() {
+		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$factory = new ApplicationFactory();
+
+		/** @noinspection PhpParamsInspection */
+		$modalBuilder = $factory->getNewModalBuilder( '', '', '', $parserOutputHelper );
+
+		$this->assertInstanceOf(
+			'BootstrapComponents\\ModalBuilder',
+			$modalBuilder
 		);
 	}
 

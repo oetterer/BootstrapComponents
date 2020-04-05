@@ -114,4 +114,4 @@ public function placeMe( $input ) {
 [classComponentLibrary]: ../src/ComponentLibrary.php
 [qqq.json]: ../i18n/qqq.json
 [en.json]: ../i18n/en.json
-[components.md]: components.md
+[components.md]: bs3/components.md

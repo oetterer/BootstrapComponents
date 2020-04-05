@@ -1,6 +1,5 @@
-<?php
 /**
- * Contains the component class for rendering a label.
+ * Contains javascript code executed when tooltips are used.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -24,42 +23,6 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Components;
-
-use BootstrapComponents\AbstractComponent;
-use \Html;
-
-/**
- * Class Label
- *
- * Class for component 'label'
- *
- * @see   https://github.com/oetterer/BootstrapComponents/blob/master/docs/components.md#Label
- * @since 1.0
- */
-class Label extends AbstractComponent {
-	/**
-	 * @inheritdoc
-	 *
-	 * @param string $input
-	 */
-	public function placeMe( $input ) {
-		if ( empty( $input ) ) {
-			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-label-content-missing' );
-		}
-
-		$class = [
-			'label', 'label-' . $this->getValueFor( 'color', 'default' ),
-		];
-		list ( $class, $style ) = $this->processCss( $class, [] );
-		return Html::rawElement(
-			'span',
-			[
-				'class' => $this->arrayToString( $class, ' ' ),
-				'style' => $this->arrayToString( $style, ';' ),
-				'id'    => $this->getId(),
-			],
-			$input
-		);
-	}
-}
+$(function () {
+	$('.carousel').carousel();
+});

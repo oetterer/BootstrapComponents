@@ -43,7 +43,7 @@ class Accordion extends AbstractComponent {
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 
 		list ( $class, $style ) = $this->processCss( 'panel-group', [] );
 

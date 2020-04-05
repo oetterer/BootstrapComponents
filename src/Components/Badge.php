@@ -43,12 +43,15 @@ class Badge extends AbstractComponent {
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 		if ( empty( $input ) ) {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-badge-content-missing' );
 		}
 
-		list ( $class, $style ) = $this->processCss( [ 'badge' ], [] );
+		list ( $class, $style ) = $this->processCss(
+			$this->calculateClassAttribute(),
+			[]
+		);
 		return Html::rawElement(
 			'span',
 			[
@@ -58,5 +61,21 @@ class Badge extends AbstractComponent {
 			],
 			$input
 		);
+	}
+
+	/**
+	 * Calculates the class attribute value from the passed attributes
+	 *
+	 * @return string[]
+	 */
+	private function calculateClassAttribute() {
+		$class = [ 'badge' ];
+
+		if ( (bool)$this->getValueFor( 'pill' ) ) {
+			$class[] = 'badge-pill';
+		}
+
+		$class[] = 'badge-' . $this->getValueFor( 'color', 'primary' );
+		return $class;
 	}
 }

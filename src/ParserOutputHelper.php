@@ -199,13 +199,13 @@ class ParserOutputHelper {
 
 	/**
 	 * Adds the bootstrap modules and styles to the page, if not done already
+	 * @todo augment signature to include bsModule to add via BootstrapManager::getInstance()->addBootstrapModule();
 	 */
 	public function loadBootstrapModules() {
 		$parserOutput = $this->getParser()->getOutput();
 		if ( is_a( $parserOutput, ParserOutput::class ) ) {
-			// Q: when do we expect \Parser->getOutput() no to be a \ParserOutput? A: During tests.
-			$parserOutput->addModuleStyles( 'ext.bootstrap.styles' );
-			$parserOutput->addModuleScripts( 'ext.bootstrap.scripts' );
+			// Q: when do we expect \Parser->getOutput() not to be a \ParserOutput? A: During tests.
+			$parserOutput->setExtensionData( 'bsc_load_modules', true );
 			if ( $this->vectorSkinInUse() ) {
 				$parserOutput->addModules( 'ext.bootstrapComponents.vector-fix' );
 			}

@@ -11,14 +11,13 @@ the "require"-section of your `composer.local.json` file and run the
 ```
 {
 	"require": {
-		"mediawiki/bootstrap-components": "~1.0"
+		"mediawiki/bootstrap-components": "~4.0"
 	}
 }
 ```
 
 ### Manually
-You need to download and activate the extension yourself. Also, you need to
-take care of dependencies.
+You need to download the extension and all the the dependencies yourself.
 
 First, you should take care of dependencies. That means installing
 the MediaWiki [Extension Bootstrap][BootstrapExtension]. See there
@@ -36,11 +35,16 @@ You can also download the [archive][GitArchive] and extract it yourself.
 Note that getting the extension manually from GitHub leaves you with the
 must current version of the extension.
 
-Finally, you need to add the following to your `LocalSettings.php` file:
+## Loading
+
+You need to add the following to your `LocalSettings.php` file, no matter
+whether you installed the extension via composer or manually:
 
 ```
 wfLoadExtension( 'BootstrapComponents' );
 ```
+
+Check your wiki's Version special page to verify, that the extension is loaded.
 
 ## Configuration
 You can change some of the behaviour of this extension with the
@@ -124,7 +128,7 @@ galleries, please visit [mediawiki.org][Gallery].
 [Git]: https://git-scm.com/
 [GitArchive]: https://github.com/oetterer/BootstrapComponents/archive/master.zip
 [BootstrapExtension]: https://www.mediawiki.org/wiki/Extension:Bootstrap
-[Components]: components.md
+[Components]: bs3/components.md
 [known-issues]: known-issues.md
 [ImageHelp]: https://www.mediawiki.org/wiki/Help:Images
 [Gallery]: https://www.mediawiki.org/wiki/Help:Images#Rendering_a_gallery_of_images

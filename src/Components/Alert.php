@@ -50,14 +50,14 @@ class Alert extends AbstractComponent {
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 
 		$this->dismissible = (bool)$this->getValueFor( 'dismissible' );
 
 		$class = $this->calculateAlertClassAttribute();
 		$inside = $input;
 		if ( $this->isDismissible() ) {
-			$inside = $this->renderDismissButton() . $inside;
+			$inside .= $this->renderDismissButton();
 		}
 
 		list ( $class, $style ) = $this->processCss( $class, [] );
@@ -80,13 +80,12 @@ class Alert extends AbstractComponent {
 	 */
 	private function calculateAlertClassAttribute() {
 		$class = [ 'alert' ];
-		$class[] = 'alert-' . $this->getValueFor( 'color', 'info' );
+		$class[] = 'alert-' . $this->getValueFor( 'color', 'primary' );
 
 		if ( $this->isDismissible() ) {
+			$class[] = 'alert-dismissible';
 			if ( $this->getValueFor( 'dismissible' ) === 'fade' ) {
-				$class = array_merge( $class, [ 'fade', 'in' ] );
-			} else {
-				$class[] = 'alert-dismissible';
+				$class = array_merge( $class, [ 'fade', 'show' ] );
 			}
 		}
 		return $class;
@@ -101,7 +100,6 @@ class Alert extends AbstractComponent {
 		return $this->dismissible;
 	}
 
-
 	/**
 	 * Generates the button, that lets us dismiss this alert
 	 *
@@ -109,7 +107,7 @@ class Alert extends AbstractComponent {
 	 */
 	private function renderDismissButton() {
 		return Html::rawElement(
-			'div',
+			'button',
 			[
 				'type'         => 'button',
 				'class'        => 'close',

@@ -87,7 +87,7 @@
 					"modal-body",
 					"modal-footer",
 					"\"modal\"",
-					"img-responsive"
+					"img-fluid"
 				],
 				"not-contain": [
 					"foo=",

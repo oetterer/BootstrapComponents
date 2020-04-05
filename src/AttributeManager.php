@@ -34,16 +34,6 @@ namespace BootstrapComponents;
 class AttributeManager {
 
 	/**
-	 * This introduces aliases for attributes.
-	 *
-	 * For instance, if someone adds "header" to its component, it is treated like "heading" if this is not present itself.
-	 */
-	const ALIASES = [
-		'heading' => 'header',
-		'footer'  => 'footing'
-	];
-
-	/**
 	 * For attributes that take any value.
 	 *
 	 * @var int
@@ -61,13 +51,6 @@ class AttributeManager {
 	const NO_FALSE_VALUE = 0;
 
 	/**
-	 * Holds the register for allowed attributes per component
-	 *
-	 * @var array $allowedValuesForAttribute
-	 */
-	private $allowedValuesForAttribute;
-
-	/**
 	 * Holds all values indicating a "no". Can be used to ignore "enable"-fields.
 	 *
 	 * @var array $noValues
@@ -75,39 +58,128 @@ class AttributeManager {
 	private $noValues;
 
 	/**
-	 * The list of attributes that are considered valid
+	 * The list of attributes that are considered valid; holds alias relation 'name|alias' => 'real name'
 	 *
-	 * @var string[] $validAttributes
+	 * @var string[] $validAttributeNameMapping
 	 */
-	private $validAttributes;
+	private $validAttributeNameMapping;
+
+	#@todo need a method: attributeIsSupplied(). for components must be able to check, if "header" was supplied and don't know about aliases
 
 	/**
 	 * AttributeManager constructor.
 	 *
-	 * Do not instantiate directly, but use {@see ApplicationFactory::getAttributeManager}
+	 * Do not instantiate directly, but use {@see ApplicationFactory::getNewAttributeManager}
 	 * instead.
 	 *
-	 * @param string[] $validAttributes the list of attributes, this manager deems valid.
+	 * @param string[] $componentAttributes the list of attributes, this manager deems valid.
+	 * @param string[] $aliases             the list of aliases and their corresponding attribute
 	 *
-	 * @see ApplicationFactory::getAttributeManager
+	 * @see ApplicationFactory::getNewAttributeManager
 	 */
-	public function __construct( $validAttributes ) {
+	public function __construct( $componentAttributes, $aliases ) {
 		$this->noValues = [ false, 0, '0', 'no', 'false', 'off', 'disabled', 'ignored' ];
 		$this->noValues[] = strtolower( wfMessage( 'confirmable-no' )->text() );
-		list ( $this->validAttributes, $this->allowedValuesForAttribute ) = $this->registerValidAttributes( $validAttributes );
+		$this->validAttributeNameMapping = $this->calculateValidAttributeNames( $componentAttributes, $aliases );
 	}
 
 	/**
-	 * Returns the list of all available attributes
+	 * Returns the list of all defined attributes, including those that are invalid for the current component.
 	 *
 	 * @return string[]
 	 */
 	public function getAllKnownAttributes() {
-		return array_keys( $this->getInitialAttributeRegister() );
+		return array_keys( $this->getAttributeRegister() );
 	}
 
 	/**
-	 * Returns the allowed values for a given attribute or NULL if invalid attribute.
+	 * Checks if given $attribute is registered with the manager. Note that an alias is deemed valid.
+	 *
+	 * @param string $attribute
+	 *
+	 * @return bool
+	 */
+	public function isValid( $attribute ) {
+		return isset( $this->validAttributeNameMapping[$attribute] );
+	}
+
+	/**
+	 * Checks, if the attribute $neededAttribute or its alias is found in $suppliedAttributes.
+	 *
+	 * @param string   $neededAttribute
+	 * @param string[] $suppliedAttributes
+	 *
+	 * @return bool
+	 */
+	public function isSuppliedInRequest( $neededAttribute, $suppliedAttributes ) {
+		if ( !is_array( $suppliedAttributes ) || empty( $suppliedAttributes ) ) {
+			return false;
+		}
+		if ( in_array( $neededAttribute, $suppliedAttributes ) ) {
+			return true;
+		}
+		foreach ( $suppliedAttributes as $suppliedAttribute ) {
+			if ( $this->resolveAttributeName( $suppliedAttribute ) == $neededAttribute ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Extracts the _verified_ value for attribute from passed attributes. When attribute is an alias, it returns the real attribute name
+	 * together with the aliases value.
+	 *
+	 * Note:
+	 *  * To make certain, that $attribute is valid, use {@see \BootstrapComponents\AttributeManager::isValid} beforehand.
+	 *  * If there is no data for $attribute in $passedValue, or the value does not pass verification, this returns null as $passedValue.
+	 *
+	 * @param string $attribute   the attribute|alias, data will be extracted for
+	 * @param string $passedValue must be already parsed
+	 *
+	 * @return array ( (string) $attributeName, (null|string) $passedValue );
+	 */
+	public function validateAttributeAndValue( $attribute, $passedValue ) {
+		$attributeRealName = $this->resolveAttributeName( $attribute );
+		$verifiedValue = $this->validateValueForAttribute( $attributeRealName, $passedValue );
+		return [ $attributeRealName, $verifiedValue ];
+	}
+
+	/**
+	 * Registers all valid attribute names and all aliases.
+	 *
+	 * @param string[] $validAttributes
+	 * @param string[] $aliases
+	 *
+	 * @return array $filteredValidAttributeNameMapping
+	 * @see AttributeManager::getAttributeRegister
+	 *
+	 */
+	protected function calculateValidAttributeNames( $validAttributes, $aliases ) {
+		$filteredValidAttributeNameMapping = [];
+		foreach ( $validAttributes as $validAttribute ) {
+			$validAttribute = strtolower( trim( $validAttribute ) );
+			if ( $this->isInRegister( $validAttribute ) ) {
+				$filteredValidAttributeNameMapping[$validAttribute] = $validAttribute;
+			}
+		}
+		foreach ( $aliases as $alias => $attributeName ) {
+			$attributeName = strtolower( trim( $attributeName ) );
+			if ( !isset( $filteredValidAttributeNameMapping[$attributeName] ) ) {
+				throw new \LogicException(
+					'Alias \'' . $alias . '\' points to an invalid attribute \''
+					. $attributeName . '\'. Cannot initialize AttributeManager!'
+				);
+			}
+			if ( !isset( $filteredValidAttributeNameMapping[$alias] ) ) {
+				$filteredValidAttributeNameMapping[$alias] = $attributeName;
+			}
+		}
+		return $filteredValidAttributeNameMapping;
+	}
+
+	/**
+	 * Returns the allowed values for a given attribute or NULL if invalid attribute. Note that an alias is deemed "valid".
 	 *
 	 * Note that allowed values can be an array, {@see AttributeManager::NO_FALSE_VALUE},
 	 * or {@see AttributeManager::ANY_VALUE}.
@@ -116,115 +188,37 @@ class AttributeManager {
 	 *
 	 * @return null|array|bool
 	 */
-	public function getAllowedValuesFor( $attribute ) {
-		if ( !$this->isRegistered( $attribute ) ) {
+	protected function getAllowedValuesFor( $attribute ) {
+		if ( !$this->isValid( $attribute ) ) {
 			return null;
 		}
-		return $this->allowedValuesForAttribute[$attribute];
+		return $this->getAttributeRegister()[$this->validAttributeNameMapping[$attribute]];
 	}
 
 	/**
-	 * @return string[]
-	 */
-	public function getValidAttributes() {
-		return $this->validAttributes;
-	}
-
-	/**
-	 * Checks if given $attribute is registered with the manager.
-	 *
 	 * @param string $attribute
 	 *
 	 * @return bool
 	 */
-	public function isRegistered( $attribute ) {
-		return isset( $this->allowedValuesForAttribute[$attribute] );
+	protected function isInRegister( $attribute ) {
+		return isset( $this->getAttributeRegister()[$attribute] );
 	}
 
 	/**
-	 * Registers $attribute with and its allowed values.
+	 * Resolves aliases to their mapped attribute. If $attributeName is unknown, it is returned.
 	 *
-	 * Notes on attribute registering:
-	 * * {@see AttributeManager::ANY_VALUE}: every non empty string is allowed
-	 * * {@see AttributeManager::NO_FALSE_VALUE}: as along as the attribute is present and NOT set to a value contained in {@see AttributeManager::$noValues},
-	 *      the attribute is considered valid. Note that flag attributes will be set to the empty string by the parser, e.g. having <tag active></tag> will have
-	 *      active set to "". {@see AttributeManager::verifyValueForAttribute} returns those as true.
-	 * * array: attribute must be present and contain a value in the array to be valid
+	 * @param string $attributeName
 	 *
-	 * Note also, that values will be converted to lower case before checking, you therefore should only put lower case values in your
-	 * allowed-values array.
-	 *
-	 * @param string     $attribute
-	 * @param array|int  $allowedValues
-	 *
-	 * @return bool
+	 * @return string
 	 */
-	public function register( $attribute, $allowedValues ) {
-		if ( !is_string( $attribute ) || !strlen( trim( $attribute ) ) ) {
-			return false;
-		}
-		if ( !is_int( $allowedValues ) && ( !is_array( $allowedValues ) || !count( $allowedValues ) ) ) {
-			return false;
-		}
-		$this->allowedValuesForAttribute[trim( $attribute )] = $allowedValues;
-		return true;
+	protected function resolveAttributeName( $attributeName ) {
+		return isset( $this->validAttributeNameMapping[$attributeName] )
+			? $this->validAttributeNameMapping[$attributeName]
+			: $attributeName;
 	}
 
 	/**
-	 * Takes the attributes/options supplied by parser, removes the ones not registered for this component and
-	 * verifies the rest. Note that the result array has an entry for every valid attribute, false if not supplied via parser.
-	 *
-	 * Valid here means: the attribute is registered with the manager and with the component
-	 * Verified: The attributes value has been checked and deemed ok.
-	 *
-	 * Note that attributes not registered with the manager return with a false value.
-	 *
-	 * @param string[] $attributes
-	 *
-	 * @see AttributeManager::verifyValueForAttribute
-	 *
-	 * @return array
-	 */
-	public function verifyAttributes( $attributes ) {
-		$verifiedAttributes = [];
-		foreach ( $this->getValidAttributes() as $validAttribute ) {
-			$value = $this->getValueForAttribute( $validAttribute, $attributes );
-			if ( is_null( $value ) ) {
-				$verifiedAttributes[$validAttribute] = false;
-			} else {
-				$verifiedAttributes[$validAttribute] = $this->verifyValueForAttribute( $validAttribute, $value );
-			}
-		}
-		return $verifiedAttributes;
-	}
-
-	/**
-	 * For each supplied valid attribute this registers the attribute together with its valid values.
-	 *
-	 * Note: Registers only known attributes.
-	 *
-	 * @param string[] $validAttributes
-	 *
-	 * @see AttributeManager::getInitialAttributeRegister
-	 *
-	 * @return array ($filteredValidAttributes, $attributesRegister)
-	 */
-	protected function registerValidAttributes( $validAttributes ) {
-		$allAttributes = $this->getInitialAttributeRegister();
-		$filteredValidAttributes = [];
-		$attributesRegister = [];
-		foreach ( $validAttributes as $validAttribute ) {
-			$validAttribute = strtolower( trim( $validAttribute ) );
-			if ( isset( $allAttributes[$validAttribute] ) ) {
-				$filteredValidAttributes[] = $validAttribute;
-				$attributesRegister[$validAttribute] = $allAttributes[$validAttribute];
-			}
-		}
-		return [ $filteredValidAttributes, $attributesRegister ];
-	}
-
-	/**
-	 * For a given attribute, this verifies, if value is allowed. If verification succeeds, the value will be returned, false otherwise.
+	 * For a given attribute, this verifies, if value is allowed. If verification succeeds, the value will be returned, null otherwise.
 	 * If an attribute is registered as NO_FALSE_VALUE and value is the empty string, it gets converted to true.
 	 *
 	 * Note: an ANY_VALUE attribute can still be the empty string.
@@ -233,9 +227,9 @@ class AttributeManager {
 	 * @param string $attribute
 	 * @param string $value
 	 *
-	 * @return bool|string
+	 * @return null|bool|string
 	 */
-	protected function verifyValueForAttribute( $attribute, $value ) {
+	protected function validateValueForAttribute( $attribute, $value ) {
 		$allowedValues = $this->getAllowedValuesFor( $attribute );
 		if ( $allowedValues === self::NO_FALSE_VALUE ) {
 			return $this->verifyValueForNoValueAttribute( $value );
@@ -245,24 +239,28 @@ class AttributeManager {
 		} elseif ( is_array( $allowedValues ) && in_array( strtolower( $value ), $allowedValues, true ) ) {
 			return $value;
 		}
-		return false;
+		return null;
 	}
 
 	/**
 	 * @return array
 	 */
-	private function getInitialAttributeRegister() {
+	private function getAttributeRegister() {
 		return [
 			'active'      => self::NO_FALSE_VALUE,
+			'background'  => [ 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
 			'class'       => self::ANY_VALUE,
-			'color'       => [ 'default', 'primary', 'success', 'info', 'warning', 'danger' ],
+			'color'       => [ 'default', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
 			'collapsible' => self::NO_FALSE_VALUE,
 			'disabled'    => self::NO_FALSE_VALUE,
 			'dismissible' => self::NO_FALSE_VALUE,
+			'fade'        => self::NO_FALSE_VALUE,
 			'footer'      => self::ANY_VALUE,
-			'heading'     => self::ANY_VALUE,
+			'header'      => self::ANY_VALUE,
 			'id'          => self::ANY_VALUE,
 			'link'        => self::ANY_VALUE,
+			'outline'     => self::NO_FALSE_VALUE,
+			'pill'        => self::NO_FALSE_VALUE,
 			'placement'   => [ 'top', 'bottom', 'left', 'right' ],
 			'size'        => [ 'xs', 'sm', 'md', 'lg' ],
 			'style'       => self::ANY_VALUE,
@@ -273,39 +271,17 @@ class AttributeManager {
 	}
 
 	/**
-	 * Extracts the value for attribute from passed attributes. If attribute itself
-	 * is not set, it also looks for aliases.
+	 * If $value is a no-value, this returns false. if then $value is empty(), this returns true, $value otherwise.
 	 *
-	 * @param $attribute
-	 * @param $passedAttributes
-	 *
-	 * @see AttributeManager::ALIASES
-	 *
-	 * @return null|string
-	 */
-	private function getValueForAttribute( $attribute, $passedAttributes ) {
-		if ( isset ( $passedAttributes[$attribute] ) ) {
-			return $passedAttributes[$attribute];
-		}
-		$definedAliases = self::ALIASES;
-		if ( isset( $definedAliases[$attribute] ) ) {
-			$aliases = (array)$definedAliases[$attribute];
-			foreach ( $aliases as $alias ) {
-				if ( isset( $passedAttributes[$alias] ) ) {
-					return $passedAttributes[$alias];
-				}
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * @param string $value
+	 * @param null|string $value
 	 *
 	 * @return bool|string
 	 */
 	private function verifyValueForNoValueAttribute( $value ) {
-		if ( in_array( strtolower( $value ), $this->noValues, true ) ) {
+		if ( is_string( $value ) ) {
+			$value = trim( strtolower( $value ) );
+		}
+		if ( in_array( $value, $this->noValues, true ) ) {
 			return false;
 		}
 		return empty( $value ) ? true : $value;

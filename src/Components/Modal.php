@@ -40,12 +40,14 @@ use \Html;
  * @since 1.0
  */
 class Modal extends AbstractComponent {
+
+	#@todo replace heading with title, account for deprecation, fix language files!
 	/**
 	 * @inheritdoc
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 		list ( $outerClass, $style ) = $this->processCss( [], [] );
 
 		list ( $returnCode, $text ) = $this->generateTrigger();
@@ -58,7 +60,7 @@ class Modal extends AbstractComponent {
 			true
 		);
 
-		$modal = ApplicationFactory::getInstance()->getModalBuilder(
+		$modal = ApplicationFactory::getInstance()->getNewModalBuilder(
 			$this->getId(),
 			$text,
 			$safeInput,
@@ -71,7 +73,7 @@ class Modal extends AbstractComponent {
 		)->setDialogClass(
 			$this->calculateInnerClass()
 		)->setHeader(
-			(string)$this->getValueFor( 'heading' )
+			(string)$this->getValueFor( 'header' )
 		)->setFooter(
 			(string)$this->getValueFor( 'footer' )
 		)->parse();

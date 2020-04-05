@@ -51,10 +51,10 @@ class Tooltip extends AbstractComponent {
 		if ( empty( $tooltip ) ) {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-tooltip-content-missing' );
 		}
-		list( $tag, $input, $attributes ) = $this->buildHtmlElements( $input, (string)$tooltip );
+		list( $tag, $input, $attributes ) = $this->buildHtmlElements( $input, (string) $tooltip );
 
 		return [
-				Html::rawElement(
+			Html::rawElement(
 				$tag,
 				$attributes,
 				$input
@@ -76,18 +76,18 @@ class Tooltip extends AbstractComponent {
 		list ( $input, $target ) = $this->stripLinksFrom( $input, '' );
 
 		$attributes = [
-			'class'          => $this->arrayToString( $class, ' ' ),
-			'style'          => $this->arrayToString( $style, ';' ),
-			'id'             => $this->getId(),
+			'class' => $this->arrayToString( $class, ' ' ),
+			'style' => $this->arrayToString( $style, ';' ),
+			'id'    => $this->getId(),
 		];
 		if ( empty( $target ) ) {
 			// this is the normal tooltip process
 			$attributes = array_merge(
 				$attributes,
 				[
-					'data-toggle'    => 'tooltip',
-					'title'          => $tooltip,
-					'data-placement' => $this->getValueFor( 'placement' ),
+					'data-toggle'         => 'tooltip',
+					'data-original-title' => $tooltip,
+					'data-placement'      => $this->getValueFor( 'placement' ),
 				]
 			);
 			$tag = "span";

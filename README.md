@@ -1,9 +1,9 @@
 # Bootstrap Components
-[![Build Status](https://secure.travis-ci.org/oetterer/BootstrapComponents.svg?branch=master)](http://travis-ci.org/oetterer/BootstrapComponents)
+[![Latest Stable Version](https://poser.pugx.org/mediawiki/bootstrap-components/version.png)](https://packagist.org/packages/mediawiki/bootstrap-components)
+[![Packagist download count](https://poser.pugx.org/mediawiki/bootstrap-components/d/total.png)](https://packagist.org/packages/mediawiki/bootstrap-components)
+[![Build Status](https://api.travis-ci.org/oetterer/BootstrapComponents.svg?branch=master)](http://travis-ci.org/oetterer/BootstrapComponents)
 [![Code Coverage](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/oetterer/BootstrapComponents/version.png)](https://packagist.org/packages/mediawiki/bootstrap-components)
-[![Packagist download count](https://poser.pugx.org/oetterer/BootstrapComponents/d/total.png)](https://packagist.org/packages/mediawiki/bootstrap-components)
+[![Code Quality](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/?branch=master)
 
 Bootstrap Components is a [MediaWiki] extension that aims to provide
 editors with an easy access to certain components introduced by

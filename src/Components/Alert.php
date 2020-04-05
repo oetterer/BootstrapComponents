@@ -50,7 +50,7 @@ class Alert extends AbstractComponent {
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 
 		$this->dismissible = (bool)$this->getValueFor( 'dismissible' );
 

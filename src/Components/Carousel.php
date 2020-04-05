@@ -44,7 +44,7 @@ class Carousel extends AbstractComponent {
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 		$images = $this->extractAndParseImageList( $this->getParserRequest() );
 		if ( !count( $images ) ) {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-carousel-images-missing' );

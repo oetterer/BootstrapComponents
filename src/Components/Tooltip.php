@@ -43,7 +43,7 @@ class Tooltip extends AbstractComponent {
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 		if ( empty( $input ) ) {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-tooltip-target-missing' );
 		}
@@ -51,7 +51,7 @@ class Tooltip extends AbstractComponent {
 		if ( empty( $tooltip ) ) {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-tooltip-content-missing' );
 		}
-		list( $tag, $input, $attributes ) = $this->buildHtmlElements( $input, (string) $tooltip );
+		[ $tag, $input, $attributes ] = $this->buildHtmlElements( $input, (string) $tooltip );
 
 		return [
 			Html::rawElement(
@@ -71,9 +71,9 @@ class Tooltip extends AbstractComponent {
 	 * @return array $tag, $text, $attributes
 	 */
 	private function buildHtmlElements( $input, $tooltip ) {
-		list ( $class, $style ) = $this->processCss( [ 'bootstrap-tooltip' ], [] );
+		[ $class, $style ] = $this->processCss( [ 'bootstrap-tooltip' ], [] );
 
-		list ( $input, $target ) = $this->stripLinksFrom( $input, '' );
+		[ $input, $target ] = $this->stripLinksFrom( $input, '' );
 
 		$attributes = [
 			'class' => $this->arrayToString( $class, ' ' ),
@@ -85,9 +85,9 @@ class Tooltip extends AbstractComponent {
 			$attributes = array_merge(
 				$attributes,
 				[
-					'data-toggle'         => 'tooltip',
-					'data-original-title' => $tooltip,
-					'data-placement'      => $this->getValueFor( 'placement' ),
+					'data-placement' => $this->getValueFor( 'placement' ),
+					'data-toggle'    => 'tooltip',
+					'title'          => $tooltip,
 				]
 			);
 			$tag = "span";

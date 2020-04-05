@@ -77,7 +77,7 @@ class Card extends AbstractComponent {
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 
 		$this->collapsible = $this->getValueFor( 'collapsible' ) || $this->isInsideAccordion();
 

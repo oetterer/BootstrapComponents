@@ -43,7 +43,7 @@ class Badge extends AbstractComponent {
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 		if ( empty( $input ) ) {
 			return $this->getParserOutputHelper()->renderErrorMessage( 'bootstrap-components-badge-content-missing' );
 		}

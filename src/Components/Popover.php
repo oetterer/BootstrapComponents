@@ -45,7 +45,7 @@ class Popover extends AbstractComponent {
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 		$heading = $this->getValueFor( 'header' );
 		$text    = $this->getValueFor( 'text' );
 		if ( $heading === false || !strlen( $heading ) ) {

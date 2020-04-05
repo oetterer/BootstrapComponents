@@ -46,7 +46,7 @@ class Collapse extends AbstractComponent {
 	 *
 	 * @param string $input
 	 */
-	public function placeMe( $input ) {
+	protected function placeMe( $input ) {
 		$buttonPrintOut = $this->generateButton(
 			clone $this->getParserRequest()
 		);

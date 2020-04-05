@@ -1,12 +1,30 @@
 ## Release Notes
 
-### BootstrapComponents 4.0
+### BootstrapComponents 4.0.1
 
 Released on _not yet_
 
 Changes:
 
 Fixes:
+
+### BootstrapComponents 4.0.0
+
+Released on 05-April-2020
+
+Changes:
+* change loading of extension; now done manually in LocalSettings.php
+* change bootstrap foundation from version 3 to version 4
+* added component card
+* removed component icon
+* deprecated components label, panel, and well
+* add translations via translatewiki
+
+Fixes:
+* fixed some typos
+* fix component popover header handling
+
+Also see the [migration guide](migration-guide.md) when switching to ~4.0.
 
 ### BootstrapComponents 1.2.4
 

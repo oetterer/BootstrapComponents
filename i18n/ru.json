@@ -2,9 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Mouse21",
+			"Movses",
 			"Okras",
-			"Patrick Star",
-			"Movses"
+			"Patrick Star"
 		]
 	},
 	"bootstrap-components-desc": "Стремитесь предоставить редакторам легкий доступ к определённым компонентам, представленным Twitter Bootstrap 3",

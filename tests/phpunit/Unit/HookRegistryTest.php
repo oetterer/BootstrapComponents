@@ -429,9 +429,9 @@ class HookRegistryTest extends PHPUnit_Framework_TestCase {
 	public function buildHookCallbackListForProvider() {
 		return [
 			'empty'               => [ [] ],
-			'default'             => [ [ 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
-			'alsoImageModal'      => [ [ 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
-			'alsoCarouselGallery' => [ [ 'GalleryGetModes', 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
+			'default'             => [ [ 'ParserAfterTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
+			'alsoImageModal'      => [ [ 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserAfterTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
+			'alsoCarouselGallery' => [ [ 'GalleryGetModes', 'ParserAfterTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
 			'all'                 => [ [ 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
 			'invalid'             => [ [ 'nonExistingHook', 'PageContentSave' ] ],
 		];

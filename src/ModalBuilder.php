@@ -36,8 +36,7 @@ use \Html;
  * will be hardened here, through the use of {@see Html::rawElement}.
  *
  * Tested hooks to insert the deferred content:
- * * ParserBeforeTidy: Injects content anytime a parser is invoked. Including for instance the searchGoButton... :(
- * * ParserAfterTidy: Same as ParserBeforeTidy
+ * * ParserAfterTidy: Injects content anytime a parser is invoked. Including for instance the searchGoButton... :(
  * * SkinAfterContent: Works; content inside mw-data-after-content container, which trails the "mw-content-text" and the "printfooter" divs.
  *      Needs deferred content to be stored in parser cache. This runs into problems with fixed-head under chameleon 1.7.0+!
  * * OutputPageParserOutput: Works; adds either at the bottom of the content (right after the tidy remarks and the comment containing caching information)

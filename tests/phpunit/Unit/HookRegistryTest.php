@@ -429,10 +429,10 @@ class HookRegistryTest extends PHPUnit_Framework_TestCase {
 	public function buildHookCallbackListForProvider() {
 		return [
 			'empty'               => [ [] ],
-			'default'             => [ [ 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
-			'alsoImageModal'      => [ [ 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
-			'alsoCarouselGallery' => [ [ 'GalleryGetModes', 'ParserBeforeTidy', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
-			'all'                 => [ [ 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries' ] ],
+			'default'             => [ [ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'ScribuntoExternalLibraries', 'SetupAfterCache' ] ],
+			'alsoImageModal'      => [ [ 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'ScribuntoExternalLibraries', 'SetupAfterCache' ] ],
+			'alsoCarouselGallery' => [ [ 'GalleryGetModes', 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'ScribuntoExternalLibraries', 'SetupAfterCache' ] ],
+			'all'                 => [ [ 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'ScribuntoExternalLibraries', 'SetupAfterCache' ] ],
 			'invalid'             => [ [ 'nonExistingHook', 'PageContentSave' ] ],
 		];
 	}
@@ -444,22 +444,22 @@ class HookRegistryTest extends PHPUnit_Framework_TestCase {
 		return [
 			'onlydefault' => [
 				[],
-				[ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', ],
+				[ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'ScribuntoExternalLibraries', 'SetupAfterCache', ],
 				[ 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
 			],
 			'gallery activated' => [
 				[ 'BootstrapComponentsEnableCarouselGalleryMode' ],
-				[ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'GalleryGetModes', ],
+				[ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'ScribuntoExternalLibraries', 'SetupAfterCache', 'GalleryGetModes', ],
 				[ 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
 			],
 			'image replacement activated' => [
 				[ 'BootstrapComponentsModalReplaceImageTag' ],
-				[ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
+				[ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'ScribuntoExternalLibraries', 'SetupAfterCache', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
 				[ 'GalleryGetModes', ],
 			],
 			'both activated' => [
 				[ 'BootstrapComponentsEnableCarouselGalleryMode', 'BootstrapComponentsModalReplaceImageTag' ],
-				[ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'SetupAfterCache', 'ScribuntoExternalLibraries', 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
+				[ 'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit', 'ScribuntoExternalLibraries', 'SetupAfterCache', 'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', ],
 				[],
 			],
 		];
@@ -522,9 +522,6 @@ class HookRegistryTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @param string $hook
-	 *
-	 * @throws \ConfigException
-	 * @throws \MWException
 	 *
 	 * @return \Closure
 	 */

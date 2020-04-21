@@ -126,7 +126,7 @@ class HookRegistry {
 	public function compileRequestedHooksListFor( $myConfig ) {
 		$requestedHookList = [
 			'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit',
-			'SetupAfterCache', 'ScribuntoExternalLibraries',
+			'ScribuntoExternalLibraries', 'SetupAfterCache',
 		];
 		if ( $myConfig->has( 'BootstrapComponentsEnableCarouselGalleryMode' )
 			&& $myConfig->get( 'BootstrapComponentsEnableCarouselGalleryMode' )

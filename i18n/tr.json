@@ -1,19 +1,20 @@
 {
 	"@metadata": {
 		"authors": [
+			"BaRaN6161 TURK",
 			"Hedda"
 		]
 	},
 	"bootstrap-components-desc": "Twitter Bootstrap 3 tarafından tanıtılan belirli bileşenlere kolay erişim sağlayan editörler sağlamayı amaçlamaktadır.",
 	"bootstrap-components-error-tracking-category": "Önyükleme bileşeni hataları olan sayfalar",
 	"bootstrap-components-close-element": "Kapat",
-	"bootstrap-components-image-modal-source-button": "Kaynağı gör",
-	"bootstrap-components-lua-error-no-component": "Mw.bootstrap.parse için hiçbir bileşen adı sağlanmadı.",
+	"bootstrap-components-image-modal-source-button": "Kaynağı Ziyaret Et",
+	"bootstrap-components-lua-error-no-component": "mw.bootstrap.parse için hiçbir bileşen adı sağlanmadı.",
 	"bootstrap-components-lua-error-invalid-component": "Geçersiz bileşen adı mw.bootstrap.parse dosyasına iletildi: $1.",
 	"bootstrap-components-badge-content-missing": "Bu rozet için bir metin belirtmelisiniz.",
-	"bootstrap-components-button-target-missing": "Bu buton için bir hedef belirtmelisiniz.",
-	"bootstrap-components-button-target-invalid": "Bu buton için geçerli bir hedef belirtmelisiniz.",
-	"bootstrap-components-carousel-images-missing": "Atlı karıncaya yerleştirilmiş hiçbir görüntü yok.",
+	"bootstrap-components-button-target-missing": "Bu düğme için bir hedef belirtmelisiniz.",
+	"bootstrap-components-button-target-invalid": "Bu düğme için geçerli bir hedef belirtmelisiniz.",
+	"bootstrap-components-carousel-images-missing": "Karuselde ayarlanmış resim yok.",
 	"bootstrap-components-glyph-icon-name-missing": "Bir simge adı belirtmelisiniz.",
 	"bootstrap-components-label-content-missing": "Bir etiket metni belirtmelisiniz.",
 	"bootstrap-components-modal-text-missing": "Bu mod düğmesi için bir metin belirtmelisiniz.",

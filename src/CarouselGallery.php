@@ -28,6 +28,7 @@ namespace BootstrapComponents;
 
 use BootstrapComponents\Components\Carousel;
 use \ImageGalleryBase;
+use MediaWiki\MediaWikiServices;
 
 /**
  * Class CarouselGallery
@@ -141,7 +142,11 @@ class CarouselGallery extends ImageGalleryBase {
 					$parser->addTrackingCategory( 'broken-file-category' );
 				}
 				continue;
-			} elseif ( $hideBadImages && wfIsBadImage( $imageTitle->getDBkey(), $contextTitle ) ) {
+			} elseif (
+				$hideBadImages && MediaWikiServices::getInstance()
+					->getBadFileLookup()
+					->isBadFile( $imageTitle->getDBkey(), $contextTitle )
+			) {
 				continue;
 			}
 

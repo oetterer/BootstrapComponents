@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eduardo Addad de Oliveira"
+			"Eduardo Addad de Oliveira",
+			"Eduardoaddad"
 		]
 	},
 	"bootstrap-components-desc": "Pretende fornecer aos editores um acesso fácil a determinados componentes introduzidos pelo Twitter Bootstrap 3",

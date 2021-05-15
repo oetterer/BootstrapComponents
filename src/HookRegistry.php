@@ -286,7 +286,11 @@ class HookRegistry {
 	 */
 	public function register( $hookList ) {
 		foreach ( $hookList as $hook => $callback ) {
-			Hooks::register( $hook, $callback );
+			if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.35', 'lt' ) ) {
+				Hooks::register( $hook, $callback );
+			} else {
+				MediaWikiServices::getInstance()->getHookContainer()->register( $hook, $callback );
+			}
 		}
 		return count( $hookList );
 	}

@@ -50,10 +50,10 @@ function installMWCoreAndDB() {
 		sudo /etc/init.d/postgresql start
 
 		psql -c 'create database its_a_mw;' -U postgres
-		php maintenance/install.php --dbtype ${DB} --dbuser postgres --dbname its_a_mw --pass nyan --scriptpath /TravisWiki TravisWiki admin
+		php maintenance/install.php --dbtype ${DB} --dbuser postgres --dbname its_a_mw --pass nyanNYANnyan --scriptpath /TravisWiki TravisWiki admin
 	else
 		mysql -e 'create database its_a_mw;'
-		php maintenance/install.php --dbtype ${DB} --dbuser root --dbname its_a_mw --dbpath $(pwd) --pass nyan --scriptpath /TravisWiki TravisWiki admin
+		php maintenance/install.php --dbtype ${DB} --dbuser root --dbname its_a_mw --dbpath $(pwd) --pass nyanNYANnyan --scriptpath /TravisWiki TravisWiki admin
 	fi
 }
 

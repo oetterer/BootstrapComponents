@@ -35,7 +35,7 @@ function installMWCoreAndDB() {
 
 	cd ${mwDir}
 
-	composer self-update
+	composer self-update --1
 
 	# Hack to fix "... jetbrains/phpstorm-stubs/PhpStormStubsMap.php): failed to open stream: No such file or directory ..."
 	# https://phabricator.wikimedia.org/T226766

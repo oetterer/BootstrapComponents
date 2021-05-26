@@ -136,7 +136,7 @@ class Card extends AbstractComponent {
 		if ( $this->isCollapsible() ) {
 			$class = [ 'card-collapse', 'collapse', 'fade' ];
 			if ( $this->getValueFor( 'active' ) ) {
-				$class[] = 'in';
+				$class[] = 'show';
 			}
 		}
 		return $class;

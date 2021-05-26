@@ -28,7 +28,7 @@
 		"php": ">=7.0",
 		"composer/installers": "1.*,>=1.0.1",
 		"mediawiki/mw-extension-registry-helper": "^1.0",
-		"mediawiki/bootstrap": "~4.0"
+		"mediawiki/bootstrap": "~4.5"
 	},
 	"require-dev": {
 		"squizlabs/php_codesniffer": "~2.1",

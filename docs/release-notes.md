@@ -1,12 +1,26 @@
 ## Release Notes
 
-### BootstrapComponents 4.0.1
+### BootstrapComponents 4.0.2
 
 Released on _not yet_
 
 Changes:
 
 Fixes:
+
+### BootstrapComponents 4.0.1
+
+Released on 26-May-2021
+
+Changes:
+* add translations via translatewiki
+* bump bootstrap extension dependency to 4.5.x 
+
+Fixes:
+* fix travis issues, thx @malberts
+* fix MW1.35 deprecation, thx @malberts
+* fix collapse active class, thx @malberts
+* fix issues with PageForms file upload
 
 ### BootstrapComponents 4.0.0
 

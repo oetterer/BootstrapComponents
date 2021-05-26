@@ -31,10 +31,12 @@ jobs:
       php: 7.1
     - env: DB=mysql; MW=REL1_34; PHPUNIT=6.5.*
       php: 7.2
-    - env: DB=mysql; MW=master; PHPUNIT=7.5.*
+    - env: DB=mysql; MW=REL1_35; PHPUNIT=7.5.*
       php: 7.3
+    - env: DB=mysql; MW=master; PHPUNIT=8.5.*
+      php: 7.4
   allow_failures:
-    - env: DB=mysql; MW=master; PHPUNIT=7.5.*
+    - env: DB=mysql; MW=master; PHPUNIT=8.5.*
 
 
 install:

@@ -186,6 +186,10 @@ class ParserOutputHelper {
 	 * @return ParserOutputHelper $this (fluid)
 	 */
 	public function injectLater( $id, $rawHtml ) {
+		if ( empty( $this->getParser()->getOutput() ) ) {
+			# fix issues with PageForms file upload (issue #20)
+			return $this;
+		}
 		if ( !empty( $rawHtml ) ) {
 			$deferredContent = $this->getParser()->getOutput()->getExtensionData( self::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
 			if ( empty( $deferredContent ) ) {

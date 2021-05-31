@@ -9,6 +9,12 @@
 
 local testframework = require 'Module:TestFramework'
 
+local removeHrefPath = function( result )
+	local ret = string.gsub( result, 'href="/[^/]*/', 'href="/TestPath/' )
+	ret = string.gsub( ret, '  ', ' ' )
+	return ret
+end
+
 local removeId = function( result )
 	local ret = string.gsub( result, 'id="[^"]+"', '' )
 	ret = string.gsub( ret, '  ', ' ' )
@@ -37,9 +43,11 @@ local tests = {
 	},
 	{
 		name = 'mw.bootstrap.parse.tests.lua: parse icon',
-		func = mw.bootstrap.parse,
+		func = function( component, input, args )
+			return removeHrefPath ( mw.bootstrap.parse( component, input, args ) )
+		end,
 		args = { 'button', 'Page:Title', { id = 'FooBar' } },
-		expect = { '<a class=\"btn btn-primary\" role=\"button\" id=\"FooBar\" href=\"/REL1_34/Page:Title\">Page:Title</a>' }
+		expect = { '<a class=\"btn btn-primary\" role=\"button\" id=\"FooBar\" href=\"/TestPath/Page:Title\">Page:Title</a>' }
 	},
 	{
 		name = 'mw.bootstrap.parse.tests.lua: parse alert with arguments',

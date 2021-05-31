@@ -8,31 +8,55 @@ error_reporting( E_ALL | E_STRICT );
 date_default_timezone_set( 'UTC' );
 ini_set( 'display_errors', 1 );
 
+
 if ( !ExtensionRegistry::getInstance()->isLoaded( 'BootstrapComponents' ) ) {
 	die( "\nBootstrapComponents is not available or loaded, please check your Composer or LocalSettings.\n" );
 }
 
-if ( !is_readable( $autoloaderClassPath = __DIR__ . '/../../SemanticMediaWiki/tests/autoloader.php' ) ) {
-	die( "\nThe Semantic MediaWiki test autoloader is not available. Needed for integration tests!" );
+# get the autoloader
+#
+# note, that the autoloader also
+# * registers all test classes
+# * fills (string) $autoloadType
+$autoloadType = 'unknown';
+$autoloader = require __DIR__ . '/autoloader.php';
+
+# Not, add some runtime information
+require __DIR__ . '/TestInfoScreen.php';
+require __DIR__ . '/PhpUnitEnvironment.php';
+
+$phpUnitEnvironment = new \BootstrapComponents\Tests\PHPUnitEnvironment();
+
+if ( $phpUnitEnvironment->hasDebugRequest( $GLOBALS['argv'] ) === false ) {
+	$phpUnitEnvironment->emptyDebugVars();
 }
 
-$dateTimeUtc = new \DateTime( 'now', new \DateTimeZone( 'UTC' ) );
-print sprintf( "\n%-22s%s\n", "MediaWiki: ", $GLOBALS['wgVersion'] );
-print sprintf(
-	"%-22s%s\n", "Bootstrap: ",
-	ExtensionRegistry::getInstance()->getAllThings()['Bootstrap']['version']
-);
-print sprintf(
-	"%-22s%s\n", "BootstrapComponents: ",
-	ExtensionRegistry::getInstance()->getAllThings()['BootstrapComponents']['version']
-);
-print sprintf( "\n%-22s%s\n", "Execution time:", $dateTimeUtc->format( 'Y-m-d H:i' ) );
-print sprintf(
-	"%-22s%s\n", "Debug logs:",
-	$GLOBALS['wgDebugLogGroups'] !== [] || $GLOBALS['wgDebugLogFile'] !== '' ? 'Enabled' : 'Disabled'
-);
+$testInfoScreen = new \BootstrapComponents\Tests\TestInfoScreen( 25 );
 
-$autoLoader = require $autoloaderClassPath;
-$autoLoader->addPsr4( 'BootstrapComponents\\Tests\\Unit\\', __DIR__ . '/phpunit/Unit' );
-$autoLoader->addPsr4( 'BootstrapComponents\\Tests\\Integration\\', __DIR__ . '/phpunit/Integration' );
-unset( $autoLoader );
+$testInfoScreen->addInfoToBlock( "MediaWiki:", $phpUnitEnvironment->getSoftwareInfo( 'mw' ) );
+$testInfoScreen->addInfoToBlock( "Bootstrap:", $phpUnitEnvironment->getSoftwareInfo( 'Bootstrap' ) );
+$testInfoScreen->addInfoToBlock( "BootstrapComponents:", $phpUnitEnvironment->getSoftwareInfo( 'BootstrapComponents' ) );
+$testInfoScreen->newBlock();
+
+$testInfoScreen->addInfoToBlock( "Autoloader:", $autoloadType );
+$testInfoScreen->addInfoToBlock( "Database:", $phpUnitEnvironment->getDbType() );
+$testInfoScreen->addInfoToBlock( "Site language:", $phpUnitEnvironment->getSiteLanguageCode() );
+$testInfoScreen->newBlock();
+
+$testInfoScreen->addInfoToBlock( "SemanticMediaWiki:", $phpUnitEnvironment->getSoftwareInfo( 'smw' ) );
+$testInfoScreen->addInfoToBlock( "Scribunto:", $phpUnitEnvironment->getSoftwareInfo( 'Scribunto' ) );
+$testInfoScreen->newBlock();
+
+$testInfoScreen->addInfoToBlock( "PHPUnit:", $phpUnitEnvironment->getPhpUnitVersion() );
+$testInfoScreen->addInfoToBlock( "Debug logs:", ( $phpUnitEnvironment->enabledDebugLogs() ? 'Enabled' : 'Disabled' ) );
+$testInfoScreen->addInfoToBlock( "Xdebug:", ( ( $version = $phpUnitEnvironment->getXdebugInfo() ) ? $version : 'Disabled (or not installed)' ) );
+$testInfoScreen->addInfoToBlock( "Intl/ICU:", ( ( $intl = $phpUnitEnvironment->getIntlInfo() ) ? $intl : 'Disabled (or not installed)' ) );
+$testInfoScreen->addInfoToBlock( "PCRE:", ( ( $pcre = $phpUnitEnvironment->getPcreInfo() ) ? $pcre : 'Disabled (or not installed)' ) );
+$testInfoScreen->newBlock();
+
+$testInfoScreen->addInfoToBlock( "Execution time:", $phpUnitEnvironment->executionTime() );
+
+$testInfoScreen->printScreen();
+
+unset( $phpUnitEnvironment );
+unset( $testInfoScreen );

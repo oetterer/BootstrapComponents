@@ -142,7 +142,7 @@ class CardTest extends ComponentsTestBase {
 					'header'     => 'HEADING TEXT',
 					'footer'      => 'FOOTER TEXT',
 				],
-				'<div class="card border-info dummy nice" style="float:right;background-color:green"><div class="card-header" data-toggle="collapse" href="#badgers_bowler"><h4 class="card-title" style="margin-top:0;padding-top:0;">HEADING TEXT</h4></div><div id="badgers_bowler" class="card-collapse collapse fade in"><div class="card-body text-info">' . $this->input . '</div><div class="card-footer">FOOTER TEXT</div></div></div>',
+				'<div class="card border-info dummy nice" style="float:right;background-color:green"><div class="card-header" data-toggle="collapse" href="#badgers_bowler"><h4 class="card-title" style="margin-top:0;padding-top:0;">HEADING TEXT</h4></div><div id="badgers_bowler" class="card-collapse collapse fade show"><div class="card-body text-info">' . $this->input . '</div><div class="card-footer">FOOTER TEXT</div></div></div>',
 			],
 			'collapsible false' => [
 				$this->input,
@@ -189,7 +189,7 @@ class CardTest extends ComponentsTestBase {
 					'heading'     => 'HEADING TEXT',
 					'footer'      => 'FOOTER TEXT',
 				],
-				'<div class="card border-info dummy nice" style="float:right;background-color:green"><div class="card-header" data-parent="#accordion0" data-toggle="collapse" href="#badgers_bowler"><h4 class="card-title" style="margin-top:0;padding-top:0;">HEADING TEXT</h4></div><div id="badgers_bowler" class="card-collapse collapse fade in"><div class="card-body text-info">' . $this->input . '</div><div class="card-footer">FOOTER TEXT</div></div></div>',
+				'<div class="card border-info dummy nice" style="float:right;background-color:green"><div class="card-header" data-parent="#accordion0" data-toggle="collapse" href="#badgers_bowler"><h4 class="card-title" style="margin-top:0;padding-top:0;">HEADING TEXT</h4></div><div id="badgers_bowler" class="card-collapse collapse fade show"><div class="card-body text-info">' . $this->input . '</div><div class="card-footer">FOOTER TEXT</div></div></div>',
 			],
 			'collapsible false' => [
 				$this->input,

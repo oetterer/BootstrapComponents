@@ -1,12 +1,17 @@
 ## Release Notes
 
-### BootstrapComponents 4.0.2
+### BootstrapComponents 4.1.0
 
 Released on _not yet_
 
 Changes:
+- setting required php version to 7.1 (which in fact it already was, since 7.1 language constructs have been used)
 
 Fixes:
+- fix component card's unit tests
+- fix modal tests for REL1_31
+- fix a destined-to-fail lua test
+- remove smw from tests (and consequently deactivating integration tests)
 
 ### BootstrapComponents 4.0.1
 

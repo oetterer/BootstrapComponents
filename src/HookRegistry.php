@@ -55,8 +55,14 @@ class HookRegistry {
 	 * @var array
 	 */
 	const AVAILABLE_HOOKS = [
-		'GalleryGetModes', 'ImageBeforeProduceHTML', 'InternalParseBeforeLinks', 'OutputPageParserOutput',
-		'ParserAfterParse', 'ParserFirstCallInit', 'ScribuntoExternalLibraries', 'SetupAfterCache',
+		'GalleryGetModes',
+		'ImageBeforeProduceHTML',
+		'InternalParseBeforeLinks',
+		'OutputPageParserOutput',
+		'ParserAfterParse',
+		'ParserFirstCallInit',
+		'ScribuntoExternalLibraries',
+		'SetupAfterCache',
 	];
 	// dev note: for modals, please see \BootstrapComponents\ModalBuilder for a list of tested hooks
 
@@ -86,7 +92,8 @@ class HookRegistry {
 
 		$this->myConfig = $this->registerMyConfiguration();
 
-		list ( $this->componentLibrary, $this->nestingController ) = $this->initializeApplications( $this->myConfig );
+		list ( $this->componentLibrary, $this->nestingController ) =
+			$this->initializeApplications( $this->myConfig );
 	}
 
 	/**
@@ -96,14 +103,15 @@ class HookRegistry {
 	 */
 	public function buildHookCallbackListFor( $hooksToRegister ) {
 		$hookCallbackList = [];
-		$completeHookDefinitionList = $this->getCompleteHookDefinitionList(
-			$this->myConfig, $this->componentLibrary, $this->nestingController
-		);
+		$completeHookDefinitionList =
+			$this->getCompleteHookDefinitionList( $this->myConfig, $this->componentLibrary,
+				$this->nestingController );
 		foreach ( $hooksToRegister as $requestedHook ) {
 			if ( isset( $completeHookDefinitionList[$requestedHook] ) ) {
 				$hookCallbackList[$requestedHook] = $completeHookDefinitionList[$requestedHook];
 			}
 		}
+
 		return $hookCallbackList;
 	}
 
@@ -119,37 +127,40 @@ class HookRegistry {
 	/**
 	 * @param \Config $myConfig
 	 *
+	 * @return string[]
 	 * @throws \ConfigException cascading {@see \Config::get}
 	 *
-	 * @return string[]
 	 */
 	public function compileRequestedHooksListFor( $myConfig ) {
 		$requestedHookList = [
-			'OutputPageParserOutput', 'ParserAfterParse', 'ParserFirstCallInit',
-			'ScribuntoExternalLibraries', 'SetupAfterCache',
+			'OutputPageParserOutput',
+			'ParserAfterParse',
+			'ParserFirstCallInit',
+			'ScribuntoExternalLibraries',
+			'SetupAfterCache',
 		];
-		if ( $myConfig->has( 'BootstrapComponentsEnableCarouselGalleryMode' )
-			&& $myConfig->get( 'BootstrapComponentsEnableCarouselGalleryMode' )
-		) {
+		if ( $myConfig->has( 'BootstrapComponentsEnableCarouselGalleryMode' ) &&
+			$myConfig->get( 'BootstrapComponentsEnableCarouselGalleryMode' ) ) {
 			$requestedHookList[] = 'GalleryGetModes';
 		}
-		if ( $myConfig->has( 'BootstrapComponentsModalReplaceImageTag' )
-			&& $myConfig->get( 'BootstrapComponentsModalReplaceImageTag' )
-		) {
+		if ( $myConfig->has( 'BootstrapComponentsModalReplaceImageTag' ) &&
+			$myConfig->get( 'BootstrapComponentsModalReplaceImageTag' ) ) {
 			$requestedHookList[] = 'ImageBeforeProduceHTML';
 			$requestedHookList[] = 'InternalParseBeforeLinks';
 		}
+
 		return $requestedHookList;
 	}
 
 	/**
-	 * @param \Config           $myConfig
-	 * @param ComponentLibrary  $componentLibrary
+	 * @param \Config $myConfig
+	 * @param ComponentLibrary $componentLibrary
 	 * @param NestingController $nestingController
 	 *
 	 * @return \Closure[]
 	 */
-	public function getCompleteHookDefinitionList( $myConfig, $componentLibrary, $nestingController ) {
+	public function getCompleteHookDefinitionList( $myConfig, $componentLibrary, $nestingController
+	) {
 		return [
 			/**
 			 * Hook: GalleryGetModes
@@ -158,8 +169,9 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GalleryGetModes
 			 */
-			'GalleryGetModes'            => function( &$modeArray ) {
+			'GalleryGetModes' => function ( &$modeArray ) {
 				$modeArray['carousel'] = 'BootstrapComponents\\CarouselGallery';
+
 				return true;
 			},
 
@@ -170,7 +182,8 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ImageBeforeProduceHTML
 			 */
-			'ImageBeforeProduceHTML'     => $this->createImageBeforeProduceHTMLCallback( $nestingController, $myConfig ),
+			'ImageBeforeProduceHTML' => $this->createImageBeforeProduceHTMLCallback( $nestingController,
+				$myConfig ),
 
 			/**
 			 * Hook: InternalParseBeforeLinks
@@ -179,7 +192,7 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/InternalParseBeforeLinks
 			 */
-			'InternalParseBeforeLinks'   => $this->createInternalParseBeforeLinksCallback(),
+			'InternalParseBeforeLinks' => $this->createInternalParseBeforeLinksCallback(),
 
 			/**
 			 * Hook: OutputPageParserOutput
@@ -188,10 +201,15 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/OutputPageParserOutput
 			 */
-			'OutputPageParserOutput'     => function( \OutputPage &$outputPage, \ParserOutput $parserOutput, ParserOutputHelper &$parserOutputHelper = null ) {
+			'OutputPageParserOutput' => function (
+				\OutputPage &$outputPage, \ParserOutput $parserOutput,
+				ParserOutputHelper &$parserOutputHelper = null
+			) {
 				// @todo check, if we need to omit execution on actions edit, submit, or history
 				// $action = $outputPage->parserOptions()->getUser()->getRequest()->getVal( "action" );
-				$hook = new OutputPageParserOutput( $outputPage, $parserOutput, $parserOutputHelper );
+				$hook =
+					new OutputPageParserOutput( $outputPage, $parserOutput, $parserOutputHelper );
+
 				return $hook->process();
 			},
 
@@ -202,11 +220,12 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserAfterParse
 			 */
-			'ParserAfterParse'           => function( Parser &$parser, &$text, \StripState &$stripState ) {
+			'ParserAfterParse' => function ( Parser &$parser, &$text, \StripState &$stripState ) {
 				if ( $parser->getOutput()->getExtensionData( 'bsc_load_modules' ) ) {
 					$parser->getOutput()->addModules( 'ext.bootstrap.styles' );
 					$parser->getOutput()->addModules( 'ext.bootstrap.scripts' );
 				}
+
 				return true;
 			},
 
@@ -217,8 +236,11 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserFirstCallInit
 			 */
-			'ParserFirstCallInit'        => function( Parser $parser ) use ( $componentLibrary, $nestingController ) {
+			'ParserFirstCallInit' => function ( Parser $parser ) use (
+				$componentLibrary, $nestingController
+			) {
 				$hook = new ParserFirstCallInit( $parser, $componentLibrary, $nestingController );
+
 				return $hook->process();
 			},
 
@@ -229,10 +251,11 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ScribuntoExternalLibraries
 			 */
-			'ScribuntoExternalLibraries' => function( $engine, &$extraLibraries ) {
+			'ScribuntoExternalLibraries' => function ( $engine, &$extraLibraries ) {
 				if ( $engine == 'lua' ) {
 					$extraLibraries['mw.bootstrap'] = 'BootstrapComponents\\LuaLibrary';
 				}
+
 				return true;
 			},
 
@@ -243,9 +266,10 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SetupAfterCache
 			 */
-			'SetupAfterCache'            => function() {
+			'SetupAfterCache' => function () {
 				// @todo change 'adding all bootstrap modules' to 'only add used modules' during parse.
 				BootstrapManager::getInstance()->addAllBootstrapModules();
+
 				return true;
 			},
 		];
@@ -254,17 +278,17 @@ class HookRegistry {
 	/**
 	 * @param \Config $myConfig
 	 *
-	 * @throws \MWException cascading {@see \BootstrapComponents\ApplicationFactory} calls
+	 * @return array
 	 * @throws \ConfigException cascading {@see \Config::get}
 	 *
-	 * @return array
+	 * @throws \MWException cascading {@see \BootstrapComponents\ApplicationFactory} calls
 	 */
 	public function initializeApplications( $myConfig ) {
 		$applicationFactory = ApplicationFactory::getInstance();
-		$componentLibrary = $applicationFactory->getComponentLibrary(
-			$myConfig->get( 'BootstrapComponentsWhitelist' )
-		);
+		$componentLibrary =
+			$applicationFactory->getComponentLibrary( $myConfig->get( 'BootstrapComponentsWhitelist' ) );
 		$nestingController = $applicationFactory->getNestingController();
+
 		return [ $componentLibrary, $nestingController ];
 	}
 
@@ -286,29 +310,27 @@ class HookRegistry {
 	 */
 	public function register( $hookList ) {
 		foreach ( $hookList as $hook => $callback ) {
-			if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.35', 'lt' ) ) {
+			# @todo replace with main config object
+			if ( version_compare( $GLOBALS['wgVersion'], '1.35', 'lt' ) ) {
 				Hooks::register( $hook, $callback );
 			} else {
 				MediaWikiServices::getInstance()->getHookContainer()->register( $hook, $callback );
 			}
 		}
+
 		return count( $hookList );
 	}
 
 	/**
 	 * Executes the setup process.
 	 *
+	 * @return int
 	 * @throws \ConfigException
 	 *
-	 * @return int
 	 */
 	public function run() {
-		$requestedHooks = $this->compileRequestedHooksListFor(
-			$this->myConfig
-		);
-		$hookCallbackList = $this->buildHookCallbackListFor(
-			$requestedHooks
-		);
+		$requestedHooks = $this->compileRequestedHooksListFor( $this->myConfig );
+		$hookCallbackList = $this->buildHookCallbackListFor( $requestedHooks );
 
 		return $this->register( $hookCallbackList );
 	}
@@ -319,7 +341,7 @@ class HookRegistry {
 	 * Called before producing the HTML created by a wiki image insertion
 	 *
 	 * @param NestingController $nestingController
-	 * @param \Config           $myConfig
+	 * @param \Config $myConfig
 	 *
 	 * @return \Closure
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ImageBeforeProduceHTML
@@ -327,14 +349,14 @@ class HookRegistry {
 	 */
 	private function createImageBeforeProduceHTMLCallback( $nestingController, $myConfig ) {
 
-		return function( &$dummy, &$title, &$file, &$frameParams, &$handlerParams, &$time, &$res
+		return function (
+			&$dummy, &$title, &$file, &$frameParams, &$handlerParams, &$time, &$res
 		) use ( $nestingController, $myConfig ) {
 
 			$imageModal = new ImageModal( $dummy, $title, $file, $nestingController );
 
-			if ( $myConfig->has( 'BootstrapComponentsDisableSourceLinkOnImageModal' )
-				&& $myConfig->get( 'BootstrapComponentsDisableSourceLinkOnImageModal' )
-			) {
+			if ( $myConfig->has( 'BootstrapComponentsDisableSourceLinkOnImageModal' ) &&
+				$myConfig->get( 'BootstrapComponentsDisableSourceLinkOnImageModal' ) ) {
 				$imageModal->disableSourceLink();
 			}
 
@@ -352,20 +374,21 @@ class HookRegistry {
 	 * @return \Closure
 	 */
 	private function createInternalParseBeforeLinksCallback() {
-		return function( Parser &$parser, &$text ) {
-			if ( class_exists( '\MediaWiki\MediaWikiServices' )
-				&& method_exists( '\MediaWiki\MediaWikiServices', 'getMagicWordFactory' )
-			) {
-				$mw = MediaWikiServices::getInstance()->getMagicWordFactory()->get( 'BSC_NO_IMAGE_MODAL' );;
+		return function ( Parser &$parser, &$text ) {
+			if ( class_exists( '\MediaWiki\MediaWikiServices' ) &&
+				method_exists( '\MediaWiki\MediaWikiServices', 'getMagicWordFactory' ) ) {
+				$mw =
+					MediaWikiServices::getInstance()
+						->getMagicWordFactory()
+						->get( 'BSC_NO_IMAGE_MODAL' );;
 			} else {
 				$mw = MagicWord::get( 'BSC_NO_IMAGE_MODAL' );
 			}
 			// we do not use our ParserOutputHelper class here, for we would need to reset it in integration tests.
 			// resetting our factory build classes is unfortunately a little skittish
-			$parser->getOutput()->setExtensionData(
-				'bsc_no_image_modal',
-				$mw->matchAndRemove( $text )
-			);
+			$parser->getOutput()
+				->setExtensionData( 'bsc_no_image_modal', $mw->matchAndRemove( $text ) );
+
 			return true;
 		};
 	}
@@ -380,6 +403,7 @@ class HookRegistry {
 	private function registerMyConfiguration() {
 		$configFactory = MediaWikiServices::getInstance()->getConfigFactory();
 		$configFactory->register( 'BootstrapComponents', 'GlobalVarConfig::newInstance' );
+
 		return $configFactory->makeConfig( 'BootstrapComponents' );
 	}
 }

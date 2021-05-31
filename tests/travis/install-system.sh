@@ -21,7 +21,7 @@ if [[ "${MW}" == master ]]; then
 	BRANCH=master
 else
 	BRANCH=${MW%.*}
-	BRANCH=REL${BRANCH/./_}
+	BRANCH=${BRANCH/./_}
 fi
 
 function installMWCoreAndDB() {
@@ -62,13 +62,10 @@ function installSkin() {
 	echo -e "*** Installing skin vector\n"
 	cd ${baseDir}/${mwDir}/skins
 
-	wget https://github.com/wikimedia/mediawiki-skins-Vector/archive/${BRANCH}.tar.gz -O vector.tar.gz
-	tar -zxf vector.tar.gz
+	#	most mw dumps ship with empty skin directories
+	[[ -e Vector ]] && rm -rf Vector
 
-	if [[ -e Vector ]]; then
-		rm -r Vector # most mw dumps ship with empty skin directories
-	fi
-	mv mediawiki-skins-Vector-${BRANCH} Vector
+	git clone --branch ${BRANCH} https://github.com/wikimedia/Vector.git
 }
 
 function installDependencies() {
@@ -143,17 +140,22 @@ function augmentConfiguration() {
 	if [[ "${SITELANG}" != "" ]]; then
 		echo '$wgLanguageCode = "'${SITELANG}'";' >>LocalSettings.php
 	fi
+	echo '$wgArticlePath = $wgScriptPath . "/$1";' >> LocalSettings.php
+
 	echo 'wfLoadExtension( "BootstrapComponents" );' >> LocalSettings.php
-	echo '$wgBootstrapComponentsModalReplaceImageTag = true;' >>LocalSettings.php
+	echo '$wgBootstrapComponentsModalReplaceImageTag = true;' >> LocalSettings.php
+
 	echo 'wfLoadExtension( "Scribunto" );' >> LocalSettings.php
-	echo '$wgScribuntoDefaultEngine = "luastandalone";' >>LocalSettings.php
-	echo '$wgEnableUploads = true;' >>LocalSettings.php
-#	echo 'wfLoadSkin( "Vector" );' >>LocalSettings.php
-	echo 'error_reporting(E_ALL| E_STRICT);' >>LocalSettings.php
-	echo 'ini_set("display_errors", 1);' >>LocalSettings.php
-	echo '$wgShowExceptionDetails = true;' >>LocalSettings.php
-	echo '$wgDevelopmentWarnings = true;' >>LocalSettings.php
-	echo "putenv( 'MW_INSTALL_PATH=$(pwd)' );" >>LocalSettings.php
+#	echo '$wgScribuntoDefaultEngine = "luastandalone";' >>LocalSettings.php
+
+	echo '$wgEnableUploads = true;' >> LocalSettings.php
+	echo 'wfLoadSkin( "Vector" );' >> LocalSettings.php
+
+	echo 'error_reporting(E_ALL| E_STRICT);' >> LocalSettings.php
+	echo 'ini_set("display_errors", 1);' >> LocalSettings.php
+	echo '$wgShowExceptionDetails = true;' >> LocalSettings.php
+	echo '$wgDevelopmentWarnings = true;' >> LocalSettings.php
+	echo "putenv( 'MW_INSTALL_PATH=$(pwd)' );" >> LocalSettings.php
 	#echo 'wfLoadExtension( "SemanticMediaWiki" );' >> LocalSettings.php
 
 	php maintenance/update.php --quick --skip-external-dependencies
@@ -169,7 +171,7 @@ function injectResources() {
 }
 
 installMWCoreAndDB
-#installSkin
+installSkin
 installDependencies
 installSourceFromPull
 augmentConfiguration

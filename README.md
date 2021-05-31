@@ -16,7 +16,7 @@ configuration it can add a new [gallery][Gallery] mode, and replace normal
 [image rendering][Image] with an image modal.
 
 ## Requirements
-* PHP 7.0 or later
+* PHP 7.1 or later
 * MediaWiki 1.31 or later
 
 ## Documentation

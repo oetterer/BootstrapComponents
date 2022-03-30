@@ -1,8 +1,16 @@
 ## Release Notes
 
-### BootstrapComponents 4.1.0
+### BootstrapComponents 5.0.0
 
 Released on _not yet_
+
+Breaking changes:
+* requires MediaWiki 1.35 or later
+* requires PHP 7.4 or later
+
+### BootstrapComponents 4.1.0
+
+Unreleased
 
 Changes:
 - setting required php version to 7.1 (which in fact it already was, since 7.1 language constructs have been used)
@@ -19,7 +27,7 @@ Released on 26-May-2021
 
 Changes:
 * add translations via translatewiki
-* bump bootstrap extension dependency to 4.5.x 
+* bump bootstrap extension dependency to 4.5.x
 
 Fixes:
 * fix travis issues, thx @malberts
@@ -99,12 +107,12 @@ Changes:
 * add two more known issues concerning the modal
 * add more robust argument and return value handling for lua parse() function
 * add issue template
-* rename namespace for components from `\BootstrapComponents\Component` to 
+* rename namespace for components from `\BootstrapComponents\Component` to
     `\BootstrapComponents\Component` to comply with naming conventions
 * introduce class `ParserFirstCallInit` that handles the hook with the same name
 
 Fixes:
-* illegal call to User->loadFromSession() triggered by Extension:CodeMirror 
+* illegal call to User->loadFromSession() triggered by Extension:CodeMirror
 
 ### BootstrapComponents 1.1.1
 

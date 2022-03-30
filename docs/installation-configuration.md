@@ -11,7 +11,7 @@ the "require"-section of your `composer.local.json` file and run the
 ```
 {
 	"require": {
-		"mediawiki/bootstrap-components": "~4.0"
+		"mediawiki/bootstrap-components": "~5.0"
 	}
 }
 ```

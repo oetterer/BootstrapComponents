@@ -16,8 +16,8 @@ configuration it can add a new [gallery][Gallery] mode, and replace normal
 [image rendering][Image] with an image modal.
 
 ## Requirements
-* PHP 7.1 or later
-* MediaWiki 1.31 or later
+* PHP 7.4 or later
+* MediaWiki 1.35 or later
 
 ## Documentation
 - [Installation and configuration](docs/installation-configuration.md)
@@ -45,7 +45,7 @@ on MediaWiki.org][mw-talk]. For direct contact with the author
 please use the [Email functionality on MediaWiki.org.][mw-mail]
 
 ## Bootstrap3
-If you are using bootstrap3, please use the [legacy documentation](docs/bs3/README.md). 
+If you are using bootstrap3, please use the [legacy documentation](docs/bs3/README.md).
 
 
 [MediaWiki]: https://www.mediawiki.org/

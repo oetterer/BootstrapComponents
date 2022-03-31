@@ -15,7 +15,7 @@ php maintenance/install.php --dbtype sqlite --dbuser root --dbname mw --dbpath $
 cat <<EOT >> composer.local.json
 {
 	"require": {
-		"mediawiki/semantic-media-wiki": "~4.0",
+		"mediawiki/semantic-media-wiki": "~4.0"
 	},
 	"extra": {
 		"merge-plugin": {

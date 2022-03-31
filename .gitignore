@@ -7,5 +7,7 @@ extensions/
 composer.phar
 composer.lock
 
+.phpunit.result.cache
+
 !.*
 .idea/

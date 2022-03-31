@@ -67,7 +67,7 @@ jobs:
       - name: Install MediaWiki
         if: steps.cache-mediawiki.outputs.cache-hit != 'true'
         working-directory: ~
-        run: bash EarlyCopy/.github/workflows/installWiki.sh ${{ matrix.mw }} BootstrapComponents
+        run: bash EarlyCopy/.github/workflows/installWiki.sh ${{ matrix.mw }}
 
       - uses: actions/checkout@v2
         with:
@@ -75,6 +75,9 @@ jobs:
 
       - name: Composer update
         run: composer update
+
+      - name: Upload images
+        run: bash EarlyCopy/.github/workflows/uploadImages.sh
 
       - name: Run PHPUnit
         run: php tests/phpunit/phpunit.php -c extensions/BootstrapComponents/

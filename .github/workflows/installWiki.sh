@@ -1,7 +1,6 @@
 #! /bin/bash
 
 MW_BRANCH=$1
-EXTENSION_NAME=$2
 
 wget https://github.com/wikimedia/mediawiki/archive/$MW_BRANCH.tar.gz -nv
 
@@ -15,11 +14,14 @@ php maintenance/install.php --dbtype sqlite --dbuser root --dbname mw --dbpath $
 
 cat <<EOT >> composer.local.json
 {
+	"require": {
+		"mediawiki/semantic-media-wiki": "~4.0",
+	},
 	"extra": {
 		"merge-plugin": {
 			"merge-dev": true,
 			"include": [
-				"extensions/$EXTENSION_NAME/composer.json"
+				"extensions/BootstrapComponents/composer.json"
 			]
 		}
 	}
@@ -33,4 +35,8 @@ echo '$wgShowDBErrorBacktrace = true;' >> LocalSettings.php
 echo '$wgDevelopmentWarnings = true;' >> LocalSettings.php
 
 echo 'wfLoadExtension( "Bootstrap" );' >> LocalSettings.php
-echo 'wfLoadExtension( "'$EXTENSION_NAME'" );' >> LocalSettings.php
+echo 'wfLoadExtension( "Scribunto" );' >> LocalSettings.php
+echo 'wfLoadExtension( "SemanticMediaWiki" );' >> LocalSettings.php
+
+echo 'wfLoadExtension( "BootstrapComponents" );' >> LocalSettings.php
+echo '$wgBootstrapComponentsModalReplaceImageTag = true;' >> LocalSettings.php

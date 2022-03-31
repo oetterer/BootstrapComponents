@@ -31,7 +31,7 @@ class ParserRequestTest extends PHPUnit_Framework_TestCase {
 	 */
 	private $parser;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->frame = $this->getMockBuilder( 'PPFrame' )
 			->disableOriginalConstructor()

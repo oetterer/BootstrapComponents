@@ -6,6 +6,7 @@ use BootstrapComponents\AbstractComponent;
 use BootstrapComponents\ComponentLibrary;
 use BootstrapComponents\NestableInterface;
 use \MWException;
+use PHPUnit\Framework\MockObject\Stub;
 use \PHPUnit_Framework_MockObject_MockObject;
 
 /**
@@ -29,7 +30,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 	/**
 	 * @return AbstractComponent|PHPUnit_Framework_MockObject_MockObject
 	 */
-	private function createStub() {
+	protected function createStub(string $originalClassName): Stub {
 		$componentLibrary = $this->getMockBuilder( ComponentLibrary::class )
 			->disableOriginalConstructor()
 			->getMock();

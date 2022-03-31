@@ -6,22 +6,22 @@ use BootstrapComponents\ApplicationFactory;
 use BootstrapComponents\Hooks\OutputPageParserOutput;
 use BootstrapComponents\HookRegistry;
 use SMW\DIWikiPage;
-use SMW\Tests\JsonTestCaseFileHandler;
-use SMW\Tests\JsonTestCaseScriptRunner;
+use SMW\Tests\JSONScriptTestCaseRunner;
+use SMW\Tests\Utils\JSONScript\JsonTestCaseFileHandler;
 use SMW\Tests\Utils\Validators\StringValidator;
 
 
 /**
  * @see https://github.com/SemanticMediaWiki/SemanticMediaWiki/tree/master/tests#write-integration-tests-using-json-script
  *
- * `JsonTestCaseScriptRunner` provisioned by SMW is a base class allowing to use a JSON
+ * `JSONScriptTestCaseRunner` provisioned by SMW is a base class allowing to use a JSON
  * format to create test definitions with the objective to compose "real" content
  * and test integration with MediaWiki, Semantic MediaWiki, and Scribunto.
  *
  * The focus is on describing test definitions with its content and specify assertions
  * to control the expected base line.
  *
- * `JsonTestCaseScriptRunner` will handle the tearDown process and ensures that no test
+ * `JSONScriptTestCaseRunner` will handle the tearDown process and ensures that no test
  * data are leaked into a production system but requires an active DB connection.
  *
  * @group extension-bootstrap-components
@@ -33,7 +33,7 @@ use SMW\Tests\Utils\Validators\StringValidator;
  * @author mwjames
  * @author Tobias Oetterer
  */
-class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRunner {
+class BootstrapComponentsJSONScriptTestCaseRunnerTest extends JSONScriptTestCaseRunner {
 
 	/**
 	 * @var StringValidator
@@ -49,8 +49,8 @@ class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JsonTestCaseScript
 	 * @throws \ConfigException
 	 * @throws \MWException
 	 */
-	protected function setUp() {
-		wfDebugLog( 'BootstrapComponents', 'Running the JsonTestCaseScriptRunnerTest setup.' );
+	protected function setUp(): void {
+		wfDebugLog( 'BootstrapComponents', 'Running the JSONScriptTestCaseRunnerTest setup.' );
 		parent::setUp();
 
 		$validatorFactory = $this->testEnvironment->getUtilityFactory()->newValidatorFactory();
@@ -78,7 +78,7 @@ class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JsonTestCaseScript
 	}
 
 	/**
-	 * @see JsonTestCaseScriptRunner::getRequiredJsonTestCaseMinVersion
+	 * @see JSONScriptTestCaseRunner::getRequiredJsonTestCaseMinVersion
 	 * @return string
 	 */
 	protected function getRequiredJsonTestCaseMinVersion() {
@@ -86,7 +86,7 @@ class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JsonTestCaseScript
 	}
 
 	/**
-	 * @see JsonTestCaseScriptRunner::getTestCaseLocation
+	 * @see JSONScriptTestCaseRunner::getTestCaseLocation
 	 * @return string
 	 */
 	protected function getTestCaseLocation() {
@@ -97,14 +97,14 @@ class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JsonTestCaseScript
 	 * Returns a list of files, an empty list is a sign to run all registered
 	 * tests.
 	 *
-	 * @see JsonTestCaseScriptRunner::getListOfAllowedTestCaseFiles
+	 * @see JSONScriptTestCaseRunner::getListOfAllowedTestCaseFiles
 	 */
 	protected function getAllowedTestCaseFiles() {
 		return array();
 	}
 
 	/**
-	 * @see JsonTestCaseScriptRunner::runTestCaseFile
+	 * @see JSONScriptTestCaseRunner::runTestCaseFile
 	 *
 	 * @param JsonTestCaseFileHandler $jsonTestCaseFileHandler
 	 */

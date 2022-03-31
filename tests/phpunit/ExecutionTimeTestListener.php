@@ -8,6 +8,7 @@ use PHPUnit_Framework_Test;
 use PHPUnit_Framework_TestListener;
 use PHPUnit_Framework_TestSuite;
 use PHPUnit_Framework_Warning;
+use Throwable;
 
 /**
  * Class ExecutionTimeTestListener
@@ -36,13 +37,13 @@ class ExecutionTimeTestListener implements PHPUnit_Framework_TestListener {
 	/**
 	 * @see PHPUnit_Framework_TestListener::startTest
 	 */
-	public function startTest( PHPUnit_Framework_Test $test ) {
+	public function startTest( PHPUnit_Framework_Test $test ): void {
 	}
 
 	/**
 	 * @see PHPUnit_Framework_TestListener::endTest
 	 */
-	public function endTest( PHPUnit_Framework_Test $test, $length ) {
+	public function endTest( PHPUnit_Framework_Test $test, float $length ): void {
 		if ( $this->isEnabledToListen && ($length > $this->executionTimeThresholdInSeconds) ) {
 			$this->testCollector[$test->getName()] = round( $length, 3 );
 		}
@@ -51,51 +52,51 @@ class ExecutionTimeTestListener implements PHPUnit_Framework_TestListener {
 	/**
 	 * @see PHPUnit_Framework_TestListener::addError
 	 */
-	public function addError( PHPUnit_Framework_Test $test, Exception $e, $time ) {
+	public function addError( PHPUnit_Framework_Test $test, Throwable $e, float $time ): void {
 	}
 
 	/**
 	 * @see PHPUnit_Framework_TestListener::addFailure
 	 */
-	public function addFailure( PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, $time ) {
+	public function addFailure( PHPUnit_Framework_Test $test, PHPUnit_Framework_AssertionFailedError $e, float $time ): void {
 	}
 
 	/**
 	 * @see PHPUnit_Framework_TestListener::addError
 	 */
-	public function addIncompleteTest( PHPUnit_Framework_Test $test, Exception $e, $time ) {
+	public function addIncompleteTest( PHPUnit_Framework_Test $test, Throwable $e, float $time ): void {
 	}
 
 	/**
 	 * @see   PHPUnit_Framework_TestListener::addRiskyTest
 	 * @since 4.0.0
 	 */
-	public function addRiskyTest( PHPUnit_Framework_Test $test, Exception $e, $time ) {
+	public function addRiskyTest( PHPUnit_Framework_Test $test, Throwable $e, float $time ): void {
 	}
 
 	/**
 	 * @see PHPUnit_Framework_TestListener::addSkippedTest
 	 */
-	public function addSkippedTest( PHPUnit_Framework_Test $test, Exception $e, $time ) {
+	public function addSkippedTest( PHPUnit_Framework_Test $test, Throwable $e, float $time ): void {
 	}
 
 	/**
 	 * @see   PHPUnit_Framework_TestListener::addWarning
 	 * @since 6.0.0
 	 */
-	public function addWarning( PHPUnit_Framework_Test $test, PHPUnit_Framework_Warning $e, $time ) {
+	public function addWarning( PHPUnit_Framework_Test $test, PHPUnit_Framework_Warning $e, float $time ): void {
 	}
 
 	/**
 	 * @see PHPUnit_Framework_TestListener::startTestSuite
 	 */
-	public function startTestSuite( PHPUnit_Framework_TestSuite $suite ) {
+	public function startTestSuite( PHPUnit_Framework_TestSuite $suite ): void {
 	}
 
 	/**
 	 * @see PHPUnit_Framework_TestListener::endTestSuite
 	 */
-	public function endTestSuite( PHPUnit_Framework_TestSuite $suite ) {
+	public function endTestSuite( PHPUnit_Framework_TestSuite $suite ): void {
 		foreach ( $this->testCollector as $name => $length ) {
 			print ("\n" . $suite->getName() . " {$name} ran for {$length} seconds" . "\n");
 			unset( $this->testCollector[$name] );

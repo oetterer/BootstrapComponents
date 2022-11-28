@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Amire80",
+			"Mooeypoo"
+		]
+	},
+	"bootstrap-components-desc": "ניסיון לספק לעורכים גישה קלה לרכיבים מסוימים שנוספו ב־Twitter Bootstrap 3",
+	"bootstrap-components-error-tracking-category": "דפים עם שגיאות ברכיב bootstrap",
+	"bootstrap-components-close-element": "סגירה",
+	"bootstrap-components-image-modal-source-button": "הצגת מקור",
+	"bootstrap-components-lua-error-no-component": "לא סופק שם רכיב עבור mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "שם רכיב בלתי־תקין הועבר ל־mw.bootstrap.parse‏: $1.",
+	"bootstrap-components-badge-content-missing": "חובה לציין טקסט עבור הסמל (badge) הזה.",
+	"bootstrap-components-button-target-missing": "חובה לציין יעד עבור הכפתור הזה.",
+	"bootstrap-components-button-target-invalid": "חובה לציין יעד תקין עבור הכפתור הזה.",
+	"bootstrap-components-carousel-images-missing": "אין תמונות מוגדרות בקרוסלה.",
+	"bootstrap-components-glyph-icon-name-missing": "עליך לציין שם סמל (icon).",
+	"bootstrap-components-label-content-missing": "חובה לציין טקסט תווית.",
+	"bootstrap-components-modal-text-missing": "חובה לציין טקסט עבור הכפתור המודאלי הזה.",
+	"bootstrap-components-popover-heading-missing": "חובה לציין כותרת עבור החלונית הצצה הזאת.",
+	"bootstrap-components-popover-text-missing": "חובה לציין טקסט עבור החלונית הצצה הזאת.",
+	"bootstrap-components-tooltip-content-missing": "לרמז הזה חסר מאפיין טקסט ולכן גם הרמז עצמו.",
+	"bootstrap-components-tooltip-target-missing": "חובה לציין טקסט או תמונה שהרמז משויך אליהם."
+}

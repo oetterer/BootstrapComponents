@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eleassar",
+			"Upwinxp"
+		]
+	},
+	"bootstrap-components-desc": "Urejevalcem poskuša zagotoviti preprost dostop do nekaterih komponent, ki jih je uvedel Twitter Bootstrap 3",
+	"bootstrap-components-error-tracking-category": "Strani z napakami komponent bootstrapa",
+	"bootstrap-components-close-element": "Zapri",
+	"bootstrap-components-image-modal-source-button": "Obišči vir",
+	"bootstrap-components-lua-error-no-component": "Za mw.bootstrap.parse ni bilo zagotovljeno nobeno ime komponente.",
+	"bootstrap-components-lua-error-invalid-component": "mw.bootstrap.parse je bilo predloženo neveljavno ime komponente: $1.",
+	"bootstrap-components-badge-content-missing": "Za to značko morate določiti besedilo.",
+	"bootstrap-components-button-target-missing": "Za ta gumb morate določiti cilj.",
+	"bootstrap-components-button-target-invalid": "Za ta gumb morate določiti veljaven cilj.",
+	"bootstrap-components-carousel-images-missing": "V karuselu ni nobenega nabora slik.",
+	"bootstrap-components-glyph-icon-name-missing": "Določiti morate ime ikone.",
+	"bootstrap-components-label-content-missing": "Določiti morate besedilo oznake.",
+	"bootstrap-components-modal-text-missing": "Za ta modalni gumb morate določiti besedilo.",
+	"bootstrap-components-popover-heading-missing": "Za ta popover morate določiti naslov.",
+	"bootstrap-components-popover-text-missing": "Za ta popover morate določiti besedilo.",
+	"bootstrap-components-tooltip-content-missing": "Temu opisu orodja manjka besedilni atribut in s tem dejanski opis.",
+	"bootstrap-components-tooltip-target-missing": "Določiti morate besedilo ali sliko, ki naj se mu/ji doda ta opis orodja."
+}

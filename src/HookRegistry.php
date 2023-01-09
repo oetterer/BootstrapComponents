@@ -29,17 +29,24 @@ namespace BootstrapComponents;
 use BootstrapComponents\Hooks\OutputPageParserOutput;
 use BootstrapComponents\Hooks\ParserFirstCallInit;
 use Bootstrap\BootstrapManager;
+use Closure;
+use Config;
+use ConfigException;
 use Hooks;
 use MagicWord;
 use MediaWiki\MediaWikiServices;
+use MWException;
+use OutputPage;
 use Parser;
+use ParserOutput;
+use StripState;
 
 /**
  * Class HookRegistry
  *
  * Registers all hooks and components for Extension BootstrapComponents.
  *
- * Information on how to add an additional hook
+ * Information on how to add a new hook
  *  1. add it to {@see HookRegistry::AVAILABLE_HOOKS}.
  *  2. add an appropriate entry in the array inside {@see HookRegistry::getCompleteHookDefinitionList}
  *     with the hook as array key and the callback as value.
@@ -72,7 +79,7 @@ class HookRegistry {
 	private $componentLibrary;
 
 	/**
-	 * @var \Config $myConfig
+	 * @var Config $myConfig
 	 */
 	private $myConfig;
 
@@ -84,8 +91,8 @@ class HookRegistry {
 	/**
 	 * HookRegistry constructor.
 	 *
-	 * @throws \ConfigException cascading {@see \BootstrapComponents\HookRegistry::getHooksToRegister}
-	 * @throws \MWException cascading {@see \BootstrapComponents\HookRegistry::getHooksToRegister}
+	 * @throws ConfigException cascading {@see HookRegistry::getHooksToRegister}
+	 * @throws MWException cascading {@see HookRegistry::getHooksToRegister}
 	 *
 	 */
 	public function __construct() {
@@ -101,7 +108,8 @@ class HookRegistry {
 	 *
 	 * @return array
 	 */
-	public function buildHookCallbackListFor( $hooksToRegister ) {
+	public function buildHookCallbackListFor(array $hooksToRegister ): array
+	{
 		$hookCallbackList = [];
 		$completeHookDefinitionList =
 			$this->getCompleteHookDefinitionList( $this->myConfig, $this->componentLibrary,
@@ -116,7 +124,9 @@ class HookRegistry {
 	}
 
 	/**
-	 * @throws \MWException cascading {@see \Hooks::clear}
+	 * Used to clear registered hooks for integration tests
+	 *
+	 * @throws MWException cascading {@see Hooks::clear}
 	 */
 	public function clear() {
 		foreach ( self::AVAILABLE_HOOKS as $name ) {
@@ -125,13 +135,14 @@ class HookRegistry {
 	}
 
 	/**
-	 * @param \Config $myConfig
+	 * @param Config $myConfig
 	 *
 	 * @return string[]
-	 * @throws \ConfigException cascading {@see \Config::get}
+	 * @throws ConfigException cascading {@see Config::get}
 	 *
 	 */
-	public function compileRequestedHooksListFor( $myConfig ) {
+	public function compileRequestedHooksListFor(Config $myConfig ): array
+	{
 		$requestedHookList = [
 			'OutputPageParserOutput',
 			'ParserAfterParse',
@@ -153,14 +164,16 @@ class HookRegistry {
 	}
 
 	/**
-	 * @param \Config $myConfig
+	 * @param Config $myConfig
 	 * @param ComponentLibrary $componentLibrary
 	 * @param NestingController $nestingController
 	 *
-	 * @return \Closure[]
+	 * @return Closure[]
 	 */
-	public function getCompleteHookDefinitionList( $myConfig, $componentLibrary, $nestingController
-	) {
+	public function getCompleteHookDefinitionList(
+		Config $myConfig, ComponentLibrary $componentLibrary, NestingController $nestingController
+	): array
+	{
 		return [
 			/**
 			 * Hook: GalleryGetModes
@@ -202,7 +215,7 @@ class HookRegistry {
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/OutputPageParserOutput
 			 */
 			'OutputPageParserOutput' => function (
-				\OutputPage &$outputPage, \ParserOutput $parserOutput,
+				OutputPage &$outputPage, ParserOutput $parserOutput,
 				ParserOutputHelper &$parserOutputHelper = null
 			) {
 				// @todo check, if we need to omit execution on actions edit, submit, or history
@@ -220,7 +233,7 @@ class HookRegistry {
 			 *
 			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserAfterParse
 			 */
-			'ParserAfterParse' => function ( Parser &$parser, &$text, \StripState &$stripState ) {
+			'ParserAfterParse' => function ( Parser &$parser, &$text, StripState &$stripState ) {
 				if ( $parser->getOutput()->getExtensionData( 'bsc_load_modules' ) ) {
 					$parser->getOutput()->addModules( 'ext.bootstrap.styles' );
 					$parser->getOutput()->addModules( 'ext.bootstrap.scripts' );
@@ -276,14 +289,15 @@ class HookRegistry {
 	}
 
 	/**
-	 * @param \Config $myConfig
+	 * @param Config $myConfig
 	 *
 	 * @return array
-	 * @throws \ConfigException cascading {@see \Config::get}
+	 * @throws ConfigException cascading {@see Config::get}
 	 *
-	 * @throws \MWException cascading {@see \BootstrapComponents\ApplicationFactory} calls
+	 * @throws MWException cascading {@see ApplicationFactory} calls
 	 */
-	public function initializeApplications( $myConfig ) {
+	public function initializeApplications(Config $myConfig ): array
+	{
 		$applicationFactory = ApplicationFactory::getInstance();
 		$componentLibrary =
 			$applicationFactory->getComponentLibrary( $myConfig->get( 'BootstrapComponentsWhitelist' ) );
@@ -297,8 +311,9 @@ class HookRegistry {
 	 *
 	 * @return boolean
 	 */
-	public function isRegistered( $hook ) {
-		return Hooks::isRegistered( $hook );
+	public function isRegistered(string $hook ): bool
+	{
+		return MediaWikiServices::getInstance()->getHookContainer()->isRegistered( $hook );
 	}
 
 	/**
@@ -308,14 +323,10 @@ class HookRegistry {
 	 *
 	 * @return int  number of registered hooks
 	 */
-	public function register( $hookList ) {
+	public function register(array $hookList ): int
+	{
 		foreach ( $hookList as $hook => $callback ) {
-			# @todo replace with main config object
-			if ( version_compare( $GLOBALS['wgVersion'], '1.35', 'lt' ) ) {
-				Hooks::register( $hook, $callback );
-			} else {
-				MediaWikiServices::getInstance()->getHookContainer()->register( $hook, $callback );
-			}
+			MediaWikiServices::getInstance()->getHookContainer()->register( $hook, $callback );
 		}
 
 		return count( $hookList );
@@ -325,10 +336,11 @@ class HookRegistry {
 	 * Executes the setup process.
 	 *
 	 * @return int
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 *
 	 */
-	public function run() {
+	public function run(): int
+	{
 		$requestedHooks = $this->compileRequestedHooksListFor( $this->myConfig );
 		$hookCallbackList = $this->buildHookCallbackListFor( $requestedHooks );
 
@@ -341,14 +353,16 @@ class HookRegistry {
 	 * Called before producing the HTML created by a wiki image insertion
 	 *
 	 * @param NestingController $nestingController
-	 * @param \Config $myConfig
+	 * @param Config $myConfig
 	 *
-	 * @return \Closure
+	 * @return Closure
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ImageBeforeProduceHTML
 	 *
 	 */
-	private function createImageBeforeProduceHTMLCallback( $nestingController, $myConfig ) {
-
+	private function createImageBeforeProduceHTMLCallback(
+		NestingController $nestingController, Config $myConfig
+	): Closure
+	{
 		return function (
 			&$dummy, &$title, &$file, &$frameParams, &$handlerParams, &$time, &$res
 		) use ( $nestingController, $myConfig ) {
@@ -371,19 +385,12 @@ class HookRegistry {
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/InternalParseBeforeLinks
 	 *
-	 * @return \Closure
+	 * @return Closure
 	 */
-	private function createInternalParseBeforeLinksCallback() {
+	private function createInternalParseBeforeLinksCallback(): Closure
+	{
 		return function ( Parser &$parser, &$text ) {
-			if ( class_exists( '\MediaWiki\MediaWikiServices' ) &&
-				method_exists( '\MediaWiki\MediaWikiServices', 'getMagicWordFactory' ) ) {
-				$mw =
-					MediaWikiServices::getInstance()
-						->getMagicWordFactory()
-						->get( 'BSC_NO_IMAGE_MODAL' );;
-			} else {
-				$mw = MagicWord::get( 'BSC_NO_IMAGE_MODAL' );
-			}
+			$mw = MediaWikiServices::getInstance()->getMagicWordFactory()->get( 'BSC_NO_IMAGE_MODAL' );
 			// we do not use our ParserOutputHelper class here, for we would need to reset it in integration tests.
 			// resetting our factory build classes is unfortunately a little skittish
 			$parser->getOutput()
@@ -398,9 +405,10 @@ class HookRegistry {
 	 *
 	 * @see https://phabricator.wikimedia.org/T184837
 	 *
-	 * @return \Config
+	 * @return Config
 	 */
-	private function registerMyConfiguration() {
+	private function registerMyConfiguration(): Config
+	{
 		$configFactory = MediaWikiServices::getInstance()->getConfigFactory();
 		$configFactory->register( 'BootstrapComponents', 'GlobalVarConfig::newInstance' );
 

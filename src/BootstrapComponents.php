@@ -43,8 +43,10 @@
 
 namespace BootstrapComponents;
 
-use \ExtensionRegistryHelper\ExtensionRegistryHelper;
-use \MWException;
+use ConfigException;
+use Exception;
+use ExtensionRegistryHelper\ExtensionRegistryHelper;
+use MWException;
 
 /**
  * Provides methods to register, when installed by composer
@@ -66,25 +68,35 @@ class BootstrapComponents {
 	private static $version;
 
 	/**
-	 * Add this to extension.json's 'callable' entry. 'ExtensionFunctions' is too late for the hook SetupAfterCache used for
-	 * Extension:Bootstrap's module initialization.
+	 * Add this to extension.json's 'callable' entry.
 	 *
 	 * @param array $info
 	 *
-	 * @throws \ConfigException cascading {@see \BootstrapComponents\HookRegistry::__construct}
-	 *      and {@see \BootstrapComponents\HookRegistry::run}
-	 * @throws \MWException cascading {@see \BootstrapComponents\HookRegistry::__construct}
-	 * @throws \Exception when extension Bootstrap cannot be loaded recursively
+	 * @return void
 	 */
-	public static function init( $info ) {
+	public static function init( array $info ) {
 
 		// loads local composer libraries, if present
 		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
 			include_once __DIR__ . '/vendor/autoload.php';
 		}
 
-		self::$version = isset( $info['version'] ) ? $info['version'] : 'UNKNOWN';
+		self::$version = $info['version'] ?? 'UNKNOWN';
+	}
+
+	/**
+	 * Since 1.37 extension.json's "callback" is too early for HookRegistry, since all the MW-Services and the
+	 * ConfigFactory is not ready, yet.
+	 *
+	 * @throws ConfigException cascading {@see HookRegistry::__construct} and {@see HookRegistry::run}
+	 * @throws MWException cascading {@see HookRegistry::__construct}
+	 * @throws Exception when extension Bootstrap cannot be loaded recursively
+	 *
+	 * @return void
+	 */
+	public static function onExtensionFunction() {
 		if ( self::doCheckRequirements() ) {
+			// should be loaded manually in LocalSettings.php. If not, we give it a try!
 			ExtensionRegistryHelper::singleton()->loadExtensionRecursive( 'Bootstrap' );
 
 			$hookRegistry = new HookRegistry();
@@ -94,20 +106,20 @@ class BootstrapComponents {
 	}
 
 	/**
-	 * @throws \MWException
-	 *
 	 * @return bool
+	 * @throws MWException
+	 *
 	 */
-	public static function doCheckRequirements() {
-
+	public static function doCheckRequirements(): bool
+	{
 		if ( !defined( 'MEDIAWIKI' ) ) {
 			echo 'This file is part of the Mediawiki extension BootstrapComponents, it is not a valid entry point.' . PHP_EOL;
 			throw new MWException( 'This file is part of a Mediawiki Extension, it is not a valid entry point.' );
 		}
 
-		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.31', 'lt' ) ) {
+		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.35', 'lt' ) ) {
 			echo '<b>Error:</b> <a href="https://github.com/oetterer/BootstrapComponents/">Bootstrap Components</a> '
-				. 'is only compatible with MediaWiki 1.31 or above. You need to upgrade MediaWiki first.' . PHP_EOL;
+				. 'is only compatible with MediaWiki 1.35 or above. You need to upgrade MediaWiki first.' . PHP_EOL;
 			throw new MWException( 'BootstrapComponents detected an incompatible MediaWiki version. Exiting.' );
 		}
 
@@ -123,14 +135,16 @@ class BootstrapComponents {
 	 *
 	 * @return string
 	 */
-	public static function getVersion() {
+	public static function getVersion(): string
+	{
 		return self::$version ?: 'UNDEFINED';
 	}
 
 	/**
 	 * @return bool
 	 */
-	public static function hooksRegistrationDone() {
+	public static function hooksRegistrationDone(): bool
+	{
 		return self::$hooksRegistered;
 	}
 }

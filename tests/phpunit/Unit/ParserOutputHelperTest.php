@@ -34,7 +34,7 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 	 */
 	private $parserOutput;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 
 		$this->parserOutput = new ParserOutput( 'ParserOutputMockText' );
@@ -185,10 +185,7 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 
 	public function testVectorSkinInUse() {
 		$instance = new ParserOutputHelper( $this->parser );
-		$this->assertInternalType(
-			'bool',
-			$instance->vectorSkinInUse()
-		);
+		$this->assertIsBool( $instance->vectorSkinInUse() );
 	}
 
 	/**

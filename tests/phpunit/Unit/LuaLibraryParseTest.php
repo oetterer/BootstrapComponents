@@ -25,7 +25,8 @@ class LuaLibraryParseTest extends LuaLibraryTestBase {
 	/**
 	 * LuaLibraryTestBase::getTestModules
 	 */
-	public function getTestModules() {
+	public function getTestModules(): array
+	{
 		return parent::getTestModules() + array(
 			self::$moduleName => __DIR__ . '/' . 'mw.bootstrap.parse.tests.lua',
 		);

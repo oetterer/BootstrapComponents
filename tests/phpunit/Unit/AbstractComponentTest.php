@@ -27,9 +27,10 @@ class AbstractComponentTest extends ComponentsTestBase {
 	private $name = 'abstract';
 
 	/**
-	 * @return AbstractComponent|PHPUnit_Framework_MockObject_MockObject
+	 * @return AbstractComponent
 	 */
-	private function createStub() {
+	private function createCLStub(): AbstractComponent
+	{
 		$componentLibrary = $this->getMockBuilder( ComponentLibrary::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -56,16 +57,16 @@ class AbstractComponentTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
 			AbstractComponent::class,
-			$this->createStub()
+			$this->createCLStub()
 		);
 		$this->assertInstanceOf(
 			NestableInterface::class,
-			$this->createStub()
+			$this->createCLStub()
 		);
 	}
 
 	public function testGetId() {
-		$id = $this->createStub()->getId();
+		$id = $this->createCLStub()->getId();
 
 		$this->assertEquals(
 			null,
@@ -82,7 +83,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 			[]
 		);
 		/** @noinspection PhpParamsInspection */
-		$parsedString = $this->createStub()->parseComponent(
+		$parsedString = $this->createCLStub()->parseComponent(
 			$parserRequest
 		);
 
@@ -98,7 +99,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 	 * @throws MWException
 	 * @dataProvider allComponentsProvider
 	 */
-	public function testSimpleOutput( $component ) {
+	public function testSimpleOutput( string $component ) {
 		$parserRequest = $this->buildParserRequest(
 			'test input',
 			[ 'class' => 'test-class', 'style' => 'color:black', 'text' => 'test text', 'header' => 'test header' ]
@@ -117,7 +118,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 		if ( is_array( $parsedString ) ) {
 			$parsedString = reset( $parsedString );
 		}
-		$this->assertInternalType( 'string', $parsedString );
+		$this->assertIsString( $parsedString );
 		$this->assertRegExp(
 			'/class="[^"]*test-class"/',
 			$parsedString

@@ -146,8 +146,7 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 		} else {
 			$ret = false;
 		}
-		$this->assertInternalType(
-			'string',
+		$this->assertIsString(
 			$ret,
 			'Failed testing parser hook for parser hook string ' . $registeredParserHook
 		);

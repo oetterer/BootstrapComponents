@@ -31,7 +31,7 @@ class ParserRequestTest extends PHPUnit_Framework_TestCase {
 	 */
 	private $parser;
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->frame = $this->getMockBuilder( 'PPFrame' )
 			->disableOriginalConstructor()
@@ -61,17 +61,11 @@ class ParserRequestTest extends PHPUnit_Framework_TestCase {
 	 * @param array $arguments
 	 * @param bool  $isParserFunction
 	 *
-	 * @expectedException \MWException
-	 *
 	 * @dataProvider constructionFailsProvider
 	 */
 	public function testCanNotConstruct( $arguments, $isParserFunction ) {
 
-		if ( method_exists( $this, 'expectException' ) ) {
-			$this->expectException( 'MWException' );
-		} else {
-			$this->setExpectedException( 'MWException' );
-		}
+		$this->expectException( 'MWException' );
 
 		$this->assertInstanceOf(
 			'BootstrapComponents\\ParserRequest',
@@ -108,10 +102,7 @@ class ParserRequestTest extends PHPUnit_Framework_TestCase {
 		);
 
 		if ( $isParserFunction ) {
-			$this->assertInternalType(
-				'null',
-				$instance->getFrame()
-			);
+			$this->assertNull( $instance->getFrame() );
 		} else {
 			$this->assertInstanceOf(
 				'PPFrame',

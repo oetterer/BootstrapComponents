@@ -28,11 +28,13 @@
 		"php": ">=7.4",
 		"composer/installers": "^2|^1.0.1",
 		"mediawiki/mw-extension-registry-helper": "^1.0",
-		"mediawiki/bootstrap": "~4.5"
+		"mediawiki/bootstrap": "~4.6"
 	},
 	"require-dev": {
-		"squizlabs/php_codesniffer": "~2.1",
-		"phpmd/phpmd": "~2.1"
+		"mediawiki/mediawiki-codesniffer": "38.0.0",
+		"mediawiki/mediawiki-phan-config": "0.11.1",
+		"phpmd/phpmd": "~2.1",
+		"php": ">=7.4"
 	},
 	"suggest": {
 		"mediawiki/scribunto": "Framework for embedding scripting languages into MediaWiki pages"

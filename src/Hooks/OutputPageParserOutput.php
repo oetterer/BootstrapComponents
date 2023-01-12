@@ -26,10 +26,11 @@
 
 namespace BootstrapComponents\Hooks;
 
-use \BootstrapComponents\ApplicationFactory;
-use \BootstrapComponents\ParserOutputHelper;
-use \OutputPage;
-use \ParserOutput;
+use BootstrapComponents\ApplicationFactory;
+use BootstrapComponents\ParserOutputHelper;
+use MWException;
+use OutputPage;
+use ParserOutput;
 
 /**
  * Class OutputPageParserOutput
@@ -63,11 +64,15 @@ class OutputPageParserOutput {
 	/**
 	 * OutputPageParserOutput constructor.
 	 *
-	 * @param OutputPage         $outputPage
-	 * @param ParserOutput       $parserOutput
-	 * @param ParserOutputHelper $parserOutputHelper
+	 * @param OutputPage $outputPage
+	 * @param ParserOutput $parserOutput
+	 * @param ParserOutputHelper|null $parserOutputHelper
+	 *
+	 * @throws MWException
 	 */
-	public function __construct( &$outputPage, $parserOutput, &$parserOutputHelper = null ) {
+	public function __construct(
+		OutputPage &$outputPage, ParserOutput $parserOutput, ?ParserOutputHelper &$parserOutputHelper = null
+	) {
 		$this->outputPage = $outputPage;
 		$this->parserOutput = $parserOutput;
 		if ( is_null( $parserOutputHelper ) ) {
@@ -80,7 +85,8 @@ class OutputPageParserOutput {
 	/**
 	 * @return bool
 	 */
-	public function process() {
+	public function process(): bool
+	{
 		$text = $this->getParserOutput()->getText();
 		$text .= $this->getParserOutputHelper()->getContentForLaterInjection(
 			$this->getParserOutput()
@@ -93,21 +99,24 @@ class OutputPageParserOutput {
 	/**
 	 * @return \OutputPage
 	 */
-	protected function getOutputPage() {
+	protected function getOutputPage(): OutputPage
+	{
 		return $this->outputPage;
 	}
 
 	/**
 	 * @return \ParserOutput
 	 */
-	protected function getParserOutput() {
+	protected function getParserOutput(): ParserOutput
+	{
 		return $this->parserOutput;
 	}
 
 	/**
 	 * @return ParserOutputHelper
 	 */
-	protected function getParserOutputHelper() {
+	protected function getParserOutputHelper(): ?ParserOutputHelper
+	{
 		return $this->parserOutputHelper;
 	}
 }

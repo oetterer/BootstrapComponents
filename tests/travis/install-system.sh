@@ -142,6 +142,7 @@ function augmentConfiguration() {
 	fi
 	echo '$wgArticlePath = $wgScriptPath . "/$1";' >> LocalSettings.php
 
+	echo 'wfLoadExtension( "Bootstrap" );' >> LocalSettings.php
 	echo 'wfLoadExtension( "BootstrapComponents" );' >> LocalSettings.php
 	echo '$wgBootstrapComponentsModalReplaceImageTag = true;' >> LocalSettings.php
 

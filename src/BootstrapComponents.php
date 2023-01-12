@@ -12,7 +12,7 @@
  */
 
 /**
- * The main file of the BootstrapComponents extension, responsible for initialization
+ * The main file of the BootstrapComponents extension, responsible for initializing
  * the whole shabang.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
@@ -43,10 +43,13 @@
 
 namespace BootstrapComponents;
 
+use Bootstrap\BootstrapManager;
 use ConfigException;
 use Exception;
 use ExtensionRegistryHelper\ExtensionRegistryHelper;
 use MWException;
+use Parser;
+use StripState;
 
 /**
  * Provides methods to register, when installed by composer
@@ -75,6 +78,8 @@ class BootstrapComponents {
 	 * @return void
 	 */
 	public static function init( array $info ) {
+
+		global $wgHooks;
 
 		// loads local composer libraries, if present
 		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {

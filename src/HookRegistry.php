@@ -34,6 +34,7 @@ use Config;
 use ConfigException;
 use Hooks;
 use MagicWord;
+use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\MediaWikiServices;
 use MWException;
 use OutputPage;
@@ -66,10 +67,7 @@ class HookRegistry {
 		'ImageBeforeProduceHTML',
 		'InternalParseBeforeLinks',
 		'OutputPageParserOutput',
-		'ParserAfterParse',
 		'ParserFirstCallInit',
-		'ScribuntoExternalLibraries',
-		'SetupAfterCache',
 	];
 	// dev note: for modals, please see \BootstrapComponents\ModalBuilder for a list of tested hooks
 
@@ -108,7 +106,7 @@ class HookRegistry {
 	 *
 	 * @return array
 	 */
-	public function buildHookCallbackListFor(array $hooksToRegister ): array
+	public function buildHookCallbackListFor( array $hooksToRegister ): array
 	{
 		$hookCallbackList = [];
 		$completeHookDefinitionList =
@@ -126,6 +124,7 @@ class HookRegistry {
 	/**
 	 * Used to clear registered hooks for integration tests
 	 *
+	 * @deprecated the use of Hooks::clear() is deprecated, see there
 	 * @throws MWException cascading {@see Hooks::clear}
 	 */
 	public function clear() {
@@ -141,14 +140,11 @@ class HookRegistry {
 	 * @throws ConfigException cascading {@see Config::get}
 	 *
 	 */
-	public function compileRequestedHooksListFor(Config $myConfig ): array
+	public function compileRequestedHooksListFor( Config $myConfig ): array
 	{
 		$requestedHookList = [
 			'OutputPageParserOutput',
-			'ParserAfterParse',
 			'ParserFirstCallInit',
-			'ScribuntoExternalLibraries',
-			'SetupAfterCache',
 		];
 		if ( $myConfig->has( 'BootstrapComponentsEnableCarouselGalleryMode' ) &&
 			$myConfig->get( 'BootstrapComponentsEnableCarouselGalleryMode' ) ) {
@@ -227,22 +223,6 @@ class HookRegistry {
 			},
 
 			/**
-			 * Hook: ParserAfterParse
-			 *
-			 * Called from Parser::parse() just after the call to Parser::internalParse() returns.
-			 *
-			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ParserAfterParse
-			 */
-			'ParserAfterParse' => function ( Parser &$parser, &$text, StripState &$stripState ) {
-				if ( $parser->getOutput()->getExtensionData( 'bsc_load_modules' ) ) {
-					$parser->getOutput()->addModules( 'ext.bootstrap.styles' );
-					$parser->getOutput()->addModules( 'ext.bootstrap.scripts' );
-				}
-
-				return true;
-			},
-
-			/**
 			 * Hook: ParserFirstCallInit
 			 *
 			 * Called when the parser initializes for the first time.
@@ -255,35 +235,6 @@ class HookRegistry {
 				$hook = new ParserFirstCallInit( $parser, $componentLibrary, $nestingController );
 
 				return $hook->process();
-			},
-
-			/**
-			 * Hook: ScribuntoExternalLibraries
-			 *
-			 * Allow extensions to add Scribunto libraries
-			 *
-			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ScribuntoExternalLibraries
-			 */
-			'ScribuntoExternalLibraries' => function ( $engine, &$extraLibraries ) {
-				if ( $engine == 'lua' ) {
-					$extraLibraries['mw.bootstrap'] = 'BootstrapComponents\\LuaLibrary';
-				}
-
-				return true;
-			},
-
-			/**
-			 * Hook: SetupAfterCache
-			 *
-			 * Called in Setup.php, after cache objects are set
-			 *
-			 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SetupAfterCache
-			 */
-			'SetupAfterCache' => function () {
-				// @todo change 'adding all bootstrap modules' to 'only add used modules' during parse.
-				BootstrapManager::getInstance()->addAllBootstrapModules();
-
-				return true;
 			},
 		];
 	}

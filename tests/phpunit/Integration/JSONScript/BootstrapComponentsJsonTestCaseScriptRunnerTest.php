@@ -7,7 +7,7 @@ use BootstrapComponents\Hooks\OutputPageParserOutput;
 use BootstrapComponents\HookRegistry;
 use SMW\DIWikiPage;
 use SMW\Tests\JsonTestCaseFileHandler;
-use SMW\Tests\JsonTestCaseScriptRunner;
+use SMW\Tests\JSONScriptTestCaseRunner;
 use SMW\Tests\Utils\Validators\StringValidator;
 
 
@@ -33,7 +33,7 @@ use SMW\Tests\Utils\Validators\StringValidator;
  * @author mwjames
  * @author Tobias Oetterer
  */
-class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JsonTestCaseScriptRunner {
+class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JSONScriptTestCaseRunner {
 
 	/**
 	 * @var StringValidator
@@ -49,7 +49,8 @@ class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JsonTestCaseScript
 	 * @throws \ConfigException
 	 * @throws \MWException
 	 */
-	protected function setUp() {
+	protected function setUp(): void
+	{
 		wfDebugLog( 'BootstrapComponents', 'Running the JsonTestCaseScriptRunnerTest setup.' );
 		parent::setUp();
 
@@ -70,6 +71,7 @@ class BootstrapComponentsJsonTestCaseScriptRunnerTest extends JsonTestCaseScript
 		}
 
 		$this->hookRegistry = new HookRegistry();
+		#@fixme use HookContainer::clear() is deprecated. Look at HookContainer::scopedRegister()
 		$this->hookRegistry->clear();
 		$hookCallbackList = $this->hookRegistry->buildHookCallbackListFor(
 			HookRegistry::AVAILABLE_HOOKS

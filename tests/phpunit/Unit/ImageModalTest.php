@@ -22,7 +22,7 @@ use \PHPUnit_Framework_TestCase;
  */
 class ImageModalTest extends PHPUnit_Framework_TestCase {
 
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 	}
 
@@ -383,7 +383,8 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 	 * @throws ConfigException cascading {@see \Config::get}
 	 * @return array[]
 	 */
-	public function canParseDataProvider() {
+	public function canParseDataProvider(): array
+	{
 		$globalConfig = MediaWikiServices::getInstance()->getMainConfig();
 		$scriptPath = $globalConfig->get( 'ScriptPath' );
 		# @todo remove this, when dropping support for 1.31

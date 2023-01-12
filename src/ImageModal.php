@@ -389,15 +389,17 @@ class ImageModal implements NestableInterface {
 	 *
 	 * @return bool
 	 */
-	private function assertImageModalNotSuppressed( $frameParams ) {
+	private function assertImageModalNotSuppressed( array $frameParams ): bool
+	{
 		if ( $this->getParentComponent() && in_array( $this->getParentComponent()->getComponentName(), self::PARENTS_PREVENTING_MODAL ) ) {
 			return false;
 		}
 		if ( isset( $frameParams['class'] ) && in_array( self::CSS_CLASS_PREVENTING_MODAL, explode( ' ', $frameParams['class'] ) ) ) {
 			return false;
 		}
-		/** @see ParserOutputHelper::areImageModalsSuppressed as to why we need to use the global parser1 */
-		$parser = $GLOBALS['wgParser'];
+		/** @see ParserOutputHelper::areImageModalsSuppressed as to why we need to use the global parser! */
+		//$parser = $GLOBALS['wgParser'];   //  Use of $wgParser was deprecated in MediaWiki 1.32.
+		$parser = MediaWikiServices::getInstance()->getParser();
 		// the is_null test has to be added because otherwise some unit tests will fail
 		return is_null( $parser->getOutput() ) || !$parser->getOutput()->getExtensionData( 'bsc_no_image_modal' );
 	}

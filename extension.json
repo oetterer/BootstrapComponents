@@ -17,8 +17,21 @@
 	"AutoloadNamespaces": {
 		"BootstrapComponents\\": "src/"
 	},
-	"@note": "hooks are registered in BootstrapComponents\\HookRegistry",
-	"Hooks": [],
+	"@note": "the extension's main hooks are registered in BootstrapComponents\\HookRegistry",
+	"HookHandlers": {
+		"BootStrapHooks": {
+			"class": "BootstrapComponents\\Hooks\\DefaultHooksHandler"
+		}
+	},
+	"Hooks": {
+		"SetupAfterCache": {
+			"handler": "BootStrapHooks"
+		},
+		"ParserAfterParse": {
+			"handler": "BootStrapHooks"
+		},
+		"ScribuntoExternalLibraries": "BootstrapComponents\\Hooks\\DefaultHooksHandler::onScribuntoExternalLibraries"
+	},
 	"config": {
 		"BootstrapComponentsDisableSourceLinkOnImageModal": {
 			"value": false,

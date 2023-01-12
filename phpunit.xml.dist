@@ -12,14 +12,6 @@
          stopOnIncomplete="false"
          stopOnSkipped="false"
          verbose="true">
-    <listeners>
-        <listener file="tests/phpunit/ExecutionTimeTestListener.php" class="BootstrapComponents\Tests\ExecutionTimeTestListener">
-            <arguments>
-                <boolean>true</boolean>
-                <integer>10</integer>
-            </arguments>
-        </listener>
-    </listeners>
     <testsuites>
         <testsuite name="bootstrap-components-unit">
             <directory>tests/phpunit/Unit</directory>

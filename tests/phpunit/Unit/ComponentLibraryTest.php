@@ -233,8 +233,6 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * @throws \ConfigException
 	 *
-	 * @expectedException \MWException
-	 *
 	 * @dataProvider exceptionThrowingMethodsProvider
 	 */
 	public function testFails( $method ) {
@@ -272,8 +270,6 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @throws \ConfigException
-	 *
-	 * @expectedException \MWException
 	 */
 	public function testUnknownComponentName() {
 		$instance = new ComponentLibrary( true );
@@ -284,8 +280,6 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @throws \ConfigException
-	 *
-	 * @expectedException \MWException
 	 */
 	public function testUnknownComponentClass() {
 		$instance = new ComponentLibrary( true );

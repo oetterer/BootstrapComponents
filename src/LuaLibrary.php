@@ -26,9 +26,11 @@
 
 namespace BootstrapComponents;
 
-use \ReflectionClass;
-use \Scribunto_LuaEngine;
-use \Scribunto_LuaLibraryBase;
+use MWException;
+use ReflectionClass;
+use ReflectionException;
+use Scribunto_LuaEngine;
+use Scribunto_LuaLibraryBase;
 
 /**
  * Class LuaLibrary
@@ -49,7 +51,7 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @param Scribunto_LuaEngine $engine
 	 */
-	public function __construct( $engine ) {
+	public function __construct( Scribunto_LuaEngine $engine ) {
 		parent::__construct( $engine );
 		$this->applicationFactory = ApplicationFactory::getInstance();
 	}
@@ -57,8 +59,8 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * @return array
 	 */
-	public function register() {
-
+	public function register(): array
+	{
 		$lib = [
 			'parse'   => [ $this, 'parse' ],
 			'getSkin' => [ $this, 'getSkin' ],
@@ -72,13 +74,15 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	 * @param string $input
 	 * @param array  $arguments
 	 *
-	 * @throws \ReflectionException
-	 * @throws \MWException
+	 * @throws ReflectionException
+	 * @throws MWException
 	 *
 	 * @return string[]
+	 *
+	 * Note: Please refrain from using Type hints in function signature. Will break tests!
 	 */
-	public function parse( $componentName, $input, $arguments ) {
-
+	public function parse( $componentName, $input, $arguments ): array
+	{
 		if ( empty( $componentName ) ) {
 			return [ wfMessage( 'bootstrap-components-lua-error-no-component' )->text() ];
 		}
@@ -99,11 +103,12 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * @throws \MWException
+	 * @throws MWException
 	 *
 	 * @return string[]
 	 */
-	public function getSkin() {
+	public function getSkin(): array
+	{
 		return [ $this->getApplicationFactory()->getParserOutputHelper( $this->getParser() )->getNameOfActiveSkin() ];
 	}
 
@@ -112,12 +117,12 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	 * @param array       $arguments
 	 * @param null|string $component
 	 *
-	 * @throws \MWException
+	 * @throws MWException
 	 *
-	 * @return \BootstrapComponents\ParserRequest
+	 * @return ParserRequest
 	 */
-	protected function buildParserRequest( $input, $arguments, $component = null ) {
-
+	protected function buildParserRequest( string $input, array $arguments, ?string $component = null ): ParserRequest
+	{
 		// prepare the arguments array
 		$parserRequestArguments = $this->processLuaArguments( $arguments );
 		array_unshift( $parserRequestArguments, $input );
@@ -129,12 +134,12 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * @param string $componentClass
 	 *
-	 * @throws \MWException
-	 * @throws \ReflectionException
+	 * @throws MWException
+	 * @throws ReflectionException
 	 *
 	 * @return AbstractComponent
 	 */
-	protected function getComponent( $componentClass ) {
+	protected function getComponent( string $componentClass ): AbstractComponent {
 
 		$objectReflection = new ReflectionClass( $componentClass );
 		/** @var AbstractComponent $component */
@@ -151,7 +156,8 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * @return ApplicationFactory
 	 */
-	protected function getApplicationFactory() {
+	protected function getApplicationFactory(): ApplicationFactory
+	{
 		return $this->applicationFactory;
 	}
 
@@ -163,8 +169,8 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return array
 	 */
-	private function processLuaArguments( $arguments ) {
-
+	private function processLuaArguments( $arguments ): array
+	{
 		// make sure, we have an array of parameters
 		if ( !is_array( $arguments ) ) {
 			$arguments = preg_split( "/(?<=[^\|])\|(?=[^\|])/", $arguments );
@@ -186,7 +192,8 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return string
 	 */
-	private function processKeyValuePair( $key, $value ) {
+	private function processKeyValuePair( string $key, string $value ): string
+	{
 		if ( is_int( $key ) || preg_match( '/[0-9]+/', $key ) ) {
 			return trim( $value );
 		}

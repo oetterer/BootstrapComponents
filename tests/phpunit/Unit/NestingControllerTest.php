@@ -87,34 +87,22 @@ class NestingControllerTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @throws \MWException
-	 *
-	 * @expectedException \MWException
 	 */
 	public function testCloseFailOnEmptyStack() {
 		$instance = new NestingController();
 
-		if ( method_exists( $this, 'expectException' ) ) {
-			$this->expectException( 'MWException' );
-		} else {
-			$this->setExpectedException( 'MWException' );
-		}
+		$this->expectException( 'MWException' );
 
 		$instance->close( 'invalid' );
 	}
 
 	/**
 	 * @throws \MWException
-	 *
-	 * @expectedException \MWException
 	 */
 	public function testOpenFail() {
 		$instance = new NestingController();
 
-		if ( method_exists( $this, 'expectException' ) ) {
-			$this->expectException( 'MWException' );
-		} else {
-			$this->setExpectedException( 'MWException' );
-		}
+		$this->expectException( 'MWException' );
 
 		$component = 'invalid';
 		/** @noinspection PhpParamsInspection */
@@ -123,17 +111,11 @@ class NestingControllerTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @throws \MWException
-	 *
-	 * @expectedException \MWException
 	 */
 	public function testCloseFailOnInvalidId() {
 		$instance = new NestingController();
 
-		if ( method_exists( $this, 'expectException' ) ) {
-			$this->expectException( 'MWException' );
-		} else {
-			$this->setExpectedException( 'MWException' );
-		}
+		$this->expectException( 'MWException' );
 
 		/** @var AbstractComponent $component */
 		$component = $this->getComponent( 'panel', 'BootstrapComponents\\Components\\Card' );

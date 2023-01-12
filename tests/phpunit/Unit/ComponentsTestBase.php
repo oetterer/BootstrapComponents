@@ -47,7 +47,7 @@ abstract class ComponentsTestBase extends PHPUnit_Framework_TestCase {
 	/**
 	 * @throws \ConfigException
 	 */
-	public function setUp() {
+	public function setUp(): void {
 		parent::setUp();
 		$this->componentLibrary = new ComponentLibrary();
 		$this->frame = $this->getMockBuilder( 'PPFrame' )

@@ -29,6 +29,7 @@ namespace BootstrapComponents;
 use BootstrapComponents\Components\Carousel;
 use \ImageGalleryBase;
 use MediaWiki\MediaWikiServices;
+use Title;
 
 /**
  * Class CarouselGallery
@@ -130,11 +131,11 @@ class CarouselGallery extends ImageGalleryBase {
 	 * @param         $imageList
 	 * @param \Parser $parser
 	 * @param bool    $hideBadImages
-	 * @param bool    $contextTitle
+	 * @param Title|null    $contextTitle
 	 *
 	 * @return array
 	 */
-	private function convertImages( $imageList, $parser = null, $hideBadImages = true, $contextTitle = false ) {
+	private function convertImages( $imageList, $parser = null, $hideBadImages = true, $contextTitle = null ) {
 		$newImageList = [];
 		foreach ( $imageList as $imageData ) {
 			/** @var \Title $imageTitle */

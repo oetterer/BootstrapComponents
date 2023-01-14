@@ -2,18 +2,11 @@
 
 ### BootstrapComponents 5.0.0
 
-Released on _not yet_
+Released on 14-January-2023
 
 Breaking changes:
 * requires MediaWiki 1.35 or later
 * requires PHP 7.4 or later
-
-### BootstrapComponents 4.1.0
-
-Unreleased
-
-Changes:
-- setting required php version to 7.1 (which in fact it already was, since 7.1 language constructs have been used)
 
 Fixes:
 - fix component card's unit tests

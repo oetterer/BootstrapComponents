@@ -348,7 +348,7 @@ class ModalBuilder {
 	 * @return string
 	 */
 	protected function compileClass( $baseClass, $additionalClass ) {
-		if ( trim( $additionalClass ) ) {
+		if ( is_string( $additionalClass ) && trim( $additionalClass ) ) {
 			return $baseClass . ' ' . trim( $additionalClass );
 		}
 		return $baseClass;

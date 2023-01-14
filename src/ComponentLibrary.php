@@ -211,7 +211,7 @@ class ComponentLibrary {
 	 *
 	 * @return array
 	 */
-	public function getKnownComponents() {
+	public function getKnownComponents(): array {
 		return array_keys( $this->getComponentDataStore() );
 	}
 
@@ -220,11 +220,11 @@ class ComponentLibrary {
 	 * If skin is set, returns all modules especially registered for that skin as well
 	 *
 	 * @param string $componentIdentifier
-	 * @param string $skin
+	 * @param string|null $skin
 	 *
 	 * @return array
 	 */
-	public function getModulesFor( $componentIdentifier, $skin = null ) {
+	public function getModulesFor( string $componentIdentifier, ?string $skin = null ): array {
 		$allModules = $this->accessComponentDataStore( $componentIdentifier, 'modules' );
 
 		$modules = isset( $allModules['default'] )
@@ -248,7 +248,7 @@ class ComponentLibrary {
 	 *
 	 * @return string
 	 */
-	public function getNameFor( $componentClass ) {
+	public function getNameFor( $componentClass ): string {
 		$component = null;
 
 		// if $componentClass is not in values in $this->registeredComponentClasses, this has to fail
@@ -269,7 +269,7 @@ class ComponentLibrary {
 	 *
 	 * @return string[]
 	 */
-	public function getRegisteredComponents() {
+	public function getRegisteredComponents(): array {
 		return $this->registeredComponents;
 	}
 

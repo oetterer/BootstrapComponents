@@ -28,11 +28,11 @@
 		"php": ">=7.4",
 		"composer/installers": "^2|^1.0.1",
 		"mediawiki/mw-extension-registry-helper": "^1.0",
-		"mediawiki/bootstrap": "~4.6"
+		"mediawiki/bootstrap": "^4.0"
 	},
 	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": "38.0.0",
-		"mediawiki/mediawiki-phan-config": "0.11.1",
+		"mediawiki/mediawiki-codesniffer": "40.0.1",
+		"mediawiki/mediawiki-phan-config": "0.12.0",
 		"phpmd/phpmd": "~2.1",
 		"php": ">=7.4"
 	},

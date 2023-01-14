@@ -5,6 +5,7 @@ namespace BootstrapComponents\Tests\Unit;
 use BootstrapComponents\ComponentLibrary;
 use BootstrapComponents\NestingController;
 use BootstrapComponents\ParserOutputHelper;
+use BootstrapComponents\ParserRequest;
 use \PHPUnit_Framework_TestCase;
 use \Parser;
 use \PPFrame;
@@ -84,7 +85,7 @@ abstract class ComponentsTestBase extends PHPUnit_Framework_TestCase {
 	 * @param string $input
 	 * @param array  $options
 	 *
-	 * @return \PHPUnit_Framework_MockObject_MockObject
+	 * @return ParserRequest
 	 */
 	protected function buildParserRequest( $input, $options ) {
 		$parserRequest = $this->getMockBuilder( 'BootstrapComponents\\ParserRequest' )

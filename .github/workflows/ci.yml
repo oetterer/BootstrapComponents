@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ "*" ]
+
+jobs:
+  test:
+    name: "PHPUnit: MW ${{ matrix.mw }}, PHP ${{ matrix.php }}"
+
+    strategy:
+      matrix:
+        include:
+          - mw: 'REL1_35'
+            php: 7.4
+          - mw: 'REL1_37'
+            php: 7.4
+          - mw: 'REL1_38'
+            php: 7.4
+          - mw: 'REL1_39'
+            php: 7.4
+          - mw: 'REL1_39'
+            php: 8.1
+          - mw: 'master'
+            php: 7.4
+          - mw: 'master'
+            php: 8.1
+
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: mediawiki
+
+    env:
+      MW_ROOT: mediawiki
+
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: mbstring, intl
+          tools: composer
+
+      - name: Cache MediaWiki
+        id: cache-mediawiki
+        uses: actions/cache@v3
+        with:
+          path: |
+            mediawiki
+            !mediawiki/extensions/
+            !mediawiki/vendor/
+          key: mw_${{ matrix.mw }}-php${{ matrix.php }}
+
+      - name: Cache Composer cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.composer/cache
+          key: composer-php${{ matrix.php }}
+
+      - uses: actions/checkout@v3
+        with:
+          path: EarlyCopy
+
+      - name: Install MediaWiki
+        if: steps.cache-mediawiki.outputs.cache-hit != 'true'
+        working-directory: ~
+        run: bash EarlyCopy/.github/workflows/installWiki.sh ${{ matrix.mw }} BootstrapComponents
+
+      - uses: actions/checkout@v3
+        with:
+          path: mediawiki/extensions/BootstrapComponents
+
+      - name: Composer update
+        run: composer update
+
+      - name: Inject Resources
+        run: bash extensions/BootstrapComponents/.github/workflows/injectResources.sh
+
+      - name: Run PHPUnit
+        run: php tests/phpunit/phpunit.php -c extensions/BootstrapComponents/ --testsuite bootstrap-components-unit

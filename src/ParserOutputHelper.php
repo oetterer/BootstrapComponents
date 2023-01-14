@@ -211,7 +211,7 @@ class ParserOutputHelper {
 			// Q: when do we expect \Parser->getOutput() not to be a \ParserOutput? A: During tests.
 			$parserOutput->setExtensionData( 'bsc_load_modules', true );
 			if ( $this->vectorSkinInUse() ) {
-				$parserOutput->addModules( 'ext.bootstrapComponents.vector-fix' );
+				$parserOutput->addModules( [ 'ext.bootstrapComponents.vector-fix' ] );
 			}
 		}
 	}
@@ -284,7 +284,11 @@ class ParserOutputHelper {
 			// Q: when do we expect \Parser->getOutput() no to be a \ParserOutput? A:During tests.
 			$cat = Title::makeTitleSafe( NS_CATEGORY, $categoryMessage->text() );
 			if ( $cat ) {
-				$sort = (string) $parserOutput->getProperty( 'defaultsort' );
+				if ( version_compare( $GLOBALS['wgVersion'], '1.38', 'lt' ) ) {
+					$sort = (string)$parserOutput->getProperty('defaultsort') ?? '';
+				} else {
+					$sort = (string)$parserOutput->getPageProperty('defaultsort') ?? '';
+				}
 				$parserOutput->addCategory( $cat->getDBkey(), $sort );
 			} else {
 				wfDebug( __METHOD__ . ": [[MediaWiki:{$trackingCategoryMessageName}]] is not a valid title!\n" );

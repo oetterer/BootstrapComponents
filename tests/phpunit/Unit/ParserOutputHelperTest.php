@@ -255,10 +255,9 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @param bool $expectError
 	 *
-	 * @return PHPUnit_Framework_MockObject_MockObject
+	 * @return Parser
 	 */
 	private function buildFullyEquippedParser( $expectError = true ) {
-		$outputPropertyReturnString = 'rnd_string';
 		$parser = $this->getMockBuilder( 'Parser' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -267,18 +266,10 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 				->disableOriginalConstructor()
 				->getMock();
 			$parserOutput->expects( $this->once() )
-				->method( 'getProperty' )
-				->with(
-					$this->equalTo( 'defaultsort' )
-				)
-				->willReturn( $outputPropertyReturnString );
-			$parserOutput->expects( $this->once() )
 				->method( 'addCategory' )
 				->with(
-					$this->equalTo( 'Pages_with_bootstrap_component_errors' ),
-					$this->equalTo( $outputPropertyReturnString )
-				)
-				->willReturn( $parserOutput );
+					$this->equalTo( 'Pages_with_bootstrap_component_errors' )
+				);
 			$parser->expects( $this->once() )
 				->method( 'getOutput' )
 				->willReturn( $parserOutput );

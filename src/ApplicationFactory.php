@@ -27,6 +27,7 @@
 namespace BootstrapComponents;
 
 use MediaWiki\Logger\LoggerFactory;
+use MediaWiki\MediaWikiServices;
 use MWException;
 use ReflectionClass;
 
@@ -156,13 +157,13 @@ class ApplicationFactory {
 	 *
 	 * @see ParserOutputHelper
 	 *
-	 * @throws MWException  cascading {@see \BootstrapComponents\ApplicationFactory::getApplication}
+	 * @throws MWException  cascading {@see ApplicationFactory::getApplication}
 	 *
 	 * @return ParserOutputHelper
 	 */
 	public function getParserOutputHelper( $parser = null ) {
 		if ( $parser === null ) {
-			$parser = $GLOBALS['wgParser'];
+			$parser = MediaWikiServices::getInstance()->getParser();
 		}
 		return $this->getApplication( 'ParserOutputHelper', $parser );
 	}

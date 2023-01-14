@@ -28,6 +28,7 @@ namespace BootstrapComponents;
 
 use BootstrapComponents\Components\Carousel;
 use \ImageGalleryBase;
+use MediaWiki\MediaWikiServices;
 
 /**
  * Class CarouselGallery
@@ -123,6 +124,9 @@ class CarouselGallery extends ImageGalleryBase {
 	/**
 	 * Extracts the gallery images and builds image tags for every valid image.
 	 *
+	 * TODO 1.34+ When this extension will support only MW 1.34+, the condition can be simplified
+	 * since \MediaWiki\MediaWikiServices::getBadFileLookup() does exist in this case.
+	 *
 	 * @param         $imageList
 	 * @param \Parser $parser
 	 * @param bool    $hideBadImages
@@ -141,7 +145,15 @@ class CarouselGallery extends ImageGalleryBase {
 					$parser->addTrackingCategory( 'broken-file-category' );
 				}
 				continue;
-			} elseif ( $hideBadImages && wfIsBadImage( $imageTitle->getDBkey(), $contextTitle ) ) {
+			} elseif (
+				$hideBadImages && (
+				( method_exists( '\MediaWiki\MediaWikiServices', 'getBadFileLookup' ) &&
+					MediaWikiServices::getInstance()
+						->getBadFileLookup()
+						->isBadFile( $imageTitle->getDBkey(), $contextTitle )
+				) ||
+				( function_exists( 'wfIsBadImage' ) && wfIsBadImage( $imageTitle->getDBkey(), $contextTitle ) )
+			) ) {
 				continue;
 			}
 

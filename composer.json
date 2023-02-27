@@ -31,7 +31,7 @@
 		"mediawiki/bootstrap": "^4.0"
 	},
 	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": "40.0.1",
+		"mediawiki/mediawiki-codesniffer": "41.0.0",
 		"mediawiki/mediawiki-phan-config": "0.12.0",
 		"phpmd/phpmd": "~2.1",
 		"php": ">=7.4"

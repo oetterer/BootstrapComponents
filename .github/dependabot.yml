@@ -2,12 +2,6 @@
 
 version: 2
 updates:
-  - package-ecosystem: "npm"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    versioning-strategy: lockfile-only
-
   - package-ecosystem: "composer"
     directory: "/" # Location of package manifests
     schedule:

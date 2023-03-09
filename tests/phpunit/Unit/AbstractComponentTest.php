@@ -6,7 +6,8 @@ use BootstrapComponents\AbstractComponent;
 use BootstrapComponents\ComponentLibrary;
 use BootstrapComponents\NestableInterface;
 use \MWException;
-use \PHPUnit_Framework_MockObject_MockObject;
+use PHPUnit\Framework\MockObject\Stub;
+use PHPUnit_Framework_MockObject_MockObject;
 
 /**
  * @covers  \BootstrapComponents\AbstractComponent
@@ -27,11 +28,11 @@ class AbstractComponentTest extends ComponentsTestBase {
 	private $name = 'abstract';
 
 	/**
-	 * @return AbstractComponent
+	 * @return Stub
 	 */
-	private function createCLStub(): AbstractComponent
+	protected function createStub( string $originalClassName ): Stub
 	{
-		$componentLibrary = $this->getMockBuilder( ComponentLibrary::class )
+		$componentLibrary = $this->getMockBuilder( $originalClassName )
 			->disableOriginalConstructor()
 			->getMock();
 		$componentLibrary->expects( $this->any() )
@@ -57,16 +58,16 @@ class AbstractComponentTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
 			AbstractComponent::class,
-			$this->createCLStub()
+			$this->createStub(ComponentLibrary::class)
 		);
 		$this->assertInstanceOf(
 			NestableInterface::class,
-			$this->createCLStub()
+			$this->createStub(ComponentLibrary::class)
 		);
 	}
 
 	public function testGetId() {
-		$id = $this->createCLStub()->getId();
+		$id = $this->createStub(ComponentLibrary::class)->getId();
 
 		$this->assertEquals(
 			null,
@@ -83,7 +84,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 			[]
 		);
 		/** @noinspection PhpParamsInspection */
-		$parsedString = $this->createCLStub()->parseComponent(
+		$parsedString = $this->createStub(ComponentLibrary::class)->parseComponent(
 			$parserRequest
 		);
 

@@ -33,7 +33,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
  * My thanks go to Stephan Gambke for creating the Bootstrap extension and to
- * mwjames and JeroenDeDauw who both where kind enough to help me getting better
+ * mwjames and JeroenDeDauw who both where kind enough to help me get better
  * in coding for mediawiki. And finally a shout-out to Karsten Hoffmeyer,
  * always an inspiration and quick in lending a hand.
  *
@@ -43,13 +43,10 @@
 
 namespace BootstrapComponents;
 
-use Bootstrap\BootstrapManager;
 use ConfigException;
 use Exception;
 use ExtensionRegistryHelper\ExtensionRegistryHelper;
 use MWException;
-use Parser;
-use StripState;
 
 /**
  * Provides methods to register, when installed by composer
@@ -75,11 +72,11 @@ class BootstrapComponents {
 	 *
 	 * @param array $info
 	 *
+	 * @throws Exception when extension Bootstrap cannot be loaded recursively
+	 *
 	 * @return void
 	 */
 	public static function init( array $info ) {
-
-		global $wgHooks;
 
 		// loads local composer libraries, if present
 		if ( is_readable( __DIR__ . '/vendor/autoload.php' ) ) {
@@ -87,6 +84,9 @@ class BootstrapComponents {
 		}
 
 		self::$version = $info['version'] ?? 'UNKNOWN';
+
+		// should be loaded manually in LocalSettings.php. If not, we give it a try!
+		ExtensionRegistryHelper::singleton()->loadExtensionRecursive( 'Bootstrap' );
 	}
 
 	/**
@@ -95,15 +95,11 @@ class BootstrapComponents {
 	 *
 	 * @throws ConfigException cascading {@see HookRegistry::__construct} and {@see HookRegistry::run}
 	 * @throws MWException cascading {@see HookRegistry::__construct}
-	 * @throws Exception when extension Bootstrap cannot be loaded recursively
 	 *
 	 * @return void
 	 */
 	public static function onExtensionFunction() {
 		if ( self::doCheckRequirements() ) {
-			// should be loaded manually in LocalSettings.php. If not, we give it a try!
-			ExtensionRegistryHelper::singleton()->loadExtensionRecursive( 'Bootstrap' );
-
 			$hookRegistry = new HookRegistry();
 			$hookRegistry->run();
 			self::$hooksRegistered = true;

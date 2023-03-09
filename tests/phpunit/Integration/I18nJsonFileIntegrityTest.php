@@ -3,6 +3,7 @@
 namespace BootstrapComponents\Tests\Integration;
 
 use \MediaWiki\MediaWikiServices;
+use SMW\Tests\PHPUnitCompat;
 use SMW\Tests\Utils\UtilityFactory;
 
 /**
@@ -16,6 +17,8 @@ use SMW\Tests\Utils\UtilityFactory;
  * @author Tobias Oetterer
  */
 class I18nJsonFileIntegrityTest extends \PHPUnit_Framework_TestCase {
+
+	use PHPUnitCompat;
 
 	/**
 	 * @param string $file

@@ -50,11 +50,13 @@ echo '$wgShowDBErrorBacktrace = true;' >> LocalSettings.php
 echo '$wgDevelopmentWarnings = true;' >> LocalSettings.php
 
 echo '$wgArticlePath = $wgScriptPath . "/$1";' >> LocalSettings.php
+echo '$wgEnableUploads = true;' >> LocalSettings.php
+
+echo 'wfLoadSkin( "Vector" );' >> LocalSettings.php
 
 echo 'wfLoadExtension( "Bootstrap" );' >> LocalSettings.php
+echo 'wfLoadExtension( "Scribunto" );' >> LocalSettings.php
+
 echo 'wfLoadExtension( "'$EXTENSION_NAME'" );' >> LocalSettings.php
 echo '$wgBootstrapComponentsModalReplaceImageTag = true;' >> LocalSettings.php
 
-echo 'wfLoadExtension( "Scribunto" );' >> LocalSettings.php
-echo '$wgEnableUploads = true;' >> LocalSettings.php
-echo 'wfLoadSkin( "Vector" );' >> LocalSettings.php

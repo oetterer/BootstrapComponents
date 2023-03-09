@@ -31,7 +31,7 @@
 		"mediawiki/bootstrap": "^4.0"
 	},
 	"require-dev": {
-		"mediawiki/mediawiki-codesniffer": "41.0.0",
+		"mediawiki/mediawiki-codesniffer": "40.0.1",
 		"mediawiki/mediawiki-phan-config": "0.12.0",
 		"phpmd/phpmd": "~2.1",
 		"php": ">=7.4"
@@ -40,10 +40,13 @@
 		"mediawiki/scribunto": "Framework for embedding scripting languages into MediaWiki pages"
 	},
 	"config": {
-		"process-timeout": 0
+		"process-timeout": 0,
+		"allow-plugins": {
+			"composer/installers": true
+		}
 	},
 	"scripts": {
-		"phpunit": "php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist",
+		"phpunit": "php ../../tests/phpunit/phpunit.php -c phpunit.xml.dist --do-not-cache-result",
 		"unit": "composer phpunit -- --testsuite bootstrap-components-unit",
 		"test": "composer unit",
 		"integration": "composer phpunit -- --testsuite bootstrap-components-integration",

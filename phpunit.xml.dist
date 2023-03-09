@@ -1,34 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit backupGlobals="false"
-         backupStaticAttributes="false"
-         bootstrap="tests/bootstrap.php"
-         cacheTokens="false"
-         colors="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
-         stopOnError="false"
-         stopOnFailure="false"
-         stopOnIncomplete="false"
-         stopOnSkipped="false"
-         verbose="true">
-    <testsuites>
-        <testsuite name="bootstrap-components-unit">
-            <directory>tests/phpunit/Unit</directory>
-        </testsuite>
-        <testsuite name="bootstrap-components-integration">
-            <directory>tests/phpunit/Integration</directory>
-        </testsuite>
-    </testsuites>
-    <filter>
-        <whitelist addUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
-    <php>
-        <var name="wgUseFileCache" value="false"/>
-        <var name="seqlgHttpResponseCacheType" value="hash"/>
-        <var name="benchmarkPageCopyCount" value="1000"/>
-        <var name="benchmarkPageEditRepetitionCount" value="50"/>
-    </php>
+		 backupStaticAttributes="false"
+		 bootstrap="tests/bootstrap.php"
+		 cacheTokens="false"
+		 colors="true"
+		 convertErrorsToExceptions="true"
+		 convertNoticesToExceptions="true"
+		 convertWarningsToExceptions="true"
+		 stopOnError="false"
+		 stopOnFailure="false"
+		 stopOnIncomplete="false"
+		 stopOnSkipped="false"
+		 verbose="true">
+	<listeners>
+		<listener file="tests/phpunit/ExecutionTimeTestListener.php"
+				  class="BootstrapComponents\Tests\ExecutionTimeTestListener">
+			<arguments>
+				<boolean>true</boolean>
+				<integer>10</integer>
+			</arguments>
+		</listener>
+	</listeners>
+	<testsuites>
+		<testsuite name="bootstrap-components-unit">
+			<directory>tests/phpunit/Unit</directory>
+		</testsuite>
+		<testsuite name="bootstrap-components-integration">
+			<directory>tests/phpunit/Integration</directory>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist addUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">src</directory>
+		</whitelist>
+	</filter>
+	<php>
+		<var name="wgUseFileCache" value="false"/>
+		<var name="seqlgHttpResponseCacheType" value="hash"/>
+		<var name="benchmarkPageCopyCount" value="1000"/>
+		<var name="benchmarkPageEditRepetitionCount" value="50"/>
+	</php>
 </phpunit>

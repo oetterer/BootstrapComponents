@@ -77,8 +77,9 @@ jobs:
       - name: Composer update
         run: composer update
 
-      - name: Inject Resources
-        run: bash extensions/BootstrapComponents/.github/workflows/injectResources.sh
+      - name: Upload images
+        working-directory: ~
+        run: bash EarlyCopy/.github/workflows/uploadImages.sh
 
       - name: Run PHPUnit
         run: php tests/phpunit/phpunit.php -c extensions/BootstrapComponents/ --testsuite bootstrap-components-unit

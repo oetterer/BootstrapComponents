@@ -1,7 +1,7 @@
 ## Migration Guide
 
 There have been some changes between versions ~1.0 and ~4.0. Foremost is that
-the new BootstrapComponents utilizes Twitter Bootstrap4. Therefore it mirrors
+the new BootstrapComponents utilizes Twitter Bootstrap4. Therefore, it mirrors
 changes made by Bootstrap.
 
 Also, extension loading must now be done manually in your LocalSettings, no
@@ -30,7 +30,7 @@ replacement. If you need fancy items, please have a look at
 The Label component has been removed, its functionality is now provided
 by the Badge Component. **BootstrapComponents takes care of that** by
 having the label component inside your wiki text rendered with
-bootstrap4's badge attributes and classes. 
+bootstrap4's badge attributes and classes.
 
 In other words, you can use these two elements in your wiki and
 they both produce the same output:

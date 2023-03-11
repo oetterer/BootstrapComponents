@@ -8,12 +8,11 @@
 			"Railfail536"
 		]
 	},
-	"bootstrap-components-desc": "Ma na celu zapewnić edytorom łatwy dostęp do niektórych komponentów wprowadzonych przez Twitter Bootstrap 3",
+	"bootstrap-components-desc": "Ma na celu zapewnić edytorom łatwy dostęp do niektórych komponentów wprowadzonych przez Twitter Bootstrap",
 	"bootstrap-components-error-tracking-category": "Strony z błędami komponentów bootstrap",
 	"bootstrap-components-close-element": "Zamknij",
 	"bootstrap-components-image-modal-source-button": "Zobacz źródło",
 	"bootstrap-components-lua-error-no-component": "Nie podano nazwy komponentu dla mw.bootstrap.parse.",
-	"bootstrap-components-lua-error-invalid-component": "Nieprawidłowa nazwa komponentu przekazana do mw.bootstrap.parse: $1.",
 	"bootstrap-components-badge-content-missing": "Musisz określić tekst tej odznaki.",
 	"bootstrap-components-button-target-missing": "Musisz określić cel dla tego przycisku.",
 	"bootstrap-components-button-target-invalid": "Musisz określić prawidłowy cel dla tego przycisku.",

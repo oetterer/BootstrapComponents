@@ -26,9 +26,8 @@ The following attributes can be used inside the tag:
 add multiple classes, separate them by a space.</dd>
 
 <dt>color</dt>
-<dd>Sets the color for this component. See bootstrap's
-[color documentation](https://getbootstrap.com/docs/4.1/utilities/colors/)
-for more information.
+<dd>Sets the color for this component. See bootstrap's color documentation
+(link below) for more information.
 
 Allowed Values are
 <ul>
@@ -79,5 +78,6 @@ be used as the trigger element.</dd>
 ### Links
 * https://getbootstrap.com/docs/4.1/components/modal/
 * https://www.w3schools.com/bootstrap4/bootstrap_modal.asp
+* https://getbootstrap.com/docs/4.1/utilities/colors/
 
 Please, see also the [known issues](../known-issues.md) with this component.

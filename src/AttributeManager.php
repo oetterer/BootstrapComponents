@@ -44,7 +44,7 @@ class AttributeManager {
 	 * For attributes that can be set to false by supplying one of certain values.
 	 * Usually uses for flag-attributes like "active", "collapsible", etc.
 	 *
-	 * @see \BootstrapComponents\AttributeManager::$noValues
+	 * @see AttributeManager::$noValues
 	 *
 	 * @var int
 	 */
@@ -127,12 +127,13 @@ class AttributeManager {
 	}
 
 	/**
-	 * Extracts the _verified_ value for attribute from passed attributes. When attribute is an alias, it returns the real attribute name
-	 * together with the aliases value.
+	 * Extracts the _verified_ value for attribute from passed attributes. When attribute is an alias, it returns the
+	 * real attribute name together with the aliases value.
 	 *
 	 * Note:
-	 *  * To make certain, that $attribute is valid, use {@see \BootstrapComponents\AttributeManager::isValid} beforehand.
-	 *  * If there is no data for $attribute in $passedValue, or the value does not pass verification, this returns null as $passedValue.
+	 *  * To make certain, that $attribute is valid, use {@see AttributeManager::isValid} beforehand.
+	 *  * If there is no data for $attribute in $passedValue, or the value does not pass verification, this returns
+	 *    null as $passedValue.
 	 *
 	 * @param string $attribute   the attribute|alias, data will be extracted for
 	 * @param string $passedValue must be already parsed
@@ -212,13 +213,13 @@ class AttributeManager {
 	 * @return string
 	 */
 	protected function resolveAttributeName( $attributeName ) {
-		return isset( $this->validAttributeNameMapping[$attributeName] )
-			? $this->validAttributeNameMapping[$attributeName]
-			: $attributeName;
+		return $this->validAttributeNameMapping[$attributeName] ?? $attributeName;
 	}
 
 	/**
-	 * For a given attribute, this verifies, if value is allowed. If verification succeeds, the value will be returned, null otherwise.
+	 * For a given attribute, this verifies, if value is allowed. If verification succeeds, the value
+	 * will be returned, null otherwise.
+	 *
 	 * If an attribute is registered as NO_FALSE_VALUE and value is the empty string, it gets converted to true.
 	 *
 	 * Note: an ANY_VALUE attribute can still be the empty string.
@@ -234,7 +235,7 @@ class AttributeManager {
 		if ( $allowedValues === self::NO_FALSE_VALUE ) {
 			return $this->verifyValueForNoValueAttribute( $value );
 		} elseif ( $allowedValues === self::ANY_VALUE ) {
-			// here, the component deals with empty strings its own way and we return blindly what we got
+			// here, the component deals with empty strings its own way, and we return blindly what we got
 			return $value;
 		} elseif ( is_array( $allowedValues ) && in_array( strtolower( $value ), $allowedValues, true ) ) {
 			return $value;
@@ -245,7 +246,7 @@ class AttributeManager {
 	/**
 	 * @return array
 	 */
-	private function getAttributeRegister() {
+	private function getAttributeRegister(): array {
 		return [
 			'active'      => self::NO_FALSE_VALUE,
 			'background'  => [ 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],

@@ -330,13 +330,10 @@ abstract class AbstractComponent implements NestableInterface {
 	 *
 	 * @param ParserRequest $parserRequest
 	 */
-	private function initComponentData( $parserRequest ) {
+	private function initComponentData( ParserRequest $parserRequest ) {
 		$this->parserRequest = $parserRequest;
-		$this->sanitizedAttributes = $this->sanitizeAttributes(
-			$parserRequest->getParser(),
-			$parserRequest->getAttributes()
-		);
-		$this->id = $this->getValueFor( 'id' ) != false
+		$this->sanitizedAttributes = $this->sanitizeAttributes( $parserRequest );
+		$this->id = $this->getValueFor( 'id' ) !== false
 			? (string) $this->getValueFor( 'id' )
 			: $this->getNestingController()->generateUniqueId( $this->getComponentName() );
 		$this->augmentParserOutput();
@@ -345,20 +342,20 @@ abstract class AbstractComponent implements NestableInterface {
 	/**
 	 * For every registered attribute, sanitizes (parses and verifies) the corresponding value in supplied attributes.
 	 *
-	 * @param \Parser $parser
-	 * @param array   $attributes
+	 * @param ParserRequest $parserRequest
 	 *
 	 * @return array
 	 */
-	private function sanitizeAttributes( $parser, $attributes ) {
+	private function sanitizeAttributes( ParserRequest $parserRequest ): array {
 		$parsedAttributes = [];
-		foreach ( $attributes as $attribute => $unParsedValue ) {
+
+		foreach ( $parserRequest->getAttributes() as $attribute => $unParsedValue ) {
 			if ( !$this->getAttributeManager()->isValid( $attribute ) ) {
 				continue;
 			}
 			list( $attribute, $verifiedValue ) = $this->getAttributeManager()->validateAttributeAndValue(
 				$attribute,
-				$parser->recursiveTagParse( $unParsedValue )
+				$parserRequest->getParser()->recursiveTagParse( $unParsedValue, $parserRequest->getFrame() )
 			);
 			if ( !is_null( $verifiedValue ) ) {
 				$parsedAttributes[$attribute] = $verifiedValue;

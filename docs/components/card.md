@@ -26,9 +26,8 @@ You can also set this attribute to any [_no_ value](no-value.md), in which
 case it is ignored.</dd>
 
 <dt>background</dt>
-<dd>Sets the color for this component. See bootstrap's
-[color documentation](https://getbootstrap.com/docs/4.1/utilities/colors/)
-for more information.
+<dd>Sets the color for this component. See bootstrap's color documentation
+(link below) for more information.
 
 Allowed Values are
 <ul>
@@ -90,3 +89,4 @@ add multiple css styles, separate them by a semicolon.</dd>
 ### Links
 * https://getbootstrap.com/docs/4.1/components/card/
 * https://www.w3schools.com/bootstrap4/bootstrap_cards.asp
+* https://getbootstrap.com/docs/4.1/utilities/colors/

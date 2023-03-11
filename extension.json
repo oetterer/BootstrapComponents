@@ -1,9 +1,7 @@
 {
 	"name": "BootstrapComponents",
 	"version": "5.0.0",
-	"author": [
-		"[https://www.semantic-mediawiki.org/wiki/User:Oetterer Tobias Oetterer]"
-	],
+	"author": [ "Tobias Oetterer" ],
 	"url": "https://www.mediawiki.org/wiki/Extension:BootstrapComponents",
 	"descriptionmsg": "bootstrap-components-desc",
 	"license-name": "GPL-3.0-or-later",

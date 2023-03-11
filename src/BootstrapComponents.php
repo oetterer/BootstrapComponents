@@ -85,6 +85,8 @@ class BootstrapComponents {
 
 		self::$version = $info['version'] ?? 'UNKNOWN';
 
+		# @todo remove this? leaving this in forces users installing BSC via git to augment their composer.local.json
+		# note: if this is to be removed, "mediawiki/mw-extension-registry-helper": "^1.0" can be removed from clj
 		// should be loaded manually in LocalSettings.php. If not, we give it a try!
 		ExtensionRegistryHelper::singleton()->loadExtensionRecursive( 'Bootstrap' );
 	}

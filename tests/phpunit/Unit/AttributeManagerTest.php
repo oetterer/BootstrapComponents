@@ -84,9 +84,9 @@ class AttributeManagerTest extends PHPUnit_Framework_TestCase {
 	 * @param string   $expectedAttribute
 	 * @param mixed    $expectedValue
 	 *
-	 * @dataProvider providerVerifyAttributeAndValue
+	 * @dataProvider providerValidateAttributeAndValue
 	 */
-	public function testVerifyAttributeAndValue( $attributes, $aliases, $attribute, $value, $expectedAttribute, $expectedValue ) {
+	public function testValidateAttributeAndValue( $attributes, $aliases, $attribute, $value, $expectedAttribute, $expectedValue ) {
 		$manager = new AttributeManager( $attributes, $aliases );
 		list( $returnedAttribute, $returnedValue ) = $manager->validateAttributeAndValue( $attribute, $value );
 		$this->assertEquals( $expectedAttribute, $returnedAttribute );
@@ -96,7 +96,7 @@ class AttributeManagerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array
 	 */
-	public function providerIsValid() {
+	public function providerIsValid(): array {
 		return [
 			// $attributes, $aliases, $attribute, $expected
 			'normal' => [ [ 'class', 'id' ], [], 'class', true ],
@@ -108,7 +108,7 @@ class AttributeManagerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array
 	 */
-	public function providerIsSuppliedInRequest() {
+	public function providerIsSuppliedInRequest(): array {
 		return [
 			// $attributes, $aliases, $attribute, $request, $expected
 			'normal' => [ [ 'class', 'id' ], [], 'class', [ 'class' ], true ],
@@ -120,7 +120,7 @@ class AttributeManagerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array
 	 */
-	public function providerVerifyAttributeAndValue() {
+	public function providerValidateAttributeAndValue(): array {
 		$data = [
 			// $attributes, $aliases, $attribute, $value, $expectedAttribute, $expectedValue
 			'any w/ value'                 => [ [ 'header' ], [], 'header', 'foo bar', 'header', 'foo bar' ],

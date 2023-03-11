@@ -1,5 +1,21 @@
 ## Release Notes
 
+### BootstrapComponents 5.0.1
+
+Released on _not yet_
+
+Changes:
+* switch integration tests from travis to github workflows
+* add translations via translatewiki
+
+Fixes:
+* fix template variables component attributes are not parsed
+* documentation issues
+* unit test's ExecutionTimeTestListener.php, thx @malberts
+* integration test's JSON File Handler, thx @malberts
+  (integration tests still broken, though)
+* coverage report upload to scrutinizer
+
 ### BootstrapComponents 5.0.0
 
 Released on 14-January-2023

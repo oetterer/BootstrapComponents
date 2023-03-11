@@ -19,9 +19,8 @@ The following attributes can be used inside the parser function:
 add multiple classes, separate them by a space.</dd>
 
 <dt>color</dt>
-<dd>Sets the color for this component. See bootstrap's
-[color documentation](https://getbootstrap.com/docs/4.1/utilities/colors/)
-for more information.
+<dd>Sets the color for this component. See bootstrap's color documentation
+(link below) for more information.
 
 Allowed Values are
 <ul>
@@ -55,3 +54,5 @@ add multiple css styles, separate them by a semicolon.</dd>
 ### Links
 * https://getbootstrap.com/docs/4.1/components/badge/
 * https://www.w3schools.com/bootstrap4/bootstrap_badges.asp
+* https://getbootstrap.com/docs/4.1/utilities/colors/
+*

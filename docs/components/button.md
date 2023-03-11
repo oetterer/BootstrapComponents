@@ -21,9 +21,8 @@ it is ignored.</dd>
 add multiple classes, separate them by a space.</dd>
 
 <dt>color</dt>
-<dd>Sets the color for this component. See bootstrap's
-[color documentation](https://getbootstrap.com/docs/4.1/utilities/colors/)
-for more information.
+<dd>Sets the color for this component. See bootstrap's color documentation
+(link below) for more information.
 
 Allowed Values are
 <ul>
@@ -81,3 +80,5 @@ background with button color.</dd>
 ### Links
 * https://getbootstrap.com/docs/4.1/components/buttons/
 * https://www.w3schools.com/bootstrap4/bootstrap_buttons.asp
+* https://getbootstrap.com/docs/4.1/utilities/colors/
+*

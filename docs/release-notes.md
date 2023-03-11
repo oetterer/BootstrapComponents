@@ -1,8 +1,16 @@
 ## Release Notes
 
-### BootstrapComponents 5.0.1
+### BootstrapComponents 5.1.0
 
 Released on _not yet_
+
+Changes:
+
+Fixes:
+
+### BootstrapComponents 5.0.1
+
+Released on 12-March-2023
 
 Changes:
 * switch integration tests from travis to github workflows

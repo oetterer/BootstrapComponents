@@ -20,7 +20,8 @@ The following attributes can be used inside the tag:
 
 <dl>
 <dt>active</dt>
-<dd>When used inside an [accordion](accordion.md) this expands the card.
+<dd>If this card is collapsible (see below), this set it to "show" initially.
+This is especially useful inside an accordion.
 
 You can also set this attribute to any [_no_ value](no-value.md), in which
 case it is ignored.</dd>

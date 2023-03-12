@@ -5,8 +5,10 @@
 Released on _not yet_
 
 Changes:
+* component card can now be set to show by default
 
 Fixes:
+* component accordion collapse not working as expected
 
 ### BootstrapComponents 5.0.1
 
@@ -15,6 +17,7 @@ Released on 12-March-2023
 Changes:
 * switch integration tests from travis to github workflows
 * add translations via translatewiki
+* allow html in popovers, thx @lyrixn
 
 Fixes:
 * fix template variables component attributes are not parsed
@@ -33,10 +36,10 @@ Breaking changes:
 * requires PHP 7.4 or later
 
 Fixes:
-- fix component card's unit tests
-- fix modal tests for REL1_31
-- fix a destined-to-fail lua test
-- remove smw from tests (and consequently deactivating integration tests)
+* fix component card's unit tests
+* fix modal tests for REL1_31
+* fix a destined-to-fail lua test
+* remove smw from tests (and consequently deactivating integration tests)
 
 ### BootstrapComponents 4.0.1
 

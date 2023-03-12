@@ -1,5 +1,5 @@
 /**
- * Contains css additions for the card component.
+ * Contains css additions for the accordion component.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -22,6 +22,12 @@
  * @ingroup       BootstrapComponents
  * @author        Tobias Oetterer
  */
-.text-white .card-header .card-title {
-	color: var(--white);
+.bsc_accordion > .card:not(:first-of-type) {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+
+.bsc_accordion > .card:not(:last-of-type) {
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
 }

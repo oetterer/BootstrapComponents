@@ -1,7 +1,10 @@
 {
 	"accordion": {
 		"class": "BootstrapComponents\\Components\\Accordion",
-		"handlerType": "tag"
+		"handlerType": "tag",
+		"modules": {
+			"default": "ext.bootstrapComponents.accordion"
+		}
 	},
 	"alert": {
 		"class": "BootstrapComponents\\Components\\Alert",

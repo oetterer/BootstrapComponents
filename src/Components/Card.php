@@ -87,19 +87,25 @@ class Card extends AbstractComponent {
 
 		list ( $outerClass, $style ) = $this->processCss( $outerClass, [] );
 
+		$innerAttributes = [
+			'id'    => $this->getId(),
+			'class' => $this->arrayToString( $innerClass, ' ' ),
+		];
+		if ( $this->isCollapsible() ) {
+			$innerAttributes['data-parent'] = $this->getDataParent();
+			$innerAttributes['aria-labelledby'] = $this->getId() . '_header';
+		}
+
 		return Html::rawElement(
 			'div',
 			[
 				'class' => $this->arrayToString( $outerClass, ' ' ),
 				'style' => $this->arrayToString( $style, ';' ),
 			],
-			$this->processAdditionToPanel( 'header' )
+			$this->processAdditionToCard( 'header' )
 			. Html::rawElement(
 				'div',
-				[
-					'id'    => $this->getId(),
-					'class' => $this->arrayToString( $innerClass, ' ' ),
-				],
+				$innerAttributes,
 				Html::rawElement(
 					'div',
 					[
@@ -107,7 +113,7 @@ class Card extends AbstractComponent {
 					],
 					$input
 				)
-				. $this->processAdditionToPanel( 'footer' )
+				. $this->processAdditionToCard( 'footer' )
 			)
 		);
 	}
@@ -205,7 +211,7 @@ class Card extends AbstractComponent {
 	 *
 	 * @return string
 	 */
-	private function processAdditionToPanel( $type ) {
+	private function processAdditionToCard( string $type ): string {
 		$inside = $this->getValueFor( $type );
 
 		if ( empty( $inside ) ) {
@@ -221,10 +227,12 @@ class Card extends AbstractComponent {
 		if ( $type == 'header' ) {
 			if ( $this->isCollapsible() ) {
 				$newAttributes += [
-						'data-parent' => $this->getDataParent(),
-						'data-toggle' => 'collapse',
-						'href'        => '#' . $this->getId(),
-					];
+					'data-toggle'   => 'collapse',
+					'data-target'   => '#' . $this->getId(),
+					'aria-controls' => $this->getId(),
+					'aria-expanded' => $this->getValueFor( 'active' ) ? 'true' : 'false',
+					'id'            => $this->getId() . '_header'
+				];
 			}
 			$inside = Html::rawElement(
 				'h4',

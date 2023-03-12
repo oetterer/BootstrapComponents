@@ -45,7 +45,10 @@ class Accordion extends AbstractComponent {
 	 */
 	protected function placeMe( $input ) {
 
-		list ( $class, $style ) = $this->processCss( 'panel-group', [] );
+		# legacy class "panel-group" remains for now;
+		# also, we do not use class "accordion" b/c Extension:Bootstrap cuts the border-bottom of every card
+		# plz note, that card-group however is something completely different
+		list ( $class, $style ) = $this->processCss( [ 'panel-group', 'bsc_accordion' ], [] );
 
 		return Html::rawElement(
 			'div',

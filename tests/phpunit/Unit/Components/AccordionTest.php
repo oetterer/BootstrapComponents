@@ -71,12 +71,12 @@ class AccordionTest extends ComponentsTestBase {
 			'simple'        => [
 				$this->input,
 				[],
-				'<div class="panel-group" id="bsc_accordion_NULL">' . $this->input . '</div>',
+				'<div class="panel-group bsc_accordion" id="bsc_accordion_NULL">' . $this->input . '</div>',
 			],
 			'add_css_class' => [
 				$this->input,
 				[ 'class' => 'test' ],
-				'<div class="panel-group test" id="bsc_accordion_NULL">' . $this->input . '</div>',
+				'<div class="panel-group bsc_accordion test" id="bsc_accordion_NULL">' . $this->input . '</div>',
 			],
 		];
 	}

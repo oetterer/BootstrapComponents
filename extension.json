@@ -1,6 +1,6 @@
 {
 	"name": "BootstrapComponents",
-	"version": "5.0.1",
+	"version": "5.1.0-dev",
 	"author": [ "Tobias Oetterer" ],
 	"url": "https://www.mediawiki.org/wiki/Extension:BootstrapComponents",
 	"descriptionmsg": "bootstrap-components-desc",
@@ -65,6 +65,9 @@
 		"BootstrapComponentsMagic": "BootstrapComponents.magic.php"
 	},
 	"ResourceModules": {
+		"ext.bootstrapComponents.accordion": {
+			"styles": "ext.bootstrapComponents.accordion.css"
+		},
 		"ext.bootstrapComponents.alert.fix": {
 			"styles": "ext.bootstrapComponents.alert.fix.css"
 		},

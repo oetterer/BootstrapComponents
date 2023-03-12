@@ -26,7 +26,6 @@
 
 namespace BootstrapComponents;
 
-use function Couchbase\defaultDecoder;
 use \MWException;
 
 /**
@@ -107,8 +106,7 @@ abstract class AbstractComponent implements NestableInterface {
 	 * @param ParserOutputHelper $parserOutputHelper
 	 * @param NestingController  $nestingController
 	 *
-	 * @throws MWException cascading {@see \BootstrapComponents\ComponentLibrary::getNameFor}
-	 *                      or {@see \BootstrapComponents\Component::extractAttribute}
+	 * @throws MWException cascading {@see ComponentLibrary::getNameFor} or {@see Component::extractAttribute}
 	 */
 	public function __construct( $componentLibrary, $parserOutputHelper, $nestingController ) {
 		$this->componentLibrary = $componentLibrary;
@@ -145,8 +143,9 @@ abstract class AbstractComponent implements NestableInterface {
 	/**
 	 * @param ParserRequest $parserRequest ;
 	 *
-	 * @throws \MWException self or cascading from {@see \BootstrapComponents\Component::processArguments}
-	 *                      or {@see \BootstrapComponents\NestingController::close}
+	 * @throws MWException self or cascading from {@see Component::processArguments}
+	 *                      or {@see NestingController::close}
+	 *
 	 * @return string|array
 	 */
 	public function parseComponent( $parserRequest ) {

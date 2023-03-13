@@ -2,10 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Mainframe98",
+			"McDutchie",
 			"Optilete",
 			"Wiki13"
 		]
 	},
+	"bootstrap-components-desc": "Streeft ernaar om redacteuren gemakkelijke toegang te bieden tot bepaalde componenten die zijn geïntroduceerd door Twitter Bootstrap",
 	"bootstrap-components-close-element": "Sluiten",
 	"bootstrap-components-image-modal-source-button": "Bron bekijken",
 	"bootstrap-components-badge-content-missing": "U moet een tekst voor deze badge opgeven.",

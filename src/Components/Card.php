@@ -104,7 +104,7 @@ class Card extends AbstractComponent {
 			],
 
 			$this->processAdditionToCard( 'header' )
-			. $this->getValueFor( 'header-image' )
+			. $this->injectCssClass( $this->getValueFor( 'header-image' ), 'img', 'card-img-top' )
 			. Html::rawElement(
 				'div',
 				$innerAttributes,
@@ -115,7 +115,7 @@ class Card extends AbstractComponent {
 					],
 					$input
 				)
-				. $this->getValueFor( 'footer-image' )
+				. $this->injectCssClass( $this->getValueFor( 'footer-image' ), 'img', 'card-img-bottom' )
 				. $this->processAdditionToCard( 'footer' )
 			)
 		);
@@ -181,6 +181,25 @@ class Card extends AbstractComponent {
 			return '#' . $parent->getId();
 		}
 		return false;
+	}
+
+	private function injectCssClass(string $subject, string $tag, string $class ): string {
+		$outerMatches = [];
+		if ( !preg_match( '/^(.*<)' . $tag . '(.[^>]*)(>.*)$/', $subject, $outerMatches ) ) {
+			// tag not found in subject
+			return $subject;
+		}
+		$innerMatches = [];
+		if ( !preg_match( '/^(.*class=")([^"]+)(".*)$/', $outerMatches[2], $innerMatches ) ) {
+			// there is no class attribute for tag $tag
+			return $outerMatches[1] . $tag . ' class="' . $class . '" ' . $outerMatches[2] . $outerMatches[3];
+		}
+		if ( strpos( $innerMatches[2], $class ) === false ) {
+			// there is a class attribute, but it does not contain the desired class
+			return $outerMatches[1] . $tag . $innerMatches[1] . $class . ' '
+				. $innerMatches[2] . $innerMatches[3] . $outerMatches[3];
+		}
+		return $subject;
 	}
 
 	/**

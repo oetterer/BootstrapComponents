@@ -102,7 +102,9 @@ class Card extends AbstractComponent {
 				'class' => $this->arrayToString( $outerClass, ' ' ),
 				'style' => $this->arrayToString( $style, ';' ),
 			],
+
 			$this->processAdditionToCard( 'header' )
+			. $this->getValueFor( 'header-image' )
 			. Html::rawElement(
 				'div',
 				$innerAttributes,
@@ -113,6 +115,7 @@ class Card extends AbstractComponent {
 					],
 					$input
 				)
+				. $this->getValueFor( 'footer-image' )
 				. $this->processAdditionToCard( 'footer' )
 			)
 		);

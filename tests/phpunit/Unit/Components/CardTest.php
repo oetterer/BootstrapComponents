@@ -139,10 +139,13 @@ class CardTest extends ComponentsTestBase {
 					'active'      => 'yes',
 					'color'       => 'info',
 					'collapsible' => '',
-					'header'     => 'HEADING TEXT',
+					'header'      => 'HEADING TEXT',
+					'header-image'=> '[[File:Serenity.png|class=card-img-top]]',
 					'footer'      => 'FOOTER TEXT',
+					'footer-image'=> '[[File:Serenity.png|class=card-img-bottom]]',
 				],
-				'<div class="card border-info dummy nice" style="float:right;background-color:green"><div class="card-header" data-toggle="collapse" data-target="#badgers_bowler" aria-controls="badgers_bowler" aria-expanded="true" id="badgers_bowler_header"><h4 class="card-title" style="margin-top:0;padding-top:0;">HEADING TEXT</h4></div><div id="badgers_bowler" class="card-collapse collapse fade show" aria-labelledby="badgers_bowler_header"><div class="card-body text-info">' . $this->input . '</div><div class="card-footer">FOOTER TEXT</div></div></div>',
+				'<div class="card border-info dummy nice" style="float:right;background-color:green"><div class="card-header" data-toggle="collapse" data-target="#badgers_bowler" aria-controls="badgers_bowler" aria-expanded="true" id="badgers_bowler_header"><h4 class="card-title" style="margin-top:0;padding-top:0;">HEADING TEXT</h4></div>[[File:Serenity.png|class=card-img-top]]<div id="badgers_bowler" class="card-collapse collapse fade show" aria-labelledby="badgers_bowler_header"><div class="card-body text-info">'
+				. $this->input . '</div>[[File:Serenity.png|class=card-img-bottom]]<div class="card-footer">FOOTER TEXT</div></div></div>',
 			],
 			'collapsible false' => [
 				$this->input,

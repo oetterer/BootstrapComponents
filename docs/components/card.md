@@ -75,8 +75,18 @@ Allowed Values are
 <dt>footer</dt>
 <dd>All you supply here will be inserted into the footer area of the panel.</dd>
 
+<dt>footer-image</dt>
+<dd>You can specify an image to placed at the bottom of the card body spanning
+the whole card width. <strong>You have to supply the css class "card-img-bottom"
+to the image manually with <code>class=card-img-bottom</code>!</strong></dd>
+
 <dt>header</dt>
 <dd>All you supply here will be inserted into the header area of the panel.</dd>
+
+<dt>header-image</dt>
+<dd>You can specify an image to placed at the top of the card body spanning
+the whole card width. <strong>You have to supply the css class "card-img-top"
+to the image manually with <code>class=card-img-top</code>!</strong></dd>
 
 <dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is

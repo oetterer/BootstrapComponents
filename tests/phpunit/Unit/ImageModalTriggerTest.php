@@ -248,7 +248,7 @@ class ImageModalTriggerTest extends PHPUnit_Framework_TestCase {
 				[
 					'page' => false,
 				],
-				'<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#id"><div class="thumbinner" style="width:70px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading. 'width="68" height="18" class="thumbimage" />  <div class="thumbcaption"></div></div></span></div>',
+				'<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#id"><div class="thumbinner" style="width:96px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading. 'width="94" height="240" class="thumbimage" />  <div class="thumbcaption"></div></div></span></div>',
 			],
 			'framed'                         => [
 				[
@@ -305,7 +305,7 @@ class ImageModalTriggerTest extends PHPUnit_Framework_TestCase {
 				[
 					'page' => false,
 				],
-				'<div class="thumb tleft"><span class="modal-trigger" data-toggle="modal" data-target="#id"><div class="thumbinner" style="width:70px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="68" height="18" class="thumbimage" />  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>',
+				'<div class="thumb tleft"><span class="modal-trigger" data-toggle="modal" data-target="#id"><div class="thumbinner" style="width:96px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="94" height="240" class="thumbimage" />  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>',
 			],
 		];
 	}

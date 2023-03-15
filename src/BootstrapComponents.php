@@ -85,10 +85,25 @@ class BootstrapComponents {
 
 		self::$version = $info['version'] ?? 'UNKNOWN';
 
-		# @todo remove this? leaving this in forces users installing BSC via git to augment their composer.local.json
+		# @todo remove emergency load of Extension "Bootstrap" on next mayor update! Keep the error handling!
+		# why? leaving this in forces users, who install BSC via git to augment their composer.local.json
 		# note: if this is to be removed, "mediawiki/mw-extension-registry-helper": "^1.0" can be removed from clj
 		// should be loaded manually in LocalSettings.php. If not, we give it a try!
 		ExtensionRegistryHelper::singleton()->loadExtensionRecursive( 'Bootstrap' );
+
+		// Using the constant as indicator to avoid class_exists
+		if ( !\ExtensionRegistry::getInstance()->isLoaded('Bootstrap') ) {
+			if ( PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg' ) {
+				die( "\nThe 'BootstrapComponents' extension requires the 'Bootstrap' extension to be installed and enabled.\n" );
+			} else {
+				die(
+					'<b>Error:</b> <a href="https://github.com/oetterer/BootstrapComponents/">BootstrapComponents</a> '
+					. 'requires <a href="https://www.mediawiki.org/wiki/Extension:Bootstrap">Extension:Bootstrap</a>. '
+					. 'Please install and enable the extension first (add "wfLoadExtension( \'Bootstrap\' );" to '
+					. ' your LocalSettings.php).<br />'
+				);
+			}
+		}
 	}
 
 	/**

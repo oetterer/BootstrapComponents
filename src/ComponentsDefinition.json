@@ -49,7 +49,9 @@
 			"collapsible",
 			"color",
 			"footer",
-			"header"
+			"footer-image",
+			"header",
+			"header-image"
 		],
 		"aliases": {
 			"footing": "footer",

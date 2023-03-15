@@ -42,7 +42,7 @@ class AttributeManager {
 
 	/**
 	 * For attributes that can be set to false by supplying one of certain values.
-	 * Usually uses for flag-attributes like "active", "collapsible", etc.
+	 * Usually used for flag-attributes like "active", "collapsible", etc.
 	 *
 	 * @see AttributeManager::$noValues
 	 *
@@ -235,7 +235,7 @@ class AttributeManager {
 		if ( $allowedValues === self::NO_FALSE_VALUE ) {
 			return $this->verifyValueForNoValueAttribute( $value );
 		} elseif ( $allowedValues === self::ANY_VALUE ) {
-			// here, the component deals with empty strings its own way, and we return blindly what we got
+			// here, the component deals with empty strings on its own, and we return blindly what we got
 			return $value;
 		} elseif ( is_array( $allowedValues ) && in_array( strtolower( $value ), $allowedValues, true ) ) {
 			return $value;
@@ -248,25 +248,27 @@ class AttributeManager {
 	 */
 	private function getAttributeRegister(): array {
 		return [
-			'active'      => self::NO_FALSE_VALUE,
-			'background'  => [ 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
-			'class'       => self::ANY_VALUE,
-			'color'       => [ 'default', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
-			'collapsible' => self::NO_FALSE_VALUE,
-			'disabled'    => self::NO_FALSE_VALUE,
-			'dismissible' => self::NO_FALSE_VALUE,
-			'fade'        => self::NO_FALSE_VALUE,
-			'footer'      => self::ANY_VALUE,
-			'header'      => self::ANY_VALUE,
-			'id'          => self::ANY_VALUE,
-			'link'        => self::ANY_VALUE,
-			'outline'     => self::NO_FALSE_VALUE,
-			'pill'        => self::NO_FALSE_VALUE,
-			'placement'   => [ 'top', 'bottom', 'left', 'right' ],
-			'size'        => [ 'xs', 'sm', 'md', 'lg' ],
-			'style'       => self::ANY_VALUE,
-			'text'        => self::ANY_VALUE,
-			'trigger'     => [ 'default', 'focus', 'hover' ],
+			'active'        => self::NO_FALSE_VALUE,
+			'background'    => [ 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
+			'class'         => self::ANY_VALUE,
+			'color'         => [ 'default', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
+			'collapsible'   => self::NO_FALSE_VALUE,
+			'disabled'      => self::NO_FALSE_VALUE,
+			'dismissible'   => self::NO_FALSE_VALUE,
+			'fade'          => self::NO_FALSE_VALUE,
+			'footer'        => self::ANY_VALUE,
+			'footer-image'  => self::ANY_VALUE,
+			'header'        => self::ANY_VALUE,
+			'header-image'  => self::ANY_VALUE,
+			'id'            => self::ANY_VALUE,
+			'link'          => self::ANY_VALUE,
+			'outline'       => self::NO_FALSE_VALUE,
+			'pill'          => self::NO_FALSE_VALUE,
+			'placement'     => [ 'top', 'bottom', 'left', 'right' ],
+			'size'          => [ 'xs', 'sm', 'md', 'lg' ],
+			'style'         => self::ANY_VALUE,
+			'text'          => self::ANY_VALUE,
+			'trigger'       => [ 'default', 'focus', 'hover' ],
 		];
 
 	}

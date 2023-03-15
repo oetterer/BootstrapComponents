@@ -369,7 +369,7 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 		/** @noinspection PhpParamsInspection */
 		$this->assertEquals(
 			$expectedTrigger,
-			$resultOfParseCall ? $resultOfParseCall : $res,
+			$resultOfParseCall ?: $res,
 			'failed trigger with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $fp, $hp )
 		);
 		$this->assertEquals(
@@ -455,7 +455,7 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 					'framed'      => false,
 				],
 				[],
-				'<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_image_modal_test"><div class="thumbinner" style="width:70px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="68" height="18" class="thumbimage" />  <div class="thumbcaption"></div></div></span></div>',
+				'<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_image_modal_test"><div class="thumbinner" style="width:96px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="94" height="240" class="thumbimage" />  <div class="thumbcaption"></div></div></span></div>',
 				'<div class="modal fade" role="dialog" id="bsc_image_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div>'
 				. '<div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
@@ -487,7 +487,7 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 					'manualthumb' => 'Shuttle.png',
 				],
 				[],
-				'<div class="thumb tleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_image_modal_test"><div class="thumbinner" style="width:70px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="68" height="18" class="thumbimage" />  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>',
+				'<div class="thumb tleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_image_modal_test"><div class="thumbinner" style="width:96px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="94" height="240" class="thumbimage" />  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>',
 				'<div class="modal fade" role="dialog" id="bsc_image_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],

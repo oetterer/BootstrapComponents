@@ -114,14 +114,14 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 
 	/**
 	 * @param string      $input
-	 * @param array       $arguments
+	 * @param null|string|array  $arguments
 	 * @param null|string $component
 	 *
 	 * @throws MWException
 	 *
 	 * @return ParserRequest
 	 */
-	protected function buildParserRequest( string $input, array $arguments, ?string $component = null ): ParserRequest
+	protected function buildParserRequest( string $input, $arguments, ?string $component = null ): ParserRequest
 	{
 		// prepare the arguments array
 		$parserRequestArguments = $this->processLuaArguments( $arguments );

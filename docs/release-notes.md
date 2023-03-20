@@ -6,9 +6,12 @@ Released on _not yet_
 
 Changes:
 * component card can now be set to show by default
+* new attributes for component card: _header-image_ and
+  _footer-image_.
 
 Fixes:
 * component accordion collapse not working as expected
+* lua calls break when no arguments are supplied to component
 
 ### BootstrapComponents 5.0.1
 

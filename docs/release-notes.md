@@ -1,8 +1,16 @@
 ## Release Notes
 
-### BootstrapComponents 5.1.0
+### BootstrapComponents 5.2.0
 
 Released on _not yet_
+
+Changes:
+
+Fixes:
+
+### BootstrapComponents 5.1.0
+
+Released on 20-March-2023
 
 Changes:
 * component card can now be set to show by default

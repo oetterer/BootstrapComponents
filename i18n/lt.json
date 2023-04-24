@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nokeoo"
+		]
+	},
+	"bootstrap-components-desc": "Siekia suteikti redaktoriams lengvą prieigą prie tam tikrų „Twitter Bootstrap“ komponentų",
+	"bootstrap-components-error-tracking-category": "Puslapiai su „bootstrap“ komponento klaidomis",
+	"bootstrap-components-close-element": "Uždaryti",
+	"bootstrap-components-image-modal-source-button": "Apsilankyti šaltinyje",
+	"bootstrap-components-lua-error-no-component": "Nėra mw.bootstrap.parse komponento pavadinimo.",
+	"bootstrap-components-lua-error-invalid-component": "Į mw.bootstrap.parse perduotas netinkamas komponento pavadinimas: $1.",
+	"bootstrap-components-badge-content-missing": "Turite nurodyti šio ženklelio tekstą.",
+	"bootstrap-components-button-target-missing": "Turite nurodyti šio mygtuko tikslą.",
+	"bootstrap-components-button-target-invalid": "Turite nurodyti tinkamą šio mygtuko tikslą.",
+	"bootstrap-components-carousel-images-missing": "Karuselėje nėra vaizdų.",
+	"bootstrap-components-glyph-icon-name-missing": "Turite nurodyti piktogramos pavadinimą.",
+	"bootstrap-components-label-content-missing": "Turite nurodyti etiketės tekstą.",
+	"bootstrap-components-modal-text-missing": "Turite nurodyti šio modalinio mygtuko tekstą."
+}

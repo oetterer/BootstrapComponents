@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Elisardojm"
+			"Elisardojm",
+			"Toliño"
 		]
 	},
-	"bootstrap-components-desc": "Axuda a proporcionar ós editores un acceso doado a determinados compoñentes introducidos polo Bootstrap de Twitter",
+	"bootstrap-components-desc": "Axuda a proporcionar ós editores un acceso doado a determinados compoñentes introducidos por Twitter Bootstrap",
 	"bootstrap-components-error-tracking-category": "Páxinas con erros no compoñente de bootstrap",
 	"bootstrap-components-close-element": "Pechar",
 	"bootstrap-components-image-modal-source-button": "Visitar fonte",

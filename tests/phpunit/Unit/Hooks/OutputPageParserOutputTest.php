@@ -51,21 +51,20 @@ class OutputPageParserOutputTest extends PHPUnit_Framework_TestCase {
 		$outputPage = $this->getMockBuilder( 'OutputPage' )
 			->disableOriginalConstructor()
 			->getMock();
+		$outputPage->expects( $this->once() )
+			->method( 'addHTML' )
+			->will( $this->returnCallback( function( $injection ) use ( &$content ) {
+				$content .= $injection;
+			} ) );
+		$outputPage->expects( $this->once() )
+			->method( 'addModules' )
+			->with(
+				$this->equalTo( [ 'ext.bootstrapComponents.vector-fix' ] )
+			);
 
 		$observerParserOutput = $this->getMockBuilder(ParserOutput::class )
 			->disableOriginalConstructor()
-#			->setMethods( [ 'getText', 'setText', 'getExtensionData' ] )
 			->getMock();
-		$observerParserOutput->expects( $this->exactly( 1 ) )
-			->method( 'getText' )
-			->will( $this->returnCallback( function() use ( &$content ) {
-				return $content;
-			} ) );
-		$observerParserOutput->expects( $this->exactly( 1 ) )
-			->method( 'setText' )
-			->will( $this->returnCallback( function( $injection ) use ( &$content ) {
-				$content = $injection;
-			} ) );
 		$observerParserOutput->expects( $this->exactly( 1 ) )
 			->method( 'getExtensionData' )
 			->with(

@@ -1,7 +1,7 @@
 # Bootstrap Components
+[![Build Status](https://github.com/oetterer/BootstrapComponents/actions/workflows/ci.yml/badge.svg)](https://github.com/oetterer/BootstrapComponents/actions/workflows/ci.yml)
 [![Latest Stable Version](https://poser.pugx.org/mediawiki/bootstrap-components/version.png)](https://packagist.org/packages/mediawiki/bootstrap-components)
 [![Packagist download count](https://poser.pugx.org/mediawiki/bootstrap-components/d/total.png)](https://packagist.org/packages/mediawiki/bootstrap-components)
-[![Build Status](https://api.travis-ci.org/oetterer/BootstrapComponents.svg?branch=master)](http://travis-ci.org/oetterer/BootstrapComponents)
 [![Code Coverage](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/?branch=master)
 [![Code Quality](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/?branch=master)
 

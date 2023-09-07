@@ -321,19 +321,20 @@ class HookRegistryTest extends PHPUnit_Framework_TestCase {
 				$this->stringContains( 'bsc_deferredContent' )
 			)
 			->willReturnOnConsecutiveCalls( [], [ 'call2' ] );
-		$parserOutput->expects( $this->exactly( 2 ) )
-			->method( 'getText' )
-			->will( $this->returnCallback( function() use ( &$content ) {
-				return $content;
-			} ) );
-		$parserOutput->expects( $this->exactly( 2 ) )
-			->method( 'setText' )
-			->will( $this->returnCallback( function( $injection ) use ( &$content ) {
-				$content = $injection;
-			} ) );
 		$outputPage = $this->getMockBuilder( 'OutputPage' )
 			->disableOriginalConstructor()
 			->getMock();
+		$outputPage->expects( $this->once() )
+			->method( 'addHTML' )
+			->will( $this->returnCallback( function( $injection ) use ( &$content ) {
+				$content .= $injection;
+			} ) );
+		$outputPage->expects( $this->exactly( 2 ) )
+			->method( 'addModules' )
+			->with(
+				$this->equalTo( [ 'ext.bootstrapComponents.vector-fix' ] )
+			);
+
 
 		/** @noinspection PhpParamsInspection */
 		$parserOutputHelper = new ParserOutputHelper( $parser );

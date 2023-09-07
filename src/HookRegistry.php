@@ -28,19 +28,15 @@ namespace BootstrapComponents;
 
 use BootstrapComponents\Hooks\OutputPageParserOutput;
 use BootstrapComponents\Hooks\ParserFirstCallInit;
-use Bootstrap\BootstrapManager;
 use Closure;
 use Config;
 use ConfigException;
 use Hooks;
-use MagicWord;
-use MediaWiki\HookContainer\HookContainer;
 use MediaWiki\MediaWikiServices;
 use MWException;
 use OutputPage;
 use Parser;
 use ParserOutput;
-use StripState;
 
 /**
  * Class HookRegistry

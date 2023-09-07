@@ -114,6 +114,9 @@
 			],
 			"vector": [
 				"ext.bootstrapComponents.modal.vector-fix"
+			],
+			"vector-2022": [
+				"ext.bootstrapComponents.modal.vector-fix"
 			]
 		}
 	},
@@ -139,6 +142,9 @@
 				"ext.bootstrapComponents.popover"
 			],
 			"vector": [
+				"ext.bootstrapComponents.popover.vector-fix"
+			],
+			"vector-2022": [
 				"ext.bootstrapComponents.popover.vector-fix"
 			]
 		}

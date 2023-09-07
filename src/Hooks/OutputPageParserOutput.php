@@ -28,6 +28,7 @@ namespace BootstrapComponents\Hooks;
 
 use BootstrapComponents\ApplicationFactory;
 use BootstrapComponents\ParserOutputHelper;
+use Geocoder\Exception\LogicException;
 use MWException;
 use OutputPage;
 use ParserOutput;
@@ -87,11 +88,12 @@ class OutputPageParserOutput {
 	 */
 	public function process(): bool
 	{
-		$text = $this->getParserOutput()->getText();
-		$text .= $this->getParserOutputHelper()->getContentForLaterInjection(
+		$deferredText = $this->getParserOutputHelper()->getContentForLaterInjection(
 			$this->getParserOutput()
 		);
-		$this->getParserOutput()->setText( $text );
+		if ( !empty( $deferredText ) ) {
+			$this->getOutputPage()->addHTML( $deferredText );
+		}
 
 		return true;
 	}

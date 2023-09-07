@@ -8,6 +8,18 @@ Changes:
 
 Fixes:
 
+### BootstrapComponents 5.1.1
+
+Released on 07-September-2023
+
+Changes:
+* add translations via translatewiki
+
+Fixes:
+* unused variable including deprecated call (thanks @Seb35)
+* compatibility problems with vector-2022
+* broken tests
+
 ### BootstrapComponents 5.1.0
 
 Released on 20-March-2023

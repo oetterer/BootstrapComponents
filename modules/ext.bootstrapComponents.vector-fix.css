@@ -30,3 +30,7 @@ body.skin-vector {
     font-size: inherit;
 	font-family: sans-serif !important;
 }
+
+body.skin-vector *, *::before, *::after {
+    box-sizing: initial;
+}

@@ -28,7 +28,6 @@ namespace BootstrapComponents\Hooks;
 
 use BootstrapComponents\ApplicationFactory;
 use BootstrapComponents\ParserOutputHelper;
-use Geocoder\Exception\LogicException;
 use MWException;
 use OutputPage;
 use ParserOutput;
@@ -93,6 +92,10 @@ class OutputPageParserOutput {
 		);
 		if ( !empty( $deferredText ) ) {
 			$this->getOutputPage()->addHTML( $deferredText );
+		}
+
+		if ( $this->getParserOutputHelper()->vectorSkinInUse() ) {
+			$this->getOutputPage()->addModules( [ 'ext.bootstrapComponents.vector-fix' ] );
 		}
 
 		return true;

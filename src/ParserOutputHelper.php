@@ -26,7 +26,6 @@
 
 namespace BootstrapComponents;
 
-use \ConfigException;
 use \Html;
 use \MediaWiki\MediaWikiServices;
 use \ParserOutput;
@@ -158,7 +157,7 @@ class ParserOutputHelper {
 	 *
 	 * @return string
 	 */
-	public function getContentForLaterInjection( \ParserOutput $parserOutput ) {
+	public function getContentForLaterInjection( \ParserOutput $parserOutput ): string {
 		$deferredContent = $parserOutput->getExtensionData( self::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
 
 		if ( empty( $deferredContent ) || !is_array( $deferredContent ) ) {
@@ -210,14 +209,11 @@ class ParserOutputHelper {
 		if ( is_a( $parserOutput, ParserOutput::class ) ) {
 			// Q: when do we expect \Parser->getOutput() not to be a \ParserOutput? A: During tests.
 			$parserOutput->setExtensionData( 'bsc_load_modules', true );
-			if ( $this->vectorSkinInUse() ) {
-				$parserOutput->addModules( [ 'ext.bootstrapComponents.vector-fix' ] );
-			}
 		}
 	}
 
 	/**
-	 * Formats a text as error text so it can be added to the output.
+	 * Formats a text as error text, so it can be added to the output.
 	 *
 	 * @param string $errorMessageName
 	 *
@@ -241,7 +237,7 @@ class ParserOutputHelper {
 	 * @return bool
 	 */
 	public function vectorSkinInUse() {
-		return strtolower( $this->getNameOfActiveSkin() ) == 'vector';
+		return in_array( strtolower( $this->getNameOfActiveSkin() ), [ 'vector', 'vector-2022' ] ) ;
 	}
 
 	/**

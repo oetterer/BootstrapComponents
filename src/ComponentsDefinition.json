@@ -3,7 +3,7 @@
 		"class": "BootstrapComponents\\Components\\Accordion",
 		"handlerType": "tag",
 		"modules": {
-			"default": "ext.bootstrapComponents.accordion"
+			"default": "ext.bootstrapComponents.accordion.fix"
 		}
 	},
 	"alert": {
@@ -55,7 +55,9 @@
 		],
 		"aliases": {
 			"footing": "footer",
+			"footerimage": "footer-image",
 			"heading": "header",
+			"headerimage": "header-image",
 			"title": "header"
 		},
 		"modules": {
@@ -69,7 +71,7 @@
 			"fade"
 		],
 		"modules": {
-			"default": "ext.bootstrapComponents.carousel"
+			"default": "ext.bootstrapComponents.carousel.fix"
 		}
 	},
 	"collapse": {
@@ -139,7 +141,7 @@
 		"modules": {
 			"default": [
 				"ext.bootstrapComponents.button.fix",
-				"ext.bootstrapComponents.popover"
+				"ext.bootstrapComponents.popover.fix"
 			],
 			"vector": [
 				"ext.bootstrapComponents.popover.vector-fix"
@@ -157,7 +159,7 @@
 			"text"
 		],
 		"modules": {
-			"default": "ext.bootstrapComponents.tooltip"
+			"default": "ext.bootstrapComponents.tooltip.fix"
 		}
 	},
 	"well": "card"

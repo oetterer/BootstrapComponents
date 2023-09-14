@@ -339,8 +339,8 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 		return [
 			'alert' => [ 'alert', [] ],
 			'button' => [ 'button', [] ],
-			'card' => [ 'card', [ 'footing' => 'footer', 'heading' => 'header', 'title' => 'header', ], ],
-			'panel' => [ 'panel', [ 'footing' => 'footer', 'heading' => 'header', 'title' => 'header', ], ],
+			'card' => [ 'card', [ 'footing' => 'footer', 'heading' => 'header', 'title' => 'header', 'footerimage' => 'footer-image', 'headerimage' => 'header-image', ], ],
+			'panel' => [ 'panel', [ 'footing' => 'footer', 'heading' => 'header', 'title' => 'header', 'footerimage' => 'footer-image', 'headerimage' => 'header-image', ], ],
 		];
 	}
 
@@ -397,12 +397,12 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'carousel'        => [
 				'carousel',
 				null,
-				[ 'ext.bootstrapComponents.carousel' ],
+				[ 'ext.bootstrapComponents.carousel.fix' ],
 			],
 			'carousel_vector' => [
 				'carousel',
 				'vector',
-				[ 'ext.bootstrapComponents.carousel' ],
+				[ 'ext.bootstrapComponents.carousel.fix' ],
 			],
 			'modal'           => [
 				'modal',
@@ -417,22 +417,22 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			'popover'         => [
 				'popover',
 				null,
-				[ 'ext.bootstrapComponents.button.fix', 'ext.bootstrapComponents.popover' ],
+				[ 'ext.bootstrapComponents.button.fix', 'ext.bootstrapComponents.popover.fix' ],
 			],
 			'popover_vector'  => [
 				'popover',
 				'vector',
-				[ 'ext.bootstrapComponents.button.fix', 'ext.bootstrapComponents.popover', 'ext.bootstrapComponents.popover.vector-fix', ],
+				[ 'ext.bootstrapComponents.button.fix', 'ext.bootstrapComponents.popover.fix', 'ext.bootstrapComponents.popover.vector-fix', ],
 			],
 			'tooltip'         => [
 				'tooltip',
 				null,
-				[ 'ext.bootstrapComponents.tooltip' ],
+				[ 'ext.bootstrapComponents.tooltip.fix' ],
 			],
 			'tooltip_vector'  => [
 				'tooltip',
 				'vector',
-				[ 'ext.bootstrapComponents.tooltip' ],
+				[ 'ext.bootstrapComponents.tooltip.fix' ],
 			],
 		];
 	}

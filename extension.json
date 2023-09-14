@@ -1,6 +1,6 @@
 {
 	"name": "BootstrapComponents",
-	"version": "5.1.1",
+	"version": "5.1.2-dev",
 	"author": [ "Tobias Oetterer" ],
 	"url": "https://www.mediawiki.org/wiki/Extension:BootstrapComponents",
 	"descriptionmsg": "bootstrap-components-desc",
@@ -65,8 +65,11 @@
 		"BootstrapComponentsMagic": "BootstrapComponents.magic.php"
 	},
 	"ResourceModules": {
-		"ext.bootstrapComponents.accordion": {
-			"styles": "ext.bootstrapComponents.accordion.css"
+		"ext.bootstrapComponents.bootstrap.fix": {
+			"styles": "ext.bootstrapComponents.bootstrap.fix.css"
+		},
+		"ext.bootstrapComponents.accordion.fix": {
+			"styles": "ext.bootstrapComponents.accordion.fix.css"
 		},
 		"ext.bootstrapComponents.alert.fix": {
 			"styles": "ext.bootstrapComponents.alert.fix.css"
@@ -77,7 +80,7 @@
 		"ext.bootstrapComponents.card.fix": {
 			"styles": "ext.bootstrapComponents.card.fix.css"
 		},
-		"ext.bootstrapComponents.carousel": {
+		"ext.bootstrapComponents.carousel.fix": {
 			"dependencies": "ext.bootstrap.scripts",
 			"styles": "ext.bootstrapComponents.carousel.fix.css",
 			"scripts": "ext.bootstrapComponents.carousel.js"
@@ -88,17 +91,17 @@
 		"ext.bootstrapComponents.modal.vector-fix": {
 			"styles": "ext.bootstrapComponents.modal.vector-fix.css"
 		},
-		"ext.bootstrapComponents.popover": {
+		"ext.bootstrapComponents.popover.fix": {
 			"dependencies": "ext.bootstrap.scripts",
 			"scripts": "ext.bootstrapComponents.popover.js"
 		},
 		"ext.bootstrapComponents.popover.vector-fix": {
 			"styles": "ext.bootstrapComponents.popover.vector-fix.css"
 		},
-		"ext.bootstrapComponents.tooltip": {
+		"ext.bootstrapComponents.tooltip.fix": {
 			"dependencies": "ext.bootstrap.scripts",
 			"scripts": "ext.bootstrapComponents.tooltip.js",
-			"styles": "ext.bootstrapComponents.tooltip.css"
+			"styles": "ext.bootstrapComponents.tooltip.fix.css"
 		},
 		"ext.bootstrapComponents.vector-fix": {
 			"styles": "ext.bootstrapComponents.vector-fix.css"

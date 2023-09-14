@@ -68,8 +68,9 @@ class DefaultHooksHandler implements SetupAfterCacheHook, ParserAfterParseHook
 	 * @param StripState $stripState
 	 * @return bool
 	 */
-	public function onParserAfterParse($parser, &$text, $stripState): bool
+	public function onParserAfterParse( $parser, &$text, $stripState ): bool
 	{
+		$parser->getOutput()->addModuleStyles( ['ext.bootstrapComponents.bootstrap.fix'] );
 		$parser->getOutput()->addModuleStyles( ['ext.bootstrap.styles'] );
 		$parser->getOutput()->addModules( ['ext.bootstrap.scripts'] );
 		return true;

@@ -1,5 +1,5 @@
 /**
- * Contains bootstrap css fixes for when vector skin is used.
+ * Contains bootstrap css fixes.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -22,15 +22,12 @@
  * @ingroup       BootstrapComponents
  * @author        Tobias Oetterer
  */
-html {
-    font-size: 100%;
+
+/* some infobox issues */
+table.infobox {
+    border-collapse: initial;
 }
 
-body.skin-vector {
-    font-size: inherit;
-	font-family: sans-serif !important;
-}
-
-body.skin-vector *, *::before, *::after {
-    box-sizing: initial;
+table.infobox caption.infobox-title {
+    caption-side: initial;
 }

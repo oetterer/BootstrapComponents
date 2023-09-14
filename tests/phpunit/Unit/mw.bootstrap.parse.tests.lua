@@ -46,7 +46,7 @@ local tests = {
 		func = function( component, input, args )
 			return removeHrefPath ( mw.bootstrap.parse( component, input, args ) )
 		end,
-		args = { 'button', 'Page:Title', { id = 'FooBar' } },
+		args = { 'button', 'Page:Title', { id = 'FooBar', noStrip = true } },
 		expect = { '<a class=\"btn btn-primary\" role=\"button\" id=\"FooBar\" href=\"/TestPath/Page:Title\">Page:Title</a>' }
 	},
 	{
@@ -54,7 +54,7 @@ local tests = {
 		func = function( component, input, args )
 			return removeId ( mw.bootstrap.parse( component, input, args ) )
 		end,
-		args = { 'alert', 'Alert content', { color = 'success', dismissible = 'fade' } },
+		args = { 'alert', 'Alert content', { color = 'success', dismissible = 'fade', noStrip = true } },
 		expect = { '<div class="alert alert-success alert-dismissible fade show" role="alert">Alert content<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>' }
 	},
 }

@@ -51,7 +51,7 @@ class LuaLibraryParseTest extends LuaLibraryTestBase {
 		);
 		$this->assertEquals(
 			'<div class="card border-danger"><div id="FooBar"><div class="card-body text-danger">Lorem Ipsum</div></div></div>',
-			$this->getLuaLibrary()->parse( 'card', 'Lorem Ipsum', [ 'color' => 'danger', 'id' => 'FooBar' ] )[0]
+			$this->getLuaLibrary()->parse( 'card', 'Lorem Ipsum', [ 'color' => 'danger', 'id' => 'FooBar' ], true )[0]
 		);
 	}
 }

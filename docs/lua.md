@@ -14,8 +14,8 @@ This function parses a bootstrap component, taking input text and arguments from
 -- @param string component the name of the component, you want to parse
 -- @param string input     the text inside the tags or - for parser functions - after the :
 -- @param table  arguments the arguments of the tag or parser function
--- 
--- @return string
+--
+-- @return string  the strip tag for your bootstrap component
 mw.bootstrap.parse( component, input, arguments )
 ```
 
@@ -35,25 +35,54 @@ parameters are:
 <dd>If you want/need to pass additional arguments put them in this table.</dd>
 </dl>
 
+#### Return value
+The parser function returns a strip tag, which will later be replaced by the preprocessor with the actual
+component. There are two ways to access the actual parsed component, if you should be needing the raw html:
+1. a hidden argument: you can supply an additional argument `noStrip = true` which will return the un-stripped
+    string instead of the strip tag
+2. use scribuntos's frame object to access the preprocessor: `mw.getCurrentFrame():preprocess()` to un-strip the
+    result of parse.
+
+
 #### Example
+Example 1: building two cards
+```lua
+local buildCards = function()
+    local tooltip = mw.bootstrap.parse( 'tooltip', 'ambiguous', { text='better explanation' } )
+    local card1 = mw.bootstrap.parse(
+        'card',
+        'This is the text inside the card1. It it quite ' .. tooltip,
+        { color = 'success', footer = 'information at the base', collapsible = true }
+    )
+    local card2 = mw.bootstrap.parse(
+        'card',
+        'This is the text inside the card2. It it quite ' .. tooltip,
+        { color = 'success', footer = 'information at the base', collapsible = true }
+    )
+    return card1 .. card2
+end
+```
+
+#### Accordion issues
+BootstrapComponents utilizes recursive parser calls to do a "nesting detection". This way, the card component
+knows when it is inside an accordion, and renders a little bit differently that normal. This approach however,
+does not work inside lua since essentially the parser calls are inverted. There is a workaround, and it looks
+like this
+
 ```lua
 local tooltip = mw.bootstrap.parse( 'tooltip', 'ambiguous', { text='better explanation' } )
-local panel1 = mw.bootstrap.parse(
-    'panel',
-    'This is the text inside the panel1. It it quite ' .. tooltip,
-    { color = 'success', footer = 'information at the base', collapsible = true }
-)
-local panel2 = mw.bootstrap.parse(
-    'panel',
-    'This is the text inside the panel2. It it quite ' .. tooltip,
-    { color = 'success', footer = 'information at the base', collapsible = true }
-)
-local accordion = mw.bootstrap.parse(
+local inner = [[<bootstrap_card heading="Headline for Card1">Text inside the card</bootstrap_panel>
+    <bootstrap_card heading="Headline for Card2">Text inside the card</bootstrap_panel>
+    <bootstrap_card heading="Headline for Card3" color="danger" active>Text inside the card]] .. tooltip ..  [[</bootstrap_panel>
+    <bootstrap_card heading="Headline for Card4" color="info">Text inside the card</bootstrap_panel>
+    <bootstrap_card color="info">Text inside the card</bootstrap_panel>]]
+return mw.bootstrap.parse(
     'accordion',
-    panel1 .. panel2
+    inner,
+    {}
 )
-return accordion
 ```
+
 
 For information about the existing components and their available arguments, please visit the
 [components documentation][components]
@@ -63,7 +92,7 @@ This function returns the currently active skin.
 
 ```lua
 -- no parameters
--- 
+--
 -- @return string (lower case)
 mw.bootstrap.getSkin()
 ```

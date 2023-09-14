@@ -5,6 +5,10 @@ unit in a way, that opening one card closes all others.
 Note that cards inside an accordion are collapsible by default. You
 do not have to set that attribute.
 
+If you want to build an accordion in lua, there a certain things to consider.
+Please read the [corresponding section](../lua.md#accordion-issues) in the lua
+documentation.
+
 See also:
 * [Card](card.md)
 * [Collapse](collapse.md)

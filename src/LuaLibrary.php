@@ -44,7 +44,7 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * @var ApplicationFactory $applicationFactory;
 	 */
-	private $applicationFactory;
+	private ApplicationFactory $applicationFactory;
 
 	/**
 	 * LuaLibrary constructor.
@@ -70,18 +70,19 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * @param string $componentName
-	 * @param string $input
-	 * @param array  $arguments
-	 *
-	 * @throws ReflectionException
-	 * @throws MWException
+	 * @param null|string $componentName
+	 * @param null|string $input
+	 * @param null|array  $arguments
+	 * @param null|bool   $noStrip
 	 *
 	 * @return string[]
 	 *
 	 * Note: Please refrain from using Type hints in function signature. Will break tests!
+	 *@throws MWException
+	 *
+	 * @throws ReflectionException
 	 */
-	public function parse( $componentName, $input, $arguments ): array
+	public function parse( ?string $componentName, ?string $input, ?array $arguments, ?bool $noStrip = false ): array
 	{
 		if ( empty( $componentName ) ) {
 			return [ wfMessage( 'bootstrap-components-lua-error-no-component' )->text() ];
@@ -98,6 +99,10 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 		if ( is_array( $parsedComponent ) ) {
 			$parsedComponent = $parsedComponent[0];
 		}
+
+		// we use $noStrip == true for unit tests and as a hidden feature in lua ;)
+		$noStrip = $noStrip || (isset( $arguments['noStrip'] ) && $arguments['noStrip']);
+		$parsedComponent = $noStrip ? $parsedComponent : $this->getParser()->insertStripItem( $parsedComponent );
 
 		return [ $parsedComponent ];
 	}
@@ -187,21 +192,23 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * @param string $key
-	 * @param string $value
+	 * @param int|string $key
+	 * @param mixed $value
 	 *
 	 * @return string
 	 */
-	private function processKeyValuePair( string $key, string $value ): string
+	private function processKeyValuePair( $key, $value ): string
 	{
 		if ( is_int( $key ) || preg_match( '/[0-9]+/', $key ) ) {
 			return trim( $value );
 		}
 		if ( is_array( $value ) ) {
 			$glue = $key == 'style' ? ';' : ' ';
-			return (string) $key . '=' . implode( $glue, $value );
+			return $key . '=' . implode( $glue, $value );
+		} elseif( is_bool( $value ) ) {
+			return $key . '=' . ( $value ? 'yes' : 'no' );
 		} else {
-			return (string) $key . '=' . (string) $value;
+			return $key . '=' . $value;
 		}
 	}
 }

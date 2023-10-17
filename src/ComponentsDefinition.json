@@ -46,12 +46,15 @@
 		"attributes": [
 			"active",
 			"background",
+			"body-style",
 			"collapsible",
 			"color",
 			"footer",
 			"footer-image",
+			"footer-style",
 			"header",
-			"header-image"
+			"header-image",
+			"header-style"
 		],
 		"aliases": {
 			"footing": "footer",

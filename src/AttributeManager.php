@@ -77,7 +77,7 @@ class AttributeManager {
 	 *
 	 * @see ApplicationFactory::getNewAttributeManager
 	 */
-	public function __construct( $componentAttributes, $aliases ) {
+	public function __construct( array $componentAttributes, array $aliases ) {
 		$this->noValues = [ false, 0, '0', 'no', 'false', 'off', 'disabled', 'ignored' ];
 		$this->noValues[] = strtolower( wfMessage( 'confirmable-no' )->text() );
 		$this->validAttributeNameMapping = $this->calculateValidAttributeNames( $componentAttributes, $aliases );
@@ -156,7 +156,7 @@ class AttributeManager {
 	 * @see AttributeManager::getAttributeRegister
 	 *
 	 */
-	protected function calculateValidAttributeNames( $validAttributes, $aliases ) {
+	protected function calculateValidAttributeNames( array $validAttributes, array $aliases ): array {
 		$filteredValidAttributeNameMapping = [];
 		foreach ( $validAttributes as $validAttribute ) {
 			$validAttribute = strtolower( trim( $validAttribute ) );
@@ -201,7 +201,7 @@ class AttributeManager {
 	 *
 	 * @return bool
 	 */
-	protected function isInRegister( $attribute ) {
+	protected function isInRegister( string $attribute ): bool {
 		return isset( $this->getAttributeRegister()[$attribute] );
 	}
 
@@ -212,7 +212,7 @@ class AttributeManager {
 	 *
 	 * @return string
 	 */
-	protected function resolveAttributeName( $attributeName ) {
+	protected function resolveAttributeName( string $attributeName ): string {
 		return $this->validAttributeNameMapping[$attributeName] ?? $attributeName;
 	}
 
@@ -250,6 +250,7 @@ class AttributeManager {
 		return [
 			'active'        => self::NO_FALSE_VALUE,
 			'background'    => [ 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
+			'body-style'    => self::ANY_VALUE,
 			'class'         => self::ANY_VALUE,
 			'color'         => [ 'default', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
 			'collapsible'   => self::NO_FALSE_VALUE,
@@ -258,8 +259,10 @@ class AttributeManager {
 			'fade'          => self::NO_FALSE_VALUE,
 			'footer'        => self::ANY_VALUE,
 			'footer-image'  => self::ANY_VALUE,
+			'footer-style'  => self::ANY_VALUE,
 			'header'        => self::ANY_VALUE,
 			'header-image'  => self::ANY_VALUE,
+			'header-style'  => self::ANY_VALUE,
 			'id'            => self::ANY_VALUE,
 			'link'          => self::ANY_VALUE,
 			'outline'       => self::NO_FALSE_VALUE,

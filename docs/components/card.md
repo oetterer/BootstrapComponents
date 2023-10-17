@@ -6,13 +6,13 @@ and options, replacing bootstrap3's panel and well element.
 Cards are also used inside [accordions](accordion.md) to group elements.
 
 See also:
-* [Accordion](accordion.md) uses panels to work
+* [Accordion](accordion.md) uses cards to work
 * [Collapse](collapse.md) or [modal](modal.md) (if your looking for
     more collapsible components)
 
 ### Example usage
 ```html
-<bootstrap_card [..]>Content text for the panel</bootstrap_card>
+<bootstrap_card [..]>Content text for the card</bootstrap_card>
 ```
 
 ### Allowed Attributes
@@ -42,6 +42,9 @@ Allowed Values are
 <li>dark</li>
 <li>white</li>
 </ul></dd>
+
+<dt>body-style</dt>
+<dd>Supplies style sheets to the card body div.</dd>
 
 <dt>class</dt>
 <dd>Adds this string to the class attribute of the component. If you want to
@@ -73,7 +76,7 @@ Allowed Values are
 </ul></dd>
 
 <dt>footer</dt>
-<dd>All you supply here will be inserted into the footer area of the panel.</dd>
+<dd>All you supply here will be inserted into the footer area of the card.</dd>
 
 <dt>footer-image</dt>
 <dd>You can specify an image to placed at the bottom of the card body spanning
@@ -81,14 +84,20 @@ the whole card width. If you do not supply the css class "card-img-bottom"
 to the image (with <code>class=card-img-bottom</code>), it will be inserted
 automatically.</dd>
 
+<dt>footer-style</dt>
+<dd>Supplies style sheets to the footer div.</dd>
+
 <dt>header</dt>
-<dd>All you supply here will be inserted into the header area of the panel.</dd>
+<dd>All you supply here will be inserted into the header area of the card.</dd>
 
 <dt>header-image</dt>
 <dd>You can specify an image to placed at the top of the card body spanning
 the whole card width. If you do not supply the css class "card-img-top"
 to the image (with <code>class=card-img-top</code>), it will be inserted
 automatically.</dd>
+
+<dt>header-style</dt>
+<dd>Supplies style sheets to the header div.</dd>
 
 <dt>id</dt>
 <dd>Sets the id of the component to this value. See to it, that it is

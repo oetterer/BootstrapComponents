@@ -48,14 +48,14 @@ class Card extends AbstractComponent {
 	 *
 	 * @var bool $collapsible
 	 */
-	private $collapsible;
+	private bool $collapsible;
 
 	/**
 	 * If true, indicates that we are inside an accordion
 	 *
 	 * @var bool $insideAccordion
 	 */
-	private $insideAccordion;
+	private bool $insideAccordion;
 
 	/**
 	 * Card constructor.
@@ -69,7 +69,8 @@ class Card extends AbstractComponent {
 	public function __construct( $componentLibrary, $parserOutputHelper, $nestingController ) {
 		parent::__construct( $componentLibrary, $parserOutputHelper, $nestingController );
 		$this->collapsible = false;
-		$this->insideAccordion = $this->isInsideAccordion();
+		$parent = $this->getParentComponent();
+		$this->insideAccordion = ($parent && ($this->getParentComponent()->getComponentName() == 'accordion'));
 	}
 
 	/**
@@ -112,6 +113,7 @@ class Card extends AbstractComponent {
 					'div',
 					[
 						'class' => $this->arrayToString( $bodyClass, ' ' ),
+						'style' => $this->getValueFor( 'body-style' ) ?: null
 					],
 					$input
 				)
@@ -217,11 +219,7 @@ class Card extends AbstractComponent {
 	 * @return bool
 	 */
 	private function isInsideAccordion() {
-		if ( !is_null( $this->insideAccordion ) ) {
-			return $this->insideAccordion;
-		}
-		$parent = $this->getParentComponent();
-		return $this->insideAccordion = ($parent && ($this->getParentComponent()->getComponentName() == 'accordion'));
+		return $this->insideAccordion;
 	}
 
 	/**
@@ -246,6 +244,9 @@ class Card extends AbstractComponent {
 		$newAttributes = [
 			'class' => 'card-' . $type,
 		];
+		if ( $this->getValueFor( $type . '-style' ) ) {
+			$newAttributes['style'] = $this->getValueFor( $type . '-style' );
+		}
 		if ( $type == 'header' ) {
 			if ( $this->isCollapsible() ) {
 				$newAttributes += [

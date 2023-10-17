@@ -5,8 +5,13 @@
 Released on _not yet_
 
 Changes:
+* add css classes to restore the usual infobox layout
+* add more style control to card component
 
 Fixes:
+* lua issues when using images and links in components. this is
+  by using strip tags.
+* documentation for accordions and lua
 
 ### BootstrapComponents 5.1.1
 

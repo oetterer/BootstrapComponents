@@ -8,10 +8,20 @@
 		]
 	},
 	"bootstrap-components-desc": "Streeft ernaar om redacteuren gemakkelijke toegang te bieden tot bepaalde componenten die zijn geïntroduceerd door Twitter Bootstrap",
+	"bootstrap-components-error-tracking-category": "Pagina's met Bootstrap-componentfouten",
 	"bootstrap-components-close-element": "Sluiten",
 	"bootstrap-components-image-modal-source-button": "Bron bekijken",
+	"bootstrap-components-lua-error-no-component": "Er is geen componentnaam opgegeven voor mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Ongeldige componentnaam doorgegeven aan mw.bootstrap.parse: $1.",
 	"bootstrap-components-badge-content-missing": "U moet een tekst voor deze badge opgeven.",
 	"bootstrap-components-button-target-missing": "U moet een doel voor deze knop opgeven.",
 	"bootstrap-components-button-target-invalid": "U moet een geldig doel opgegeven voor deze knop.",
-	"bootstrap-components-glyph-icon-name-missing": "U moet een iconnaam opgeven."
+	"bootstrap-components-carousel-images-missing": "Er zijn geen afbeeldingen in de carrousel geplaatst.",
+	"bootstrap-components-glyph-icon-name-missing": "U moet een pictogramnaam opgeven.",
+	"bootstrap-components-label-content-missing": "U moet een labeltekst opgeven.",
+	"bootstrap-components-modal-text-missing": "Voor deze modale knop moet u een tekst opgeven.",
+	"bootstrap-components-popover-heading-missing": "U moet een koptekst voor deze pop-over opgeven.",
+	"bootstrap-components-popover-text-missing": "U moet een tekst voor deze pop-over opgeven.",
+	"bootstrap-components-tooltip-content-missing": "Bij deze tooltip ontbreekt het tekstattribuut en dus ook de eigenlijke tooltip.",
+	"bootstrap-components-tooltip-target-missing": "U moet tekst of een afbeelding opgeven waaraan de tooltip moet worden toegevoegd."
 }

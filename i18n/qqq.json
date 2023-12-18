@@ -1,11 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"McDutchie",
 			"Oetterer"
 		]
 	},
 	"bootstrap-components-desc": "{{desc|name=Bootstrap Components|url=https://www.mediawiki.org/wiki/Extension:BootstrapComponents}}",
-	"bootstrap-components-error-tracking-category": "Tracking category for pages with faulty calls to a bootstrap tag.",
+	"bootstrap-components-error-tracking-category": "Tracking category for pages with faulty calls to a [https://getbootstrap.com/ Bootstrap] tag.\n{{Tracking category name}}",
 	"bootstrap-components-tracking-category": "Tracking category for pages with calls to at least one bootstrap tag.\n\n{{Notranslate}}",
 	"bootstrap-components-close-element": "Text for the close button of various components.\n\n{{Identical|Close}}",
 	"bootstrap-components-image-modal-source-button": "Text on the button linking to the image source page.",

@@ -20,6 +20,6 @@
 	"bootstrap-components-modal-text-missing": "חובה לציין טקסט עבור הכפתור המודאלי הזה.",
 	"bootstrap-components-popover-heading-missing": "חובה לציין כותרת עבור החלונית הצצה הזאת.",
 	"bootstrap-components-popover-text-missing": "חובה לציין טקסט עבור החלונית הצצה הזאת.",
-	"bootstrap-components-tooltip-content-missing": "לרמז הזה חסר מאפיין טקסט ולכן גם הרמז עצמו.",
+	"bootstrap-components-tooltip-content-missing": "לרמז הזה חסרה תכונת טקסט ולכן גם הרמז עצמו.",
 	"bootstrap-components-tooltip-target-missing": "חובה לציין טקסט או תמונה שהרמז משויך אליהם."
 }

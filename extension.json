@@ -15,6 +15,9 @@
 	"AutoloadNamespaces": {
 		"BootstrapComponents\\": "src/"
 	},
+	"TestAutoloadNamespaces": {
+		"BootstrapComponents\\Tests\\": "tests/phpunit/"
+	},
 	"@note": "the extension's main hooks are registered in BootstrapComponents\\HookRegistry",
 	"HookHandlers": {
 		"BootStrapHooks": {

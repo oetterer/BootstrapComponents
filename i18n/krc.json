@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Къарачайлы"
+		]
+	},
+	"bootstrap-components-desc": "Twitter Bootstrap бир къауум компонентлеге, редакторланы джетишиулерин тынч этерге кюрешигиз",
+	"bootstrap-components-error-tracking-category": "Bootstrap компонентни халатлары бла бетле",
+	"bootstrap-components-close-element": "Джаб",
+	"bootstrap-components-image-modal-source-button": "Къайнакъны джокъла",
+	"bootstrap-components-lua-error-no-component": "mw.bootstrap.parse ючюн джукъ компоенент аты теджелмеди."
+}

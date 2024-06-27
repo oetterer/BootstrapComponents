@@ -3,12 +3,25 @@
 		"authors": [
 			"Omotecho",
 			"Suyama",
-			"Yusuke1109"
+			"Yusuke1109",
+			"もなー(偽物)"
 		]
 	},
 	"bootstrap-components-desc": "Twitter Bootstrapを介して、特定のコンポーネントへの簡単なアクセスを編集者に提供する",
+	"bootstrap-components-error-tracking-category": "bootstrap コンポーネントのエラーがあるページ",
 	"bootstrap-components-close-element": "閉じる",
 	"bootstrap-components-image-modal-source-button": "ソースを閲覧",
+	"bootstrap-components-lua-error-no-component": "mw.bootstrap.parse にコンポーネント名が指定されていません。",
+	"bootstrap-components-lua-error-invalid-component": "mw.bootstrap.parse に渡されたコンポーネント名が無効です。: $1",
+	"bootstrap-components-badge-content-missing": "このバッジのテキストを指定する必要があります。",
+	"bootstrap-components-button-target-missing": "このボタンのターゲットを指定する必要があります。",
+	"bootstrap-components-button-target-invalid": "このボタンには有効なターゲットを指定する必要があります。",
+	"bootstrap-components-carousel-images-missing": "カルーセルに画像が設定されていません。",
 	"bootstrap-components-glyph-icon-name-missing": "アイコン名は必須です。",
-	"bootstrap-components-label-content-missing": "ラベルへの入力は必須です。"
+	"bootstrap-components-label-content-missing": "ラベルへの入力は必須です。",
+	"bootstrap-components-modal-text-missing": "このモーダル ボタンのテキストを指定する必要があります。",
+	"bootstrap-components-popover-heading-missing": "このポップオーバーの見出しを指定する必要があります。",
+	"bootstrap-components-popover-text-missing": "このポップオーバーのテキストを指定する必要があります。",
+	"bootstrap-components-tooltip-content-missing": "このツールチップにはテキスト属性がないため、実際に表示されません。",
+	"bootstrap-components-tooltip-target-missing": "ツールチップを追加するテキストまたは画像を指定する必要があります。"
 }

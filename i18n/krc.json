@@ -8,5 +8,17 @@
 	"bootstrap-components-error-tracking-category": "Bootstrap компонентни халатлары бла бетле",
 	"bootstrap-components-close-element": "Джаб",
 	"bootstrap-components-image-modal-source-button": "Къайнакъны джокъла",
-	"bootstrap-components-lua-error-no-component": "mw.bootstrap.parse ючюн джукъ компоенент аты теджелмеди."
+	"bootstrap-components-lua-error-no-component": "mw.bootstrap.parse ючюн джукъ компоенент аты теджелмеди.",
+	"bootstrap-components-lua-error-invalid-component": "Джараусуз компонент ат mw.bootstrap.parse файлгъа берилди: $1.",
+	"bootstrap-components-badge-content-missing": "Бу белгичик ючюн текстни белгилерге кересиз.",
+	"bootstrap-components-button-target-missing": "Бу тиек ючюн нюзюр белгилерге керексиз.",
+	"bootstrap-components-button-target-invalid": "Бу тиек ючюн джараулу нюзюр белгилерге керексиз.",
+	"bootstrap-components-carousel-images-missing": "Каруселде сурат тоблама джокъду.",
+	"bootstrap-components-glyph-icon-name-missing": "Иконачыкъны атын белгилерге керексиз.",
+	"bootstrap-components-label-content-missing": "Бу этикет текстни белгилерге керексиз.",
+	"bootstrap-components-modal-text-missing": "Бу мод тиек ючюн нюзюр белгилерге керексиз.",
+	"bootstrap-components-popover-heading-missing": "Бу popover ючюн башлыкъ белгилерге керексиз.",
+	"bootstrap-components-popover-text-missing": "Бу popver ючюн текстни белгилерге кересиз.",
+	"bootstrap-components-tooltip-content-missing": "Бу чыгъыучу айтдырыуда текст атрибут джокъду эмда, ол себебден, керти айтдырыу да джокъду.",
+	"bootstrap-components-tooltip-target-missing": "Текстни неда суратны белгилерге керексиз, чыгъыучу айтдырыу къошулургъа керекди."
 }

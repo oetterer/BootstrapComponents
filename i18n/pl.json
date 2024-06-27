@@ -4,6 +4,7 @@
 			"Chrumps",
 			"CiaPan",
 			"DeRudySoulStorm",
+			"Msz2001",
 			"Rail",
 			"Railfail536"
 		]
@@ -22,5 +23,7 @@
 	"bootstrap-components-label-content-missing": "Musisz określić tekst etykiety.",
 	"bootstrap-components-modal-text-missing": "Podaj tekst dla tego przycisku modalnego.",
 	"bootstrap-components-popover-heading-missing": "Podaj nagłówek dla tego okienka.",
-	"bootstrap-components-popover-text-missing": "Podaj tekst dla tego okienka."
+	"bootstrap-components-popover-text-missing": "Podaj tekst dla tego okienka.",
+	"bootstrap-components-tooltip-content-missing": "Ta etykieta nie ma atrybutu z tekstem i w związku z tym nie wyświetla się.",
+	"bootstrap-components-tooltip-target-missing": "Musisz określić tekst albo obraz, do którego etykieta ma być dodana."
 }

@@ -2,10 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"BaRaN6161 TURK",
-			"Hedda"
+			"Hedda",
+			"RuzDD"
 		]
 	},
-	"bootstrap-components-desc": "Twitter Bootstrap tarafından tanıtılan belirli bileşenlere kolay erişim sağlayan editörler sağlamayı amaçlamaktadır.",
+	"bootstrap-components-desc": "Twitter Bootstrap tarafından tanıtılan belirli bileşenlere kolay erişim sağlayan editörler sağlamayı amaçlamaktadır",
 	"bootstrap-components-error-tracking-category": "Önyükleme bileşeni hataları olan sayfalar",
 	"bootstrap-components-close-element": "Kapat",
 	"bootstrap-components-image-modal-source-button": "Kaynağı Ziyaret Et",

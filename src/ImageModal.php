@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains the class for replacing image normal image display with a modal.
+ * Contains the class for replacing normal image display with a modal.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -26,7 +26,6 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use DummyLinker;
 use File;
 use Html;
 use MediaTransformOutput;
@@ -53,11 +52,6 @@ class ImageModal implements NestableInterface {
 	 * @var BootstrapComponentsService
 	 */
 	private BootstrapComponentsService $bootstrapComponentService;
-
-	/**
-	 * @var DummyLinker $dummyLinker
-	 */
-	private DummyLinker $dummyLinker;
 
 	/**
 	 * @var File $file
@@ -97,7 +91,7 @@ class ImageModal implements NestableInterface {
 	/**
 	 * ImageModal constructor.
 	 *
-	 * @param DummyLinker $dummyLinker
+	 * @param null $null (was DummyLinker $dummyLinker)
 	 * @param Title $title
 	 * @param File $file
 	 * @param NestingController $nestingController
@@ -107,12 +101,11 @@ class ImageModal implements NestableInterface {
 	 * @throws MWException cascading {@see ApplicationFactory} methods
 	 */
 	public function __construct(
-		DummyLinker $dummyLinker, Title $title, File $file,
+		$null, Title $title, File $file,
 		NestingController $nestingController, BootstrapComponentsService $bootstrapComponentService,
 		ParserOutputHelper $parserOutputHelper = null
 	) {
 		$this->file = $file;
-		$this->dummyLinker = $dummyLinker;
 		$this->title = $title;
 
 		$this->nestingController = $nestingController;
@@ -195,6 +188,7 @@ class ImageModal implements NestableInterface {
 
 		if ( $res === '' ) {
 			// ImageModal::turnParamsIntoModal returns the empty string, when something went wrong
+			// returning true means, delegating the image rendering back to \MediaWiki\Linker\Linker::makeImageLink
 			return true;
 		}
 		return false;
@@ -282,14 +276,6 @@ class ImageModal implements NestableInterface {
 	}
 
 	/**
-	 * @return DummyLinker
-	 */
-	/** @scrutinizer ignore-unused */
-	protected function getDummyLinker(): DummyLinker {
-		return $this->dummyLinker;
-	}
-
-	/**
 	 * @return File
 	 */
 	protected function getFile(): File {
@@ -312,7 +298,6 @@ class ImageModal implements NestableInterface {
 
 	/**
 	 * @return ParserOutputHelper
-	 * @deprecated
 	 */
 	protected function getParserOutputHelper(): ParserOutputHelper {
 		return $this->parserOutputHelper;
@@ -422,16 +407,13 @@ class ImageModal implements NestableInterface {
 		) {
 			return false;
 		}
-		/** @see ParserOutputHelper::areImageModalsSuppressed as to why we need to use the global parser! */
-		$parser = MediaWikiServices::getInstance()->getParser();
-		// the is_null test has to be added because otherwise some unit tests will fail
-		return is_null( $parser->getOutput() )
-			|| !$parser->getOutput()->getExtensionData( BootstrapComponents::EXTENSION_DATA_NO_IMAGE_MODAL );
+		return !MediaWikiServices::getInstance()->getService( 'BootstrapComponentsService' )
+			->areModalsSuppressedByMagicWord();
 	}
 
 	/**
 	 * @param MediaTransformOutput $img
-	 * @param array                 $sanitizedFrameParams
+	 * @param array                $sanitizedFrameParams
 	 *
 	 * @return string
 	 */

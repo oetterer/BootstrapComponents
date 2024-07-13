@@ -2,6 +2,8 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
+use MediaWiki\Extension\BootstrapComponents\LuaLibrary;
+
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\LuaLibrary
  *
@@ -31,7 +33,7 @@ class LuaLibraryTest extends LuaLibraryTestBase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
-			'MediaWiki\\Extension\\BootstrapComponents\\LuaLibrary',
+			LuaLibrary::class,
 			$this->getLuaLibrary()
 		);
 	}

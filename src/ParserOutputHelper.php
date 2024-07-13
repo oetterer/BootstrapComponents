@@ -26,9 +26,21 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use \Html;
-use \ParserOutput;
-use \Title;
+/*
+ * TODO: When dropping support for MW1.39, use these class imports:
+use MediaWiki\Html\Html;
+use MediaWiki\Message\Message;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\Title\Title;
+*/
+
+use Html;
+use Message;
+use Parser;
+use ParserOutput;
+use Title;
+
 
 /**
  * Class ParserOutputHelper
@@ -54,7 +66,7 @@ class ParserOutputHelper {
 	private $articleTrackedOnError;
 
 	/**
-	 * @var \Parser $parser
+	 * @var Parser $parser
 	 */
 	private $parser;
 
@@ -64,7 +76,7 @@ class ParserOutputHelper {
 	 *
 	 * Do not instantiate directly, but use {@see ApplicationFactory::getParserOutputHelper} instead.
 	 *
-	 * @param \Parser $parser
+	 * @param Parser $parser
 	 *
 	 * @see ApplicationFactory::getParserOutputHelper
 	 */
@@ -115,7 +127,7 @@ class ParserOutputHelper {
 	 * Unless I find a solution for the integration test problem, I cannot use an instance of
 	 * ParserOutputHelper in ImageModal to ascertain this. In integration tests, "we" use a
 	 * different parser than the InternalParseBeforeLinks-Hook. At least, after I added
-	 * Scribunto _unit_ tests. All messes up, I'm afraid. ImageModal better use global parser, and
+	 * Scribunto _unit_ tests. All messed up, I'm afraid. ImageModal better use global parser, and
 	 * for the time being this method will be
 	 * @deprecated
 	 *
@@ -157,7 +169,7 @@ class ParserOutputHelper {
 	 *
 	 * @return string
 	 */
-	public function renderErrorMessage( $errorMessageName ) {
+	public function renderErrorMessage( string $errorMessageName ): string {
 		if ( !$errorMessageName || !trim( $errorMessageName ) ) {
 			return '';
 		}
@@ -165,14 +177,17 @@ class ParserOutputHelper {
 		return Html::rawElement(
 			'span',
 			[ 'class' => 'error' ],
-			wfMessage( trim( $errorMessageName ) )->inContentLanguage()->title( $this->parser->getTitle() )->parse()
+			(new Message( trim( $errorMessageName ) ))->inContentLanguage()->page(
+				$this->getParser()->getPage()
+			)->parse()
 		);
+
 	}
 
 	/**
-	 * @return \Parser
+	 * @return Parser
 	 */
-	protected function getParser() {
+	protected function getParser(): Parser {
 		return $this->parser;
 	}
 
@@ -181,11 +196,11 @@ class ParserOutputHelper {
 	 *
 	 * @param String $trackingCategoryMessageName name of the message, containing the tracking category
 	 */
-	private function placeTrackingCategory( $trackingCategoryMessageName ) {
-		$categoryMessage = wfMessage( $trackingCategoryMessageName )->inContentLanguage();
+	private function placeTrackingCategory( string $trackingCategoryMessageName ): void {
+		$categoryMessage = (new Message( $trackingCategoryMessageName ))->inContentLanguage();
 		$parserOutput = $this->parser->getOutput();
 		if ( !$categoryMessage->isDisabled() && is_a( $parserOutput, ParserOutput::class ) ) {
-			// Q: when do we expect \Parser->getOutput() no to be a \ParserOutput? A:During tests.
+			// Q: when do we expect Parser->getOutput() no to be a ParserOutput? A:During tests.
 			$cat = Title::makeTitleSafe( NS_CATEGORY, $categoryMessage->text() );
 			if ( $cat ) {
 				$sort = (string)$parserOutput->getPageProperty('defaultsort') ?? '';

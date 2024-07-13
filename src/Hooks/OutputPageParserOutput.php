@@ -30,6 +30,11 @@ use MediaWiki\Extension\BootstrapComponents\BootstrapComponents;
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use OutputPage;
 use ParserOutput;
+/*
+ * TODO: When dropping support for 1.39, use these:
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Parser\ParserOutput;
+*/
 
 /**
  * Class OutputPageParserOutput
@@ -126,16 +131,14 @@ class OutputPageParserOutput {
 	/**
 	 * @return OutputPage
 	 */
-	protected function getOutputPage(): OutputPage
-	{
+	protected function getOutputPage(): OutputPage {
 		return $this->outputPage;
 	}
 
 	/**
 	 * @return ParserOutput
 	 */
-	protected function getParserOutput(): ParserOutput
-	{
+	protected function getParserOutput(): ParserOutput {
 		return $this->parserOutput;
 	}
 }

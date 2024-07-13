@@ -5,9 +5,9 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
 use \MWException;
-use \Parser;
-use \ParserOutput;
-use \PHPUnit_Framework_MockObject_MockObject;
+// TODO: when dropping 1.39, switch to MediaWiki\Parser\Parser and MediaWiki\Parser\ParserOutput
+use Parser;
+use ParserOutput;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -27,7 +27,7 @@ class ParserOutputHelperTest extends TestCase {
 	/**
 	 * @var Parser
 	 */
-	private $parser;
+	private Parser $parser;
 
 	/**
 	 * @var ParserOutput
@@ -39,9 +39,7 @@ class ParserOutputHelperTest extends TestCase {
 
 		$this->parserOutput = new ParserOutput( 'ParserOutputMockText' );
 
-		$this->parser = $this->getMockBuilder( 'Parser' )
-			->disableOriginalConstructor()
-			->getMock();
+		$this->parser = $this->createMock( 'Parser' );
 
 		$this->parser->expects( $this->any() )
 			->method( 'getOutput' )
@@ -58,59 +56,23 @@ class ParserOutputHelperTest extends TestCase {
 
 	public function testCanAddErrorTrackingCategory() {
 
-		$parser = $this->getMockBuilder( 'Parser' )
-			->disableOriginalConstructor()
-			->getMock();
+		$parser = $this->createMock( 'Parser' );
 		$parser->expects( $this->once() )
 			->method( 'getOutput' )
 			->willReturn( false );
 
-		/** @noinspection PhpParamsInspection */
 		$instance = new ParserOutputHelper( $parser );
 
 		$instance->addErrorTrackingCategory();
 		$instance->addErrorTrackingCategory();
-	}
-
-	/**
-	 * This is so lame to test. Only reason to do this to up test coverage.
-	 */
-	public function testCanAddModules() {
-		$parserOutput = $this->getMockBuilder( 'ParserOutput' )
-			->disableOriginalConstructor()
-			->getMock();
-		$parserOutput->expects( $this->exactly( 4 ) )
-			->method( 'addModules' )
-			->will( $this->returnArgument( 0 ) );
-		$parser = $this->getMockBuilder( 'Parser' )
-			->disableOriginalConstructor()
-			->getMock();
-		$parser->expects( $this->exactly( 4 ) )
-			->method( 'getOutput' )
-			->willReturn( $parserOutput );
-
-		/** @noinspection PhpParamsInspection */
-		$instance = new ParserOutputHelper( $parser );
-
-		$instance->addModules( /** @scrutinizer ignore-type */ null );
-
-		$instance->addModules( [] );
-
-		/** @noinspection PhpParamsInspection */
-		$instance->addModules( /** @scrutinizer ignore-type */ 'module0' );
-
-		$instance->addModules( [ 'module1', 'module2' ] );
 	}
 
 	public function testCanAddTrackingCategory() {
-		$parser = $this->getMockBuilder( 'Parser' )
-			->disableOriginalConstructor()
-			->getMock();
+		$parser = $this->createMock( 'Parser' );
 		$parser->expects( $this->once() )
 			->method( 'getOutput' )
 			->willReturn( false );
 
-		/** @noinspection PhpParamsInspection */
 		$instance = new ParserOutputHelper( $parser );
 
 		$instance->addTrackingCategory();
@@ -123,8 +85,7 @@ class ParserOutputHelperTest extends TestCase {
 	 *
 	 * @dataProvider errorMessageProvider
 	 */
-	public function testCanRenderErrorMessage( $messageText, $renderedMessageRegExp ) {
-		/** @noinspection PhpParamsInspection */
+	public function testCanRenderErrorMessage( $messageText, string $renderedMessageRegExp ) {
 		$instance = new ParserOutputHelper(
 			$this->buildFullyEquippedParser( ( $renderedMessageRegExp != '~^$~' ) )
 		);
@@ -161,8 +122,6 @@ class ParserOutputHelperTest extends TestCase {
 	 */
 	public function errorMessageProvider() {
 		return [
-			'null'       => [ null, '~^$~' ],
-			'false'      => [ false, '~^$~' ],
 			'none'       => [ '', '~^$~' ],
 			'empty'      => [ '      ', '~^$~' ],
 			'word'       => [ '__rndErrorMessageTextNotInMessageFiles', '~^<span class="error">[^_]+__rndErrorMessageTextNotInMessageFiles[^<]+</span>$~' ],

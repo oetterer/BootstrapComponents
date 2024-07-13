@@ -38,12 +38,12 @@ class BootstrapComponentsServiceTest extends TestCase {
 		$instance = new BootstrapComponentsService( $this->getMockBuilder( Config::class )->getMock() );
 
 		$this->assertEquals(
-			'vector',
+			'vector-2022',
 			$instance->getNameOfActiveSkin()
 		);
 	}
 
-	public function testRegisterModules() {
+	public function testRegisterComponentAsActive() {
 		$instance = new BootstrapComponentsService( $this->getMockBuilder( Config::class )->getMock() );
 
 		$instance->registerComponentAsActive( 'Foo' );
@@ -70,10 +70,11 @@ class BootstrapComponentsServiceTest extends TestCase {
 
 		$reflection = new ReflectionClass( BootstrapComponentsService::class );
 		$method = $reflection->getMethod( 'detectSkinInUse' );
+		$method->setAccessible( true );
 
 		// this is default
 		$this->assertEquals(
-			'vector',
+			'vector-2022',
 			$method->invokeArgs( $instance, [ false ] )
 		);
 

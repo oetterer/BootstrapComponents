@@ -35,17 +35,15 @@ class ImageModalTriggerTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		/** @noinspection PhpParamsInspection */
 		$this->assertInstanceOf(
-			'MediaWiki\\Extension\\BootstrapComponents\\ImageModalTrigger',
+			ImageModalTrigger::class,
 			new ImageModalTrigger(
 				'id',
 				$localFile
 			)
 		);
-		/** @noinspection PhpParamsInspection */
 		$this->assertInstanceOf(
-			'MediaWiki\\Extension\\BootstrapComponents\\ImageModalTrigger',
+			ImageModalTrigger::class,
 			new ImageModalTrigger(
 				'id',
 				$file
@@ -58,7 +56,7 @@ class ImageModalTriggerTest extends TestCase {
 	 * @param array  $hp
 	 * @param string $expectedRegExp
 	 *
-	 * @dataProvider canGenerateProvider
+	 * @dataProvider canParseProvider
 	 * @throws \ConfigException
 	 */
 	public function testCanParse( $sfp, $hp, $expectedRegExp ) {
@@ -104,32 +102,33 @@ class ImageModalTriggerTest extends TestCase {
 			->method( 'transform' )
 			->willReturn( $thumb );
 
-		/** @noinspection PhpParamsInspection */
 		$instance = new ImageModalTrigger( 'id', $file );
 
 		$resultOfParseCall = $instance->generate( $sfp, $hp );
 
-		/** @noinspection PhpParamsInspection */
-		$this->assertEquals(
-			$expectedRegExp,
-			$resultOfParseCall,
-			'failed with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $sfp, $hp )
-		);
+		foreach ( $expectedRegExp as $regExp ) {
+			// TODO when we drop support for MW1.39
+			if ( version_compare( $GLOBALS['wgVersion'], '1.40', 'lt' ) ) {
+				$this->assertRegExp(
+					$regExp, $resultOfParseCall,
+					'failed with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $sfp, $hp )
+				);
+			} else {
+				$this->assertMatchesRegularExpression(
+					$regExp, $resultOfParseCall,
+					'failed with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $sfp, $hp )
+				);
+			}
+		}
 	}
 
 	/**
 	 * @throws \ConfigException cascading {@see \Config::get}
 	 * @return array
 	 */
-	public function canGenerateProvider() {
+	public function canParseProvider() {
 		$globalConfig = MediaWikiServices::getInstance()->getMainConfig();
 		$scriptPath = $globalConfig->get( 'ScriptPath' );
-		# @todo remove this, when dropping support for 1.31
-		$injectedAsyncLoading = (
-		version_compare( $globalConfig->get( 'Version' ), '1.32', 'gt' )
-			? 'decoding="async" '
-			: ''
-		);
 
 		/*
 		 * 1. Parameter: Sanitized frame parameter:
@@ -172,7 +171,9 @@ class ImageModalTriggerTest extends TestCase {
 				[
 					'page' => false,
 				],
-				'<span class="modal-trigger" data-toggle="modal" data-target="#id"><img src="thumbnail::toHtml()/return/value.png" ></span>',
+				[
+					'~<span class="modal-trigger" data-toggle="modal" data-target="#id"><img src="thumbnail::toHtml\(\)/return/value\.png" ></span>~',
+				]
 			],
 			'frame params w/o thumbnail'     => [
 				[
@@ -190,7 +191,10 @@ class ImageModalTriggerTest extends TestCase {
 				[
 					'page' => false,
 				],
-				'<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#id"><img src="thumbnail::toHtml()/return/value.png" alt="test_alt" title="test_title" class="test_class"></span></div>',
+				[
+					'~<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#id">~',
+					'~<img src="thumbnail::toHtml\(\)/return/value\.png" alt="test_alt" title="test_title" class="test_class">~',
+				]
 			],
 			'manual width, frameless'        => [
 				[
@@ -209,7 +213,10 @@ class ImageModalTriggerTest extends TestCase {
 					'width' => 200,
 					'page'  => 7,
 				],
-				'<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#id"><img src="thumbnail::toHtml()/return/value.png" ></span></div>',
+				[
+					'~<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#id">~',
+					'~<img src="thumbnail::toHtml\(\)/return/value\.png" >~',
+				]
 			],
 			'thumbnail, manual width'        => [
 				[
@@ -228,7 +235,11 @@ class ImageModalTriggerTest extends TestCase {
 					'width' => 200,
 					'page'  => 7,
 				],
-				'<div class="thumb tmiddle"><span class="modal-trigger" data-toggle="modal" data-target="#id"><div class="thumbinner" style="width:642px;"><img src="thumbnail::toHtml()/return/value.png" class="thumbimage">  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>',
+				[
+					'~<div class="thumb tmiddle"><span class="modal-trigger" data-toggle="modal" data-target="#id">~',
+					'~<div class="thumbinner" style="width:642px;"><img src="thumbnail::toHtml\(\)/return/value\.png" class="thumbimage">~',
+					'~<div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge">~',
+				]
 			],
 			'manual thumbnail, NOT centered' => [
 				[
@@ -248,7 +259,11 @@ class ImageModalTriggerTest extends TestCase {
 				[
 					'page' => false,
 				],
-				'<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#id"><div class="thumbinner" style="width:96px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading. 'width="94" height="240" class="thumbimage" />  <div class="thumbcaption"></div></div></span></div>',
+				[
+					'~<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#id">~',
+					'~<div class="thumbinner" style="width:96px;">~',
+					'~<img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" decoding="async" width="94" height="240" class="thumbimage" />~',
+				]
 			],
 			'framed'                         => [
 				[
@@ -266,7 +281,10 @@ class ImageModalTriggerTest extends TestCase {
 				[
 					'page' => false,
 				],
-				'<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#id"><div class="thumbinner" style="width:642px;"><img src="thumbnail::toHtml()/return/value.png" class="thumbimage">  <div class="thumbcaption"></div></div></span></div>',
+				[
+					'~<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#id">~',
+					'~<div class="thumbinner" style="width:642px;"><img src="thumbnail::toHtml\(\)/return/value\.png" class="thumbimage">~',
+				]
 			],
 			'centered'                       => [
 				[
@@ -285,7 +303,9 @@ class ImageModalTriggerTest extends TestCase {
 					'width' => 200,
 					'page'  => false,
 				],
-				'<div class="center"><span class="modal-trigger" data-toggle="modal" data-target="#id"><img src="thumbnail::toHtml()/return/value.png" ></span></div>',
+				[
+					'~<div class="center"><span class="modal-trigger" data-toggle="modal" data-target="#id"><img src="thumbnail::toHtml\(\)/return/value\.png" >~',
+				]
 			],
 			'manual thumbnail, upright'      => [
 				[
@@ -305,7 +325,11 @@ class ImageModalTriggerTest extends TestCase {
 				[
 					'page' => false,
 				],
-				'<div class="thumb tleft"><span class="modal-trigger" data-toggle="modal" data-target="#id"><div class="thumbinner" style="width:96px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="94" height="240" class="thumbimage" />  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>',
+				[
+					'~<div class="thumb tleft"><span class="modal-trigger" data-toggle="modal" data-target="#id"><div class="thumbinner" style="width:96px;">~',
+					'~<img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" decoding="async" width="94" height="240" class="thumbimage" />~',
+					'~<div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge">~',
+				]
 			],
 		];
 	}

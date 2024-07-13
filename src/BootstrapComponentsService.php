@@ -20,6 +20,10 @@ class BootstrapComponentsService
 	 */
 	private Config $mainConfig;
 
+	/**
+	 * @var bool
+	 */
+	private bool $modalsSuppressedByMagicWord;
 
 	/**
 	 * Holds the name of the skin we use (or false, if there is no skin).
@@ -31,6 +35,15 @@ class BootstrapComponentsService
 	public function __construct( Config $mainConfig ) {
 		$this->mainConfig = $mainConfig;
 		$this->activeComponents = [];
+		$this->modalsSuppressedByMagicWord = false;
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	public function areModalsSuppressedByMagicWord(): bool {
+		return $this->modalsSuppressedByMagicWord;
 	}
 
 	/**
@@ -59,6 +72,14 @@ class BootstrapComponentsService
 	 */
 	public function registerComponentAsActive( string $componentName ): void {
 		$this->activeComponents[$componentName] = true;
+	}
+
+	/**
+	 * @param bool $modalsSuppressedByMagicWord
+	 * @return void
+	 */
+	public function setModalsSuppressedByMagicWord( bool $modalsSuppressedByMagicWord ): void {
+		$this->modalsSuppressedByMagicWord = $modalsSuppressedByMagicWord;
 	}
 
 	/**

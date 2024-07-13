@@ -14,7 +14,7 @@ use MediaWiki\Hook\ParserAfterParseHook;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Hook\SetupAfterCacheHook;
 use MediaWiki\MediaWikiServices;
-use Parser;
+use MediaWiki\Parser\Parser;
 use SMW\Utils\File;
 use StripState;
 
@@ -168,14 +168,10 @@ class HooksHandler implements
 	 * @return bool
 	 */
 	public function onInternalParseBeforeLinks( $parser, &$text, $stripState ): bool {
-		// we do not use our ParserOutputHelper class here, for we would need to reset it in integration tests.
-		// resetting our factory build classes is unfortunately a little skittish
-		$parser->getOutput()->setExtensionData(
-			BootstrapComponents::EXTENSION_DATA_NO_IMAGE_MODAL,
-			MediaWikiServices::getInstance()->getMagicWordFactory()->get( 'BSC_NO_IMAGE_MODAL' )
-				->matchAndRemove( $text )
+		$this->getBootstrapComponentsService()->setModalsSuppressedByMagicWord(
+			MediaWikiServices::getInstance()
+				->getMagicWordFactory()->get( 'BSC_NO_IMAGE_MODAL' )->matchAndRemove( $text )
 		);
-
 		return true;
 	}
 

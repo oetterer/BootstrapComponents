@@ -41,7 +41,7 @@ class LuaLibraryGetSkinTest extends LuaLibraryTestBase {
 			$this->getLuaLibrary()->getSkin()
 		);
 		$this->assertEquals(
-			'vector',
+			'vector-2022',
 			$this->getLuaLibrary()->getSkin()[0]
 		);
 	}

@@ -15,7 +15,7 @@ local tests = {
 		name = 'mw.bootstrap.parse.getSkin.lua: getSkin',
 		func = mw.bootstrap.getSkin,
 		args = { nil },
-		expect = { 'vector' }
+		expect = { 'vector-2022' }
 	},
 }
 

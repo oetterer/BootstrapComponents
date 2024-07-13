@@ -269,11 +269,21 @@ class ImageModalTest extends TestCase {
 
 		$resultOfParseCall = $instance->parse( $fp, $hp, $time, $res );
 
-		$this->assertEquals(
-			$expectedTrigger,
-			$resultOfParseCall ?: $res,
-			'failed trigger with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $fp, $hp )
-		);
+		if ( version_compare( $GLOBALS['wgVersion'], '1.40', 'lt' ) ) {
+			$this->assertRegExp(
+				$expectedTrigger,
+				$resultOfParseCall ?: $res,
+				'failed with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $fp, $hp )
+			);
+		} else {
+			$this->assertMatchesRegularExpression(
+				$expectedTrigger,
+				$resultOfParseCall ?: $res,
+				'failed with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $fp, $hp )
+				. '++ ' . $expectedTrigger . PHP_EOL
+				. '--  ' . ($resultOfParseCall ?: $res)
+			);
+		}
 		$this->assertEquals(
 			$expectedModal,
 			$modalInjection,
@@ -289,12 +299,6 @@ class ImageModalTest extends TestCase {
 	{
 		$globalConfig = MediaWikiServices::getInstance()->getMainConfig();
 		$scriptPath = $globalConfig->get( 'ScriptPath' );
-		# @todo remove this, when dropping support for 1.31
-		$injectedAsyncLoading = (
-			version_compare( $globalConfig->get( 'Version' ), '1.32', 'gt' )
-				? 'decoding="async" '
-				: ''
-		);
 		/*
 		 * notes on adding tests:
 		 * - when using manual thumbnail, inject $scriptPath: <img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" width="68" height="18" ...
@@ -306,7 +310,7 @@ class ImageModalTest extends TestCase {
 			'no params' => [
 				[],
 				[],
-				'<span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><img src=TEST_OUTPUT ></span>',
+				'~<span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><img src=TEST_OUTPUT ></span>~',
 				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
@@ -320,7 +324,7 @@ class ImageModalTest extends TestCase {
 					'valign'  => 'text-top',
 				],
 				[],
-				'<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><img src=TEST_OUTPUT alt="test_alt" title="test_title" class="test_class"></span></div>',
+				'~<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><img src=TEST_OUTPUT alt="test_alt" title="test_title" class="test_class"></span></div>~',
 				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT alt="test_alt" title="test_title" class="test_class img-fluid"> <div class="modal-caption">test_caption:not next line, still not next line, .' . PHP_EOL . PHP_EOL . 'next line</div></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
@@ -333,7 +337,7 @@ class ImageModalTest extends TestCase {
 					'width' => 200,
 					'page'  => 7,
 				],
-				'<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><img src=TEST_OUTPUT ></span></div>',
+				'~<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><img src=TEST_OUTPUT ></span></div>~',
 				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png?page=7">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
@@ -346,7 +350,7 @@ class ImageModalTest extends TestCase {
 					'width' => 200,
 					'page'  => 7,
 				],
-				'<div class="thumb tmiddle"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><div class="thumbinner" style="width:642px;"><img src=TEST_OUTPUT class="thumbimage">  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>',
+				'~<div class="thumb tmiddle"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><div class="thumbinner" style="width:642px;"><img src=TEST_OUTPUT class="thumbimage">  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>~',
 				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div>'
 				. '<div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png?page=7">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
@@ -357,7 +361,7 @@ class ImageModalTest extends TestCase {
 					'framed'      => false,
 				],
 				[],
-				'<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><div class="thumbinner" style="width:96px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="94" height="240" class="thumbimage" />  <div class="thumbcaption"></div></div></span></div>',
+				'~<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><div class="thumbinner" style="width:96px;">(<span>)?<img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" decoding="async" width="94" height="240" class="thumbimage" />(</span>)?  <div class="thumbcaption"></div></div></span></div>~',
 				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div>'
 				. '<div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
@@ -367,7 +371,7 @@ class ImageModalTest extends TestCase {
 					'framed' => false,
 				],
 				[],
-				'<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><div class="thumbinner" style="width:642px;"><img src=TEST_OUTPUT class="thumbimage">  <div class="thumbcaption"></div></div></span></div>',
+				'~<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><div class="thumbinner" style="width:642px;"><img src=TEST_OUTPUT class="thumbimage">  <div class="thumbcaption"></div></div></span></div>~',
 				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
@@ -378,7 +382,7 @@ class ImageModalTest extends TestCase {
 				[
 					'width' => 200,
 				],
-				'<div class="center"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><img src=TEST_OUTPUT ></span></div>',
+				'~<div class="center"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><img src=TEST_OUTPUT ></span></div>~',
 				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
@@ -389,7 +393,7 @@ class ImageModalTest extends TestCase {
 					'manualthumb' => 'Shuttle.png',
 				],
 				[],
-				'<div class="thumb tleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><div class="thumbinner" style="width:96px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="94" height="240" class="thumbimage" />  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>',
+				'~<div class="thumb tleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><div class="thumbinner" style="width:96px;">(<span>)?<img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" decoding="async" width="94" height="240" class="thumbimage" />(</span>)?  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>~',
 				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],

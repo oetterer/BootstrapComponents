@@ -5,7 +5,6 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Hooks;
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput;
 use OutputPage;
-use Parser;
 use ParserOutput;
 use PHPUnit\Framework\TestCase;
 
@@ -35,7 +34,7 @@ class OutputPageParserOutputTest extends TestCase {
 		);
 
 		$this->assertInstanceOf(
-			'MediaWiki\\Extension\\BootstrapComponents\\Hooks\\OutputPageParserOutput',
+			OutputPageParserOutput::class,
 			$instance
 		);
 	}

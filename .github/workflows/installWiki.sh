@@ -53,6 +53,7 @@ echo '$wgArticlePath = $wgScriptPath . "/$1";' >> LocalSettings.php
 echo '$wgEnableUploads = true;' >> LocalSettings.php
 
 echo 'wfLoadSkin( "Vector" );' >> LocalSettings.php
+echo '$wgDefaultSkin = "vector-2022";' >> LocalSettings.php
 
 echo 'wfLoadExtension( "Bootstrap" );' >> LocalSettings.php
 echo 'wfLoadExtension( "Scribunto" );' >> LocalSettings.php

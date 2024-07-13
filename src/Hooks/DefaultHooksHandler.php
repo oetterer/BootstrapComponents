@@ -1,6 +1,6 @@
 <?php
 
-namespace BootstrapComponents\Hooks;
+namespace MediaWiki\Extension\BootstrapComponents\Hooks;
 
 use Bootstrap\BootstrapManager;
 use MediaWiki\Hook\ParserAfterParseHook;

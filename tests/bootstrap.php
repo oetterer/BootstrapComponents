@@ -25,13 +25,13 @@ $autoloader = require __DIR__ . '/autoloader.php';
 require __DIR__ . '/TestInfoScreen.php';
 require __DIR__ . '/PhpUnitEnvironment.php';
 
-$phpUnitEnvironment = new \BootstrapComponents\Tests\PHPUnitEnvironment();
+$phpUnitEnvironment = new MediaWiki\Extension\BootstrapComponents\Tests\PHPUnitEnvironment();
 
 if ( $phpUnitEnvironment->hasDebugRequest( $GLOBALS['argv'] ) === false ) {
 	$phpUnitEnvironment->emptyDebugVars();
 }
 
-$testInfoScreen = new \BootstrapComponents\Tests\TestInfoScreen( 25 );
+$testInfoScreen = new MediaWiki\Extension\BootstrapComponents\Tests\TestInfoScreen( 25 );
 
 $testInfoScreen->addInfoToBlock( "MediaWiki:", $phpUnitEnvironment->getSoftwareInfo( 'mw' ) );
 $testInfoScreen->addInfoToBlock( "Bootstrap:", $phpUnitEnvironment->getSoftwareInfo( 'Bootstrap' ) );

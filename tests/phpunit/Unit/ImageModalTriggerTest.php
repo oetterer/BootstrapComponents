@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\ImageModalTrigger;
+use MediaWiki\Extension\BootstrapComponents\ImageModalTrigger;
 use \MediaWiki\MediaWikiServices;
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers  \BootstrapComponents\ImageModalTrigger
+ * @covers  \MediaWiki\Extension\BootstrapComponents\ImageModalTrigger
  *
  * @ingroup Test
  *
@@ -19,7 +19,7 @@ use \PHPUnit_Framework_TestCase;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class ImageModalTriggerTest extends PHPUnit_Framework_TestCase {
+class ImageModalTriggerTest extends TestCase {
 
 	public function setUp(): void {
 		parent::setUp();
@@ -37,7 +37,7 @@ class ImageModalTriggerTest extends PHPUnit_Framework_TestCase {
 
 		/** @noinspection PhpParamsInspection */
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ImageModalTrigger',
+			'MediaWiki\\Extension\\BootstrapComponents\\ImageModalTrigger',
 			new ImageModalTrigger(
 				'id',
 				$localFile
@@ -45,7 +45,7 @@ class ImageModalTriggerTest extends PHPUnit_Framework_TestCase {
 		);
 		/** @noinspection PhpParamsInspection */
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ImageModalTrigger',
+			'MediaWiki\\Extension\\BootstrapComponents\\ImageModalTrigger',
 			new ImageModalTrigger(
 				'id',
 				$file

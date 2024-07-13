@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Components;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Components\Button;
-use BootstrapComponents\Tests\Unit\ComponentsTestBase;
+use MediaWiki\Extension\BootstrapComponents\Components\Button;
+use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Components\Button
+ * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Button
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class ButtonTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\Components\\Button',
+			'MediaWiki\\Extension\\BootstrapComponents\\Components\\Button',
 			new Button(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),

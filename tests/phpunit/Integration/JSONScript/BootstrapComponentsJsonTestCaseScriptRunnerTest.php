@@ -1,10 +1,10 @@
 <?php
 
-namespace BootstrapComponents\Tests\Integration;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Integration;
 
-use BootstrapComponents\ApplicationFactory;
-use BootstrapComponents\Hooks\OutputPageParserOutput;
-use BootstrapComponents\HookRegistry;
+use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
+use MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput;
+use MediaWiki\Extension\BootstrapComponents\HookRegistry;
 use SMW\DIWikiPage;
 use SMW\Tests\JSONScriptTestCaseRunner;
 use SMW\Tests\Utils\JSONScript\JsonTestCaseFileHandler;
@@ -64,12 +64,13 @@ class BootstrapComponentsJSONScriptTestCaseRunnerTest extends JSONScriptTestCase
 			define( 'BSC_INTEGRATION_TEST', true );
 		}
 
-		$hookRegistry = new HookRegistry();
-		$hookRegistry->clear();
-		$hookCallbackList = $hookRegistry->buildHookCallbackListFor(
-			HookRegistry::AVAILABLE_HOOKS
-		);
-		$hookRegistry->register( $hookCallbackList );
+		// hook registry was removed in 5.2.0
+		#$hookRegistry = new HookRegistry();
+		#$hookRegistry->clear();
+		#$hookCallbackList = $hookRegistry->buildHookCallbackListFor(
+		#	HookRegistry::AVAILABLE_HOOKS
+		#);
+		#$hookRegistry->register( $hookCallbackList );
 	}
 
 	/**

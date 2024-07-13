@@ -1,14 +1,14 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Hooks;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Hooks;
 
-use BootstrapComponents\Hooks\ParserFirstCallInit as ParserFirstCallInit;
-use BootstrapComponents\ComponentLibrary;
+use MediaWiki\Extension\BootstrapComponents\Hooks\ParserFirstCallInit as ParserFirstCallInit;
+use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use \Parser;
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers  \BootstrapComponents\Hooks\ParserFirstCallInit
+ * @covers  \MediaWiki\Extension\BootstrapComponents\Hooks\ParserFirstCallInit
  *
  * @ingroup Test
  *
@@ -20,17 +20,17 @@ use \PHPUnit_Framework_TestCase;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
+class ParserFirstCallInitTest extends TestCase {
 
 	public function testCanConstruct() {
 
 		$parser = $this->getMockBuilder( Parser::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$componentLibrary = $this->getMockBuilder( 'BootstrapComponents\ComponentLibrary' )
+		$componentLibrary = $this->getMockBuilder( 'MediaWiki\Extension\BootstrapComponents\ComponentLibrary' )
 			->disableOriginalConstructor()
 			->getMock();
-		$nestingController = $this->getMockBuilder( 'BootstrapComponents\NestingController' )
+		$nestingController = $this->getMockBuilder( 'MediaWiki\Extension\BootstrapComponents\NestingController' )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -38,7 +38,7 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 		$instance = new ParserFirstCallInit( $parser, $componentLibrary, $nestingController );
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\Hooks\\ParserFirstCallInit',
+			'MediaWiki\\Extension\\BootstrapComponents\\Hooks\\ParserFirstCallInit',
 			$instance
 		);
 	}
@@ -58,8 +58,8 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 				[ $this->equalTo( $prefix . 'badge' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'button' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'carousel' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'tooltip' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'label' ), $this->callback( 'is_callable' ) ]
+				[ $this->equalTo( $prefix . 'label' ), $this->callback( 'is_callable' ) ],
+				[ $this->equalTo( $prefix . 'tooltip' ), $this->callback( 'is_callable' ) ]
 			);
 		$observerParser->expects( $this->exactly( 9 ) )
 			->method( 'setHook' )
@@ -70,8 +70,8 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 				[ $this->equalTo( $prefix . 'collapse' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'jumbotron' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'modal' ), $this->callback( 'is_callable' ) ],
-				[ $this->equalTo( $prefix . 'popover' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'panel' ), $this->callback( 'is_callable' ) ],
+				[ $this->equalTo( $prefix . 'popover' ), $this->callback( 'is_callable' ) ],
 				[ $this->equalTo( $prefix . 'well' ), $this->callback( 'is_callable' ) ]
 			);
 		$componentLibrary = new ComponentLibrary( true );
@@ -108,7 +108,7 @@ class ParserFirstCallInitTest extends PHPUnit_Framework_TestCase {
 			} ) );
 
 		$componentLibrary = new ComponentLibrary( true );
-		$nestingController = $this->getMockBuilder( 'BootstrapComponents\NestingController' )
+		$nestingController = $this->getMockBuilder( 'MediaWiki\Extension\BootstrapComponents\NestingController' )
 			->disableOriginalConstructor()
 			->getMock();
 

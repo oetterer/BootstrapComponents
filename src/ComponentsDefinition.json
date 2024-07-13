@@ -1,13 +1,13 @@
 {
 	"accordion": {
-		"class": "BootstrapComponents\\Components\\Accordion",
+		"class": "MediaWiki\\Extension\\BootstrapComponents\\Components\\Accordion",
 		"handlerType": "tag",
 		"modules": {
 			"default": "ext.bootstrapComponents.accordion.fix"
 		}
 	},
 	"alert": {
-		"class": "BootstrapComponents\\Components\\Alert",
+		"class": "MediaWiki\\Extension\\BootstrapComponents\\Components\\Alert",
 		"handlerType": "tag",
 		"attributes": [
 			"color",
@@ -18,7 +18,7 @@
 		}
 	},
 	"badge": {
-		"class": "BootstrapComponents\\Components\\Badge",
+		"class": "MediaWiki\\Extension\\BootstrapComponents\\Components\\Badge",
 		"handlerType": "function",
 		"attributes": [
 			"color",
@@ -26,7 +26,7 @@
 		]
 	},
 	"button": {
-		"class": "BootstrapComponents\\Components\\Button",
+		"class": "MediaWiki\\Extension\\BootstrapComponents\\Components\\Button",
 		"handlerType": "function",
 		"attributes": [
 			"active",
@@ -41,7 +41,7 @@
 		}
 	},
 	"card": {
-		"class": "BootstrapComponents\\Components\\Card",
+		"class": "MediaWiki\\Extension\\BootstrapComponents\\Components\\Card",
 		"handlerType": "tag",
 		"attributes": [
 			"active",
@@ -68,7 +68,7 @@
 		}
 	},
 	"carousel": {
-		"class": "BootstrapComponents\\Components\\Carousel",
+		"class": "MediaWiki\\Extension\\BootstrapComponents\\Components\\Carousel",
 		"handlerType": "function",
 		"attributes": [
 			"fade"
@@ -78,7 +78,7 @@
 		}
 	},
 	"collapse": {
-		"class": "BootstrapComponents\\Components\\Collapse",
+		"class": "MediaWiki\\Extension\\BootstrapComponents\\Components\\Collapse",
 		"handlerType": "tag",
 		"attributes": [
 			"active",
@@ -93,12 +93,12 @@
 		}
 	},
 	"jumbotron": {
-		"class": "BootstrapComponents\\Components\\Jumbotron",
+		"class": "MediaWiki\\Extension\\BootstrapComponents\\Components\\Jumbotron",
 		"handlerType": "tag"
 	},
 	"label": "badge",
 	"modal": {
-		"class": "BootstrapComponents\\Components\\Modal",
+		"class": "MediaWiki\\Extension\\BootstrapComponents\\Components\\Modal",
 		"handlerType": "tag",
 		"attributes": [
 			"color",
@@ -127,7 +127,7 @@
 	},
 	"panel": "card",
 	"popover": {
-		"class": "BootstrapComponents\\Components\\Popover",
+		"class": "MediaWiki\\Extension\\BootstrapComponents\\Components\\Popover",
 		"handlerType": "tag",
 		"attributes": [
 			"color",
@@ -155,7 +155,7 @@
 		}
 	},
 	"tooltip": {
-		"class": "BootstrapComponents\\Components\\Tooltip",
+		"class": "MediaWiki\\Extension\\BootstrapComponents\\Components\\Tooltip",
 		"handlerType": "function",
 		"attributes": [
 			"placement",

@@ -24,9 +24,10 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents;
+namespace MediaWiki\Extension\BootstrapComponents;
 
-use \MWException;
+use MediaWiki\MediaWikiServices;
+use MWException;
 
 /**
  * Class NestingController
@@ -43,7 +44,7 @@ class NestingController {
 	 *
 	 * @var array $autoincrementPerComponent
 	 */
-	private $autoincrementPerComponent;
+	private array $autoincrementPerComponent;
 
 	/**
 	 * Holds information about the bootstrap component stack, so that components
@@ -53,14 +54,13 @@ class NestingController {
 	 *
 	 * @var array $componentStack
 	 */
-	private $componentStack;
+	private array $componentStack;
 
 	/**
 	 * NestingController constructor.
 	 *
-	 * Do not instantiate directly, but use {@see ApplicationFactory::getNestingController} instead.
-	 *
-	 * @see ApplicationFactory::getNestingController
+	 * Do not instantiate directly, but use {@see MediaWikiServices::get()} with argument
+	 * 'NestingController' instead.
 	 */
 	public function __construct() {
 		$this->autoincrementPerComponent = [];
@@ -74,7 +74,7 @@ class NestingController {
 	 *
 	 * @throws MWException if current and closing component is different
 	 */
-	public function close( $id ) {
+	public function close( $id ): void {
 		$current = $this->getCurrentElement();
 		if ( !$current ) {
 			throw new MWException( 'Nesting error. Tried to close an empty stack.' );
@@ -92,7 +92,7 @@ class NestingController {
 	 *
 	 * @return string
 	 */
-	public function generateUniqueId( $componentName ) {
+	public function generateUniqueId( string $componentName ): string {
 		if ( !isset( $this->autoincrementPerComponent[$componentName] ) ) {
 			$this->autoincrementPerComponent[$componentName] = 0;
 		}
@@ -101,6 +101,8 @@ class NestingController {
 
 	/**
 	 * Returns a reference to the last opened component.
+	 *
+	 * @note do not declare a return type for it will break unit tests.
 	 *
 	 * @return false|NestableInterface
 	 */
@@ -113,7 +115,7 @@ class NestingController {
 	 *
 	 * @return int
 	 */
-	public function getStackSize() {
+	public function getStackSize(): int {
 		return count( $this->componentStack );
 	}
 
@@ -124,10 +126,10 @@ class NestingController {
 	 *
 	 * @throws MWException when open is called with an invalid object
 	 */
-	public function open( &$nestable ) {
+	public function open( mixed &$nestable ): void {
 		if ( !$nestable instanceof NestableInterface ) {
 			throw new MWException( 'Nesting error. Trying to put an object other than a Component an the nesting stack.' );
 		}
-		array_push( $this->componentStack, $nestable );
+		$this->componentStack[] = $nestable;
 	}
 }

@@ -24,9 +24,9 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents;
+namespace MediaWiki\Extension\BootstrapComponents;
 
-use \MediaWiki\MediaWikiServices;
+use MediaWiki\MediaWikiServices;
 use \MWException;
 
 /**
@@ -84,46 +84,35 @@ class ComponentLibrary {
 	 *
 	 * @var array $componentDataStore
 	 */
-	private $componentDataStore;
+	private array $componentDataStore;
 
 	/**
 	 * The list of registered/allowed bootstrap components, name or alias
 	 *
 	 * @var string[] $registeredComponents
 	 */
-	private $registeredComponents;
+	private array $registeredComponents;
 
 	/**
 	 * @param string $componentName
 	 *
 	 * @return string
 	 */
-	public static function compileParserHookStringFor( $componentName ) {
+	public static function compileParserHookStringFor( string $componentName ): string {
 		return self::PARSER_HOOK_PREFIX . strtolower( $componentName );
 	}
 
 	/**
 	 * ComponentLibrary constructor.
 	 *
-	 * Do not instantiate directly, but use {@see ApplicationFactory::getComponentLibrary} instead.
+	 * Do not instantiate directly, but use
+	 * MediaWikiService::getInstance->get('BootstrapComponents.ComponentLibrary') instead.
 	 *
-	 * @param bool|array $componentWhiteList (see {@see \BootstrapComponents\ComponentLibrary::$componentWhiteList})
-	 *
-	 * @throws \ConfigException cascading {@see \ConfigFactory::makeConfig} and
-	 * @see ApplicationFactory::getComponentLibrary
-	 *
+	 * @param bool|array $componentWhiteList (see {@see ComponentLibrary::$componentWhiteList})
 	 */
-	public function __construct( $componentWhiteList = null ) {
+	public function __construct( bool|array $componentWhiteList = true ) {
 
-		if ( is_null( $componentWhiteList ) ) {
-			$myConfig = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'BootstrapComponents' );
-
-			$componentWhiteList = $myConfig->has( 'BootstrapComponentsWhitelist' )
-				? $myConfig->get( 'BootstrapComponentsWhitelist' )
-				: true;
-		}
-		$componentWhiteList = $this->mangle( $componentWhiteList );
-		$this->registeredComponents = $this->registerComponents( $componentWhiteList );
+		$this->registeredComponents = $this->processWhitelist( $componentWhiteList );
 	}
 
 	/**
@@ -131,7 +120,7 @@ class ComponentLibrary {
 	 *
 	 * @return array
 	 */
-	public function compileMagicWordsArray() {
+	public function compileMagicWordsArray(): array {
 		$magicWords = [];
 		foreach ( $this->getRegisteredComponents() as $componentName ) {
 			if ( $this->isParserFunction( $componentName ) ) {
@@ -143,17 +132,6 @@ class ComponentLibrary {
 	}
 
 	/**
-	 * Checks, if component $componentIdentifier is registered
-	 *
-	 * @param string $componentIdentifier
-	 *
-	 * @return bool
-	 */
-	public function isRegistered( $componentIdentifier ) {
-		return in_array( $componentIdentifier, $this->registeredComponents, true );
-	}
-
-	/**
 	 * Returns the defined/allowed attribute aliases for component/alias $componentIdentifier.
 	 *
 	 * @param string $componentIdentifier
@@ -161,7 +139,7 @@ class ComponentLibrary {
 	 * @return array
 	 * @throws MWException provided component is not known
 	 */
-	public function getAliasesFor( $componentIdentifier ) {
+	public function getAliasesFor( string $componentIdentifier ): array {
 		return $this->accessComponentDataStore( $componentIdentifier, 'aliases' );
 	}
 
@@ -173,7 +151,7 @@ class ComponentLibrary {
 	 * @return array
 	 * @throws MWException provided component is not known
 	 */
-	public function getAttributesFor( $componentIdentifier ) {
+	public function getAttributesFor( string $componentIdentifier ): array {
 		return $this->accessComponentDataStore( $componentIdentifier, 'attributes' );
 	}
 
@@ -183,8 +161,9 @@ class ComponentLibrary {
 	 * @param string $componentIdentifier
 	 *
 	 * @return string
+	 * @throws MWException provided component is not known
 	 */
-	public function getClassFor( $componentIdentifier ) {
+	public function getClassFor( string $componentIdentifier ): string {
 		return $this->accessComponentDataStore( $componentIdentifier, 'class' );
 	}
 
@@ -194,11 +173,12 @@ class ComponentLibrary {
 	 * @param string $componentIdentifier
 	 *
 	 * @return string
-	 * @see \BootstrapComponents\ComponentLibrary::HANDLER_TYPE_PARSER_FUNCTION,
-	 *      \BootstrapComponents\ComponentLibrary::HANDLER_TYPE_TAG_EXTENSION
+	 *
+	 * @see ComponentLibrary::HANDLER_TYPE_PARSER_FUNCTION
+	 * @see ComponentLibrary::HANDLER_TYPE_TAG_EXTENSION
 	 *
 	 */
-	public function getHandlerTypeFor( $componentIdentifier ) {
+	public function getHandlerTypeFor( string $componentIdentifier ): string {
 		try {
 			return $this->accessComponentDataStore( $componentIdentifier, 'handlerType' );
 		} catch ( MWException $e ) {
@@ -225,6 +205,10 @@ class ComponentLibrary {
 	 * @return array
 	 */
 	public function getModulesFor( string $componentIdentifier, ?string $skin = null ): array {
+		if ( !$this->isKnown( $componentIdentifier ) ) {
+			// this prevents us from running into a MWException in the next call.
+			return [];
+		}
 		$allModules = $this->accessComponentDataStore( $componentIdentifier, 'modules' );
 
 		$modules = isset( $allModules['default'] )
@@ -248,13 +232,12 @@ class ComponentLibrary {
 	 *
 	 * @return string
 	 */
-	public function getNameFor( $componentClass ): string {
+	public function getNameFor( string $componentClass ): string {
 		$component = null;
 
-		// if $componentClass is not in values in $this->registeredComponentClasses, this has to fail
 		foreach ( $this->getComponentDataStore() as $componentIdentifier => $componentData ) {
-			if ( isset( $componentData['class'] ) && ( $componentData['class'] == $componentClass ) && isset( $componentData['name'] ) ) {
-				$component = $componentData['name'];
+			if ( isset( $componentData['class'] ) && ( $componentData['class'] == $componentClass ) ) {
+				$component = $componentIdentifier;
 				break;
 			}
 		}
@@ -274,14 +257,34 @@ class ComponentLibrary {
 	}
 
 	/**
-	 * True, if referenced component is registered as parser function.
-	 *
-	 * @param string $componentName
+	 * @param string $componentIdentifier
 	 *
 	 * @return bool
 	 */
-	public function isParserFunction( $componentName ) {
-		return $this->getHandlerTypeFor( $componentName ) == self::HANDLER_TYPE_PARSER_FUNCTION;
+	public function isKnown( string $componentIdentifier ): bool {
+		return in_array( $componentIdentifier, $this->getKnownComponents() );
+	}
+
+	/**
+	 * True, if referenced component is registered as parser function.
+	 *
+	 * @param string $componentIdentifier
+	 *
+	 * @return bool
+	 */
+	public function isParserFunction( string $componentIdentifier ): string {
+		return $this->getHandlerTypeFor( $componentIdentifier ) == self::HANDLER_TYPE_PARSER_FUNCTION;
+	}
+
+	/**
+	 * Checks, if component $componentIdentifier is registered
+	 *
+	 * @param string $componentIdentifier
+	 *
+	 * @return bool
+	 */
+	public function isRegistered( string $componentIdentifier ): bool {
+		return in_array( $componentIdentifier, $this->registeredComponents, true );
 	}
 
 	/**
@@ -291,7 +294,7 @@ class ComponentLibrary {
 	 *
 	 * @return bool
 	 */
-	public function isTagExtension( $componentName ) {
+	public function isTagExtension( string $componentName ): bool {
 		return $this->getHandlerTypeFor( $componentName ) == self::HANDLER_TYPE_TAG_EXTENSION;
 	}
 
@@ -299,10 +302,11 @@ class ComponentLibrary {
 	 * @param string $componentIdentifier
 	 * @param string $field
 	 *
-	 * @throws MWException on non existing $componentIdentifier or $field
+	 * @throws MWException on non-existing $componentIdentifier or $field
+	 *
 	 * @return mixed
 	 */
-	protected function accessComponentDataStore( $componentIdentifier, $field ) {
+	protected function accessComponentDataStore( string $componentIdentifier, string $field ): mixed {
 		if ( !isset( $this->getComponentDataStore()[$componentIdentifier][$field] ) ) {
 			throw new MWException(
 				'Trying to access undefined field \'' . $field . '\' of component \'' . $componentIdentifier . '\'. Aborting'
@@ -311,22 +315,9 @@ class ComponentLibrary {
 		return $this->getComponentDataStore()[$componentIdentifier][$field];
 	}
 
-	/**
-	 * Sees to it, that the whitelist (if it is an array) contains only lowercase strings.
-	 *
-	 * @param bool|array $componentWhiteList
-	 *
-	 * @return bool|array
-	 */
-	private function mangle( $componentWhiteList ) {
-		if ( !is_array( $componentWhiteList ) ) {
-			return $componentWhiteList;
-		}
-		$newWhiteList = [];
-		foreach ( $componentWhiteList as $element ) {
-			$newWhiteList[] = strtolower( trim( $element ) );
-		}
-		return $newWhiteList;
+	protected function hasFieldInDataStore( string $componentIdentifier, string $field ): bool {
+		return $this->isRegistered( $componentIdentifier )
+			&& isset( $this->getComponentDataStore()[$componentIdentifier][$field] );
 	}
 
 	/**
@@ -336,35 +327,13 @@ class ComponentLibrary {
 	 *
 	 * @return array
 	 */
-	private function normalizeAttributes( $componentAttributes ) {
-		$componentAttributes = (array) $componentAttributes;
-		$componentAttributes = array_unique(
+	private function normalizeAttributes( array $componentAttributes ): array {
+		return array_unique(
 			array_merge(
 				$componentAttributes,
 				self::DEFAULT_ATTRIBUTES
 			)
 		);
-		return $componentAttributes;
-	}
-
-	/**
-	 * Generates the array for registered components containing all whitelisted component identifiers
-	 *
-	 * @param bool|array $componentWhiteList
-	 *
-	 * @return string[] list of registered component identifiers
-	 */
-	private function registerComponents( $componentWhiteList ) {
-		$registeredComponents = [];
-		foreach ( $this->getKnownComponents() as $componentIdentifier ) {
-
-			if ( !$componentWhiteList || (is_array( $componentWhiteList ) && !in_array( $componentIdentifier, $componentWhiteList )) ) {
-				// if $componentWhiteList is false, or and array and does not contain the $componentIdentifier, we will not register it
-				continue;
-			}
-			$registeredComponents[] = $componentIdentifier;
-		}
-		return $registeredComponents;
 	}
 
 	/**
@@ -372,7 +341,7 @@ class ComponentLibrary {
 	 *
 	 * @return array
 	 */
-	private function getComponentDataStore() {
+	private function getComponentDataStore(): array {
 		if ( !empty( $this->componentDataStore ) ) {
 			return $this->componentDataStore;
 		}
@@ -388,11 +357,9 @@ class ComponentLibrary {
 			}
 
 			$componentData['name'] = $componentName;
-			$componentData['attributes'] = $this->normalizeAttributes(
-				(isset( $componentData['attributes'] ) ? $componentData['attributes'] : [])
-			);
-			$componentData['aliases'] = isset( $componentData['aliases'] ) ? $componentData['aliases'] : [];
-			$componentData['modules'] = isset( $componentData['modules'] ) ? $componentData['modules'] : [];
+			$componentData['attributes'] = $this->normalizeAttributes( ($componentData['attributes'] ?? []) );
+			$componentData['aliases'] = $componentData['aliases'] ?? [];
+			$componentData['modules'] = $componentData['modules'] ?? [];
 			$componentDataStore[$componentName] = $componentData;
 		}
 
@@ -403,5 +370,33 @@ class ComponentLibrary {
 		}
 
 		return $this->componentDataStore = $componentDataStore;
+	}
+
+	/**
+	 * If whitelist is a bool, this returns either an empty array or an array, containing all
+	 * identifiers from the componentDataStore.
+	 *
+	 * If the whileList is a non-empty array, this trims and lowercases its values.
+	 *
+	 * @param bool|array $componentWhiteList
+	 *
+	 * @return array
+	 */
+	private function processWhitelist( null|bool|array $componentWhiteList ): array {
+		if ( !is_array( $componentWhiteList ) ) {
+			if ( !$componentWhiteList ) {
+				return [];
+			}
+			$componentWhiteList = $this->getKnownComponents();
+			sort( $componentWhiteList );
+			return $componentWhiteList;
+		}
+		$newWhiteList = [];
+		foreach ( $componentWhiteList as $element ) {
+			$newWhiteList[] = strtolower( trim( $element ) );
+		}
+		$newWhiteList = array_intersect( $newWhiteList, $this->getKnownComponents() );
+		sort( $newWhiteList );
+		return $newWhiteList;
 	}
 }

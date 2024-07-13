@@ -1,9 +1,9 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
 /**
- * @covers \BootstrapComponents\LuaLibrary
+ * @covers  \MediaWiki\Extension\BootstrapComponents\LuaLibrary
  * @ingroup Test
  *
  * @group   extension-bootstrap-components

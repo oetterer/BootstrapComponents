@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Components;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Components\Badge;
-use BootstrapComponents\Tests\Unit\ComponentsTestBase;
+use MediaWiki\Extension\BootstrapComponents\Components\Badge;
+use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Components\Badge
+ * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Badge
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class BadgeTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'\\BootstrapComponents\\Components\\Badge',
+			'MediaWiki\\Extension\\BootstrapComponents\\Components\\Badge',
 			new Badge(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),

@@ -1,14 +1,14 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\AbstractComponent;
-use BootstrapComponents\ComponentLibrary;
-use BootstrapComponents\NestingController;
-use \PHPUnit_Framework_TestCase;
+use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
+use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
+use MediaWiki\Extension\BootstrapComponents\NestingController;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers  \BootstrapComponents\NestingController
+ * @covers  \MediaWiki\Extension\BootstrapComponents\NestingController
  *
  * @ingroup Test
  *
@@ -20,7 +20,7 @@ use \PHPUnit_Framework_TestCase;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class NestingControllerTest extends PHPUnit_Framework_TestCase {
+class NestingControllerTest extends TestCase {
 	/**
 	 * @param string $componentName
 	 * @param string $componentClass
@@ -41,7 +41,7 @@ class NestingControllerTest extends PHPUnit_Framework_TestCase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
-			'BootstrapComponents\\NestingController',
+			'MediaWiki\\Extension\\BootstrapComponents\\NestingController',
 			new NestingController()
 		);
 	}
@@ -67,7 +67,7 @@ class NestingControllerTest extends PHPUnit_Framework_TestCase {
 			$instance->getStackSize()
 		);
 		$this->assertInstanceOf(
-			'BootstrapComponents\\AbstractComponent',
+			'MediaWiki\\Extension\\BootstrapComponents\\AbstractComponent',
 			$instance->getCurrentElement()
 		);
 		$this->assertEquals(
@@ -118,7 +118,7 @@ class NestingControllerTest extends PHPUnit_Framework_TestCase {
 		$this->expectException( 'MWException' );
 
 		/** @var AbstractComponent $component */
-		$component = $this->getComponent( 'panel', 'BootstrapComponents\\Components\\Card' );
+		$component = $this->getComponent( 'panel', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Card' );
 		$instance->open( $component );
 
 		$instance->close( 'invalid' );

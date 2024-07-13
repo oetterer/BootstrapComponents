@@ -1,12 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\ComponentLibrary;
-use \PHPUnit_Framework_TestCase;
+use ConfigException;
+use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers  \BootstrapComponents\ComponentLibrary
+ * @covers  \MediaWiki\Extension\BootstrapComponents\ComponentLibrary
  *
  * @ingroup Test
  *
@@ -18,7 +19,7 @@ use \PHPUnit_Framework_TestCase;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
+class ComponentLibraryTest extends TestCase {
 
 	public function testCanConstruct() {
 
@@ -42,7 +43,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testCanCompileMagicWordsArray() {
-		$instance = new ComponentLibrary();
+		$instance = new ComponentLibrary( true );
 		$this->assertEquals(
 			[
 				'bootstrap_badge'    => [ 0, 'bootstrap_badge' ],
@@ -58,12 +59,12 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @param string $componentName
 	 *
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 *
 	 * @dataProvider componentNameAndClassProvider
 	 */
-	public function testIsRegistered( $componentName ) {
-		$instance = new ComponentLibrary();
+	public function testIsRegistered( string $componentName ) {
+		$instance = new ComponentLibrary( true );
 		$this->assertEquals(
 			true,
 			$instance->isRegistered( $componentName )
@@ -74,12 +75,12 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 * @param string   $component
 	 * @param string[] $expectedAliases
 	 *
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 * @throws \MWException
 	 *
 	 * @dataProvider componentAliasesProvider
 	 */
-	public function testGetAliasesFor( $component, $expectedAliases ) {
+	public function testGetAliasesFor( string $component, array $expectedAliases ) {
 		$instance = new ComponentLibrary();
 		$this->assertEquals(
 			$expectedAliases,
@@ -91,12 +92,12 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 * @param string   $component
 	 * @param string[] $expectedAttributes
 	 *
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 * @throws \MWException
 	 *
 	 * @dataProvider componentAttributesProvider
 	 */
-	public function testGetAttributesFor( $component, $expectedAttributes ) {
+	public function testGetAttributesFor( string $component, array $expectedAttributes ) {
 		$instance = new ComponentLibrary();
 		$this->assertEquals(
 			$expectedAttributes,
@@ -108,11 +109,11 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 * @param string $componentName
 	 * @param string $componentClass
 	 *
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 *
 	 * @dataProvider componentNameAndClassProvider
 	 */
-	public function testGetClassFor( $componentName, $componentClass ) {
+	public function testGetClassFor( string $componentName, string $componentClass ) {
 		$instance = new ComponentLibrary();
 		$this->assertEquals(
 			$componentClass,
@@ -121,12 +122,14 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 */
 	public function testGetAllRegisteredComponents() {
 		$instance = new ComponentLibrary();
+		$allKeys = array_keys( $this->componentNameAndClassProvider() );
+		sort( $allKeys );
 		$this->assertEquals(
-			array_keys( $this->componentNameAndClassProvider() ),
+			$allKeys,
 			$instance->getRegisteredComponents()
 		);
 	}
@@ -134,11 +137,11 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @param string $componentName
 	 *
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 *
 	 * @dataProvider componentNameAndClassProvider
 	 */
-	public function testGetHandlerTypeFor( $componentName ) {
+	public function testGetHandlerTypeFor( string $componentName ) {
 		$instance = new ComponentLibrary();
 
 		$this->assertContains(
@@ -148,7 +151,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 */
 	public function testGetHandlerTypeForUnknownComponent() {
 		$instance = new ComponentLibrary();
@@ -163,11 +166,11 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 * @param string $componentName
 	 * @param bool   $isParserFunction
 	 *
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 *
 	 * @dataProvider handlerTypeProvider
 	 */
-	public function testIsHandlerType( $componentName, $isParserFunction ) {
+	public function testIsHandlerType( string $componentName, bool $isParserFunction ) {
 		$instance = new ComponentLibrary();
 
 		$this->assertTrue(
@@ -180,14 +183,14 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @param string $componentName
-	 * @param string $skinName
+	 * @param string|null $skinName
 	 * @param array  $expectedModules
 	 *
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 *
 	 * @dataProvider modulesForComponentsProvider
 	 */
-	public function testGetModulesFor( $componentName, $skinName, $expectedModules ) {
+	public function testGetModulesFor( string $componentName, ?string $skinName, array $expectedModules ) {
 		$instance = new ComponentLibrary();
 		$this->assertEquals(
 			$expectedModules,
@@ -199,12 +202,12 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 * @param string $componentName
 	 * @param string $componentClass
 	 *
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 * @throws \MWException
 	 *
 	 * @dataProvider componentNameAndClassProvider
 	 */
-	public function testGetNameFor( $componentName, $componentClass ) {
+	public function testGetNameFor( string $componentName, string $componentClass ) {
 		$instance = new ComponentLibrary();
 		$this->assertEquals(
 			$componentName,
@@ -216,11 +219,11 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	 * @param bool|string[] $whiteList
 	 * @param string[]      $expectedComponents
 	 *
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 *
 	 * @dataProvider whiteListProvider
 	 */
-	public function testSetWhiteList( $whiteList, $expectedComponents ) {
+	public function testSetWhiteList( bool|array $whiteList, array $expectedComponents ) {
 		$instance = new ComponentLibrary( $whiteList );
 		$this->assertEquals(
 			$expectedComponents,
@@ -230,26 +233,27 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @param string $method
+	 * @param mixed $param
 	 *
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 *
 	 * @dataProvider exceptionThrowingMethodsProvider
 	 */
-	public function testFails( $method ) {
+	public function testFails( $method, $param ) {
 		$instance = new ComponentLibrary();
 
 		$this->expectException( 'MWException' );
 
-		call_user_func_array( [ $instance, $method ], [ null ] );
+		call_user_func_array( [ $instance, $method ], [ $param ] );
 	}
 
 	/**
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 */
 	public function testRegisterVsKnown() {
-		$instance = new ComponentLibrary( [ 'alert', 'modal', 'panel' ] );
+		$instance = new ComponentLibrary( [ 'alert', 'badge', 'modal', 'panel' ] );
 		$this->assertEquals(
-			[ 'alert', 'modal', 'panel', ],
+			[ 'alert', 'badge', 'modal', 'panel', ],
 			$instance->getRegisteredComponents()
 		);
 		$this->assertEquals(
@@ -260,7 +264,8 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 			[ $component, $skin, $expectedModules ] = $args;
 			$this->assertEquals(
 				$expectedModules,
-				$instance->getModulesFor( $component, $skin )
+				$instance->getModulesFor( $component, $skin ),
+				'Failed ComponentLibrary:getModulesFor() for test-data ' . $component
 			);
 		}
 		$this->assertFalse(
@@ -269,7 +274,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 */
 	public function testUnknownComponentName() {
 		$instance = new ComponentLibrary( true );
@@ -279,7 +284,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @throws \ConfigException
+	 * @throws ConfigException
 	 */
 	public function testUnknownComponentClass() {
 		$instance = new ComponentLibrary( true );
@@ -291,7 +296,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array
 	 */
-	public function compileParserHookStringProvider() {
+	public function compileParserHookStringProvider(): array {
 		return [
 			'accordion' => [ 'accordion', 'bootstrap_accordion' ],
 			'alert'     => [ 'alert', 'bootstrap_alert' ],
@@ -313,29 +318,29 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array[]
 	 */
-	public function componentNameAndClassProvider() {
+	public function componentNameAndClassProvider(): array {
 		return [
-			'accordion' => [ 'accordion', 'BootstrapComponents\\Components\\Accordion' ],
-			'alert'     => [ 'alert', 'BootstrapComponents\\Components\\Alert' ],
-			'badge'     => [ 'badge', 'BootstrapComponents\\Components\\Badge' ],
-			'button'    => [ 'button', 'BootstrapComponents\\Components\\Button' ],
-			'card'      => [ 'card', 'BootstrapComponents\\Components\\Card' ],
-			'carousel'  => [ 'carousel', 'BootstrapComponents\\Components\\Carousel' ],
-			'collapse'  => [ 'collapse', 'BootstrapComponents\\Components\\Collapse' ],
-			'jumbotron' => [ 'jumbotron', 'BootstrapComponents\\Components\\Jumbotron' ],
-			'modal'     => [ 'modal', 'BootstrapComponents\\Components\\Modal' ],
-			'popover'   => [ 'popover', 'BootstrapComponents\\Components\\Popover' ],
-			'tooltip'   => [ 'tooltip', 'BootstrapComponents\\Components\\Tooltip' ],
-			'label'     => [ 'badge', 'BootstrapComponents\\Components\\Badge' ],
-			'panel'     => [ 'card', 'BootstrapComponents\\Components\\Card' ],
-			'well'      => [ 'card', 'BootstrapComponents\\Components\\Card' ],
+			'accordion' => [ 'accordion', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Accordion' ],
+			'alert'     => [ 'alert', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Alert' ],
+			'badge'     => [ 'badge', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Badge' ],
+			'button'    => [ 'button', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Button' ],
+			'card'      => [ 'card', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Card' ],
+			'carousel'  => [ 'carousel', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Carousel' ],
+			'collapse'  => [ 'collapse', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Collapse' ],
+			'jumbotron' => [ 'jumbotron', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Jumbotron' ],
+			'modal'     => [ 'modal', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Modal' ],
+			'popover'   => [ 'popover', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Popover' ],
+			'tooltip'   => [ 'tooltip', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Tooltip' ],
+			'label'     => [ 'badge', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Badge' ],
+			'panel'     => [ 'card', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Card' ],
+			'well'      => [ 'card', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Card' ],
 		];
 	}
 
 	/**
 	 * @return array
 	 */
-	public function componentAliasesProvider() {
+	public function componentAliasesProvider(): array {
 		return [
 			'alert' => [ 'alert', [] ],
 			'button' => [ 'button', [] ],
@@ -347,7 +352,7 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array
 	 */
-	public function componentAttributesProvider() {
+	public function componentAttributesProvider(): array {
 		return [
 			'accordion' => [ 'accordion', [ 'class', 'id', 'style' ] ],
 			'alert'     => [ 'alert', [ 'color', 'dismissible', 'class', 'id', 'style' ] ],
@@ -358,18 +363,18 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array[]
 	 */
-	public function exceptionThrowingMethodsProvider() {
+	public function exceptionThrowingMethodsProvider(): array {
 		return [
-			'getAttributesFor' => [ 'getAttributesFor' ],
-			'getClassFor'      => [ 'getClassFor' ],
-			'getNameFor'       => [ 'getNameFor' ],
+			'getAttributesFor' => [ 'getAttributesFor', 'FooBar' ],
+			'getClassFor'      => [ 'getClassFor', 'FooBar' ],
+			'getNameFor'       => [ 'getNameFor', 'FooBar' ],
 		];
 	}
 
 	/**
 	 * @return array
 	 */
-	public function handlerTypeProvider() {
+	public function handlerTypeProvider(): array {
 		return [
 			'accordion' => [ 'accordion', false ],
 			'panel'     => [ 'panel', false ],
@@ -382,8 +387,13 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array[]
 	 */
-	public function modulesForComponentsProvider() {
+	public function modulesForComponentsProvider(): array {
 		return [
+			'badge'           => [
+				'badge',
+				null,
+				[]
+			],
 			'button'          => [
 				'button',
 				null,
@@ -440,12 +450,14 @@ class ComponentLibraryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array
 	 */
-	public function whiteListProvider() {
+	public function whiteListProvider(): array {
+		$allKeys = array_keys( $this->componentNameAndClassProvider() );
+		sort( $allKeys );
 		return [
-			'true'     => [
-				true, array_keys( $this->componentNameAndClassProvider() ),
+			'true' => [
+				true, $allKeys,
 			],
-			'false'    => [
+			'false' => [
 				false, [],
 			],
 			'normal' => [

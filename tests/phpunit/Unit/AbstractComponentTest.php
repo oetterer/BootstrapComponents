@@ -1,16 +1,15 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\AbstractComponent;
-use BootstrapComponents\ComponentLibrary;
-use BootstrapComponents\NestableInterface;
-use \MWException;
+use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
+use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
+use MediaWiki\Extension\BootstrapComponents\NestableInterface;
+use MWException;
 use PHPUnit\Framework\MockObject\Stub;
-use PHPUnit_Framework_MockObject_MockObject;
 
 /**
- * @covers  \BootstrapComponents\AbstractComponent
+ * @covers  \MediaWiki\Extension\BootstrapComponents\AbstractComponent
  *
  * @ingroup Test
  *

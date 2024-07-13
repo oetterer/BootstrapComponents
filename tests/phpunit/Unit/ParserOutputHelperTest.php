@@ -1,17 +1,17 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\ComponentLibrary;
-use BootstrapComponents\ParserOutputHelper;
+use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
+use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
 use \MWException;
 use \Parser;
 use \ParserOutput;
 use \PHPUnit_Framework_MockObject_MockObject;
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers  \BootstrapComponents\ParserOutputHelper
+ * @covers  \MediaWiki\Extension\BootstrapComponents\ParserOutputHelper
  *
  * @ingroup Test
  *
@@ -23,7 +23,7 @@ use \PHPUnit_Framework_TestCase;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
+class ParserOutputHelperTest extends TestCase {
 	/**
 	 * @var Parser
 	 */
@@ -118,95 +118,27 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @param mixed $storedText
-	 * @param string $expectedReturn
-	 *
-	 * @dataProvider contentForLaterInjectionProvider
-	 */
-	public function testCanGetContentForLaterInjection( $storedText, $expectedReturn ) {
-		$instance = new ParserOutputHelper( $this->parser );
-
-		$instance->injectLater( 'FOOBAR', $storedText );
-
-		$this->assertEquals(
-			$expectedReturn,
-			$instance->getContentForLaterInjection( $this->parserOutput )
-		);
-	}
-
-	public function testCanGetNameOfActiveSkin() {
-		$instance = new ParserOutputHelper( $this->parser );
-
-		$this->assertEquals(
-			'vector',
-			$instance->getNameOfActiveSkin()
-		);
-	}
-
-	public function testCanLoadBootstrapModules() {
-		$parserOutput = $this->getMockBuilder( 'ParserOutput' )
-			->disableOriginalConstructor()
-			->getMock();
-		$parserOutput->expects( $this->once() )
-			->method( 'setExtensionData' )
-			->with( $this->equalTo( 'bsc_load_modules' ), $this->equalTo( true ) );
-		$parser = $this->getMockBuilder( 'Parser' )
-			->disableOriginalConstructor()
-			->getMock();
-		$parser->expects( $this->once() )
-			->method( 'getOutput' )
-			->willReturn( $parserOutput );
-
-		/** @noinspection PhpParamsInspection */
-		$instance = new ParserOutputHelper( $parser );
-
-		$instance->loadBootstrapModules();
-	}
-
-	/**
 	 * @param string $messageText
-	 * @param string $renderedMessage
+	 * @param string $renderedMessageRegExp
 	 *
 	 * @dataProvider errorMessageProvider
 	 */
-	public function testCanRenderErrorMessage( $messageText, $renderedMessage ) {
+	public function testCanRenderErrorMessage( $messageText, $renderedMessageRegExp ) {
 		/** @noinspection PhpParamsInspection */
 		$instance = new ParserOutputHelper(
-			$this->buildFullyEquippedParser( ( $renderedMessage != '~^$~' ) )
+			$this->buildFullyEquippedParser( ( $renderedMessageRegExp != '~^$~' ) )
 		);
 
-		$this->assertRegExp(
-			$renderedMessage,
-			$instance->renderErrorMessage( $messageText )
-		);
-	}
+		// TODO when we drop support for MW1.39
+		if ( version_compare( $GLOBALS['wgVersion'], '1.40', 'lt' ) ) {
+			$this->assertRegExp( $renderedMessageRegExp, $instance->renderErrorMessage( $messageText ) );
+		} else {
+			$this->assertMatchesRegularExpression(
+				$renderedMessageRegExp,
+				$instance->renderErrorMessage( $messageText )
+			);
+		}
 
-	public function testVectorSkinInUse() {
-		$instance = new ParserOutputHelper( $this->parser );
-		$this->assertIsBool( $instance->vectorSkinInUse() );
-	}
-
-	/**
-	 * @throws \ReflectionException
-	 */
-	public function testPrivateCanDetectSkinInUse() {
-		$instance = new ParserOutputHelper( $this->parser );
-
-		$reflection = new \ReflectionClass( ParserOutputHelper::class );
-		$method = $reflection->getMethod( 'detectSkinInUse' );
-		$method->setAccessible( true );
-
-		// this is default
-		$this->assertEquals(
-			'vector',
-			$method->invokeArgs( $instance, [ false ] )
-		);
-
-		// this was introduced due to issue #9
-		$this->assertEquals(
-			'vector',
-			$method->invokeArgs( $instance, [ true ] )
-		);
 	}
 
 	/**
@@ -238,17 +170,7 @@ class ParserOutputHelperTest extends PHPUnit_Framework_TestCase {
 		];
 	}
 
-	/**
-	 * @return array
-	 */
-	public function contentForLaterInjectionProvider() {
-		return [
-			'none' => [ '', '' ],
-			'false' => [ false, '' ],
-			'null' => [ false, '' ],
-			'string' => [ 'text', '<!-- injected by Extension:BootstrapComponents -->text<!-- /injected by Extension:BootstrapComponents -->' ],
-		];
-	}
+
 
 	/**
 	 * @param bool $expectError

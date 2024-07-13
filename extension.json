@@ -1,37 +1,60 @@
 {
 	"name": "BootstrapComponents",
-	"version": "5.1.2-dev",
+	"version": "5.2.0-dev",
 	"author": [ "Tobias Oetterer" ],
 	"url": "https://www.mediawiki.org/wiki/Extension:BootstrapComponents",
 	"descriptionmsg": "bootstrap-components-desc",
 	"license-name": "GPL-3.0-or-later",
 	"type": "parserhook",
 	"requires": {
-		"MediaWiki": ">= 1.35.0"
+		"MediaWiki": ">= 1.39.0"
 	},
 	"ConfigRegistry": {
 		"BootstrapComponents": "GlobalVarConfig::newInstance"
 	},
 	"AutoloadNamespaces": {
-		"BootstrapComponents\\": "src/"
+		"MediaWiki\\Extension\\BootstrapComponents\\": "src/"
 	},
 	"TestAutoloadNamespaces": {
-		"BootstrapComponents\\Tests\\": "tests/phpunit/"
+		"MediaWiki\\Extension\\BootstrapComponents\\Tests\\": "tests/phpunit/"
 	},
+	"ServiceWiringFiles": [
+		"src/ServiceWiring.php"
+	],
 	"@note": "the extension's main hooks are registered in BootstrapComponents\\HookRegistry",
 	"HookHandlers": {
 		"BootStrapHooks": {
-			"class": "BootstrapComponents\\Hooks\\DefaultHooksHandler"
+			"class": "MediaWiki\\Extension\\BootstrapComponents\\HooksHandler",
+			"services": [
+				"BootstrapComponentsService",
+				"BootstrapComponents.ComponentLibrary",
+				"BootstrapComponents.NestingController"
+			]
 		}
 	},
 	"Hooks": {
-		"SetupAfterCache": {
+		"GalleryGetModes": {
+			"handler": "BootStrapHooks"
+		},
+		"ImageBeforeProduceHTML": {
+			"handler": "BootStrapHooks"
+		},
+		"InternalParseBeforeLinks": {
+			"handler": "BootStrapHooks"
+		},
+		"OutputPageParserOutput": {
 			"handler": "BootStrapHooks"
 		},
 		"ParserAfterParse": {
 			"handler": "BootStrapHooks"
 		},
-		"ScribuntoExternalLibraries": "BootstrapComponents\\Hooks\\DefaultHooksHandler::onScribuntoExternalLibraries"
+		"ParserFirstCallInit": {
+			"handler": "BootStrapHooks"
+		},
+		"SetupAfterCache": {
+			"handler": "BootStrapHooks"
+		},
+		"ScribuntoExternalLibraries": "MediaWiki\\Extension\\BootstrapComponents\\HooksHandler::onScribuntoExternalLibraries"
 	},
 	"config": {
 		"BootstrapComponentsDisableSourceLinkOnImageModal": {
@@ -55,10 +78,7 @@
 			"public": true
 		}
 	},
-	"callback": "BootstrapComponents\\BootstrapComponents::init",
-	"ExtensionFunctions": [
-		"BootstrapComponents\\BootstrapComponents::onExtensionFunction"
-	],
+	"callback": "MediaWiki\\Extension\\BootstrapComponents\\BootstrapComponents::init",
 	"MessagesDirs": {
 		"BootstrapComponents": [
 			"i18n"

@@ -24,7 +24,7 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents;
+namespace MediaWiki\Extension\BootstrapComponents;
 
 use Config;
 use ConfigException;

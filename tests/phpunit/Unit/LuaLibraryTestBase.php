@@ -1,8 +1,8 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\LuaLibrary;
+use MediaWiki\Extension\BootstrapComponents\LuaLibrary;
 use \Scribunto_LuaEngineTestBase;
 
 /**

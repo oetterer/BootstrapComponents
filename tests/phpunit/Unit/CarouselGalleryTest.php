@@ -1,15 +1,15 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\CarouselGallery;
-use BootstrapComponents\ParserRequest;
+use MediaWiki\Extension\BootstrapComponents\CarouselGallery;
+use MediaWiki\Extension\BootstrapComponents\ParserRequest;
 use \MWException;
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use \Title;
 
 /**
- * @covers  \BootstrapComponents\CarouselGallery
+ * @covers  \MediaWiki\Extension\BootstrapComponents\CarouselGallery
  *
  * @ingroup Test
  *
@@ -21,12 +21,12 @@ use \Title;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class CarouselGalleryTest extends PHPUnit_Framework_TestCase {
+class CarouselGalleryTest extends TestCase {
 
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\CarouselGallery',
+			'MediaWiki\\Extension\\BootstrapComponents\\CarouselGallery',
 			new CarouselGallery( 'carousel' )
 		);
 	}
@@ -40,7 +40,7 @@ class CarouselGalleryTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider galleryDataProvider
 	 */
 	public function testToHtml( $imageList, $additionalAttributes, $expectedOutput ) {
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
+		$parserOutputHelper = $this->getMockBuilder( 'MediaWiki\\Extension\\BootstrapComponents\\ParserOutputHelper' )
 			->disableOriginalConstructor()
 			->getMock();
 		$parserOutputHelper->expects( $this->any() )

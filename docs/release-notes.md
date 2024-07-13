@@ -5,6 +5,24 @@
 Released on _not yet_
 
 Changes:
+* dropping support of mediawiki < 1.39
+* removed auto-loading of Extension:Bootstrap.
+* add translations via translatewiki
+*
+Fixes:
+* fixed php 8 deprecation notice indicating missing logic encapsulation
+  in class AbstractComponent
+
+Refactoring:
+* modified extension namespace to be compatible with mediawiki
+  extension namespace schema
+
+
+### BootstrapComponents 5.1.2
+
+Released on 12-May-2024
+
+Changes:
 * add css classes to restore the usual infobox layout
 * add more style control to card component
 

@@ -14,7 +14,7 @@
 		 verbose="true">
 	<listeners>
 		<listener file="tests/phpunit/ExecutionTimeTestListener.php"
-				  class="BootstrapComponents\Tests\ExecutionTimeTestListener">
+				  class="Mediawiki\Extension\BootstrapComponents\Tests\ExecutionTimeTestListener">
 			<arguments>
 				<boolean>true</boolean>
 				<integer>10</integer>

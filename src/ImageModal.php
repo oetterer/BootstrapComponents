@@ -24,13 +24,15 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents;
+namespace MediaWiki\Extension\BootstrapComponents;
 
-use \Linker;
-use \Html;
-use \MediaWiki\MediaWikiServices;
-use \RequestContext;
-use \Title;
+use DummyLinker;
+use File;
+use Html;
+use MediaTransformOutput;
+use MediaWiki\MediaWikiServices;
+use MWException;
+use Title;
 
 /**
  * Class ImageModal
@@ -48,67 +50,75 @@ class ImageModal implements NestableInterface {
 	const PARENTS_PREVENTING_MODAL = [ 'button', 'collapse ', 'image_modal', 'modal', 'popover', 'tooltip' ];
 
 	/**
-	 * @var \DummyLinker $dummyLinker
+	 * @var BootstrapComponentsService
 	 */
-	private $dummyLinker;
+	private BootstrapComponentsService $bootstrapComponentService;
 
 	/**
-	 * @var \File $file
+	 * @var DummyLinker $dummyLinker
 	 */
-	private $file;
+	private DummyLinker $dummyLinker;
 
 	/**
-	 * @var string $id
+	 * @var File $file
 	 */
-	private $id;
+	private File $file;
+
+	/**
+	 * @var null|string $id
+	 */
+	private null|string $id;
 
 	/**
 	 * @var NestingController $nestingController
 	 */
-	private $nestingController;
+	private NestingController $nestingController;
 
 	/**
-	 * @var NestableInterface|false $parentComponent
+	 * @var null|bool|NestableInterface $parentComponent
 	 */
-	private $parentComponent;
+	private null|bool|NestableInterface $parentComponent;
 
 	/**
 	 * @var ParserOutputHelper $parserOutputHelper
 	 */
-	private $parserOutputHelper;
+	private ParserOutputHelper $parserOutputHelper;
 
 	/**
 	 * @var bool $disableSourceLink
 	 */
-	private $disableSourceLink;
+	private bool $disableSourceLink;
 
 	/**
 	 * @var Title $title
 	 */
-	private $title;
+	private Title $title;
 
 	/**
 	 * ImageModal constructor.
 	 *
-	 * @param \DummyLinker       $dummyLinker
-	 * @param \Title             $title
-	 * @param \File              $file
-	 * @param NestingController  $nestingController
-	 * @param ParserOutputHelper $parserOutputHelper DI for unit testing
+	 * @param DummyLinker $dummyLinker
+	 * @param Title $title
+	 * @param File $file
+	 * @param NestingController $nestingController
+	 * @param BootstrapComponentsService $bootstrapComponentService
+	 * @param ParserOutputHelper|null $parserOutputHelper DI for unit testing
 	 *
-	 * @throws \MWException cascading {@see \BootstrapComponents\ApplicationFactory} methods
+	 * @throws MWException cascading {@see ApplicationFactory} methods
 	 */
-	public function __construct( $dummyLinker, $title, $file, $nestingController = null, $parserOutputHelper = null ) {
+	public function __construct(
+		DummyLinker $dummyLinker, Title $title, File $file,
+		NestingController $nestingController, BootstrapComponentsService $bootstrapComponentService,
+		ParserOutputHelper $parserOutputHelper = null
+	) {
 		$this->file = $file;
 		$this->dummyLinker = $dummyLinker;
 		$this->title = $title;
 
-		$this->nestingController = is_null( $nestingController )
-			? ApplicationFactory::getInstance()->getNestingController()
-			: $nestingController;
-		$this->parserOutputHelper = is_null( $parserOutputHelper )
-			? ApplicationFactory::getInstance()->getParserOutputHelper()
-			: $parserOutputHelper ;
+		$this->nestingController = $nestingController;
+		$this->bootstrapComponentService = $bootstrapComponentService;
+		$this->parserOutputHelper = $parserOutputHelper
+			?? ApplicationFactory::getInstance()->getParserOutputHelper();
 
 		$this->parentComponent = $this->getNestingController()->getCurrentElement();
 		$this->id = $this->getNestingController()->generateUniqueId(
@@ -120,8 +130,10 @@ class ImageModal implements NestableInterface {
 	/**
 	 * @inheritdoc
 	 */
-	public function getComponentName() {
-		return "image_modal";
+	public function getComponentName(): string {
+		return "modal";
+		// changed to modal at version 5.2.0
+		#return "image_modal";
 	}
 
 	/**
@@ -157,23 +169,23 @@ class ImageModal implements NestableInterface {
 	 * @param string|bool $time          Timestamp of the file, set as false for current
 	 * @param string      $res           Final HTML output, used if this returns false
 	 *
-	 * @throws \MWException     cascading {@see \BootstrapComponents\NestingController::open}
-	 * @throws \ConfigException cascading {@see \BootstrapComponents\ImageModal::generateTrigger}
+	 * @throws MWException     cascading {@see NestingController::open}
+	 * @throws \ConfigException cascading {@see ImageModal::generateTrigger}
 	 *
 	 * @return bool
 	 */
-	public function parse( &$frameParams, &$handlerParams, &$time, &$res ) {
+	public function parse( array &$frameParams, array &$handlerParams, &$time, &$res ): bool {
 		if ( !$this->assertResponsibility( $this->getFile(), $frameParams ) ) {
 			wfDebugLog( 'BootstrapComponents', 'Image modal relegating image rendering back to Linker.php.' );
 			return true;
 		}
 
 		// it's on us, let's do some modal-ing
-		$this->augmentParserOutput();
+		$this->getBootstrapComponentsService()->registerComponentAsActive( $this->getComponentName() );
 		$this->getNestingController()->open( $this );
 
 		$sanitizedFrameParams = $this->sanitizeFrameParams( $frameParams );
-		$handlerParams['page'] = isset( $handlerParams['page'] ) ? $handlerParams['page'] : false;
+		$handlerParams['page'] = $handlerParams['page'] ?? false;
 
 		$res = $this->turnParamsIntoModal( $sanitizedFrameParams, $handlerParams );
 
@@ -192,18 +204,19 @@ class ImageModal implements NestableInterface {
 	 * After this, all bool params ( 'thumbnail', 'framed', 'frameless', 'border' ) are true, if they were present before, false otherwise and all
 	 * string params are set (to the original value or the empty string).
 	 *
-	 * This method is public, because it is used in {@see \BootstrapComponents\Tests\ImageModalTest::doTestCompareTriggerWithOriginalThumb}
+	 * This method is public, because it is used in
+	 * {@see \MediaWiki\Extension\BootstrapComponents\Tests\ImageModalTest::doTestCompareTriggerWithOriginalThumb}
 	 *
 	 * @param array $frameParams
 	 *
 	 * @return array
 	 */
-	public function sanitizeFrameParams( $frameParams ) {
+	public function sanitizeFrameParams( array $frameParams ): array {
 		foreach ( [ 'thumbnail', 'framed', 'frameless', 'border' ] as $boolField ) {
 			$frameParams[$boolField] = isset( $frameParams[$boolField] );
 		}
 		foreach ( [ 'align', 'alt', 'caption', 'class', 'title', 'valign' ] as $stringField ) {
-			$frameParams[$stringField] = !empty( $frameParams[$stringField] ) ? $frameParams[$stringField] : false;
+			$frameParams[$stringField] = $frameParams[$stringField] ?? false;
 		}
 		$frameParams['caption'] = $this->preventModalInception( $frameParams['caption'] );
 		$frameParams['title'] = $this->preventModalInception( $frameParams['title'] );
@@ -213,7 +226,7 @@ class ImageModal implements NestableInterface {
 	/**
 	 * Disables the source link in modal content.
 	 */
-	public function disableSourceLink() {
+	public function disableSourceLink(): void {
 		$this->disableSourceLink = true;
 	}
 
@@ -227,12 +240,12 @@ class ImageModal implements NestableInterface {
 	 * * no magic word suppressing image modals is on the page
 	 * * image does not have the "no-modal" class {@see ImageModal::CSS_CLASS_PREVENTING_MODAL}
 	 *
-	 * @param \File $file
+	 * @param File $file
 	 * @param array $frameParams
 	 *
 	 * @return bool true, if all assertions hold, false if one fails (see above)
 	 */
-	protected function assertResponsibility( $file, $frameParams ) {
+	protected function assertResponsibility( File $file, array $frameParams ): bool {
 		if ( !$this->assertImageTagValid( $file, $frameParams ) ) {
 			return false;
 		}
@@ -240,15 +253,15 @@ class ImageModal implements NestableInterface {
 	}
 
 	/**
-	 * @param \File $file
+	 * @param File $file
 	 * @param array $sanitizedFrameParams
 	 * @param array $handlerParams
 	 *
 	 * @return array bool|string bool (large image yes or no)
 	 */
-	protected function generateContent( $file, $sanitizedFrameParams, $handlerParams ) {
+	protected function generateContent( File $file, array $sanitizedFrameParams, array $handlerParams ): array {
 
-		/** @var \MediaTransformOutput $img $img */
+		/** @var MediaTransformOutput $img $img */
 		$img = $file->getUnscaledThumb(
 			[ 'page' => $handlerParams['page'] ]
 		);
@@ -262,57 +275,65 @@ class ImageModal implements NestableInterface {
 	}
 
 	/**
-	 * @return \DummyLinker
+	 * @return BootstrapComponentsService
+	 */
+	protected function getBootstrapComponentsService(): BootstrapComponentsService {
+		return $this->bootstrapComponentService;
+	}
+
+	/**
+	 * @return DummyLinker
 	 */
 	/** @scrutinizer ignore-unused */
-	protected function getDummyLinker() {
+	protected function getDummyLinker(): DummyLinker {
 		return $this->dummyLinker;
 	}
 
 	/**
-	 * @return \File
+	 * @return File
 	 */
-	protected function getFile() {
+	protected function getFile(): File {
 		return $this->file;
 	}
 
 	/**
 	 * @return NestingController
 	 */
-	protected function getNestingController() {
+	protected function getNestingController(): NestingController {
 		return $this->nestingController;
 	}
 
 	/**
 	 * @return null|NestableInterface
 	 */
-	protected function getParentComponent() {
+	protected function getParentComponent(): bool|NestableInterface|null {
 		return $this->parentComponent;
 	}
 
 	/**
 	 * @return ParserOutputHelper
+	 * @deprecated
 	 */
-	protected function getParserOutputHelper() {
+	protected function getParserOutputHelper(): ParserOutputHelper {
 		return $this->parserOutputHelper;
 	}
 
 	/**
 	 * @return Title
 	 */
-	protected function getTitle() {
+	protected function getTitle(): Title {
 		return $this->title;
 	}
 
 	/**
-	 * @param $sanitizedFrameParams
-	 * @param $handlerParams
-	 *
-	 * @throws \ConfigException
+	 * @param array $sanitizedFrameParams
+	 * @param array $handlerParams
 	 *
 	 * @return string   rendered modal on success, empty string on failure.
+	 * @throws \ConfigException|\Exception
+	 *
 	 */
-	protected function turnParamsIntoModal( $sanitizedFrameParams, $handlerParams ) {
+	protected function turnParamsIntoModal( array $sanitizedFrameParams, array $handlerParams ): string {
 		$trigger = new ImageModalTrigger(
 			$this->getId(),
 			$this->getFile()
@@ -363,12 +384,12 @@ class ImageModal implements NestableInterface {
 	}
 
 	/**
-	 * @param \File $file
+	 * @param File $file
 	 * @param array $frameParams
 	 *
 	 * @return bool
 	 */
-	private function assertImageTagValid( $file, $frameParams ) {
+	private function assertImageTagValid( File $file, array $frameParams ): bool {
 		if ( !$file || !$file->exists() ) {
 			return false;
 		}
@@ -391,39 +412,30 @@ class ImageModal implements NestableInterface {
 	 */
 	private function assertImageModalNotSuppressed( array $frameParams ): bool
 	{
-		if ( $this->getParentComponent() && in_array( $this->getParentComponent()->getComponentName(), self::PARENTS_PREVENTING_MODAL ) ) {
+		if ( $this->getParentComponent()
+			&& in_array( $this->getParentComponent()->getComponentName(), self::PARENTS_PREVENTING_MODAL )
+		) {
 			return false;
 		}
-		if ( isset( $frameParams['class'] ) && in_array( self::CSS_CLASS_PREVENTING_MODAL, explode( ' ', $frameParams['class'] ) ) ) {
+		if ( isset( $frameParams['class'] )
+			&& in_array( self::CSS_CLASS_PREVENTING_MODAL, explode( ' ', $frameParams['class'] ) )
+		) {
 			return false;
 		}
 		/** @see ParserOutputHelper::areImageModalsSuppressed as to why we need to use the global parser! */
-		//$parser = $GLOBALS['wgParser'];   //  Use of $wgParser was deprecated in MediaWiki 1.32.
 		$parser = MediaWikiServices::getInstance()->getParser();
 		// the is_null test has to be added because otherwise some unit tests will fail
-		return is_null( $parser->getOutput() ) || !$parser->getOutput()->getExtensionData( 'bsc_no_image_modal' );
+		return is_null( $parser->getOutput() )
+			|| !$parser->getOutput()->getExtensionData( BootstrapComponents::EXTENSION_DATA_NO_IMAGE_MODAL );
 	}
 
 	/**
-	 * Performs all the mandatory actions on the parser output for the component class
-	 *
-	 * @throws \MWException cascading {@see \BootstrapComponents\ApplicationFactory::getComponentLibrary}
-	 */
-	private function augmentParserOutput() {
-		$skin = $this->getParserOutputHelper()->getNameOfActiveSkin();
-		$this->getParserOutputHelper()->loadBootstrapModules();
-		$this->getParserOutputHelper()->addModules(
-			ApplicationFactory::getInstance()->getComponentLibrary()->getModulesFor( 'modal', $skin )
-		);
-	}
-
-	/**
-	 * @param \MediaTransformOutput $img
+	 * @param MediaTransformOutput $img
 	 * @param array                 $sanitizedFrameParams
 	 *
 	 * @return string
 	 */
-	private function buildContentImageString( $img, $sanitizedFrameParams ) {
+	private function buildContentImageString( MediaTransformOutput $img, array $sanitizedFrameParams ): string {
 		$imgParams = [
 			'alt'       => $sanitizedFrameParams['alt'],
 			'title'     => $sanitizedFrameParams['title'],
@@ -446,7 +458,7 @@ class ImageModal implements NestableInterface {
 	 *
 	 * @return string
 	 */
-	private function generateButtonToSource( $title, $handlerParams ) {
+	private function generateButtonToSource( Title $title, array $handlerParams ): string {
 		$url = $title->getLocalURL();
 		if ( isset( $handlerParams['page'] ) ) {
 			$url = wfAppendQuery( $url, [ 'page' => $handlerParams['page'] ] );
@@ -471,7 +483,7 @@ class ImageModal implements NestableInterface {
 	 *
 	 * @return string
 	 */
-	private function preventModalInception( $text ) {
+	private function preventModalInception( string $text ): string {
 		if ( preg_match(
 			'~div class="modal-dialog.+div class="modal-content.+div class="modal-body.+'
 			. '(<img[^>]*/>).+ class="modal-footer.+~Ds', $text, $matches ) ) {
@@ -485,7 +497,7 @@ class ImageModal implements NestableInterface {
 	 *
 	 * @return string
 	 */
-	private function sanitizeCaption( $caption ) {
+	private function sanitizeCaption( string $caption ): string {
 		return preg_replace( '/([^\n])\n([^\n])/m', '\1\2', $caption );
 	}
 }

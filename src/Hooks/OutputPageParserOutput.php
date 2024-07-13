@@ -24,11 +24,10 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Hooks;
+namespace MediaWiki\Extension\BootstrapComponents\Hooks;
 
-use BootstrapComponents\ApplicationFactory;
-use BootstrapComponents\ParserOutputHelper;
-use MWException;
+use MediaWiki\Extension\BootstrapComponents\BootstrapComponents;
+use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use OutputPage;
 use ParserOutput;
 
@@ -38,7 +37,7 @@ use ParserOutput;
  * Called after parse, before the HTML is added to the output.
  *
  * Method delegated to separate class to fix missing (deferred) content in
- * {@see \BootstrapComponents\Tests\Integration\BootstrapComponentsJsonTestCaseScriptRunnerTest::assertParserOutputForCase}
+ * {@see \MediaWiki\Extension\BootstrapComponents\Tests\Integration\BootstrapComponentsJSONScriptTestCaseRunnerTest::assertParserOutputForCase}
  *
  * @see   https://www.mediawiki.org/wiki/Manual:Hooks/OutputPageParserOutput
  *
@@ -47,62 +46,85 @@ use ParserOutput;
 class OutputPageParserOutput {
 
 	/**
+	 * @var string
+	 */
+	const INJECTION_PREFIX = '<!-- injected by Extension:BootstrapComponents -->';
+
+	/**
+	 * @var string
+	 */
+	const INJECTION_SUFFIX = '<!-- /injected by Extension:BootstrapComponents -->';
+
+	/**
+	 * @var BootstrapComponentsService
+	 */
+	private BootstrapComponentsService $bootstrapComponentService;
+
+	/**
 	 * @var OutputPage $outputPage
 	 */
-	private $outputPage;
+	private OutputPage $outputPage;
 
 	/**
 	 * @var ParserOutput $parserOutput
 	 */
-	private $parserOutput;
-
-	/**
-	 * @var ParserOutputHelper $parserOutputHelper
-	 */
-	private $parserOutputHelper;
+	private ParserOutput $parserOutput;
 
 	/**
 	 * OutputPageParserOutput constructor.
 	 *
 	 * @param OutputPage $outputPage
 	 * @param ParserOutput $parserOutput
-	 * @param ParserOutputHelper|null $parserOutputHelper
-	 *
-	 * @throws MWException
+	 * @param BootstrapComponentsService $service
 	 */
 	public function __construct(
-		OutputPage &$outputPage, ParserOutput $parserOutput, ?ParserOutputHelper &$parserOutputHelper = null
+		OutputPage &$outputPage, ParserOutput $parserOutput, BootstrapComponentsService $service
 	) {
 		$this->outputPage = $outputPage;
 		$this->parserOutput = $parserOutput;
-		if ( is_null( $parserOutputHelper ) ) {
-			$parserOutputHelper = ApplicationFactory::getInstance()->getParserOutputHelper();
-		}
-
-		$this->parserOutputHelper = $parserOutputHelper;
+		$this->bootstrapComponentService = $service;
 	}
 
 	/**
-	 * @return bool
+	 * @return void
 	 */
-	public function process(): bool
-	{
-		$deferredText = $this->getParserOutputHelper()->getContentForLaterInjection(
-			$this->getParserOutput()
-		);
+	public function process(): void	{
+		$deferredText = $this->getContentForLaterInjection( $this->getParserOutput() );
 		if ( !empty( $deferredText ) ) {
 			$this->getOutputPage()->addHTML( $deferredText );
 		}
 
-		if ( $this->getParserOutputHelper()->vectorSkinInUse() ) {
+		if ( $this->getBootstrapComponentsService()->vectorSkinInUse() ) {
 			$this->getOutputPage()->addModules( [ 'ext.bootstrapComponents.vector-fix' ] );
 		}
-
-		return true;
 	}
 
 	/**
-	 * @return \OutputPage
+	 * Returns the raw html that is to be inserted at the end of the page.
+	 *
+	 * @param ParserOutput $parserOutput
+	 *
+	 * @return string
+	 */
+	protected function getContentForLaterInjection( ParserOutput $parserOutput ): string {
+		$deferredContent = $parserOutput
+			->getExtensionData(BootstrapComponents::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
+
+		if (empty($deferredContent) || !is_array($deferredContent)) {
+			return '';
+		}
+
+		// clearing extension data for unit and integration tests to work
+		$parserOutput->setExtensionData( BootstrapComponents::EXTENSION_DATA_DEFERRED_CONTENT_KEY, null );
+		return self::INJECTION_PREFIX . implode( array_values( $deferredContent ) ) . self::INJECTION_SUFFIX;
+	}
+
+	protected function getBootstrapComponentsService(): BootstrapComponentsService {
+		return $this->bootstrapComponentService;
+	}
+
+	/**
+	 * @return OutputPage
 	 */
 	protected function getOutputPage(): OutputPage
 	{
@@ -110,18 +132,10 @@ class OutputPageParserOutput {
 	}
 
 	/**
-	 * @return \ParserOutput
+	 * @return ParserOutput
 	 */
 	protected function getParserOutput(): ParserOutput
 	{
 		return $this->parserOutput;
-	}
-
-	/**
-	 * @return ParserOutputHelper
-	 */
-	protected function getParserOutputHelper(): ?ParserOutputHelper
-	{
-		return $this->parserOutputHelper;
 	}
 }

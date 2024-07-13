@@ -1,12 +1,15 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\ApplicationFactory;
-use \PHPUnit_Framework_TestCase;
+use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
+use MediaWiki\Extension\BootstrapComponents\ModalBuilder;
+use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
+use MediaWiki\Extension\BootstrapComponents\ParserRequest;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers  \BootstrapComponents\ApplicationFactory
+ * @covers  \MediaWiki\Extension\BootstrapComponents\ApplicationFactory
  *
  * @ingroup Test
  *
@@ -18,12 +21,12 @@ use \PHPUnit_Framework_TestCase;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
+class ApplicationFactoryTest extends TestCase {
 
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ApplicationFactory',
+			ApplicationFactory::class,
 			new ApplicationFactory()
 		);
 	}
@@ -36,7 +39,7 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 	public function testGetApplicationAndReset( $application ) {
 		$instance = new ApplicationFactory();
 		$this->assertInstanceOf(
-			'BootstrapComponents\\' . $application,
+			'MediaWiki\\Extension\\BootstrapComponents\\' . $application,
 			call_user_func( [ $instance, 'get' . $application ] )
 		);
 		$this->assertTrue(
@@ -44,12 +47,12 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 		);
 		// again
 		$this->assertInstanceOf(
-			'BootstrapComponents\\' . $application,
+			'MediaWiki\\Extension\\BootstrapComponents\\' . $application,
 			call_user_func( [ $instance, 'get' . $application ] )
 		);
 		// and again
 		$this->assertInstanceOf(
-			'BootstrapComponents\\' . $application,
+			'MediaWiki\\Extension\\BootstrapComponents\\' . $application,
 			call_user_func( [ $instance, 'get' . $application ] )
 		);
 	}
@@ -58,23 +61,20 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 		$instance = new ApplicationFactory();
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\AttributeManager',
+			'MediaWiki\\Extension\\BootstrapComponents\\AttributeManager',
 			$instance->getNewAttributeManager( [], [] )
 		);
 	}
 
 	public function testGetNewModalBuilder() {
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
-			->disableOriginalConstructor()
-			->getMock();
+		$parserOutputHelper = $this->createMock( ParserOutputHelper::class );
 
 		$factory = new ApplicationFactory();
 
-		/** @noinspection PhpParamsInspection */
 		$modalBuilder = $factory->getNewModalBuilder( '', '', '', $parserOutputHelper );
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ModalBuilder',
+			ModalBuilder::class,
 			$modalBuilder
 		);
 	}
@@ -91,7 +91,7 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 		$instance = new ApplicationFactory();
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ParserRequest',
+			ParserRequest::class,
 			$instance->getNewParserRequest( $arguments, $isParserFunction )
 		);
 	}
@@ -106,7 +106,7 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ParserOutputHelper',
+			ParserOutputHelper::class,
 			$instance->getParserOutputHelper( $parser )
 		);
 	}
@@ -117,7 +117,7 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * @dataProvider parserRequestFailureProvider
 	 */
-	public function testFailingGetNewParserRequest( $arguments, $isParserFunction ) {
+	public function testFailingGetNewParserRequest( array $arguments, bool $isParserFunction ) {
 		$instance = new ApplicationFactory();
 
 		$this->expectException( 'MWException' );
@@ -165,12 +165,12 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * Why have this provider? once there were more applications that could be requested from ApplicationFactory.
+	 *
 	 * @return array[]
 	 */
-	public function applicationNameProvider() {
+	public function applicationNameProvider(): array {
 		return [
-			'ComponentLibrary'   => [ 'ComponentLibrary' ],
-			'NestingController'  => [ 'NestingController' ],
 			'ParserOutputHelper' => [ 'ParserOutputHelper' ],
 		];
 	}
@@ -178,7 +178,7 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array[]
 	 */
-	public function parserRequestProvider() {
+	public function parserRequestProvider(): array {
 		$parser = $this->getMockBuilder( 'Parser' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -200,7 +200,7 @@ class ApplicationFactoryTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array[]
 	 */
-	public function parserRequestFailureProvider() {
+	public function parserRequestFailureProvider(): array {
 		$parser = $this->getMockBuilder( 'Parser' )
 			->disableOriginalConstructor()
 			->getMock();

@@ -1,9 +1,9 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
 /**
- * @covers \BootstrapComponents\LuaLibrary
+ * @covers  \MediaWiki\Extension\BootstrapComponents\LuaLibrary
  *
  * @license GNU GPL v2+
  * @since   1.1
@@ -31,7 +31,7 @@ class LuaLibraryTest extends LuaLibraryTestBase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
-			'BootstrapComponents\\LuaLibrary',
+			'MediaWiki\\Extension\\BootstrapComponents\\LuaLibrary',
 			$this->getLuaLibrary()
 		);
 	}
@@ -46,7 +46,7 @@ class LuaLibraryTest extends LuaLibraryTestBase {
 	public function testMethodsExist( $method ) {
 		$this->assertTrue(
 			method_exists( $this->getLuaLibrary(), $method ),
-			'Class BootstrapComponents\\LuaLibrary has method \'' . $method . '()\' missing!'
+			'Class MediaWiki\\Extension\\BootstrapComponents\\LuaLibrary has method \'' . $method . '()\' missing!'
 		);
 	}
 

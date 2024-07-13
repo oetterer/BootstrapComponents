@@ -1,14 +1,16 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Hooks;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Hooks;
 
-use BootstrapComponents\Hooks\OutputPageParserOutput;
-use BootstrapComponents\ParserOutputHelper;
-use \ParserOutput;
-use \PHPUnit_Framework_TestCase;
+use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
+use MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput;
+use OutputPage;
+use Parser;
+use ParserOutput;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers  \BootstrapComponents\Hooks\OutputPageParserOutput
+ * @covers  \MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput
  *
  * @ingroup Test
  *
@@ -20,37 +22,28 @@ use \PHPUnit_Framework_TestCase;
  * @since   1.2
  * @author  Tobias Oetterer
  */
-class OutputPageParserOutputTest extends PHPUnit_Framework_TestCase {
+class OutputPageParserOutputTest extends TestCase {
 
 	public function testCanConstruct() {
 
-		$outputPage = $this->getMockBuilder( 'OutputPage' )
-			->disableOriginalConstructor()
-			->getMock();
-		$parserOutput = $this->getMockBuilder( 'ParserOutput' )
-			->disableOriginalConstructor()
-			->getMock();
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\ParserOutputHelper' )
-			->disableOriginalConstructor()
-			->getMock();
+		$outputPage = $this->createMock( OutputPage::class );
 
-		/** @noinspection PhpParamsInspection */
-		$instance = new OutputPageParserOutput( $outputPage, $parserOutput, $parserOutputHelper );
+		$instance = new OutputPageParserOutput(
+			$outputPage,
+			$this->createMock( ParserOutput::class ),
+			$this->createMock( BootstrapComponentsService::class )
+		);
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\Hooks\\OutputPageParserOutput',
+			'MediaWiki\\Extension\\BootstrapComponents\\Hooks\\OutputPageParserOutput',
 			$instance
 		);
 	}
 
 	public function testHookOutputPageParserOutput() {
 		$content = 'CONTENT';
-		$parser = $this->getMockBuilder( 'Parser' )
-			->disableOriginalConstructor()
-			->getMock();
-		$outputPage = $this->getMockBuilder( 'OutputPage' )
-			->disableOriginalConstructor()
-			->getMock();
+
+		$outputPage = $this->createMock( OutputPage::class );
 		$outputPage->expects( $this->once() )
 			->method( 'addHTML' )
 			->will( $this->returnCallback( function( $injection ) use ( &$content ) {
@@ -62,9 +55,7 @@ class OutputPageParserOutputTest extends PHPUnit_Framework_TestCase {
 				$this->equalTo( [ 'ext.bootstrapComponents.vector-fix' ] )
 			);
 
-		$observerParserOutput = $this->getMockBuilder(ParserOutput::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$observerParserOutput = $this->createMock( ParserOutput::class );
 		$observerParserOutput->expects( $this->exactly( 1 ) )
 			->method( 'getExtensionData' )
 			->with(
@@ -72,15 +63,14 @@ class OutputPageParserOutputTest extends PHPUnit_Framework_TestCase {
 			)
 			->willReturn( [ 'test' ] );
 
-		/** @noinspection PhpParamsInspection */
-		$parserOutputHelper = new ParserOutputHelper( $parser );
+		$bootstrapService = $this->createMock( BootstrapComponentsService::class );
+		$bootstrapService->expects( $this->once() )
+			->method( 'vectorSkinInUse' )
+			->willReturn( true );
 
-		/** @noinspection PhpParamsInspection */
-		$instance = new OutputPageParserOutput( $outputPage, $observerParserOutput, $parserOutputHelper );
+		$instance = new OutputPageParserOutput( $outputPage, $observerParserOutput, $bootstrapService );
+		$instance->process();
 
-		$this->assertTrue(
-			$instance->process()
-		);
 		$this->assertEquals(
 			'CONTENT<!-- injected by Extension:BootstrapComponents -->test<!-- /injected by Extension:BootstrapComponents -->',
 			$content

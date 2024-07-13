@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Components;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Components\Jumbotron;
-use BootstrapComponents\Tests\Unit\ComponentsTestBase;
+use MediaWiki\Extension\BootstrapComponents\Components\Jumbotron;
+use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Components\Jumbotron
+ * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Jumbotron
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class JumbotronTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\Components\\Jumbotron',
+			'MediaWiki\\Extension\\BootstrapComponents\\Components\\Jumbotron',
 			new Jumbotron(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),

@@ -1,6 +1,6 @@
 <?php
 
-namespace BootstrapComponents\Tests\Integration;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Integration;
 
 use \MediaWiki\MediaWikiServices;
 use SMW\Tests\PHPUnitCompat;

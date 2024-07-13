@@ -24,7 +24,7 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents;
+namespace MediaWiki\Extension\BootstrapComponents;
 
 use \Html;
 
@@ -135,9 +135,9 @@ class ModalBuilder {
 	 *
 	 * Takes $id, $trigger and $content and produces a modal with the html id $id, using $content as the
 	 * body content of the opening modal. For trigger, you can use a generic html code and wrap it in
-	 * {@see \BootstrapComponents\ModalBase::wrapTriggerElement}, or you make sure you generate
+	 * {@see ModalBase::wrapTriggerElement}, or you make sure you generate
 	 * a correct trigger for yourself, using the necessary attributes and especially the id, you supplied
-	 * here (see {@see \BootstrapComponents\Components\Modal::generateButton} for example).
+	 * here (see {@see Components\Modal::generateButton} for example).
 	 *
 	 * Do not instantiate directly, but use {@see ApplicationFactory::getNewModalBuilder}
 	 * instead.
@@ -147,8 +147,8 @@ class ModalBuilder {
 	 * @param string             $content must be fully parsed html (use {@see Parser::recursiveTagParseFully})
 	 * @param ParserOutputHelper $parserOutputHelper
 	 *
-	 *@see ApplicationFactory::getNewModalBuilder
-	 * @see \BootstrapComponents\Components\Modal::generateButton
+	 * @see ApplicationFactory::getNewModalBuilder
+	 * @see Components\Modal::generateButton
 	 *
 	 */
 

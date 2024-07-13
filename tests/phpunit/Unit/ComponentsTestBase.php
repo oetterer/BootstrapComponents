@@ -1,14 +1,14 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\ComponentLibrary;
-use BootstrapComponents\NestingController;
-use BootstrapComponents\ParserOutputHelper;
-use BootstrapComponents\ParserRequest;
-use \PHPUnit_Framework_TestCase;
-use \Parser;
-use \PPFrame;
+use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
+use MediaWiki\Extension\BootstrapComponents\NestingController;
+use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
+use MediaWiki\Extension\BootstrapComponents\ParserRequest;
+use PHPUnit\Framework\TestCase;
+use Parser;
+use PPFrame;
 
 /**
  * @group extension-bootstrap-components
@@ -19,7 +19,7 @@ use \PPFrame;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-abstract class ComponentsTestBase extends PHPUnit_Framework_TestCase {
+abstract class ComponentsTestBase extends TestCase {
 	/**
 	 * @var ComponentLibrary
 	 */
@@ -33,7 +33,7 @@ abstract class ComponentsTestBase extends PHPUnit_Framework_TestCase {
 	/**
 	 * @var NestingController
 	 */
-	private $nestingController;
+	private NestingController $nestingController;
 
 	/**
 	 * @var Parser
@@ -51,29 +51,21 @@ abstract class ComponentsTestBase extends PHPUnit_Framework_TestCase {
 	public function setUp(): void {
 		parent::setUp();
 		$this->componentLibrary = new ComponentLibrary();
-		$this->frame = $this->getMockBuilder( 'PPFrame' )
-			->disableOriginalConstructor()
-			->getMock();
-		$this->nestingController = $this->getMockBuilder( 'BootstrapComponents\\NestingController' )
-			->disableOriginalConstructor()
-			->getMock();
+		$this->frame = $this->createMock( PPFrame::class );
+		$this->nestingController = $this->createMock( NestingController::class );
 		$this->nestingController->expects( $this->any() )
 			->method( 'generateUniqueId' )
 			->will( $this->returnCallback( function( $componentName ) {
 				return 'bsc_' . $componentName . '_NULL';
 			} ) );
-		$this->parser = $this->getMockBuilder( 'Parser' )
-			->disableOriginalConstructor()
-			->getMock();
+		$this->parser = $this->createMock( Parser::class );
 		$this->parser->expects( $this->any() )
 			->method( 'recursiveTagParse' )
 			->will( $this->returnArgument( 0 ) );
 		$this->parser->expects( $this->any() )
 			->method( 'recursiveTagParseFully' )
 			->will( $this->returnArgument( 0 ) );
-		$this->parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
-			->disableOriginalConstructor()
-			->getMock();
+		$this->parserOutputHelper = $this->createMock( ParserOutputHelper::class );
 		$this->parserOutputHelper->expects( $this->any() )
 			->method( 'renderErrorMessage' )
 			->will( $this->returnArgument( 0 ) );
@@ -88,9 +80,7 @@ abstract class ComponentsTestBase extends PHPUnit_Framework_TestCase {
 	 * @return ParserRequest
 	 */
 	protected function buildParserRequest( $input, $options ) {
-		$parserRequest = $this->getMockBuilder( 'BootstrapComponents\\ParserRequest' )
-			->disableOriginalConstructor()
-			->getMock();
+		$parserRequest = $this->createMock( ParserRequest::class );
 		$parserRequest->expects( $this->any() )
 			->method( 'getAttributes' )
 			->willReturn( $options );

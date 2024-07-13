@@ -24,9 +24,9 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Components;
+namespace MediaWiki\Extension\BootstrapComponents\Components;
 
-use BootstrapComponents\AbstractComponent;
+use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
 use \Html;
 
 /**

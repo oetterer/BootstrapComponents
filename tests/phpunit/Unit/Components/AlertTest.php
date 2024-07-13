@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Components;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Components\Alert;
-use BootstrapComponents\Tests\Unit\ComponentsTestBase;
+use MediaWiki\Extension\BootstrapComponents\Components\Alert;
+use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Components\Alert
+ * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Alert
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class AlertTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'\\BootstrapComponents\\Components\\Alert',
+			'MediaWiki\\Extension\\BootstrapComponents\\Components\\Alert',
 			new Alert(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),

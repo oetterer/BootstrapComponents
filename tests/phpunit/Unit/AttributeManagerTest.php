@@ -1,12 +1,12 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\AttributeManager;
-use \PHPUnit_Framework_TestCase;
+use MediaWiki\Extension\BootstrapComponents\AttributeManager;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers  \BootstrapComponents\AttributeManager
+ * @covers  \MediaWiki\Extension\BootstrapComponents\AttributeManager
  *
  * @ingroup Test
  *
@@ -18,11 +18,11 @@ use \PHPUnit_Framework_TestCase;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class AttributeManagerTest extends PHPUnit_Framework_TestCase {
+class AttributeManagerTest extends TestCase {
 
 	public function testCanConstruct() {
 		$this->assertInstanceOf(
-			'BootstrapComponents\\AttributeManager',
+			'MediaWiki\\Extension\\BootstrapComponents\\AttributeManager',
 			new AttributeManager( [], [] )
 		);
 	}

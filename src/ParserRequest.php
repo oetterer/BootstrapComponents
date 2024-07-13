@@ -24,9 +24,11 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents;
+namespace MediaWiki\Extension\BootstrapComponents;
 
 use MWException;
+use Parser;
+use PPFrame;
 
 /**
  * Class ParserRequest
@@ -39,22 +41,22 @@ class ParserRequest {
 	/**
 	 * @var string[] $attributes
 	 */
-	private $attributes;
+	private array $attributes;
 
 	/**
 	 * @var string $input
 	 */
-	private $input;
+	private string $input;
 
 	/**
-	 * @var \PPFrame $frame
+	 * @var PPFrame|null $frame
 	 */
-	private $frame;
+	private PPFrame|null $frame;
 
 	/**
-	 * @var \Parser $parser
+	 * @var Parser $parser
 	 */
-	private $parser;
+	private Parser $parser;
 
 	/**
 	 * ParserRequest constructor.
@@ -70,13 +72,20 @@ class ParserRequest {
 	 *
 	 * @throws MWException
 	 */
-	public function __construct( $argumentsPassedByParser, $isParserFunction, $componentName = 'unknown' ) {
-		list( $this->input, $attributes, $this->parser, $this->frame ) =
+	public function __construct(
+		array $argumentsPassedByParser, bool $isParserFunction, string $componentName = 'unknown'
+	) {
+		list( $this->input, $attributes, $parser, $frame ) =
 			$this->processArguments( $argumentsPassedByParser, $isParserFunction, $componentName );
 		$this->attributes = (array)$attributes;
-		if ( !$this->parser || !is_a( $this->parser, 'Parser' ) ) {
+		if ( !$parser || !is_a( $parser, 'Parser' ) ) {
 			throw new MWException( 'Invalid parser object passed to component ' . $componentName . '!' );
 		}
+		if ( $frame && !is_a( $frame, 'PPFrame' ) ) {
+			throw new MWException( 'Invalid frame object passed to component ' . $componentName . '!' );
+		}
+		$this->parser = $parser;
+		$this->frame = $frame;
 	}
 
 	/**
@@ -84,7 +93,7 @@ class ParserRequest {
 	 *
 	 * @return string[] associative array `attribute => value`
 	 */
-	public function getAttributes() {
+	public function getAttributes(): array {
 		return $this->attributes;
 	}
 
@@ -99,25 +108,25 @@ class ParserRequest {
 	 *
 	 * @return string
 	 */
-	public function getInput() {
+	public function getInput(): string {
 		return $this->input;
 	}
 
 	/**
 	 * Tag extensions supply a frame.
 	 *
-	 * @return \PPFrame
+	 * @return null|PPFrame
 	 */
-	public function getFrame() {
+	public function getFrame(): PPFrame|null {
 		return $this->frame;
 	}
 
 	/**
 	 * This is the parser object passed to the parser function or the tag extension.
 	 *
-	 * @return \Parser
+	 * @return Parser
 	 */
-	public function getParser() {
+	public function getParser(): Parser {
 		return $this->parser;
 	}
 
@@ -136,14 +145,16 @@ class ParserRequest {
 	 * @throws MWException
 	 * @return array $results
 	 */
-	private function extractParserFunctionOptions( $options, $componentName ) {
+	private function extractParserFunctionOptions( array $options, string $componentName ): array {
 		if ( empty( $options ) ) {
 			return [];
 		}
 		$results = [];
 		foreach ( $options as $option ) {
 			if ( !is_string( $option ) ) {
-				throw new MWException( 'Arguments passed to bootstrap component "' . $componentName . '" are invalid!' );
+				throw new MWException(
+					'Arguments passed to bootstrap component "' . $componentName . '" are invalid!'
+				);
 			}
 			list( $key, $value ) = $this->getKeyValuePairFrom( $option );
 			if ( strlen( $key ) ) {
@@ -158,7 +169,7 @@ class ParserRequest {
 	 *
 	 * @return string[]
 	 */
-	private function getKeyValuePairFrom( $option ) {
+	private function getKeyValuePairFrom( string $option ): array {
 
 		$pair = explode( '=', $option, 2 );
 
@@ -186,11 +197,12 @@ class ParserRequest {
 	 * @throws MWException if argument list does not match handler type or unknown handler type detected
 	 * @return array array consisting of (string) $input, (array) $options, (Parser) $parser, and optional (PPFrame) $frame
 	 */
-	private function processArguments( $argumentsPassedByParser, $isParserFunction, $componentName ) {
-		$argumentsPassedByParser = (array)$argumentsPassedByParser;
+	private function processArguments(
+		array $argumentsPassedByParser, bool $isParserFunction, string $componentName
+	): array {
 		if ( $isParserFunction ) {
 			$parser = array_shift( $argumentsPassedByParser );
-			$input = isset( $argumentsPassedByParser[0] ) ? $argumentsPassedByParser[0] : '';
+			$input = $argumentsPassedByParser[0] ?? '';
 			unset( $argumentsPassedByParser[0] );
 
 			$attributes = $this->extractParserFunctionOptions( $argumentsPassedByParser, $componentName );
@@ -198,7 +210,9 @@ class ParserRequest {
 			return [ $input, $attributes, $parser, null ];
 		} else {
 			if ( count( $argumentsPassedByParser ) != 4 ) {
-				throw new MWException( 'Argument list passed to bootstrap tag component "' . $componentName . '" is invalid!' );
+				throw new MWException(
+					'Argument list passed to bootstrap tag component "' . $componentName . '" is invalid!'
+				);
 			}
 			return $argumentsPassedByParser;
 		}

@@ -24,12 +24,10 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents;
+namespace MediaWiki\Extension\BootstrapComponents;
 
 use \Html;
-use \MediaWiki\MediaWikiServices;
 use \ParserOutput;
-use \RequestContext;
 use \Title;
 
 /**
@@ -40,21 +38,6 @@ use \Title;
  * @since 1.0
  */
 class ParserOutputHelper {
-
-	/**
-	 * @var string
-	 */
-	const EXTENSION_DATA_DEFERRED_CONTENT_KEY = 'bsc_deferredContent';
-
-	/**
-	 * @var string
-	 */
-	const INJECTION_PREFIX = '<!-- injected by Extension:BootstrapComponents -->';
-
-	/**
-	 * @var string
-	 */
-	const INJECTION_SUFFIX = '<!-- /injected by Extension:BootstrapComponents -->';
 
 	/**
 	 * To make sure, we only add the tracking category once.
@@ -69,13 +52,6 @@ class ParserOutputHelper {
 	 * @var bool $articleTrackedOnError
 	 */
 	private $articleTrackedOnError;
-
-	/**
-	 * Holds the name of the skin we use (or false, if there is no skin).
-	 *
-	 * @var string $nameOfActiveSkin
-	 */
-	private $nameOfActiveSkin;
 
 	/**
 	 * @var \Parser $parser
@@ -96,9 +72,6 @@ class ParserOutputHelper {
 		$this->articleTracked = false;
 		$this->articleTrackedOnError = false;
 		$this->parser = $parser;
-		$this->nameOfActiveSkin = $this->detectSkinInUse(
-			defined( 'MW_NO_SESSION' )
-		);
 	}
 
 	/**
@@ -116,6 +89,8 @@ class ParserOutputHelper {
 	 * Adds the supplied modules to the parser output.
 	 *
 	 * @param array $modulesToAdd
+	 *
+	 * @deprecated use \MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService::registerComponentAsActive
 	 */
 	public function addModules( $modulesToAdd ) {
 		$parserOutput = $this->getParser()->getOutput();
@@ -147,33 +122,8 @@ class ParserOutputHelper {
 	 * @return bool|null
 	 */
 	public function areImageModalsSuppressed() {
-		return $this->getParser()->getOutput()->getExtensionData( 'bsc_no_image_modal' );
-	}
-
-	/**
-	 * Returns the raw html that is be inserted at the end of the page.
-	 *
-	 * @param \ParserOutput $parserOutput
-	 *
-	 * @return string
-	 */
-	public function getContentForLaterInjection( \ParserOutput $parserOutput ): string {
-		$deferredContent = $parserOutput->getExtensionData( self::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
-
-		if ( empty( $deferredContent ) || !is_array( $deferredContent ) ) {
-			return '';
-		}
-
-		// clearing extension data for unit and integration tests to work
-		$parserOutput->setExtensionData( self::EXTENSION_DATA_DEFERRED_CONTENT_KEY, null );
-		return self::INJECTION_PREFIX . implode( array_values( $deferredContent ) ) . self::INJECTION_SUFFIX;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getNameOfActiveSkin() {
-		return $this->nameOfActiveSkin;
+		return $this->getParser()->getOutput()
+			->getExtensionData( BootstrapComponents::EXTENSION_DATA_NO_IMAGE_MODAL );
 	}
 
 	/**
@@ -190,26 +140,14 @@ class ParserOutputHelper {
 			return $this;
 		}
 		if ( !empty( $rawHtml ) ) {
-			$deferredContent = $this->getParser()->getOutput()->getExtensionData( self::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
+			$deferredContent = $this->getParser()->getOutput()->getExtensionData( BootstrapComponents::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
 			if ( empty( $deferredContent ) ) {
 				$deferredContent = [];
 			}
 			$deferredContent[$id] = $rawHtml;
-			$this->getParser()->getOutput()->setExtensionData( self::EXTENSION_DATA_DEFERRED_CONTENT_KEY, $deferredContent );
+			$this->getParser()->getOutput()->setExtensionData( BootstrapComponents::EXTENSION_DATA_DEFERRED_CONTENT_KEY, $deferredContent );
 		}
 		return $this;
-	}
-
-	/**
-	 * Adds the bootstrap modules and styles to the page, if not done already
-	 * @todo augment signature to include bsModule to add via BootstrapManager::getInstance()->addBootstrapModule();
-	 */
-	public function loadBootstrapModules() {
-		$parserOutput = $this->getParser()->getOutput();
-		if ( is_a( $parserOutput, ParserOutput::class ) ) {
-			// Q: when do we expect \Parser->getOutput() not to be a \ParserOutput? A: During tests.
-			$parserOutput->setExtensionData( 'bsc_load_modules', true );
-		}
 	}
 
 	/**
@@ -232,40 +170,10 @@ class ParserOutputHelper {
 	}
 
 	/**
-	 * Returns true, if active skin is vector
-	 *
-	 * @return bool
-	 */
-	public function vectorSkinInUse() {
-		return in_array( strtolower( $this->getNameOfActiveSkin() ), [ 'vector', 'vector-2022' ] ) ;
-	}
-
-	/**
 	 * @return \Parser
 	 */
 	protected function getParser() {
 		return $this->parser;
-	}
-
-	/**
-	 * @param bool $useConfig   set to true, if we can't rely on {@see \RequestContext::getSkin}
-	 *
-	 * @return string
-	 */
-	private function detectSkinInUse( $useConfig = false ) {
-		if ( !$useConfig ) {
-			$skin = RequestContext::getMain()->getSkin();
-		}
-		if ( !empty( $skin ) && is_a( $skin, 'Skin' ) ) {
-			return $skin->getSkinName();
-		}
-		$mainConfig = MediaWikiServices::getInstance()->getMainConfig();
-		try {
-			$defaultSkin = $mainConfig->get( 'DefaultSkin' );
-		} catch ( \ConfigException $e ) {
-			$defaultSkin = 'unknown';
-		}
-		return empty( $defaultSkin ) ? 'unknown' : $defaultSkin;
 	}
 
 	/**
@@ -280,11 +188,7 @@ class ParserOutputHelper {
 			// Q: when do we expect \Parser->getOutput() no to be a \ParserOutput? A:During tests.
 			$cat = Title::makeTitleSafe( NS_CATEGORY, $categoryMessage->text() );
 			if ( $cat ) {
-				if ( version_compare( $GLOBALS['wgVersion'], '1.38', 'lt' ) ) {
-					$sort = (string)$parserOutput->getProperty('defaultsort') ?? '';
-				} else {
-					$sort = (string)$parserOutput->getPageProperty('defaultsort') ?? '';
-				}
+				$sort = (string)$parserOutput->getPageProperty('defaultsort') ?? '';
 				$parserOutput->addCategory( $cat->getDBkey(), $sort );
 			} else {
 				wfDebug( __METHOD__ . ": [[MediaWiki:{$trackingCategoryMessageName}]] is not a valid title!\n" );

@@ -24,7 +24,7 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents;
+namespace MediaWiki\Extension\BootstrapComponents;
 
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
@@ -88,27 +88,7 @@ class ApplicationFactory {
 	public function __construct() {
 		$this->applicationStore = [];
 		$this->applicationClassRegister = $this->getApplicationClassRegister();
-		$this->getLogger()->info( 'ApplicationFactory was build!' );
-	}
-
-	/**
-	 * @param null|bool|array $componentWhiteList
-	 *
-	 * @throws MWException  cascading {@see \BootstrapComponents\ApplicationFactory::getApplication}
-	 *
-	 * @return ComponentLibrary
-	 */
-	public function getComponentLibrary( $componentWhiteList = null ) {
-		return $this->getApplication( 'ComponentLibrary', $componentWhiteList );
-	}
-
-	/**
-	 * @throws MWException  cascading {@see \BootstrapComponents\ApplicationFactory::getApplication}
-	 *
-	 * @return NestingController
-	 */
-	public function getNestingController() {
-		return $this->getApplication( 'NestingController' );
+		$this->getLogger()->debug( 'ApplicationFactory was build!' );
 	}
 
 	/**
@@ -119,7 +99,7 @@ class ApplicationFactory {
 	 *
 	 * @return AttributeManager
 	 */
-	public function getNewAttributeManager( $validAttributes, $aliases ) {
+	public function getNewAttributeManager( array $validAttributes, array $aliases ): AttributeManager {
 		return new AttributeManager( $validAttributes, $aliases );
 	}
 
@@ -133,7 +113,9 @@ class ApplicationFactory {
 	 *
 	 * @return ModalBuilder
 	 */
-	public function getNewModalBuilder( $id, $trigger, $content, $parserOutputHelper ) {
+	public function getNewModalBuilder(
+		string $id, string $trigger, string $content, ParserOutputHelper $parserOutputHelper
+	): ModalBuilder {
 		return new ModalBuilder( $id, $trigger, $content, $parserOutputHelper );
 	}
 
@@ -148,7 +130,9 @@ class ApplicationFactory {
 	 *
 	 * @return ParserRequest
 	 */
-	public function getNewParserRequest( $argumentsPassedByParser, $isParserFunction, $componentName = 'unknown' ) {
+	public function getNewParserRequest(
+		array $argumentsPassedByParser, bool $isParserFunction, string $componentName = 'unknown'
+	): ParserRequest {
 		return new ParserRequest( $argumentsPassedByParser, $isParserFunction, $componentName );
 	}
 
@@ -178,7 +162,7 @@ class ApplicationFactory {
 	 *
 	 * @return bool
 	 */
-	public function registerApplication( $name, $class ) {
+	public function registerApplication( string $name, string $class ): bool {
 		$application = trim( $name );
 		$applicationClass = trim( $class );
 		if ( $application != '' && class_exists( $applicationClass ) ) {
@@ -199,7 +183,7 @@ class ApplicationFactory {
 	 *
 	 * @return bool
 	 */
-	public function resetLookup( $application = null ) {
+	public function resetLookup( ?string $application = null ): bool {
 		if ( is_null( $application ) ) {
 			$this->applicationStore = [];
 			return true;
@@ -218,9 +202,9 @@ class ApplicationFactory {
 	 *
 	 * @throws MWException  when no class is registered for the requested application or the creation of the object fails.
 	 *
-	 * @return mixed|object
+	 * @return object
 	 */
-	protected function getApplication( $name ) {
+	protected function getApplication( $name ): object {
 		if ( isset( $this->applicationStore[$name] ) ) {
 			return $this->applicationStore[$name];
 		}
@@ -233,9 +217,11 @@ class ApplicationFactory {
 		try {
 			$objectReflection = new ReflectionClass( $this->applicationClassRegister[$name] );
 		} catch ( \ReflectionException $e ) {
-			throw new MWException( 'Error while trying to build application "' . $name . '" with class ' . $this->applicationClassRegister[$name] );
+			throw new MWException(
+				'Error while trying to build application "' . $name . '" with class ' . $this->applicationClassRegister[$name]
+			);
 		}
-		$this->getLogger()->info( 'ApplicationFactory successfully build application ' . $name );
+		$this->getLogger()->debug( 'ApplicationFactory successfully build application ' . $name );
 		return $this->applicationStore[$name] = $objectReflection->newInstanceArgs( $args );
 	}
 
@@ -244,9 +230,8 @@ class ApplicationFactory {
 	 */
 	protected function getApplicationClassRegister() {
 		return [
-			'ComponentLibrary'   => 'BootstrapComponents\\ComponentLibrary',
-			'NestingController'  => 'BootstrapComponents\\NestingController',
-			'ParserOutputHelper' => 'BootstrapComponents\\ParserOutputHelper',
+			'NestingController'  => 'MediaWiki\\Extension\\BootstrapComponents\\NestingController',
+			'ParserOutputHelper' => 'MediaWiki\\Extension\\BootstrapComponents\\ParserOutputHelper',
 		];
 	}
 

@@ -25,16 +25,15 @@
 		"source": "https://github.com/oetterer/BootstrapComponents"
 	},
 	"require": {
-		"php": ">=7.4",
-		"composer/installers": "^2|^1.0.1",
-		"mediawiki/mw-extension-registry-helper": "^1.0",
-		"mediawiki/bootstrap": "^5.0|^4.0"
+		"php": ">=8.0",
+		"composer/installers": "^2",
+		"mediawiki/bootstrap": "^5.0"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "43.0.0",
 		"mediawiki/mediawiki-phan-config": "0.14.0",
 		"phpmd/phpmd": "~2.1",
-		"php": ">=7.4"
+		"php": ">=8.0"
 	},
 	"suggest": {
 		"mediawiki/scribunto": "Framework for embedding scripting languages into MediaWiki pages"

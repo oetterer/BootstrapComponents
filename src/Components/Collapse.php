@@ -24,11 +24,11 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Components;
+namespace MediaWiki\Extension\BootstrapComponents\Components;
 
-use BootstrapComponents\ApplicationFactory;
-use BootstrapComponents\AbstractComponent;
-use BootstrapComponents\ParserRequest;
+use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
+use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
+use MediaWiki\Extension\BootstrapComponents\ParserRequest;
 use \Html;
 use \MWException;
 

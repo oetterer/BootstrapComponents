@@ -24,8 +24,9 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents;
+namespace MediaWiki\Extension\BootstrapComponents;
 
+use MediaWiki\MediaWikiServices;
 use MWException;
 use ReflectionClass;
 use ReflectionException;
@@ -47,6 +48,11 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	private ApplicationFactory $applicationFactory;
 
 	/**
+	 * @var BootstrapComponentsService
+	 */
+	private BootstrapComponentsService $bootstrapComponentService;
+
+	/**
 	 * LuaLibrary constructor.
 	 *
 	 * @param Scribunto_LuaEngine $engine
@@ -54,13 +60,13 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	public function __construct( Scribunto_LuaEngine $engine ) {
 		parent::__construct( $engine );
 		$this->applicationFactory = ApplicationFactory::getInstance();
+		$this->bootstrapComponentService = MediaWikiServices::getInstance()->getService( 'BootstrapComponentsService' );
 	}
 
 	/**
 	 * @return array
 	 */
-	public function register(): array
-	{
+	public function register(): array {
 		$lib = [
 			'parse'   => [ $this, 'parse' ],
 			'getSkin' => [ $this, 'getSkin' ],
@@ -82,12 +88,11 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @throws ReflectionException
 	 */
-	public function parse( ?string $componentName, ?string $input, ?array $arguments, ?bool $noStrip = false ): array
-	{
+	public function parse( ?string $componentName, ?string $input, ?array $arguments, ?bool $noStrip = false ): array {
 		if ( empty( $componentName ) ) {
 			return [ wfMessage( 'bootstrap-components-lua-error-no-component' )->text() ];
 		}
-		$componentLibrary = $this->getApplicationFactory()->getComponentLibrary();
+		$componentLibrary = MediaWikiServices::getInstance()->getService( 'BootstrapComponents.ComponentLibrary' );
 		if ( !in_array( $componentName, $componentLibrary->getRegisteredComponents() ) ) {
 			return [ wfMessage( 'bootstrap-components-lua-error-invalid-component', $componentName )->text() ];
 		}
@@ -108,26 +113,24 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	}
 
 	/**
-	 * @throws MWException
-	 *
 	 * @return string[]
 	 */
-	public function getSkin(): array
-	{
-		return [ $this->getApplicationFactory()->getParserOutputHelper( $this->getParser() )->getNameOfActiveSkin() ];
+	public function getSkin(): array {
+		return [ $this->getBootstrapComponentsService()->getNameOfActiveSkin() ];
 	}
 
 	/**
 	 * @param string      $input
-	 * @param null|string|array  $arguments
+	 * @param array|string|null $arguments
 	 * @param null|string $component
 	 *
-	 * @throws MWException
-	 *
 	 * @return ParserRequest
+	 *@throws MWException
+	 *
 	 */
-	protected function buildParserRequest( string $input, $arguments, ?string $component = null ): ParserRequest
-	{
+	protected function buildParserRequest(
+		string $input, array|string|null $arguments, ?string $component = null
+	): ParserRequest {
 		// prepare the arguments array
 		$parserRequestArguments = $this->processLuaArguments( $arguments );
 		array_unshift( $parserRequestArguments, $input );
@@ -150,9 +153,9 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 		/** @var AbstractComponent $component */
 		$component = $objectReflection->newInstanceArgs(
 			[
-				$this->getApplicationFactory()->getComponentLibrary(),
+				MediaWikiServices::getInstance()->getService( 'BootstrapComponents.ComponentLibrary' ),
 				$this->getApplicationFactory()->getParserOutputHelper( $this->getParser() ),
-				$this->getApplicationFactory()->getNestingController(),
+				MediaWikiServices::getInstance()->getService( 'BootstrapComponents.NestingController' ),
 			]
 		);
 		return $component;
@@ -161,9 +164,16 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * @return ApplicationFactory
 	 */
-	protected function getApplicationFactory(): ApplicationFactory
-	{
+	protected function getApplicationFactory(): ApplicationFactory {
 		return $this->applicationFactory;
+	}
+
+	/**
+	 * @return BootstrapComponentsService
+	 */
+	protected function getBootstrapComponentsService(): BootstrapComponentsService
+	{
+		return $this->bootstrapComponentService;
 	}
 
 	/**
@@ -174,8 +184,7 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	 *
 	 * @return array
 	 */
-	private function processLuaArguments( $arguments ): array
-	{
+	private function processLuaArguments( $arguments ): array {
 		// make sure, we have an array of parameters
 		if ( !is_array( $arguments ) ) {
 			$arguments = preg_split( "/(?<=[^\|])\|(?=[^\|])/", $arguments );

@@ -11,7 +11,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'MediaWiki is not available.' );
 }
 
-if ( !class_exists( 'BootstrapComponents\BootstrapComponents' ) ) {
+if ( !class_exists( 'Mediawiki\Extension\BootstrapComponents\BootstrapComponents' ) ) {
 	die( "\nBootstrapComponents is not available, please check your LocalSettings or Composer settings.\n" );
 }
 
@@ -41,7 +41,7 @@ $autoloader = require $path;
 
 #$autoloader->addPsr4( 'BootstrapComponents\\Tests\\Unit\\', __DIR__ . '/phpunit/Unit' );
 #$autoloader->addPsr4( 'BootstrapComponents\\Tests\\Integration\\', __DIR__ . '/phpunit/Integration' );
-$autoloader->addPsr4( 'BootstrapComponents\\Tests\\', __DIR__ . '/phpunit' );
+$autoloader->addPsr4( 'Mediawiki\\Extension\\BootstrapComponents\\Tests\\', __DIR__ . '/phpunit' );
 @include_once __DIR__ . '/phpunit/Unit/ComponentsTestBase.php';
 
 return $autoloader;

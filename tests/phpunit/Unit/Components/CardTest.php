@@ -1,15 +1,15 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Components;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Components\Accordion;
-use BootstrapComponents\Components\Card;
-use BootstrapComponents\NestingController;
-use BootstrapComponents\Tests\Unit\ComponentsTestBase;
+use MediaWiki\Extension\BootstrapComponents\Components\Accordion;
+use MediaWiki\Extension\BootstrapComponents\Components\Card;
+use MediaWiki\Extension\BootstrapComponents\NestingController;
+use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Components\Card
+ * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Card
  *
  * @ingroup Test
  *

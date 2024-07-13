@@ -1,12 +1,12 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\ModalBuilder;
-use \PHPUnit_Framework_TestCase;
+use MediaWiki\Extension\BootstrapComponents\ModalBuilder;
+use PHPUnit\Framework\TestCase;
 
 /**
- * @covers  \BootstrapComponents\ModalBuilder
+ * @covers  \MediaWiki\Extension\BootstrapComponents\ModalBuilder
  *
  * @ingroup Test
  *
@@ -18,17 +18,17 @@ use \PHPUnit_Framework_TestCase;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class ModalBuilderTest extends PHPUnit_Framework_TestCase {
+class ModalBuilderTest extends TestCase {
 
 	public function testCanConstruct() {
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
+		$parserOutputHelper = $this->getMockBuilder( 'MediaWiki\\Extension\\BootstrapComponents\\ParserOutputHelper' )
 			->disableOriginalConstructor()
 			->getMock();
 
 		/** @noinspection PhpParamsInspection */
 		$instance = new ModalBuilder( 'id', 'trigger', '', $parserOutputHelper );
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ModalBuilder',
+			'MediaWiki\\Extension\\BootstrapComponents\\ModalBuilder',
 			$instance
 		);
 	}
@@ -50,7 +50,7 @@ class ModalBuilderTest extends PHPUnit_Framework_TestCase {
 	public function testCanParse( $id, $trigger, $content, $header, $footer, $outerClass, $outerStyle, $innerClass, $expectedTrigger, $expectedModal ) {
 
 		$modalInjection = '';
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
+		$parserOutputHelper = $this->getMockBuilder( 'MediaWiki\\Extension\\BootstrapComponents\\ParserOutputHelper' )
 			->disableOriginalConstructor()
 			->getMock();
 		$parserOutputHelper->expects( $this->any() )

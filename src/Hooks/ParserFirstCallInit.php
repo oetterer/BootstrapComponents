@@ -24,14 +24,15 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Hooks;
+namespace MediaWiki\Extension\BootstrapComponents\Hooks;
 
-use \BootstrapComponents\ApplicationFactory;
-use \BootstrapComponents\ComponentLibrary;
-use \BootstrapComponents\NestingController;
-use \BootstrapComponents\ParserOutputHelper;
-use \Parser;
-use \ReflectionClass;
+use Closure;
+use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
+use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
+use MediaWiki\Extension\BootstrapComponents\NestingController;
+use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
+use Parser;
+use ReflectionClass;
 
 /**
  * Class ParserFirstCallInit
@@ -140,9 +141,9 @@ class ParserFirstCallInit {
 	 *
 	 * @param string $componentName
 	 *
-	 * @return \Closure
+	 * @return Closure
 	 */
-	private function createParserHookCallbackFor( $componentName ) {
+	private function createParserHookCallbackFor( string $componentName ): Closure {
 
 		$componentLibrary = $this->getComponentLibrary();
 		$nestingController = $this->getNestingController();
@@ -152,6 +153,7 @@ class ParserFirstCallInit {
 
 			$componentClass = $componentLibrary->getClassFor( $componentName );
 			$objectReflection = new ReflectionClass( $componentClass );
+			/** @var \MediaWiki\Extension\BootstrapComponents\AbstractComponent $object */
 			$object = $objectReflection->newInstanceArgs( [ $componentLibrary, $parserOutputHelper, $nestingController ] );
 
 			$parserRequest = ApplicationFactory::getInstance()->getNewParserRequest(
@@ -159,7 +161,6 @@ class ParserFirstCallInit {
 				$componentLibrary->isParserFunction( $componentName ),
 				$componentName
 			);
-			/** @var \BootstrapComponents\AbstractComponent $object */
 			return $object->parseComponent( $parserRequest );
 		};
 	}

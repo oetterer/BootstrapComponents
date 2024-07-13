@@ -1,13 +1,13 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit\Components;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
-use BootstrapComponents\Components\Modal;
-use BootstrapComponents\Tests\Unit\ComponentsTestBase;
+use MediaWiki\Extension\BootstrapComponents\Components\Modal;
+use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
 use \MWException;
 
 /**
- * @covers  \BootstrapComponents\Components\Modal
+ * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Modal
  *
  * @ingroup Test
  *
@@ -29,7 +29,7 @@ class ModalTest extends ComponentsTestBase {
 	public function testCanConstruct() {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\Components\\Modal',
+			'MediaWiki\\Extension\\BootstrapComponents\\Components\\Modal',
 			new Modal(
 				$this->getComponentLibrary(),
 				$this->getParserOutputHelper(),
@@ -50,7 +50,7 @@ class ModalTest extends ComponentsTestBase {
 	public function testCanRender( $input, $arguments, $expectedTriggerOutput, $expectedModalOutput ) {
 
 		$modalInjection = '';
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
+		$parserOutputHelper = $this->getMockBuilder( 'MediaWiki\\Extension\\BootstrapComponents\\ParserOutputHelper' )
 			->disableOriginalConstructor()
 			->getMock();
 		$parserOutputHelper->expects( $this->any() )

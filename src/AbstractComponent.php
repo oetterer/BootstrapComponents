@@ -24,7 +24,7 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents;
+namespace MediaWiki\Extension\BootstrapComponents;
 
 use \MWException;
 
@@ -283,7 +283,7 @@ abstract class AbstractComponent implements NestableInterface {
 				$parserRequest->getFrame()
 			);
 		}
-		if ( $input && preg_match( '/\n\n/', $input ) || preg_match( '/<p/', $input ) ) {
+		if ( $input && (preg_match( '/\n\n/', $input ) || preg_match( '/<p/', $input )) ) {
 			// if there are paragraph marker we prefix input with a new line so the parser recognizes two paragraphs.
 			$input = "\n" . $input . "\n";
 		}
@@ -316,10 +316,9 @@ abstract class AbstractComponent implements NestableInterface {
 	 */
 	private function augmentParserOutput() {
 		$this->getParserOutputHelper()->addTrackingCategory();
-		$this->getParserOutputHelper()->loadBootstrapModules();
 		$modules = $this->getComponentLibrary()->getModulesFor(
 			$this->getComponentName(),
-			$this->getParserOutputHelper()->getNameOfActiveSkin()
+			'vector'
 		);
 		$this->getParserOutputHelper()->addModules( $modules );
 	}

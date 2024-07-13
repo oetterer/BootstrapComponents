@@ -41,11 +41,10 @@
  * @ingroup       BootstrapComponents
  */
 
-namespace BootstrapComponents;
+namespace MediaWiki\Extension\BootstrapComponents;
 
 use ConfigException;
 use Exception;
-use ExtensionRegistryHelper\ExtensionRegistryHelper;
 use MWException;
 
 /**
@@ -57,15 +56,15 @@ use MWException;
  */
 class BootstrapComponents {
 
-	/**
-	 * @var bool $hooksRegistered
-	 */
-	private static $hooksRegistered = false;
+	const EXTENSION_DATA_DEFERRED_CONTENT_KEY = 'bsc_deferredContent';
+
+	const EXTENSION_DATA_NO_IMAGE_MODAL = 'bsc_no_image_modal';
+
 
 	/**
 	 * @var string $version
 	 */
-	private static $version;
+	private static string $version;
 
 	/**
 	 * Add this to extension.json's 'callable' entry.
@@ -85,11 +84,16 @@ class BootstrapComponents {
 
 		self::$version = $info['version'] ?? 'UNKNOWN';
 
-		# @todo remove emergency load of Extension "Bootstrap" on next mayor update! Keep the error handling!
-		# why? leaving this in forces users, who install BSC via git to augment their composer.local.json
-		# note: if this is to be removed, "mediawiki/mw-extension-registry-helper": "^1.0" can be removed from clj
-		// should be loaded manually in LocalSettings.php. If not, we give it a try!
-		ExtensionRegistryHelper::singleton()->loadExtensionRecursive( 'Bootstrap' );
+		if ( !defined( 'MEDIAWIKI' ) ) {
+			echo 'This file is part of the Mediawiki extension BootstrapComponents, it is not a valid entry point.' . PHP_EOL;
+			throw new MWException( 'This file is part of a Mediawiki Extension, it is not a valid entry point.' );
+		}
+
+		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.39', 'lt' ) ) {
+			echo '<b>Error:</b> <a href="https://github.com/oetterer/BootstrapComponents/">Bootstrap Components</a> '
+				. 'is only compatible with MediaWiki 1.39 or above. You need to upgrade MediaWiki first.' . PHP_EOL;
+			throw new MWException( 'BootstrapComponents detected an incompatible MediaWiki version. Exiting.' );
+		}
 
 		// Using the constant as indicator to avoid class_exists
 		if ( !\ExtensionRegistry::getInstance()->isLoaded('Bootstrap') ) {
@@ -107,48 +111,6 @@ class BootstrapComponents {
 	}
 
 	/**
-	 * Since 1.37 extension.json's "callback" is too early for HookRegistry, since all the MW-Services and the
-	 * ConfigFactory is not ready, yet.
-	 *
-	 * @throws ConfigException cascading {@see HookRegistry::__construct} and {@see HookRegistry::run}
-	 * @throws MWException cascading {@see HookRegistry::__construct}
-	 *
-	 * @return void
-	 */
-	public static function onExtensionFunction() {
-		if ( self::doCheckRequirements() ) {
-			$hookRegistry = new HookRegistry();
-			$hookRegistry->run();
-			self::$hooksRegistered = true;
-		}
-	}
-
-	/**
-	 * @return bool
-	 * @throws MWException
-	 *
-	 */
-	public static function doCheckRequirements(): bool
-	{
-		if ( !defined( 'MEDIAWIKI' ) ) {
-			echo 'This file is part of the Mediawiki extension BootstrapComponents, it is not a valid entry point.' . PHP_EOL;
-			throw new MWException( 'This file is part of a Mediawiki Extension, it is not a valid entry point.' );
-		}
-
-		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.35', 'lt' ) ) {
-			echo '<b>Error:</b> <a href="https://github.com/oetterer/BootstrapComponents/">Bootstrap Components</a> '
-				. 'is only compatible with MediaWiki 1.35 or above. You need to upgrade MediaWiki first.' . PHP_EOL;
-			throw new MWException( 'BootstrapComponents detected an incompatible MediaWiki version. Exiting.' );
-		}
-
-		if ( self::hooksRegistrationDone() ) {
-			// Do not initialize more than once.
-			return false;
-		}
-		return true;
-	}
-
-	/**
 	 * Returns version number of Extension BootstrapComponents
 	 *
 	 * @return string
@@ -156,13 +118,5 @@ class BootstrapComponents {
 	public static function getVersion(): string
 	{
 		return self::$version ?: 'UNDEFINED';
-	}
-
-	/**
-	 * @return bool
-	 */
-	public static function hooksRegistrationDone(): bool
-	{
-		return self::$hooksRegistered;
 	}
 }

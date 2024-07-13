@@ -1,6 +1,6 @@
 <?php
 
-namespace BootstrapComponents\Tests\Integration\JSONScript;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Integration\JSONScript;
 
 /**
  * Build contents from a selected folder and replaces the content of the

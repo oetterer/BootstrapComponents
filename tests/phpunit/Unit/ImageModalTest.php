@@ -1,14 +1,22 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\ImageModal;
+use DummyLinker;
+use File;
+use LocalFile;
+use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
+use MediaWiki\Extension\BootstrapComponents\ImageModal;
 use \ConfigException;
+use MediaWiki\Extension\BootstrapComponents\NestingController;
+use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
 use \MediaWiki\MediaWikiServices;
-use \PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
+use ThumbnailImage;
+use Title;
 
 /**
- * @covers  \BootstrapComponents\ImageModal
+ * @covers  \MediaWiki\Extension\BootstrapComponents\ImageModal
  *
  * @ingroup Test
  *
@@ -20,7 +28,7 @@ use \PHPUnit_Framework_TestCase;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class ImageModalTest extends PHPUnit_Framework_TestCase {
+class ImageModalTest extends TestCase {
 
 	public function setUp(): void {
 		parent::setUp();
@@ -31,39 +39,15 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testCanConstruct() {
 
-		$dummyLinker = $this->getMockBuilder( 'DummyLinker' )
-			->disableOriginalConstructor()
-			->getMock();
+		$file = $this->createMock( File::class );
 
-		$title = $this->getMockBuilder( 'Title' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$localFile = $this->getMockBuilder( 'LocalFile' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$file = $this->getMockBuilder( 'File' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		/** @noinspection PhpParamsInspection */
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ImageModal',
-			new ImageModal(
-				$dummyLinker,
-				$title,
-				$localFile
-			)
+			ImageModal::class,
+			$this->createImageModalWithMocks()
 		);
-		/** @noinspection PhpParamsInspection */
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ImageModal',
-			new ImageModal(
-				$dummyLinker,
-				$title,
-				$file
-			)
+			ImageModal::class,
+			$this->createImageModalWithMocks( null, null, $file )
 		);
 	}
 
@@ -72,17 +56,7 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 	 * @throws \ConfigException
 	 */
 	public function testCanParseOnFileNonExistent() {
-		$dummyLinker = $this->getMockBuilder( 'DummyLinker' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$title = $this->getMockBuilder( 'Title' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$file = $this->getMockBuilder( 'LocalFile' )
-			->disableOriginalConstructor()
-			->getMock();
+		$file = $this->createMock( LocalFile::class );
 		$file->expects( $this->any() )
 			->method( 'allowInlineDisplay' )
 			->willReturn( true );
@@ -90,16 +64,9 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 			->method( 'exists' )
 			->willReturn( false );
 
-		$nestingController = $this->getMockBuilder( 'BootstrapComponents\\NestingController' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		/** @noinspection PhpParamsInspection */
-		$instance = new ImageModal( $dummyLinker, $title, $file, $nestingController, $parserOutputHelper );
+		$instance = $this->createImageModalWithMocks( null, null, $file );
+		$fp = [];
+		$hp = [];
 		$time = false;
 		$res = '';
 
@@ -115,17 +82,7 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 	 * @throws \ConfigException
 	 */
 	public function testCanParseOnFileNoAllowInlineParse() {
-		$dummyLinker = $this->getMockBuilder( 'DummyLinker' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$title = $this->getMockBuilder( 'Title' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$file = $this->getMockBuilder( 'LocalFile' )
-			->disableOriginalConstructor()
-			->getMock();
+		$file = $this->createMock( LocalFile::class );
 		$file->expects( $this->any() )
 			->method( 'allowInlineDisplay' )
 			->willReturn( false );
@@ -133,16 +90,9 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 			->method( 'exists' )
 			->willReturn( true );
 
-		$nestingController = $this->getMockBuilder( 'BootstrapComponents\\NestingController' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		/** @noinspection PhpParamsInspection */
-		$instance = new ImageModal( $dummyLinker, $title, $file, $nestingController, $parserOutputHelper );
+		$instance = $this->createImageModalWithMocks( null, null, $file );
+		$fp = [];
+		$hp = [];
 		$time = false;
 		$res = '';
 
@@ -158,14 +108,6 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 	 * @throws \ConfigException
 	 */
 	public function testCanParseOnOnInvalidManualThumb() {
-		$dummyLinker = $this->getMockBuilder( 'DummyLinker' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$title = $this->getMockBuilder( 'Title' )
-			->disableOriginalConstructor()
-			->getMock();
-
 		$file = $this->getMockBuilder( 'LocalFile' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -176,19 +118,11 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 			->method( 'exists' )
 			->willReturn( true );
 
-		$nestingController = $this->getMockBuilder( 'BootstrapComponents\\NestingController' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		/** @noinspection PhpParamsInspection */
-		$instance = new ImageModal( $dummyLinker, $title, $file, $nestingController, $parserOutputHelper );
+		$instance = $this->createImageModalWithMocks( null, null, $file );
 		$time = false;
 		$res = '';
 		$fp =  [ 'manualthumb' => 'ImageInvalid.png' ];
+		$hp = [];
 
 		$resultOfParseCall = $instance->parse( $fp, $hp, $time, $res );
 
@@ -202,20 +136,12 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 	 * @throws \ConfigException
 	 */
 	public function testCanParseOnOnInvalidContentImage() {
-		$dummyLinker = $this->getMockBuilder( 'DummyLinker' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		$title = $this->getMockBuilder( 'Title' )
-			->disableOriginalConstructor()
-			->getMock();
+		$title = $this->createMock( Title::class );
 		$title->expects( $this->any() )
 			->method( 'getLocalUrl' )
 			->willReturn( '/File:Serenity.png' );
 
-		$thumb = $this->getMockBuilder( 'ThumbnailImage' )
-			->disableOriginalConstructor()
-			->getMock();
+		$thumb = $this->createMock( ThumbnailImage::class );
 		$thumb->expects( $this->any() )
 			->method( 'getWidth' )
 			->willReturn( 52 );
@@ -232,9 +158,7 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 					return '<img src=TEST_OUTPUT ' . implode( ' ', $ret ) . '>';
 				}
 			) );
-		$file = $this->getMockBuilder( 'LocalFile' )
-			->disableOriginalConstructor()
-			->getMock();
+		$file = $this->createMock( LocalFile::class );
 		$file->expects( $this->any() )
 			->method( 'allowInlineDisplay' )
 			->willReturn( true );
@@ -254,18 +178,11 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 			->method( 'transform' )
 			->willReturn( $thumb );
 
-		$nestingController = $this->getMockBuilder( 'BootstrapComponents\\NestingController' )
-			->disableOriginalConstructor()
-			->getMock();
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		/** @noinspection PhpParamsInspection */
-		$instance = new ImageModal( $dummyLinker, $title, $file, $nestingController, $parserOutputHelper );
+		$instance = $this->createImageModalWithMocks( null, $title, $file );
 		$time = false;
 		$res = '';
 		$fp = [ 'align' => 'left' ]; # otherwise, this test produces an exception while trying to call $title->getPageLanguage()->alignEnd()
+		$hp = [];
 
 		$resultOfParseCall = $instance->parse( $fp, $hp, $time, $res );
 
@@ -286,20 +203,13 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 	 * @dataProvider canParseDataProvider
 	 */
 	public function testCanParse( $fp, $hp, $expectedTrigger, $expectedModal ) {
-		$dummyLinker = $this->getMockBuilder( 'DummyLinker' )
-			->disableOriginalConstructor()
-			->getMock();
 
-		$title = $this->getMockBuilder( 'Title' )
-			->disableOriginalConstructor()
-			->getMock();
+		$title = $this->createMock( Title::class );
 		$title->expects( $this->any() )
 			->method( 'getLocalUrl' )
 			->willReturn( '/File:Serenity.png' );
 
-		$thumb = $this->getMockBuilder( 'ThumbnailImage' )
-			->disableOriginalConstructor()
-			->getMock();
+		$thumb = $this->createMock( ThumbnailImage::class );
 		$thumb->expects( $this->any() )
 			->method( 'getWidth' )
 			->willReturn( 640 );
@@ -316,9 +226,7 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 					return '<img src=TEST_OUTPUT ' . implode( ' ', $ret ) . '>';
 				}
 			) );
-		$file = $this->getMockBuilder( 'LocalFile' )
-			->disableOriginalConstructor()
-			->getMock();
+		$file = $this->createMock( LocalFile::class );
 		$file->expects( $this->any() )
 			->method( 'allowInlineDisplay' )
 			->willReturn( true );
@@ -338,9 +246,7 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 			->method( 'transform' )
 			->willReturn( $thumb );
 
-		$nestingController = $this->getMockBuilder( 'BootstrapComponents\\NestingController' )
-			->disableOriginalConstructor()
-			->getMock();
+		$nestingController = $this->createMock( NestingController::class );
 		$nestingController->expects( $this->any() )
 			->method( 'generateUniqueId' )
 			->will( $this->returnCallback(
@@ -350,23 +256,19 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 			) );
 
 		$modalInjection = '';
-		$parserOutputHelper = $this->getMockBuilder( 'BootstrapComponents\\ParserOutputHelper' )
-			->disableOriginalConstructor()
-			->getMock();
+		$parserOutputHelper = $this->createMock( ParserOutputHelper::class );
 		$parserOutputHelper->expects( $this->any() )
 			->method( 'injectLater' )
 			->will( $this->returnCallback( function( $id, $text ) use ( &$modalInjection ) {
 				$modalInjection .= $text;
 			} ) );
 
-		/** @noinspection PhpParamsInspection */
-		$instance = new ImageModal( $dummyLinker, $title, $file, $nestingController, $parserOutputHelper );
+		$instance = $this->createImageModalWithMocks( null, $title, $file, $nestingController, null, $parserOutputHelper );
 		$time = false;
 		$res = '';
 
 		$resultOfParseCall = $instance->parse( $fp, $hp, $time, $res );
 
-		/** @noinspection PhpParamsInspection */
 		$this->assertEquals(
 			$expectedTrigger,
 			$resultOfParseCall ?: $res,
@@ -404,8 +306,8 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 			'no params' => [
 				[],
 				[],
-				'<span class="modal-trigger" data-toggle="modal" data-target="#bsc_image_modal_test"><img src=TEST_OUTPUT ></span>',
-				'<div class="modal fade" role="dialog" id="bsc_image_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+				'<span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><img src=TEST_OUTPUT ></span>',
+				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
 			'frame params w/o thumbnail' => [
@@ -418,8 +320,8 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 					'valign'  => 'text-top',
 				],
 				[],
-				'<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_image_modal_test"><img src=TEST_OUTPUT alt="test_alt" title="test_title" class="test_class"></span></div>',
-				'<div class="modal fade" role="dialog" id="bsc_image_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+				'<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><img src=TEST_OUTPUT alt="test_alt" title="test_title" class="test_class"></span></div>',
+				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT alt="test_alt" title="test_title" class="test_class img-fluid"> <div class="modal-caption">test_caption:not next line, still not next line, .' . PHP_EOL . PHP_EOL . 'next line</div></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
 			'manual width, frameless' => [
@@ -431,8 +333,8 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 					'width' => 200,
 					'page'  => 7,
 				],
-				'<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_image_modal_test"><img src=TEST_OUTPUT ></span></div>',
-				'<div class="modal fade" role="dialog" id="bsc_image_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+				'<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><img src=TEST_OUTPUT ></span></div>',
+				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png?page=7">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
 			'thumbnail, manual width' => [
@@ -444,8 +346,8 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 					'width' => 200,
 					'page'  => 7,
 				],
-				'<div class="thumb tmiddle"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_image_modal_test"><div class="thumbinner" style="width:642px;"><img src=TEST_OUTPUT class="thumbimage">  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>',
-				'<div class="modal fade" role="dialog" id="bsc_image_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div>'
+				'<div class="thumb tmiddle"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><div class="thumbinner" style="width:642px;"><img src=TEST_OUTPUT class="thumbimage">  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>',
+				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div>'
 				. '<div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png?page=7">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
 			'manual thumbnail, NOT centered' => [
@@ -455,8 +357,8 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 					'framed'      => false,
 				],
 				[],
-				'<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_image_modal_test"><div class="thumbinner" style="width:96px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="94" height="240" class="thumbimage" />  <div class="thumbcaption"></div></div></span></div>',
-				'<div class="modal fade" role="dialog" id="bsc_image_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div>'
+				'<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><div class="thumbinner" style="width:96px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="94" height="240" class="thumbimage" />  <div class="thumbcaption"></div></div></span></div>',
+				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div>'
 				. '<div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
 			'framed' => [
@@ -465,8 +367,8 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 					'framed' => false,
 				],
 				[],
-				'<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_image_modal_test"><div class="thumbinner" style="width:642px;"><img src=TEST_OUTPUT class="thumbimage">  <div class="thumbcaption"></div></div></span></div>',
-				'<div class="modal fade" role="dialog" id="bsc_image_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+				'<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><div class="thumbinner" style="width:642px;"><img src=TEST_OUTPUT class="thumbimage">  <div class="thumbcaption"></div></div></span></div>',
+				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
 			'centered' => [
@@ -476,8 +378,8 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 				[
 					'width' => 200,
 				],
-				'<div class="center"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_image_modal_test"><img src=TEST_OUTPUT ></span></div>',
-				'<div class="modal fade" role="dialog" id="bsc_image_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+				'<div class="center"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><img src=TEST_OUTPUT ></span></div>',
+				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
 			'manual thumbnail, upright' => [
@@ -487,8 +389,8 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 					'manualthumb' => 'Shuttle.png',
 				],
 				[],
-				'<div class="thumb tleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_image_modal_test"><div class="thumbinner" style="width:96px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="94" height="240" class="thumbimage" />  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>',
-				'<div class="modal fade" role="dialog" id="bsc_image_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+				'<div class="thumb tleft"><span class="modal-trigger" data-toggle="modal" data-target="#bsc_modal_test"><div class="thumbinner" style="width:96px;"><img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" ' . $injectedAsyncLoading . 'width="94" height="240" class="thumbimage" />  <div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge"></a></div></div></div></span></div>',
+				'<div class="modal fade" role="dialog" id="bsc_modal_test" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
 				. '<div class="modal-body"><img src=TEST_OUTPUT class="img-fluid"></div><div class="modal-footer"><a class="btn btn-primary" role="button" href="/File:Serenity.png">Visit Source</a><button type="button" class="btn btn-default" data-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
 		];
@@ -525,5 +427,19 @@ class ImageModalTest extends PHPUnit_Framework_TestCase {
 			$ret .= '],' . PHP_EOL;
 		}
 		return $ret;
+	}
+
+	private function createImageModalWithMocks(
+		$dummyLinker = null, $title = null, $file = null, $nestingController = null,
+		$bootstrapService = null, $parserOutputHelper = null
+	) {
+		$dummyLinker = $dummyLinker ?? $this->createMock( DummyLinker::class );
+		$title = $title ?? $this->createMock( Title::class );
+		$file = $file ?? $this->createMock( LocalFile::class );
+		$nestingController = $nestingController ?? $this->createMock( NestingController::class );
+		$bootstrapService = $bootstrapService ?? $this->createMock( BootstrapComponentsService::class );
+		$parserOutputHelper = $parserOutputHelper ?? $this->createMock( ParserOutputHelper::class );
+
+		return new ImageModal( $dummyLinker, $title, $file, $nestingController, $bootstrapService, $parserOutputHelper );
 	}
 }

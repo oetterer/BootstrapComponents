@@ -24,11 +24,11 @@
  * @author        Tobias Oetterer
  */
 
-namespace BootstrapComponents\Components;
+namespace MediaWiki\Extension\BootstrapComponents\Components;
 
-use BootstrapComponents\AbstractComponent;
-use BootstrapComponents\ApplicationFactory;
-use BootstrapComponents\ModalBuilder;
+use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
+use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
+use MediaWiki\Extension\BootstrapComponents\ModalBuilder;
 use \Html;
 
 /**

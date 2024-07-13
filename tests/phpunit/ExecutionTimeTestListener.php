@@ -1,6 +1,6 @@
 <?php
 
-namespace BootstrapComponents\Tests;
+namespace MediaWiki\Extension\BootstrapComponents\Tests;
 
 use PHPUnit_Framework_AssertionFailedError;
 use PHPUnit_Framework_Test;

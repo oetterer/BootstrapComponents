@@ -1,14 +1,14 @@
 <?php
 
-namespace BootstrapComponents\Tests\Unit;
+namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use BootstrapComponents\ParserRequest;
-use \PHPUnit_Framework_TestCase;
+use MediaWiki\Extension\BootstrapComponents\ParserRequest;
+use PHPUnit\Framework\TestCase;
 use \Parser;
 use \PPFrame;
 
 /**
- * @covers  \BootstrapComponents\ParserRequest
+ * @covers  \MediaWiki\Extension\BootstrapComponents\ParserRequest
  *
  * @ingroup Test
  *
@@ -20,7 +20,7 @@ use \PPFrame;
  * @since   1.0
  * @author  Tobias Oetterer
  */
-class ParserRequestTest extends PHPUnit_Framework_TestCase {
+class ParserRequestTest extends TestCase {
 	/**
 	 * @var PPFrame
 	 */
@@ -49,10 +49,10 @@ class ParserRequestTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * @dataProvider constructionProvider
 	 */
-	public function testCanConstruct( $arguments, $isParserFunction ) {
+	public function testCanConstruct( array $arguments, bool $isParserFunction ) {
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ParserRequest',
+			ParserRequest::class,
 			new ParserRequest( $arguments, $isParserFunction )
 		);
 	}
@@ -63,12 +63,12 @@ class ParserRequestTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * @dataProvider constructionFailsProvider
 	 */
-	public function testCanNotConstruct( $arguments, $isParserFunction ) {
+	public function testCanNotConstruct( array $arguments, bool $isParserFunction ) {
 
 		$this->expectException( 'MWException' );
 
 		$this->assertInstanceOf(
-			'BootstrapComponents\\ParserRequest',
+			ParserRequest::class,
 			new ParserRequest( $arguments, $isParserFunction )
 		);
 	}
@@ -83,7 +83,9 @@ class ParserRequestTest extends PHPUnit_Framework_TestCase {
 	 *
 	 * @dataProvider constructionProvider
 	 */
-	public function testGetAttributesAndInput( $arguments, $isParserFunction, $expectedInput, $expectedAttributes ) {
+	public function testGetAttributesAndInput(
+		array $arguments, bool $isParserFunction, string $expectedInput, array $expectedAttributes
+	) {
 		$instance = new ParserRequest( $arguments, $isParserFunction );
 
 		$this->assertEquals(
@@ -114,7 +116,7 @@ class ParserRequestTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array[]
 	 */
-	public function constructionProvider() {
+	public function constructionProvider(): array {
 		$parser = $this->getMockBuilder( 'Parser' )
 			->disableOriginalConstructor()
 			->getMock();
@@ -165,7 +167,7 @@ class ParserRequestTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @return array[]
 	 */
-	public function constructionFailsProvider() {
+	public function constructionFailsProvider(): array {
 		$parser = $this->getMockBuilder( 'Parser' )
 			->disableOriginalConstructor()
 			->getMock();

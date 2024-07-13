@@ -24,9 +24,12 @@
  * @author        Tobias Oetterer
  */
 
+use MediaWiki\MediaWikiServices;
+
 $magicWords = [];
 
-$componentLibrary = \BootstrapComponents\ApplicationFactory::getInstance()->getComponentLibrary();
+/** @var \MediaWiki\Extension\BootstrapComponents\ComponentLibrary $componentLibrary */
+$componentLibrary = MediaWikiServices::getInstance()->getService( 'BootstrapComponents.ComponentLibrary' );
 
 // English
 $magicWords['en'] = $componentLibrary->compileMagicWordsArray();

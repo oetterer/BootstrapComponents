@@ -2,7 +2,6 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use DummyLinker;
 use File;
 use LocalFile;
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
@@ -437,7 +436,7 @@ class ImageModalTest extends TestCase {
 		$dummyLinker = null, $title = null, $file = null, $nestingController = null,
 		$bootstrapService = null, $parserOutputHelper = null
 	) {
-		$dummyLinker = $dummyLinker ?? $this->createMock( DummyLinker::class );
+		$dummyLinker = null;
 		$title = $title ?? $this->createMock( Title::class );
 		$file = $file ?? $this->createMock( LocalFile::class );
 		$nestingController = $nestingController ?? $this->createMock( NestingController::class );

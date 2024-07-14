@@ -14,7 +14,9 @@ use MediaWiki\Hook\ParserAfterParseHook;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Hook\SetupAfterCacheHook;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Parser\Parser;
+use \Parser;
+// TODO switch to then when dropping support for mw < 1.40
+// use MediaWiki\Parser\Parser;
 use SMW\Utils\File;
 use StripState;
 
@@ -97,6 +99,8 @@ class HooksHandler implements
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/GalleryGetModes
 	 *
+	 * @codeCoverageIgnore trivial
+	 *
 	 * @param array $modeArray
 	 * @return bool
 	 */
@@ -121,7 +125,7 @@ class HooksHandler implements
 	 *
 	 * @codeCoverageIgnore trivial
 	 *
-	 * @param \DummyLinker $linker
+	 * @param $linker, always null (was \DummyLinker $linker)
 	 * @param \Title $title
 	 * @param File|\LocalFile $file
 	 * @param array $frameParams
@@ -175,6 +179,20 @@ class HooksHandler implements
 		return true;
 	}
 
+
+	/**
+	 * Hook: OutputPageParserOutput
+	 *
+	 * Called after parse, before the HTML is added to the output.
+	 *
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/OutputPageParserOutput
+	 *
+	 * @codeCoverageIgnore trivial
+	 *
+	 * @param \OutputPage $outputPage
+	 * @param \ParserOutput $parserOutput
+	 * @return void
+	 */
 	public function onOutputPageParserOutput( $outputPage, $parserOutput ): void {
 		// @todo check, if we need to omit execution on actions edit, submit, or history
 		// $action = $outputPage->parserOptions()->getUser()->getRequest()->getVal( "action" );

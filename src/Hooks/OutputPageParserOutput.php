@@ -28,13 +28,13 @@ namespace MediaWiki\Extension\BootstrapComponents\Hooks;
 
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponents;
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
-use OutputPage;
-use ParserOutput;
 /*
- * TODO: When dropping support for 1.39, use these:
+ * TODO switch to these, wehen we drop support for mw < 1.40
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Parser\ParserOutput;
-*/
+ */
+use \OutputPage;
+use \ParserOutput;
 
 /**
  * Class OutputPageParserOutput
@@ -115,7 +115,7 @@ class OutputPageParserOutput {
 		$deferredContent = $parserOutput
 			->getExtensionData(BootstrapComponents::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
 
-		if (empty($deferredContent) || !is_array($deferredContent)) {
+		if ( empty( $deferredContent ) || !is_array( $deferredContent ) ) {
 			return '';
 		}
 

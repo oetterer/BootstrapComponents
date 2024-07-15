@@ -1,16 +1,22 @@
 ## Release Notes
 
-### BootstrapComponents 5.2.0
+### BootstrapComponents 5.3.0
 
 Released on _not yet_
 
+
+### BootstrapComponents 5.2.0
+
+Released on 15-July-2024
+
 Changes:
 * dropping support of mediawiki < 1.39
-* removed auto-loading of Extension:Bootstrap.
+* remove auto-loading of Extension:Bootstrap.
 * add translations via translatewiki
-*
+
 Fixes:
-* fixed php 8 deprecation notice indicating missing logic encapsulation
+* fix unit tests (especially for current master)
+* fix php 8 deprecation notice indicating missing logic encapsulation
   in class AbstractComponent
 
 Refactoring:

@@ -4,6 +4,12 @@
 
 Released on _not yet_
 
+### BootstrapComponents 5.2.1
+
+Released on 15-July-2024
+
+Fixes:
+* compatibility issues with chameleon installer
 
 ### BootstrapComponents 5.2.0
 

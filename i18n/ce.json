@@ -1,0 +1,24 @@
+{
+	"@metadata": {
+		"authors": [
+			"Умар"
+		]
+	},
+	"bootstrap-components-desc": "Редакторшна Twitter Bootstrap луш йолу цхьацца компоненташ аттачу йаха гӀертахьа.",
+	"bootstrap-components-error-tracking-category": "bootstrap компонентан гӀалаташ долу агӀонаш",
+	"bootstrap-components-close-element": "ДӀачӀагӀа",
+	"bootstrap-components-image-modal-source-button": "Хьажа хьосте",
+	"bootstrap-components-lua-error-no-component": "mw.bootstrap.parse компонентан цӀе билгалйаьккхина йац.",
+	"bootstrap-components-lua-error-invalid-component": "Компонентан нийса йоцу цӀе луш йу mw.bootstrap.parse чохь: $1.",
+	"bootstrap-components-badge-content-missing": "ХӀокху веназна текст дӀайала йеза ахьа.",
+	"bootstrap-components-button-target-missing": "ХӀокху нуьйдина Ӏалашо билгалйаккха йеза ахьа.",
+	"bootstrap-components-button-target-invalid": "ХӀокху нуьйдина нийса Ӏалашо билгалйаккха йеза ахьа.",
+	"bootstrap-components-carousel-images-missing": "Бинжолагашкахь суьрташ дац.",
+	"bootstrap-components-glyph-icon-name-missing": "Ахьа билгалйаккха йеза веназан цӀе.",
+	"bootstrap-components-label-content-missing": "ХӀостан текст билгалйаккха йеза ахьа.",
+	"bootstrap-components-modal-text-missing": "ХӀокху модалан нуьйдина текст билгалйаккха йеза ахьа.",
+	"bootstrap-components-popover-heading-missing": "ХӀокху popover-на цӀе йазйан йеза ахьа.",
+	"bootstrap-components-popover-text-missing": "ХӀокху popover-на текст билгалйаккха йеза ахьа.",
+	"bootstrap-components-tooltip-content-missing": "ХӀокху гӀирсан хьехамехь шен текстан атрибут йац, цундела бакъболу хьехам а бац.",
+	"bootstrap-components-tooltip-target-missing": "Ахьа билгалйаккха йеза текст йа сурт билгалдаккха деза, хьехам тӀетухуш болу."
+}

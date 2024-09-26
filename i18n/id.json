@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Agam Riyandana",
-			"Bagas Chrisara"
+			"Bagas Chrisara",
+			"Birusian"
 		]
 	},
 	"bootstrap-components-desc": "Bertujuan untuk memberi editor akses mudah ke komponen tertentu yang diperkenalkan oleh Twitter Bootstrap",
@@ -13,5 +14,9 @@
 	"bootstrap-components-lua-error-invalid-component": "Nama komponen tidak sah yang diberikan ke mw.bootstrap.parse: $1.",
 	"bootstrap-components-badge-content-missing": "Anda harus memberikan teks untuk lencana ini.",
 	"bootstrap-components-button-target-missing": "Anda harus menentukan target untuk tombol ini.",
-	"bootstrap-components-button-target-invalid": "Anda harus menentukan target yang sah untuk tombol ini."
+	"bootstrap-components-button-target-invalid": "Anda harus menentukan target yang sah untuk tombol ini.",
+	"bootstrap-components-glyph-icon-name-missing": "Anda harus menentukan nama ikon.",
+	"bootstrap-components-label-content-missing": "Anda harus menentukan teks label.",
+	"bootstrap-components-modal-text-missing": "Anda harus menentukan teks untuk tombol modal ini.",
+	"bootstrap-components-tooltip-target-missing": "Anda harus menentukan teks atau gambar, tip alat harus ditambahkan."
 }

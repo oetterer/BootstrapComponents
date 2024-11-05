@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Leducthn",
+			"Phjtieudoc",
+			"SongNgu.xyz"
+		]
+	},
+	"bootstrap-components-desc": "Cung cấp cho các biên tập viên quyền truy cập dễ dàng vào một số thành phần được cung cấp bởi Twitter Bootstrap",
+	"bootstrap-components-error-tracking-category": "Các trang có lỗi thành phần Bootstrap",
+	"bootstrap-components-close-element": "Đóng",
+	"bootstrap-components-image-modal-source-button": "Xem nguồn",
+	"bootstrap-components-lua-error-no-component": "Không có tên thành phần nào được cung cấp cho mw.bootstrap.parse.",
+	"bootstrap-components-lua-error-invalid-component": "Tên thành phần không hợp lệ được truyền cho mw.bootstrap.parse: $1 ."
+}

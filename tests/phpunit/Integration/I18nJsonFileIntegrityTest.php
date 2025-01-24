@@ -16,7 +16,7 @@ use SMW\Tests\Utils\UtilityFactory;
  * @author mwjames
  * @author Tobias Oetterer
  */
-class I18nJsonFileIntegrityTest extends \PHPUnit\Framework\TestCase {
+class I18nJsonFileIntegrityTest extends PHPUnit\Framework\TestCase {
 
 	use PHPUnitCompat;
 

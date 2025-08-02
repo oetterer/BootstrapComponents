@@ -14,7 +14,7 @@ use MediaWiki\Hook\ParserAfterParseHook;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Hook\SetupAfterCacheHook;
 use MediaWiki\MediaWikiServices;
-use \Parser;
+use Parser;
 // TODO switch to then when dropping support for mw < 1.40
 // use MediaWiki\Parser\Parser;
 use SMW\Utils\File;
@@ -83,8 +83,7 @@ class HooksHandler implements
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ScribuntoExternalLibraries
 	 */
-	public static function onScribuntoExternalLibraries( $engine, array &$extraLibraries ): bool
-	{
+	public static function onScribuntoExternalLibraries( $engine, array &$extraLibraries ): bool {
 		if ( $engine == 'lua' ) {
 			$extraLibraries['mw.bootstrap'] = LuaLibrary::class;
 		}
@@ -101,12 +100,11 @@ class HooksHandler implements
 	 *
 	 * @codeCoverageIgnore trivial
 	 *
-	 * @param array $modeArray
+	 * @param array &$modeArray
 	 * @return bool
 	 */
 
-	public function onGalleryGetModes( &$modeArray ): bool
-	{
+	public function onGalleryGetModes( &$modeArray ): bool {
 		if (
 			$this->getConfig()->has( 'BootstrapComponentsEnableCarouselGalleryMode' )
 				&& $this->getConfig()->get( 'BootstrapComponentsEnableCarouselGalleryMode' )
@@ -125,24 +123,23 @@ class HooksHandler implements
 	 *
 	 * @codeCoverageIgnore trivial
 	 *
-	 * @param $linker, always null (was \DummyLinker $linker)
-	 * @param \Title $title
-	 * @param File|\LocalFile $file
-	 * @param array $frameParams
-	 * @param array $handlerParams
-	 * @param bool|string $time
-	 * @param null|string $res
+	 * @param $linker always null (was \DummyLinker $linker)
+	 * @param \Title &$title
+	 * @param File|\LocalFile &$file
+	 * @param array &$frameParams
+	 * @param array &$handlerParams
+	 * @param bool|string &$time
+	 * @param null|string &$res
 	 * @param Parser $parser
-	 * @param string $query
-	 * @param null|int $widthOption
+	 * @param string &$query
+	 * @param null|int &$widthOption
 	 * @throws \MWException
 	 */
 	public function onImageBeforeProduceHTML(
 		$linker, &$title, &$file, &$frameParams, &$handlerParams, &$time, &$res, $parser, &$query, &$widthOption
 	): bool {
 		if ( $this->getConfig()->has( 'BootstrapComponentsModalReplaceImageTag' ) &&
-			$this->getConfig()->get( 'BootstrapComponentsModalReplaceImageTag' ) )
-		{
+			$this->getConfig()->get( 'BootstrapComponentsModalReplaceImageTag' ) ) {
 			$imageModal = new ImageModal( $linker, $title, $file,
 				$this->getNestingController(), $this->getBootstrapComponentsService()
 			);
@@ -167,7 +164,7 @@ class HooksHandler implements
 	 * @codeCoverageIgnore trivial
 	 *
 	 * @param Parser $parser
-	 * @param string $text
+	 * @param string &$text
 	 * @param StripState $stripState
 	 * @return bool
 	 */
@@ -178,7 +175,6 @@ class HooksHandler implements
 		);
 		return true;
 	}
-
 
 	/**
 	 * Hook: OutputPageParserOutput
@@ -212,24 +208,23 @@ class HooksHandler implements
 	 * @codeCoverageIgnore trivial
 	 *
 	 * @param Parser $parser
-	 * @param string $text
+	 * @param string &$text
 	 * @param StripState $stripState
 	 * @return bool
 	 */
 	public function onParserAfterParse( $parser, &$text, $stripState ): bool {
-
 		// once, this was only loaded, when a component was paced on the page. now, we load it always
 		// to keep the layout of all the wiki pages consistent.
-		$parser->getOutput()->addModuleStyles( ['ext.bootstrapComponents.bootstrap.fix'] );
-		$parser->getOutput()->addModuleStyles( ['ext.bootstrap.styles'] );
-		$parser->getOutput()->addModules( ['ext.bootstrap.scripts'] );
+		$parser->getOutput()->addModuleStyles( [ 'ext.bootstrapComponents.bootstrap.fix' ] );
+		$parser->getOutput()->addModuleStyles( [ 'ext.bootstrap.styles' ] );
+		$parser->getOutput()->addModules( [ 'ext.bootstrap.scripts' ] );
 		$skin = $this->getBootstrapComponentsService()->getNameOfActiveSkin();
 		foreach ( $this->getBootstrapComponentsService()->getActiveComponents() as $activeComponent ) {
 			if ( !$this->getComponentLibrary()->isRegistered( $activeComponent ) ) {
 				continue;
 			}
 			foreach ( $this->getComponentLibrary()->getModulesFor( $activeComponent ) as $module ) {
-				$parser->getOutput()->addModuleStyles( $module, $skin );
+				$parser->getOutput()->addModuleStyles( [ $module ] );
 			}
 		}
 		return true;
@@ -287,7 +282,7 @@ class HooksHandler implements
 	 */
 	protected function getConfig(): Config {
 		if ( !isset( $this->config ) ) {
-			$this->config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig('BootstrapComponents');
+			$this->config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'BootstrapComponents' );
 		}
 		return $this->config;
 	}

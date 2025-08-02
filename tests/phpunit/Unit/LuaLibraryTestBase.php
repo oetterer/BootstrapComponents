@@ -9,7 +9,6 @@ use \Scribunto_LuaEngineTestBase;
  * @ingroup Test
  *
  * @group   extension-bootstrap-components
- * @group   mediawiki-databaseless
  *
  * @license GNU GPL v3+
  *

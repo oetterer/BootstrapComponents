@@ -7,7 +7,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
  * @ingroup Test
  *
  * @group   extension-bootstrap-components
- * @group   mediawiki-databaseless
+ * @group   Database
  *
  * @license GNU GPL v3+
  *

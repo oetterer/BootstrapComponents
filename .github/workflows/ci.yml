@@ -33,8 +33,12 @@ jobs:
             php: 8.2
             type: normal
             experimental: false
-          - mw: 'master'
+          - mw: 'REL1_43'
             php: 8.3
+            type: normal
+            experimental: true
+          - mw: 'master'
+            php: 8.4
             type: normal
             experimental: true
 

@@ -7,6 +7,8 @@ use MediaWiki\Extension\BootstrapComponents\LuaLibrary;
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\LuaLibrary
  *
+ * @group   Database
+ *
  * @license GNU GPL v2+
  * @since   1.1
  *

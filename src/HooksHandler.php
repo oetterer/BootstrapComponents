@@ -224,7 +224,7 @@ class HooksHandler implements
 				continue;
 			}
 			foreach ( $this->getComponentLibrary()->getModulesFor( $activeComponent ) as $module ) {
-				$parser->getOutput()->addModuleStyles( [ $module, $skin ] );
+				$parser->getOutput()->addModuleStyles( [ $module ] );
 			}
 		}
 		return true;

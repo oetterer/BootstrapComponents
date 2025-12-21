@@ -90,7 +90,7 @@ class ModalTest extends ComponentsTestBase {
 				$this->input,
 				[ 'text' => 'BUTTON' ],
 				'<button type="button" class="modal-trigger btn btn-secondary" data-bs-toggle="modal" data-bs-target="#bsc_modal_NULL">BUTTON</button>',
-				'<div class="modal fade" role="dialog" id="bsc_modal_NULL" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+				'<div class="modal fade" role="dialog" id="bsc_modal_NULL" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>'
 				. '<div class="modal-body">' . $this->input . '</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
 			'text missing'        => [
@@ -106,7 +106,7 @@ class ModalTest extends ComponentsTestBase {
 					'size' => 'none',
 				],
 				'<span class="modal-trigger" data-bs-toggle="modal" data-bs-target="#bsc_modal_NULL">before<img alt="Serenity" src="/images/a/aa/Serenity.png" width="160" height="42">after</span>',
-				'<div class="modal fade" role="dialog" id="bsc_modal_NULL" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+				'<div class="modal fade" role="dialog" id="bsc_modal_NULL" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>'
 				. '<div class="modal-body">' . $this->input . '</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
 			'all attributes'      => [
@@ -117,7 +117,7 @@ class ModalTest extends ComponentsTestBase {
 					'heading' => 'You can\'t take the sky from me!',
 				],
 				'<span class="modal-trigger" data-bs-toggle="modal" data-bs-target="#firefly0"><img alt="Serenity" src="/images/a/aa/Serenity.png" width="160" height="42"></span>',
-				'<div class="modal fade shiny" style="float:right;background-color:black" role="dialog" id="firefly0" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><span class="modal-title">You can\'t take the sky from me!</span><button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>'
+				'<div class="modal fade shiny" style="float:right;background-color:black" role="dialog" id="firefly0" aria-hidden="true"><div class="modal-dialog modal-lg"><div class="modal-content"><div class="modal-header"><span class="modal-title">You can\'t take the sky from me!</span><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>'
 				. '<div class="modal-body">' . $this->input . '</div><div class="modal-footer"><button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button></div></div></div></div>' . "\n",
 			],
 		];

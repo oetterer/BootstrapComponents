@@ -26,8 +26,8 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use MWException;
 use MediaWiki\Parser\Parser;
+use MWException;
 use PPFrame;
 
 /**

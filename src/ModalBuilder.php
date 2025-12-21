@@ -27,7 +27,6 @@
 namespace MediaWiki\Extension\BootstrapComponents;
 
 use MediaWiki\Html\Html;
-use MediaWiki\MediaWikiServices;
 
 /**
  * Class ModalBase

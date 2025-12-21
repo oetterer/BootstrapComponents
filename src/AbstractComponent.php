@@ -26,7 +26,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use \MWException;
+use MWException;
 
 /**
  * Class AbstractComponent

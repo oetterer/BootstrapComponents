@@ -26,11 +26,11 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
-use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
+use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
 use MediaWiki\Extension\BootstrapComponents\ParserRequest;
 use MediaWiki\Html\Html;
-use \MWException;
+use MWException;
 
 /**
  * Class Collapse

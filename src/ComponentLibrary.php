@@ -26,8 +26,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use MediaWiki\MediaWikiServices;
-use \MWException;
+use MWException;
 
 /**
  * Class ComponentLibrary

@@ -4,9 +4,9 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
-use \MWException;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
+use MWException;
 use PHPUnit\Framework\TestCase;
 
 /**

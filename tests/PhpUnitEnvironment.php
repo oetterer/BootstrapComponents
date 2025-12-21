@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests;
 
-use \GitInfo;
+use GitInfo;
 
 /**
  * @private

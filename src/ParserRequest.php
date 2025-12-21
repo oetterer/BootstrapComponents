@@ -27,7 +27,7 @@
 namespace MediaWiki\Extension\BootstrapComponents;
 
 use MWException;
-use Parser;
+use MediaWiki\Parser\Parser;
 use PPFrame;
 
 /**

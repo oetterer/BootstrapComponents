@@ -6,7 +6,7 @@ use MediaWiki\Extension\BootstrapComponents\CarouselGallery;
 use MediaWiki\Extension\BootstrapComponents\ParserRequest;
 use \MWException;
 use PHPUnit\Framework\TestCase;
-use \Title;
+use MediaWiki\Title\Title;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\CarouselGallery

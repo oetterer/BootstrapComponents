@@ -14,9 +14,7 @@ use MediaWiki\Hook\ParserAfterParseHook;
 use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Hook\SetupAfterCacheHook;
 use MediaWiki\MediaWikiServices;
-use Parser;
-// TODO switch to then when dropping support for mw < 1.40
-// use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\Parser;
 use SMW\Utils\File;
 use StripState;
 

@@ -27,7 +27,7 @@
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
-use \Html;
+use MediaWiki\Html\Html;
 
 /**
  * Class Badge

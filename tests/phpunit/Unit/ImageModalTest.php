@@ -12,7 +12,7 @@ use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
 use \MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
 use ThumbnailImage;
-use Title;
+use MediaWiki\Title\Title;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\ImageModal

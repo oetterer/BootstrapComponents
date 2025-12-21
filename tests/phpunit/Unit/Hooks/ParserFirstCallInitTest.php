@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Hooks;
 
 use MediaWiki\Extension\BootstrapComponents\Hooks\ParserFirstCallInit as ParserFirstCallInit;
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
-use \Parser;
+use MediaWiki\Parser\Parser;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -30,7 +30,7 @@ use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
-use \Html;
+use MediaWiki\Html\Html;
 use \MWException;
 
 /**

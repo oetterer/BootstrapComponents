@@ -7,7 +7,7 @@ use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
 use MediaWiki\Extension\BootstrapComponents\ParserRequest;
 use PHPUnit\Framework\TestCase;
-use Parser;
+use MediaWiki\Parser\Parser;
 use PPFrame;
 
 /**

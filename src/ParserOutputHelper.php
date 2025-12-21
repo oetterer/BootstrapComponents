@@ -26,20 +26,11 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-/*
- * TODO: When dropping support for MW1.39, use these class imports:
 use MediaWiki\Html\Html;
 use MediaWiki\Message\Message;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
-*/
-
-use Html;
-use Message;
-use Parser;
-use ParserOutput;
-use Title;
 
 
 /**

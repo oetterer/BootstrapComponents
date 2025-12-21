@@ -27,11 +27,11 @@
 namespace MediaWiki\Extension\BootstrapComponents;
 
 use File;
-use Html;
+use MediaWiki\Html\Html;
 use MediaTransformOutput;
 use MediaWiki\MediaWikiServices;
 use MWException;
-use Title;
+use MediaWiki\Title\Title;
 
 /**
  * Class ImageModal

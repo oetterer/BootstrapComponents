@@ -26,7 +26,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use \Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 
 /**

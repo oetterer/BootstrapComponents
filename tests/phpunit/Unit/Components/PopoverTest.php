@@ -69,7 +69,7 @@ class PopoverTest extends ComponentsTestBase {
 			'simple'          => [
 				$this->input,
 				[ 'heading' => 'heading', 'text' => 'BUTTON' ],
-				'<button class="btn btn-info" id="bsc_popover_NULL" data-toggle="popover" title="heading" data-content="' . $this->input . '" type="submit">BUTTON</button>',
+				'<button class="btn btn-info" id="bsc_popover_NULL" data-bs-toggle="popover" title="heading" data-bs-content="' . $this->input . '" type="submit">BUTTON</button>',
 			],
 			'heading empty' => [
 				$this->input,
@@ -87,7 +87,7 @@ class PopoverTest extends ComponentsTestBase {
 					'heading'   => 'heading', 'text' => 'BUTTON', 'class' => 'dummy nice', 'style' => 'float:right;background-color:green',
 					'placement' => 'right', 'trigger' => 'hover', 'id' => 'cudgel', 'size' => 'sm'
 				],
-				'<button class="btn btn-info btn-sm dummy nice" style="float:right;background-color:green" id="cudgel" data-toggle="popover" title="heading" data-content="' . $this->input . '" data-placement="right" data-trigger="hover" type="submit">BUTTON</button>',
+				'<button class="btn btn-info btn-sm dummy nice" style="float:right;background-color:green" id="cudgel" data-bs-toggle="popover" title="heading" data-bs-content="' . $this->input . '" data-bs-placement="right" data-bs-trigger="hover" type="submit">BUTTON</button>',
 			],
 		];
 	}

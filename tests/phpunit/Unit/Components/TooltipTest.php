@@ -74,7 +74,7 @@ class TooltipTest extends ComponentsTestBase {
 			'simple'              => [
 				$this->input,
 				[ 'text' => 'simple' ],
-				'<span class="bootstrap-tooltip" id="bsc_tooltip_NULL" data-toggle="tooltip" title="simple">' . $this->input . '</span>',
+				'<span class="bootstrap-tooltip" id="bsc_tooltip_NULL" data-bs-toggle="tooltip" title="simple">' . $this->input . '</span>',
 			],
 			'empty'               => [
 				'',
@@ -89,7 +89,7 @@ class TooltipTest extends ComponentsTestBase {
 			'id, style and class' => [
 				$this->input,
 				[ 'text' => 'simple', 'class' => 'dummy nice', 'style' => 'float:right;background-color:#80266e', 'id' => 'vera' ],
-				'<span class="bootstrap-tooltip dummy nice" style="float:right;background-color:#80266e" id="vera" data-toggle="tooltip" title="simple">' . $this->input . '</span>',
+				'<span class="bootstrap-tooltip dummy nice" style="float:right;background-color:#80266e" id="vera" data-bs-toggle="tooltip" title="simple">' . $this->input . '</span>',
 			],
 		];
 	}

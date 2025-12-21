@@ -1,5 +1,39 @@
 ## Release Notes
 
+### BootstrapComponents 6.0.0
+
+Released on _TBD_
+
+**BREAKING CHANGES:**
+* Requires MediaWiki 1.43 or later (upgraded from 1.39)
+* Requires PHP 8.1 or later (upgraded from 8.0)
+* Upgraded from Bootstrap 4 to Bootstrap 5.3
+* Changed Bootstrap dependency from `mediawiki/bootstrap ^5.0` to `mediawiki/bootstrap 6.x-dev` (ProfessionalWiki)
+
+**Bootstrap 5 Migration Changes:**
+* All data attributes updated to Bootstrap 5 format with `data-bs-*` prefix:
+  - `data-toggle` → `data-bs-toggle`
+  - `data-target` → `data-bs-target`
+  - `data-dismiss` → `data-bs-dismiss`
+  - `data-slide` → `data-bs-slide`
+  - `data-parent` → `data-bs-parent`
+  - `data-content` → `data-bs-content`
+  - `data-placement` → `data-bs-placement`
+  - `data-trigger` → `data-bs-trigger`
+* JavaScript modules migrated from jQuery to vanilla JavaScript (Bootstrap 5 requirement)
+* Badge component: `badge-pill` class changed to `rounded-pill`
+* Button component: `btn-default` automatically mapped to `btn-secondary`
+* Alert and Modal close buttons: Migrated from `.close` class with `&times;` character to `.btn-close` class
+* Jumbotron component: Recreated using Bootstrap 5 utility classes (`p-5 mb-4 bg-body-tertiary rounded-3`)
+* All CSS fixes reviewed and updated for Bootstrap 5 compatibility
+
+**User Impact:**
+* Most existing wiki markup using BootstrapComponents should continue to work without changes
+* JavaScript initialization now uses Bootstrap 5 native API
+* Custom CSS may need review if it targets Bootstrap 4-specific classes
+
+See [migration guide](migration-guide.md) for detailed upgrade instructions.
+
 ### BootstrapComponents 5.3.0
 
 Released on _not yet_

@@ -1,6 +1,8 @@
 /**
  * Contains javascript code executed when popovers are used.
  *
+ * Bootstrap 5 migration: Converted from jQuery to vanilla JavaScript.
+ *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
  *
@@ -22,11 +24,26 @@
  * @ingroup       BootstrapComponents
  * @author        Tobias Oetterer
  */
-$( function() {
-    $(document).ready(function(){
-            $('[data-toggle="popover"]').popover({
-                html: true
-            });
-        });
-    }
-);
+
+( function () {
+	'use strict';
+
+	// Wait for DOM to be ready
+	if ( document.readyState === 'loading' ) {
+		document.addEventListener( 'DOMContentLoaded', initPopovers );
+	} else {
+		initPopovers();
+	}
+
+	function initPopovers() {
+		// Initialize all popovers with HTML enabled (Bootstrap 5 vanilla JS API)
+		var popoverTriggerList = document.querySelectorAll( '[data-bs-toggle="popover"]' );
+		popoverTriggerList.forEach( function ( popoverTriggerEl ) {
+			if ( typeof bootstrap !== 'undefined' && bootstrap.Popover ) {
+				new bootstrap.Popover( popoverTriggerEl, {
+					html: true
+				} );
+			}
+		} );
+	}
+}() );

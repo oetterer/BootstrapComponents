@@ -93,7 +93,7 @@ class Card extends AbstractComponent {
 			'class' => $this->arrayToString( $innerClass, ' ' ),
 		];
 		if ( $this->isCollapsible() ) {
-			$innerAttributes['data-parent'] = $this->getDataParent();
+			$innerAttributes['data-bs-parent'] = $this->getDataParent();
 			$innerAttributes['aria-labelledby'] = $this->getId() . '_header';
 		}
 
@@ -250,11 +250,11 @@ class Card extends AbstractComponent {
 		if ( $type == 'header' ) {
 			if ( $this->isCollapsible() ) {
 				$newAttributes += [
-					'data-toggle'   => 'collapse',
-					'data-target'   => '#' . $this->getId(),
-					'aria-controls' => $this->getId(),
-					'aria-expanded' => $this->getValueFor( 'active' ) ? 'true' : 'false',
-					'id'            => $this->getId() . '_header'
+					'data-bs-toggle' => 'collapse',
+					'data-bs-target' => '#' . $this->getId(),
+					'aria-controls'  => $this->getId(),
+					'aria-expanded'  => $this->getValueFor( 'active' ) ? 'true' : 'false',
+					'id'             => $this->getId() . '_header'
 				];
 			}
 			$inside = Html::rawElement(

@@ -87,11 +87,11 @@ class Popover extends AbstractComponent {
 			$attributes = array_merge(
 				$attributes,
 				[
-					'data-toggle'    => 'popover',
-					'title'          => $heading,
-					'data-content'   => str_replace( "\n", " ", trim( $input ) ),
-					'data-placement' => $this->getValueFor( 'placement' ),
-					'data-trigger'   => $this->getValueFor( 'trigger' ),
+					'data-bs-toggle'    => 'popover',
+					'title'             => $heading,
+					'data-bs-content'   => str_replace( "\n", " ", trim( $input ) ),
+					'data-bs-placement' => $this->getValueFor( 'placement' ),
+					'data-bs-trigger'   => $this->getValueFor( 'trigger' ),
 				]
 			);
 			$tag = "button";
@@ -109,7 +109,12 @@ class Popover extends AbstractComponent {
 	 * @return string[]
 	 */
 	private function calculatePopoverClassAttribute() {
-		$class = [ 'btn', 'btn-' . $this->getValueFor( 'color', 'info' ) ];
+		// Bootstrap 5 doesn't have btn-default, map to btn-secondary
+		$color = $this->getValueFor( 'color', 'info' );
+		if ( $color === 'default' ) {
+			$color = 'secondary';
+		}
+		$class = [ 'btn', 'btn-' . $color ];
 		if ( $size = $this->getValueFor( 'size' ) ) {
 			$class[] = 'btn-' . $size;
 		}

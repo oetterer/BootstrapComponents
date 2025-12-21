@@ -25,12 +25,8 @@
 
 /*
  * a href prioritizes the mw link color. overwrite this here to a more suitable one
+ * Bootstrap 5: btn-default removed
  */
-a.btn-default,
-a.btn-default:link,
-a.btn-default:visited,
-a.btn-default:active,
-a.btn-default:hover,
 a.btn-light,
 a.btn-light:link,
 a.btn-light:visited,
@@ -79,19 +75,15 @@ a.btn-dark:hover {
 
 /**
  * outline link colors have to be defined separately
+ * Bootstrap 5: btn-outline-default removed
  */
 
-a.btn-outline-default,
-a.btn-outline-default:link,
-a.btn-outline-default:visited,
-a.btn-outline-default:active,
 a.btn-outline-light,
 a.btn-outline-light:link,
 a.btn-outline-light:visited,
 a.btn-outline-light:active {
 	color: var(--white);
 }
-a.btn-outline-default:hover,
 a.btn-outline-light:hover {
 	color: #212529;
 }

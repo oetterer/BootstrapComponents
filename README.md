@@ -7,7 +7,7 @@
 
 Bootstrap Components is a [MediaWiki] extension that aims to provide
 editors with easy access to certain components introduced by
-[Twitter Bootstrap 4][Bootstrap].
+[Twitter Bootstrap 5][Bootstrap].
 
 Depending on your configuration, editors can utilize several
 _tag extensions_ and _parser functions_ inside wiki code to place certain
@@ -16,8 +16,8 @@ configuration it can add a new [gallery][Gallery] mode, and replace normal
 [image rendering][Image] with an image modal.
 
 ## Requirements
-* PHP 8.0 or later
-* MediaWiki 1.39 or later
+* PHP 8.1 or later
+* MediaWiki 1.43 or later
 
 ## Documentation
 - [Installation and configuration](docs/installation-configuration.md)
@@ -31,8 +31,9 @@ configuration it can add a new [gallery][Gallery] mode, and replace normal
 
 Please also see the [known issues][known-issues] section.
 
-There is also a [migration guide](docs/migration-guide.md) for users switching
-from bootstrap3 (BootstrapComponents ~1.2) to bootstrap4 (BootstrapComponents ~4.0).
+There is also a [migration guide](docs/migration-guide.md) for users switching between versions:
+- Bootstrap 3 → Bootstrap 4: BootstrapComponents ~1.2 → ~4.0
+- Bootstrap 4 → Bootstrap 5: BootstrapComponents ~5.x → ~6.0
 
 ## Contact
 For bug reports and feature requests, please see if it is already reported on

@@ -15,7 +15,8 @@ jobs:
         include:
           - mw: 'REL1_43'
             php: 8.1
-            type: coverage
+            # TODO: Scrutinzer Ocular overage disabled due to https://github.com/scrutinizer-ci/ocular/issues/51
+            type: normal
             experimental: true
           - mw: 'REL1_44'
             php: 8.2

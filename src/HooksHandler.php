@@ -140,6 +140,9 @@ class HooksHandler implements
 	): bool {
 		if ( $this->getConfig()->has( 'BootstrapComponentsModalReplaceImageTag' ) &&
 			$this->getConfig()->get( 'BootstrapComponentsModalReplaceImageTag' ) ) {
+			if ( !$file ) {
+				return true;
+			}
 			$imageModal = new ImageModal( $linker, $title, $file,
 				$this->getNestingController(), $this->getBootstrapComponentsService()
 			);

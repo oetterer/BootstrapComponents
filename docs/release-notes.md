@@ -1,8 +1,16 @@
 ## Release Notes
 
-### BootstrapComponents 5.3.0
+### BootstrapComponents 5.2.2
 
-Released on _not yet_
+Released on 01-April-2026
+
+Changes:
+* Improved compatibility with MediaWiki 1.43+
+* System message translation updates from translatewiki.net
+
+Fixes:
+* fix TypeError in ImageModal when file does not exist
+* fix addModuleStyles deprecation
 
 ### BootstrapComponents 5.2.1
 
@@ -16,17 +24,17 @@ Fixes:
 Released on 15-July-2024
 
 Changes:
-* dropping support of mediawiki < 1.39
+* dropping support of MediaWiki < 1.39
 * remove auto-loading of Extension:Bootstrap.
 * add translations via translatewiki
 
 Fixes:
 * fix unit tests (especially for current master)
-* fix php 8 deprecation notice indicating missing logic encapsulation
+* fix PHP 8 deprecation notice indicating missing logic encapsulation
   in class AbstractComponent
 
 Refactoring:
-* modified extension namespace to be compatible with mediawiki
+* modified extension namespace to be compatible with MediaWiki
   extension namespace schema
 
 
@@ -35,13 +43,13 @@ Refactoring:
 Released on 12-May-2024
 
 Changes:
-* add css classes to restore the usual infobox layout
-* add more style control to card component
+* add CSS classes to restore the usual infobox layout
+* add more style control to the card component
 
 Fixes:
-* lua issues when using images and links in components. this is
+* Lua issues when using images and links in components. This is
   by using strip tags.
-* documentation for accordions and lua
+* documentation for accordions and Lua
 
 ### BootstrapComponents 5.1.1
 

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Nerogaf",
-			"Red Winged Duck"
+			"Red Winged Duck",
+			"Ucukor"
 		]
 	},
 	"bootstrap-components-desc": "Імкнецца надаць рэдактарам лёгкі доступ да некаторых кампанэнтаў, уведзеных Twitter Bootstrap",
@@ -20,6 +21,6 @@
 	"bootstrap-components-modal-text-missing": "Вы мусіце пазначыць тэкст для гэтай мадальнай кнопкі.",
 	"bootstrap-components-popover-heading-missing": "Вы павінны ўказаць загаловак для гэтага выплыўнага паведамленьня.",
 	"bootstrap-components-popover-text-missing": "Вы павінны ўказаць тэкст для гэтага выплыўнага паведамленьня.",
-	"bootstrap-components-tooltip-content-missing": "У гэтай падказцы адсутнічае яе тэкставы атрыбут, і вынікова, фактычная падказка.",
+	"bootstrap-components-tooltip-content-missing": "У гэтай падказцы бракуе яе тэкставага атрыбуту, і вынікова, фактычнай падказцы.",
 	"bootstrap-components-tooltip-target-missing": "Вы павінны ўказаць тэкст ці выяву, да якой дадаецца падказка."
 }

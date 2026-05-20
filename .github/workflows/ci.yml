@@ -13,32 +13,24 @@ jobs:
     strategy:
       matrix:
         include:
-          - mw: 'REL1_39'
-            php: 8.0
-            type: coverage
-            experimental: false
-          - mw: 'REL1_39'
+          - mw: 'REL1_43'
             php: 8.1
             type: normal
             experimental: false
-          - mw: 'REL1_40'
-            php: 8.1
-            type: normal
-            experimental: false
-          - mw: 'REL1_41'
-            php: 8.1
-            type: normal
-            experimental: false
-          - mw: 'REL1_42'
+          - mw: 'REL1_44'
             php: 8.2
             type: normal
             experimental: false
-          - mw: 'REL1_43'
+          - mw: 'REL1_45'
             php: 8.3
+            type: normal
+            experimental: false
+          - mw: 'master'
+            php: 8.4
             type: normal
             experimental: true
           - mw: 'master'
-            php: 8.4
+            php: 8.5
             type: normal
             experimental: true
 

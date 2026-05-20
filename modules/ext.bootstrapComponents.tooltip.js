@@ -30,7 +30,7 @@
 
 	// Wait for DOM to be ready
 	if ( document.readyState === 'loading' ) {
-		document.addEventListener( 'DOMContentLoading', initTooltips );
+		document.addEventListener( 'DOMContentLoaded', initTooltips );
 	} else {
 		initTooltips();
 	}

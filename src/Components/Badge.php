@@ -75,7 +75,10 @@ class Badge extends AbstractComponent {
 			$class[] = 'rounded-pill';
 		}
 
-		$class[] = 'badge-' . $this->getValueFor( 'color', 'primary' );
+		// Bootstrap 5 dropped the `.badge-<color>` family in favour of
+		// `.text-bg-<color>` (which sets background-color AND a contrasting
+		// foreground color). See https://getbootstrap.com/docs/5.3/migration/.
+		$class[] = 'text-bg-' . $this->getValueFor( 'color', 'primary' );
 		return $class;
 	}
 }

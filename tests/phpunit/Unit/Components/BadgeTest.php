@@ -89,7 +89,7 @@ class BadgeTest extends ComponentsTestBase {
 			'pill'       => [
 				$this->input,
 				[ 'pill' => 'true' ],
-				'<span class="badge badge-pill badge-primary" id="bsc_badge_NULL">' . $this->input . '</span>',
+				'<span class="badge rounded-pill badge-primary" id="bsc_badge_NULL">' . $this->input . '</span>',
 			],
 			'no pill'       => [
 				$this->input,

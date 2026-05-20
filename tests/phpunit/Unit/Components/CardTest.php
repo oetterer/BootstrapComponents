@@ -148,7 +148,7 @@ class CardTest extends ComponentsTestBase {
 					'footer-style'=> 'padding:5px',
 				],
 				'<div class="card border-info dummy nice" style="float:right;background-color:green">'
-				. '<div class="card-header" style="padding:5px" data-toggle="collapse" data-target="#badgers_bowler" aria-controls="badgers_bowler" aria-expanded="true" id="badgers_bowler_header">'
+				. '<div class="card-header" style="padding:5px" data-bs-toggle="collapse" data-bs-target="#badgers_bowler" aria-controls="badgers_bowler" aria-expanded="true" id="badgers_bowler_header">'
 				. '<h4 class="card-title" style="margin-top:0;padding-top:0;">HEADING TEXT</h4></div>[[File:Serenity.png]]'
 				. '<div id="badgers_bowler" class="card-collapse collapse fade show" aria-labelledby="badgers_bowler_header"><div class="card-body text-info" style="padding:5px">'
 				. $this->input . '</div>[[File:Serenity.png|class=card-img-bottom]]<div class="card-footer" style="padding:5px">FOOTER TEXT</div></div></div>',
@@ -179,12 +179,12 @@ class CardTest extends ComponentsTestBase {
 			'simple'            => [
 				$this->input,
 				[],
-				'<div class="card"><div class="card-header" data-toggle="collapse" data-target="#bsc_card_NULL" aria-controls="bsc_card_NULL" aria-expanded="false" id="bsc_card_NULL_header"><h4 class="card-title" style="margin-top:0;padding-top:0;">bsc_card_NULL</h4></div><div id="bsc_card_NULL" class="card-collapse collapse fade" data-parent="#accordion0" aria-labelledby="bsc_card_NULL_header"><div class="card-body">' . $this->input . '</div></div></div>',
+				'<div class="card"><div class="card-header" data-bs-toggle="collapse" data-bs-target="#bsc_card_NULL" aria-controls="bsc_card_NULL" aria-expanded="false" id="bsc_card_NULL_header"><h4 class="card-title" style="margin-top:0;padding-top:0;">bsc_card_NULL</h4></div><div id="bsc_card_NULL" class="card-collapse collapse fade" data-bs-parent="#accordion0" aria-labelledby="bsc_card_NULL_header"><div class="card-body">' . $this->input . '</div></div></div>',
 			],
 			'text missing'      => [
 				'',
 				[ 'header' => 'watch this', 'footer' => 'watch what?', 'collapsible' => 'false', ],
-				'<div class="card"><div class="card-header" data-toggle="collapse" data-target="#bsc_card_NULL" aria-controls="bsc_card_NULL" aria-expanded="false" id="bsc_card_NULL_header"><h4 class="card-title" style="margin-top:0;padding-top:0;">watch this</h4></div><div id="bsc_card_NULL" class="card-collapse collapse fade" data-parent="#accordion0" aria-labelledby="bsc_card_NULL_header"><div class="card-body"></div><div class="card-footer">watch what?</div></div></div>',
+				'<div class="card"><div class="card-header" data-bs-toggle="collapse" data-bs-target="#bsc_card_NULL" aria-controls="bsc_card_NULL" aria-expanded="false" id="bsc_card_NULL_header"><h4 class="card-title" style="margin-top:0;padding-top:0;">watch this</h4></div><div id="bsc_card_NULL" class="card-collapse collapse fade" data-bs-parent="#accordion0" aria-labelledby="bsc_card_NULL_header"><div class="card-body"></div><div class="card-footer">watch what?</div></div></div>',
 			],
 			'all attributes'    => [
 				$this->input,
@@ -198,12 +198,12 @@ class CardTest extends ComponentsTestBase {
 					'heading'     => 'HEADING TEXT',
 					'footer'      => 'FOOTER TEXT',
 				],
-				'<div class="card border-info dummy nice" style="float:right;background-color:green"><div class="card-header" data-toggle="collapse" data-target="#badgers_bowler" aria-controls="badgers_bowler" aria-expanded="true" id="badgers_bowler_header"><h4 class="card-title" style="margin-top:0;padding-top:0;">HEADING TEXT</h4></div><div id="badgers_bowler" class="card-collapse collapse fade show" data-parent="#accordion0" aria-labelledby="badgers_bowler_header"><div class="card-body text-info">' . $this->input . '</div><div class="card-footer">FOOTER TEXT</div></div></div>',
+				'<div class="card border-info dummy nice" style="float:right;background-color:green"><div class="card-header" data-bs-toggle="collapse" data-bs-target="#badgers_bowler" aria-controls="badgers_bowler" aria-expanded="true" id="badgers_bowler_header"><h4 class="card-title" style="margin-top:0;padding-top:0;">HEADING TEXT</h4></div><div id="badgers_bowler" class="card-collapse collapse fade show" data-bs-parent="#accordion0" aria-labelledby="badgers_bowler_header"><div class="card-body text-info">' . $this->input . '</div><div class="card-footer">FOOTER TEXT</div></div></div>',
 			],
 			'collapsible false' => [
 				$this->input,
 				[ 'collapsible' => 'false', ],
-				'<div class="card"><div class="card-header" data-toggle="collapse" data-target="#bsc_card_NULL" aria-controls="bsc_card_NULL" aria-expanded="false" id="bsc_card_NULL_header"><h4 class="card-title" style="margin-top:0;padding-top:0;">bsc_card_NULL</h4></div><div id="bsc_card_NULL" class="card-collapse collapse fade" data-parent="#accordion0" aria-labelledby="bsc_card_NULL_header"><div class="card-body">' . $this->input . '</div></div></div>',
+				'<div class="card"><div class="card-header" data-bs-toggle="collapse" data-bs-target="#bsc_card_NULL" aria-controls="bsc_card_NULL" aria-expanded="false" id="bsc_card_NULL_header"><h4 class="card-title" style="margin-top:0;padding-top:0;">bsc_card_NULL</h4></div><div id="bsc_card_NULL" class="card-collapse collapse fade" data-bs-parent="#accordion0" aria-labelledby="bsc_card_NULL_header"><div class="card-body">' . $this->input . '</div></div></div>',
 			],
 		];
 	}

@@ -225,6 +225,10 @@ class HooksHandler implements
 				continue;
 			}
 			foreach ( $this->getComponentLibrary()->getModulesFor( $activeComponent ) as $module ) {
+				// addModuleStyles for CSS only — the JS half of each component
+				// module is loaded centrally from OutputPageParserOutput::process()
+				// because addModules data does not survive the parse→OutputPage
+				// lifecycle under MediaWiki 1.43+.
 				$parser->getOutput()->addModuleStyles( [ $module ] );
 			}
 		}

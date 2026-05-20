@@ -130,30 +130,6 @@ class ParserOutputHelper {
 	}
 
 	/**
-	 * Allows for html fragments for a given container id to be stored, so that it can be added to the page at a later time.
-	 *
-	 * @param string $id
-	 * @param string $rawHtml
-	 *
-	 * @return ParserOutputHelper $this (fluid)
-	 */
-	public function injectLater( $id, $rawHtml ) {
-		if ( empty( $this->getParser()->getOutput() ) ) {
-			# fix issues with PageForms file upload (issue #20)
-			return $this;
-		}
-		if ( !empty( $rawHtml ) ) {
-			$deferredContent = $this->getParser()->getOutput()->getExtensionData( BootstrapComponents::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
-			if ( empty( $deferredContent ) ) {
-				$deferredContent = [];
-			}
-			$deferredContent[$id] = $rawHtml;
-			$this->getParser()->getOutput()->setExtensionData( BootstrapComponents::EXTENSION_DATA_DEFERRED_CONTENT_KEY, $deferredContent );
-		}
-		return $this;
-	}
-
-	/**
 	 * Formats a text as error text, so it can be added to the output.
 	 *
 	 * @param string $errorMessageName

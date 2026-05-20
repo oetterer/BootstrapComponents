@@ -162,14 +162,16 @@ class ModalBuilder {
 	/**
 	 * Parses the modal.
 	 *
+	 * Emits the trigger button followed by the modal container inline. Bootstrap 5
+	 * modals use `position: fixed` and locate themselves via `data-bs-target="#id"`,
+	 * so DOM placement is no longer significant the way it was for BS4 + Tidy. This
+	 * sidesteps the parser-output-extension-data lifecycle issues that broke the
+	 * old deferred-injection pattern under MediaWiki 1.43+ (oetterer/BootstrapComponents#68).
+	 *
 	 * @return string
 	 */
 	public function parse() {
-		$this->parserOutputHelper->injectLater(
-			$this->getId(),
-			$this->buildModal()
-		);
-		return $this->buildTrigger();
+		return $this->buildTrigger() . $this->buildModal();
 	}
 
 	/**

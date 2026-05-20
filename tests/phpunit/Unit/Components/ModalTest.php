@@ -49,15 +49,9 @@ class ModalTest extends ComponentsTestBase {
 	 */
 	public function testCanRender( $input, $arguments, $expectedTriggerOutput, $expectedModalOutput ) {
 
-		$modalInjection = '';
 		$parserOutputHelper = $this->getMockBuilder( 'MediaWiki\\Extension\\BootstrapComponents\\ParserOutputHelper' )
 			->disableOriginalConstructor()
 			->getMock();
-		$parserOutputHelper->expects( $this->any() )
-			->method( 'injectLater' )
-			->will( $this->returnCallback( function( $id, $text ) use ( &$modalInjection ) {
-				$modalInjection .= $text;
-			} ) );
 		$parserOutputHelper->expects( $this->any() )
 			->method( 'renderErrorMessage' )
 			->will( $this->returnArgument( 0 ) );
@@ -74,11 +68,7 @@ class ModalTest extends ComponentsTestBase {
 		/** @noinspection PhpParamsInspection */
 		$generatedOutput = $instance->parseComponent( $parserRequest );
 
-		$this->assertEquals( $expectedTriggerOutput, $generatedOutput );
-		$this->assertEquals(
-			$expectedModalOutput,
-			$modalInjection
-		);
+		$this->assertEquals( $expectedTriggerOutput . $expectedModalOutput, $generatedOutput );
 	}
 
 	/**

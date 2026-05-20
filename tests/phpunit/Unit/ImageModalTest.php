@@ -254,13 +254,7 @@ class ImageModalTest extends TestCase {
 				}
 			) );
 
-		$modalInjection = '';
 		$parserOutputHelper = $this->createMock( ParserOutputHelper::class );
-		$parserOutputHelper->expects( $this->any() )
-			->method( 'injectLater' )
-			->will( $this->returnCallback( function( $id, $text ) use ( &$modalInjection ) {
-				$modalInjection .= $text;
-			} ) );
 
 		$instance = $this->createImageModalWithMocks( null, $title, $file, $nestingController, null, $parserOutputHelper );
 		$time = false;
@@ -283,9 +277,9 @@ class ImageModalTest extends TestCase {
 				. '--  ' . ($resultOfParseCall ?: $res)
 			);
 		}
-		$this->assertEquals(
+		$this->assertStringContainsString(
 			$expectedModal,
-			$modalInjection,
+			$resultOfParseCall ?: $res,
 			'failed modal with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $fp, $hp )
 		);
 	}

@@ -102,6 +102,8 @@ class ModalBuilder {
 
 	/**
 	 * @var ParserOutputHelper $parserOutputHelper
+	 *
+	 * @deprecated unused since the inline-emission modal fix; will be removed in the next major release.
 	 */
 	private $parserOutputHelper;
 
@@ -146,7 +148,7 @@ class ModalBuilder {
 	 * @param string             $id
 	 * @param string             $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
 	 * @param string             $content must be fully parsed html (use {@see Parser::recursiveTagParseFully})
-	 * @param ParserOutputHelper $parserOutputHelper
+	 * @param ParserOutputHelper $parserOutputHelper @deprecated unused since the inline-emission modal fix; will be removed in the next major release.
 	 *
 	 * @see ApplicationFactory::getNewModalBuilder
 	 * @see Components\Modal::generateButton
@@ -163,14 +165,14 @@ class ModalBuilder {
 	/**
 	 * Parses the modal.
 	 *
+	 * Emits the trigger followed by the modal container inline. The container is
+	 * `position: fixed` and is addressed via `data-target="#id"`, so its DOM
+	 * placement is not significant.
+	 *
 	 * @return string
 	 */
 	public function parse() {
-		$this->parserOutputHelper->injectLater(
-			$this->getId(),
-			$this->buildModal()
-		);
-		return $this->buildTrigger();
+		return $this->buildTrigger() . $this->buildModal();
 	}
 
 	/**

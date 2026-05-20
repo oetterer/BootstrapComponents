@@ -26,7 +26,6 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Hooks;
 
-use MediaWiki\Extension\BootstrapComponents\BootstrapComponents;
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 /*
  * TODO switch to these, wehen we drop support for mw < 1.40
@@ -41,24 +40,11 @@ use \ParserOutput;
  *
  * Called after parse, before the HTML is added to the output.
  *
- * Method delegated to separate class to fix missing (deferred) content in
- * {@see \MediaWiki\Extension\BootstrapComponents\Tests\Integration\BootstrapComponentsJSONScriptTestCaseRunnerTest::assertParserOutputForCase}
- *
  * @see   https://www.mediawiki.org/wiki/Manual:Hooks/OutputPageParserOutput
  *
  * @since 1.2
  */
 class OutputPageParserOutput {
-
-	/**
-	 * @var string
-	 */
-	const INJECTION_PREFIX = '<!-- injected by Extension:BootstrapComponents -->';
-
-	/**
-	 * @var string
-	 */
-	const INJECTION_SUFFIX = '<!-- /injected by Extension:BootstrapComponents -->';
 
 	/**
 	 * @var BootstrapComponentsService
@@ -72,6 +58,8 @@ class OutputPageParserOutput {
 
 	/**
 	 * @var ParserOutput $parserOutput
+	 *
+	 * @deprecated unused since the inline-emission modal fix; will be removed in the next major release.
 	 */
 	private ParserOutput $parserOutput;
 
@@ -79,7 +67,7 @@ class OutputPageParserOutput {
 	 * OutputPageParserOutput constructor.
 	 *
 	 * @param OutputPage $outputPage
-	 * @param ParserOutput $parserOutput
+	 * @param ParserOutput $parserOutput @deprecated unused since the inline-emission modal fix; will be removed in the next major release.
 	 * @param BootstrapComponentsService $service
 	 */
 	public function __construct(
@@ -94,34 +82,9 @@ class OutputPageParserOutput {
 	 * @return void
 	 */
 	public function process(): void	{
-		$deferredText = $this->getContentForLaterInjection( $this->getParserOutput() );
-		if ( !empty( $deferredText ) ) {
-			$this->getOutputPage()->addHTML( $deferredText );
-		}
-
 		if ( $this->getBootstrapComponentsService()->vectorSkinInUse() ) {
 			$this->getOutputPage()->addModules( [ 'ext.bootstrapComponents.vector-fix' ] );
 		}
-	}
-
-	/**
-	 * Returns the raw html that is to be inserted at the end of the page.
-	 *
-	 * @param ParserOutput $parserOutput
-	 *
-	 * @return string
-	 */
-	protected function getContentForLaterInjection( ParserOutput $parserOutput ): string {
-		$deferredContent = $parserOutput
-			->getExtensionData(BootstrapComponents::EXTENSION_DATA_DEFERRED_CONTENT_KEY );
-
-		if ( empty( $deferredContent ) || !is_array( $deferredContent ) ) {
-			return '';
-		}
-
-		// clearing extension data for unit and integration tests to work
-		$parserOutput->setExtensionData( BootstrapComponents::EXTENSION_DATA_DEFERRED_CONTENT_KEY, null );
-		return self::INJECTION_PREFIX . implode( array_values( $deferredContent ) ) . self::INJECTION_SUFFIX;
 	}
 
 	protected function getBootstrapComponentsService(): BootstrapComponentsService {
@@ -136,6 +99,8 @@ class OutputPageParserOutput {
 	}
 
 	/**
+	 * @deprecated unused since the inline-emission modal fix; will be removed in the next major release.
+	 *
 	 * @return ParserOutput
 	 */
 	protected function getParserOutput(): ParserOutput {

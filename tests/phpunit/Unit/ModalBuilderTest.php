@@ -49,15 +49,9 @@ class ModalBuilderTest extends TestCase {
 	 */
 	public function testCanParse( $id, $trigger, $content, $header, $footer, $outerClass, $outerStyle, $innerClass, $expectedTrigger, $expectedModal ) {
 
-		$modalInjection = '';
 		$parserOutputHelper = $this->getMockBuilder( 'MediaWiki\\Extension\\BootstrapComponents\\ParserOutputHelper' )
 			->disableOriginalConstructor()
 			->getMock();
-		$parserOutputHelper->expects( $this->any() )
-			->method( 'injectLater' )
-			->will( $this->returnCallback( function( $id, $text ) use ( &$modalInjection ) {
-				$modalInjection .= $text;
-			} ) );
 
 		/** @noinspection PhpParamsInspection */
 		$instance = new ModalBuilder( $id, $trigger, $content, $parserOutputHelper );
@@ -77,12 +71,8 @@ class ModalBuilderTest extends TestCase {
 			$instance->setDialogClass( $innerClass );
 		}
 		$this->assertEquals(
-			$expectedTrigger,
+			$expectedTrigger . $expectedModal,
 			$instance->parse()
-		);
-		$this->assertEquals(
-			$expectedModal,
-			$modalInjection
 		);
 	}
 

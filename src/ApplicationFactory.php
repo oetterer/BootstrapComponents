@@ -107,7 +107,7 @@ class ApplicationFactory {
 	 * @param string             $id
 	 * @param string             $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
 	 * @param string             $content must be safe raw html (best run through {@see Parser::recursiveTagParse})
-	 * @param ParserOutputHelper $parserOutputHelper
+	 * @param ParserOutputHelper $parserOutputHelper @deprecated unused since the inline-emission modal fix; will be removed in the next major release.
 	 *
 	 * @see ModalBuilder::__construct
 	 *

@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Integration;
 
-use \MediaWiki\MediaWikiServices;
+use MediaWiki\MediaWikiServices;
 use SMW\Tests\PHPUnitCompat;
 use SMW\Tests\Utils\UtilityFactory;
 

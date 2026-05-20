@@ -3,8 +3,8 @@
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Fixtures;
 
 use ArrayIterator;
-use Config;
-use ConfigException;
+use MediaWiki\Config\Config;
+use MediaWiki\Config\ConfigException;
 use MediaWiki\Config\IterableConfig;
 use MutableConfig;
 use Traversable;

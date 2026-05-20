@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use Config;
+use MediaWiki\Config\Config;
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Extension\BootstrapComponents\Tests\Fixtures\TestConfig;
 use PHPUnit\Framework\TestCase;

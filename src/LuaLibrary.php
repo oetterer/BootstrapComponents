@@ -26,12 +26,12 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 use MediaWiki\MediaWikiServices;
 use MWException;
 use ReflectionClass;
 use ReflectionException;
-use Scribunto_LuaEngine;
-use Scribunto_LuaLibraryBase;
 
 /**
  * Class LuaLibrary
@@ -40,7 +40,7 @@ use Scribunto_LuaLibraryBase;
  *
  * @since 1.1
  */
-class LuaLibrary extends Scribunto_LuaLibraryBase {
+class LuaLibrary extends LibraryBase {
 
 	/**
 	 * @var ApplicationFactory $applicationFactory;
@@ -55,9 +55,9 @@ class LuaLibrary extends Scribunto_LuaLibraryBase {
 	/**
 	 * LuaLibrary constructor.
 	 *
-	 * @param Scribunto_LuaEngine $engine
+	 * @param LuaEngine $engine
 	 */
-	public function __construct( Scribunto_LuaEngine $engine ) {
+	public function __construct( LuaEngine $engine ) {
 		parent::__construct( $engine );
 		$this->applicationFactory = ApplicationFactory::getInstance();
 		$this->bootstrapComponentService = MediaWikiServices::getInstance()->getService( 'BootstrapComponentsService' );

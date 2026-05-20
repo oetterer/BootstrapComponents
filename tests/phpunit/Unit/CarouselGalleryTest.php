@@ -3,10 +3,9 @@
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
 use MediaWiki\Extension\BootstrapComponents\CarouselGallery;
-use MediaWiki\Extension\BootstrapComponents\ParserRequest;
-use \MWException;
+use MediaWiki\Title\Title;
+use MWException;
 use PHPUnit\Framework\TestCase;
-use \Title;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\CarouselGallery

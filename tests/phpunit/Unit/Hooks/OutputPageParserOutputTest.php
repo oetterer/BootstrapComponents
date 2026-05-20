@@ -39,40 +39,43 @@ class OutputPageParserOutputTest extends TestCase {
 		);
 	}
 
-	public function testHookOutputPageParserOutput() {
-		$content = 'CONTENT';
-
+	public function testHookOutputPageParserOutputLoadsVectorFixUnderVector() {
 		$outputPage = $this->createMock( OutputPage::class );
-		$outputPage->expects( $this->once() )
-			->method( 'addHTML' )
-			->will( $this->returnCallback( function( $injection ) use ( &$content ) {
-				$content .= $injection;
-			} ) );
+		$outputPage->expects( $this->never() )->method( 'addHTML' );
 		$outputPage->expects( $this->once() )
 			->method( 'addModules' )
 			->with(
 				$this->equalTo( [ 'ext.bootstrapComponents.vector-fix' ] )
 			);
 
-		$observerParserOutput = $this->createMock( ParserOutput::class );
-		$observerParserOutput->expects( $this->exactly( 1 ) )
-			->method( 'getExtensionData' )
-			->with(
-				$this->stringContains( 'bsc_deferredContent' )
-			)
-			->willReturn( [ 'test' ] );
-
 		$bootstrapService = $this->createMock( BootstrapComponentsService::class );
 		$bootstrapService->expects( $this->once() )
 			->method( 'vectorSkinInUse' )
 			->willReturn( true );
 
-		$instance = new OutputPageParserOutput( $outputPage, $observerParserOutput, $bootstrapService );
-		$instance->process();
-
-		$this->assertEquals(
-			'CONTENT<!-- injected by Extension:BootstrapComponents -->test<!-- /injected by Extension:BootstrapComponents -->',
-			$content
+		$instance = new OutputPageParserOutput(
+			$outputPage,
+			$this->createMock( ParserOutput::class ),
+			$bootstrapService
 		);
+		$instance->process();
+	}
+
+	public function testHookDoesNothingWhenNotVector() {
+		$outputPage = $this->createMock( OutputPage::class );
+		$outputPage->expects( $this->never() )->method( 'addHTML' );
+		$outputPage->expects( $this->never() )->method( 'addModules' );
+
+		$bootstrapService = $this->createMock( BootstrapComponentsService::class );
+		$bootstrapService->expects( $this->once() )
+			->method( 'vectorSkinInUse' )
+			->willReturn( false );
+
+		$instance = new OutputPageParserOutput(
+			$outputPage,
+			$this->createMock( ParserOutput::class ),
+			$bootstrapService
+		);
+		$instance->process();
 	}
 }

@@ -56,8 +56,6 @@ use MWException;
  */
 class BootstrapComponents {
 
-	const EXTENSION_DATA_DEFERRED_CONTENT_KEY = 'bsc_deferredContent';
-
 	const EXTENSION_DATA_NO_IMAGE_MODAL = 'bsc_no_image_modal';
 
 

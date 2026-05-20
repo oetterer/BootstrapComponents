@@ -2,6 +2,15 @@
 Some components cause problems with other components or "external"
 elements.
 
+> **Note for Bootstrap 5 (BootstrapComponents 6.0):**
+> A long-standing class of issues affecting Modal/Popover/Tooltip components
+> under MediaWiki 1.43+ (upstream issue [#68][issue-68] — "stop working after
+> a cache purge") was resolved in 6.0 by emitting modal markup inline next to
+> its trigger instead of relying on the `ParserOutput::setExtensionData` /
+> `OutputPageParserOutput` deferred-injection mechanism. If you saw any of the
+> earlier "modal does not open" / "popover does nothing" symptoms under MW
+> 1.43, those should now be fixed.
+
 ### Modals and popovers
 When you put popovers on a page with modals (or image modals),
 the modals break.
@@ -41,3 +50,5 @@ simply "push" the modal further down. For example:
     top: 60px;
 }
 ```
+
+[issue-68]: https://github.com/oetterer/BootstrapComponents/issues/68

@@ -7,7 +7,7 @@ BootstrapComponents 6.0 upgrades the underlying Bootstrap framework from version
 #### System Requirements
 - **MediaWiki:** 1.43 or later (upgraded from 1.39)
 - **PHP:** 8.1 or later (upgraded from 8.0)
-- **Bootstrap Extension:** mediawiki/bootstrap 6.x-dev from [ProfessionalWiki/Bootstrap](https://github.com/ProfessionalWiki/Bootstrap)
+- **Bootstrap Extension:** mediawiki/bootstrap ^6.0 from [ProfessionalWiki/Bootstrap](https://github.com/ProfessionalWiki/Bootstrap)
 
 #### User Impact
 **Good News:** Most existing wiki markup using BootstrapComponents should continue to work without any changes! The extension handles most Bootstrap 5 migrations internally.

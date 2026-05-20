@@ -21,11 +21,17 @@ Released on _TBD_
   - `data-placement` → `data-bs-placement`
   - `data-trigger` → `data-bs-trigger`
 * JavaScript modules migrated from jQuery to vanilla JavaScript (Bootstrap 5 requirement)
-* Badge component: `badge-pill` class changed to `rounded-pill`
+* Badge component: `badge-pill` class changed to `rounded-pill`; `badge-<color>` family replaced with `text-bg-<color>` per the BS5 migration guide; `color="default"` now maps to `text-bg-secondary` for backward-compat
 * Button component: `btn-default` automatically mapped to `btn-secondary`
 * Alert and Modal close buttons: Migrated from `.close` class with `&times;` character to `.btn-close` class
 * Jumbotron component: Recreated using Bootstrap 5 utility classes (`p-5 mb-4 bg-body-tertiary rounded-3`); the parser function is retained for compatibility but is now `@deprecated`
 * All CSS fixes reviewed and updated for Bootstrap 5 compatibility
+
+**Bug fixes (also benefit users on MediaWiki 1.43+ even without BS5 markup changes):**
+* Modal, Popover and Tooltip components now actually trigger under MediaWiki 1.43+. The previous architecture relied on `ParserOutput::setExtensionData` carrying deferred modal markup from parse-time to the `OutputPageParserOutput` hook callback; MW 1.43+'s `ParserOutputAccess` lifecycle no longer preserves this. Modal markup is now emitted inline next to its trigger button, which works regardless of MW version. Closes upstream issue [#68](https://github.com/oetterer/BootstrapComponents/issues/68).
+* Tooltip JS module's `DOMContentLoading` typo (should be `DOMContentLoaded`) fixed.
+* Modal trigger received a new ResourceLoader JS module that explicitly instantiates `bootstrap.Modal` on each `.modal` element (BS5 no longer auto-initialises modal triggers the way BS4 + jQuery did).
+* `OutputPageParserOutput` hook now also loads the BC component JS modules via `OutputPage::addModules()` — previously these were declared with a `scripts` key but only added via `addModuleStyles()`, which never loaded their JS.
 
 **User Impact:**
 * Most existing wiki markup using BootstrapComponents should continue to work without changes

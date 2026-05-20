@@ -78,7 +78,13 @@ class Badge extends AbstractComponent {
 		// Bootstrap 5 dropped the `.badge-<color>` family in favour of
 		// `.text-bg-<color>` (which sets background-color AND a contrasting
 		// foreground color). See https://getbootstrap.com/docs/5.3/migration/.
-		$class[] = 'text-bg-' . $this->getValueFor( 'color', 'primary' );
+		// `color="default"` maps to `text-bg-secondary` for backward-compat
+		// with BS3-era markup (see also Button/Modal/Popover).
+		$color = $this->getValueFor( 'color', 'primary' );
+		if ( $color === 'default' ) {
+			$color = 'secondary';
+		}
+		$class[] = 'text-bg-' . $color;
 		return $class;
 	}
 }

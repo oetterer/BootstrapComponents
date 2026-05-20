@@ -26,7 +26,7 @@ add multiple classes, separate them by a space.</dd>
 
 Allowed Values are
 <ul>
-<li>default</li>
+<li>default <i>(maps to <code>secondary</code> under Bootstrap 5)</i></li>
 <li>primary</li>
 <li>secondary</li>
 <li>success</li>
@@ -94,6 +94,6 @@ behaviour with:
 
 
 ### Links
-* https://getbootstrap.com/docs/4.1/components/popovers/
+* https://getbootstrap.com/docs/5.3/components/popovers/
 * https://www.w3schools.com/bootstrap4/bootstrap_popover.asp
-* https://getbootstrap.com/docs/4.1/utilities/colors/
+* https://getbootstrap.com/docs/5.3/utilities/colors/

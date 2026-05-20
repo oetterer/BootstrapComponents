@@ -38,5 +38,5 @@ attributes, otherwise the parser will drop all but one:
 ```
 
 ### Links
-* https://getbootstrap.com/docs/4.1/components/carousel/
+* https://getbootstrap.com/docs/5.3/components/carousel/
 * https://www.w3schools.com/bootstrap4/bootstrap_carousel.asp

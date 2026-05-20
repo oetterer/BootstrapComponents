@@ -26,7 +26,7 @@ add multiple classes, separate them by a space.</dd>
 
 Allowed Values are
 <ul>
-<li>default</li>
+<li>default <i>(maps to <code>secondary</code> under Bootstrap 5)</i></li>
 <li>primary</li>
 <li>secondary</li>
 <li>success</li>
@@ -78,7 +78,7 @@ background with button color.</dd>
 
 
 ### Links
-* https://getbootstrap.com/docs/4.1/components/buttons/
+* https://getbootstrap.com/docs/5.3/components/buttons/
 * https://www.w3schools.com/bootstrap4/bootstrap_buttons.asp
-* https://getbootstrap.com/docs/4.1/utilities/colors/
+* https://getbootstrap.com/docs/5.3/utilities/colors/
 *

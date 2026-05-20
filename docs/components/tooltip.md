@@ -51,5 +51,5 @@ following to your `Mediawiki:Common.css`:
 ```
 
 ### Links
-* https://getbootstrap.com/docs/4.1/components/tooltips/
+* https://getbootstrap.com/docs/5.3/components/tooltips/
 * https://www.w3schools.com/bootstrap4/bootstrap_tooltip.asp

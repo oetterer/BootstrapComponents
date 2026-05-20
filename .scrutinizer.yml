@@ -14,8 +14,9 @@ tools:
     php_loc: true
     php_analyzer: true
     sensiolabs_security_checker: true
-    external_code_coverage:
-        timeout: '1200' # timeout in seconds
+    # TODO: Scrutinzer Ocular overage disabled due to https://github.com/scrutinizer-ci/ocular/issues/51
+    # external_code_coverage:
+    #    timeout: '1200' # timeout in seconds
 
 checks:
     php:

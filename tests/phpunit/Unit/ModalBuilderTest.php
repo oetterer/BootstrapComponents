@@ -49,15 +49,9 @@ class ModalBuilderTest extends TestCase {
 	 */
 	public function testCanParse( $id, $trigger, $content, $header, $footer, $outerClass, $outerStyle, $innerClass, $expectedTrigger, $expectedModal ) {
 
-		$modalInjection = '';
 		$parserOutputHelper = $this->getMockBuilder( 'MediaWiki\\Extension\\BootstrapComponents\\ParserOutputHelper' )
 			->disableOriginalConstructor()
 			->getMock();
-		$parserOutputHelper->expects( $this->any() )
-			->method( 'injectLater' )
-			->will( $this->returnCallback( function( $id, $text ) use ( &$modalInjection ) {
-				$modalInjection .= $text;
-			} ) );
 
 		/** @noinspection PhpParamsInspection */
 		$instance = new ModalBuilder( $id, $trigger, $content, $parserOutputHelper );
@@ -76,13 +70,13 @@ class ModalBuilderTest extends TestCase {
 		if ( $innerClass ) {
 			$instance->setDialogClass( $innerClass );
 		}
+		// Inline-emission refactor: parse() now returns the trigger HTML and
+		// modal container HTML concatenated, so they emit as siblings at the
+		// wikitext tag's natural position. Previously the trigger was returned
+		// and the modal was stashed via parserOutputHelper->injectLater().
 		$this->assertEquals(
-			$expectedTrigger,
+			$expectedTrigger . $expectedModal,
 			$instance->parse()
-		);
-		$this->assertEquals(
-			$expectedModal,
-			$modalInjection
 		);
 	}
 

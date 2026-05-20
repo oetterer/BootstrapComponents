@@ -1,5 +1,7 @@
 /**
- * Contains javascript code executed when tooltips are used.
+ * Contains javascript code executed when carousels are used.
+ *
+ * Bootstrap 5 migration: Converted from jQuery to vanilla JavaScript.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -23,6 +25,24 @@
  * @author        Tobias Oetterer
  */
 
-$(function () {
-	$('.carousel').carousel();
-});
+( function () {
+	'use strict';
+
+	// Wait for DOM to be ready
+	if ( document.readyState === 'loading' ) {
+		document.addEventListener( 'DOMContentLoaded', initCarousels );
+	} else {
+		initCarousels();
+	}
+
+	function initCarousels() {
+		// Bootstrap 5 automatically initializes carousels with data-bs-ride="carousel"
+		// Manual initialization for additional control
+		var carouselElements = document.querySelectorAll( '.carousel' );
+		carouselElements.forEach( function ( element ) {
+			if ( typeof bootstrap !== 'undefined' && bootstrap.Carousel ) {
+				new bootstrap.Carousel( element );
+			}
+		} );
+	}
+}() );

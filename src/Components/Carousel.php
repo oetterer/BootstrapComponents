@@ -60,10 +60,10 @@ class Carousel extends AbstractComponent {
 			Html::rawElement(
 				'div',
 				[
-					'class'     => $this->arrayToString( $class, ' ' ),
-					'style'     => $this->arrayToString( $style, ';' ),
-					'id'        => $this->getId(),
-					'data-ride' => 'carousel',
+					'class'        => $this->arrayToString( $class, ' ' ),
+					'style'        => $this->arrayToString( $style, ';' ),
+					'id'           => $this->getId(),
+					'data-bs-ride' => 'carousel',
 				],
 				$this->generateIndicators( count( $images ) )
 				. Html::rawElement(
@@ -87,19 +87,19 @@ class Carousel extends AbstractComponent {
 		return Html::rawElement(
 				'a',
 				[
-					'class'      => 'carousel-control-prev',
-					'href'       => '#' . $this->getId(),
-					'role'       => 'button',
-					'data-slide' => 'prev',
+					'class'         => 'carousel-control-prev',
+					'href'          => '#' . $this->getId(),
+					'role'          => 'button',
+					'data-bs-slide' => 'prev',
 				],
 				Html::rawElement( 'span', [ 'class' => 'carousel-control-prev-icon', 'aria-hidden' => 'true' ] )
 			) . Html::rawElement(
 				'a',
 				[
-					'class'      => 'carousel-control-next',
-					'href'       => '#' . $this->getId(),
-					'role'       => 'button',
-					'data-slide' => 'next',
+					'class'         => 'carousel-control-next',
+					'href'          => '#' . $this->getId(),
+					'role'          => 'button',
+					'data-bs-slide' => 'next',
 				],
 				Html::rawElement( 'span', [ 'class' => 'carousel-control-next-icon', 'aria-hidden' => 'true' ] )
 			);
@@ -188,9 +188,9 @@ class Carousel extends AbstractComponent {
 			$inner .= "\t" . Html::rawElement(
 					'li',
 					[
-						'data-target'   => '#' . $this->getId(),
-						'data-slide-to' => $i,
-						'class'         => $class,
+						'data-bs-target'   => '#' . $this->getId(),
+						'data-bs-slide-to' => $i,
+						'class'            => $class,
 					]
 				) . PHP_EOL;
 			$class = false;

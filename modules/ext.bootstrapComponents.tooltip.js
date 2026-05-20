@@ -1,6 +1,8 @@
 /**
  * Contains javascript code executed when tooltips are used.
  *
+ * Bootstrap 5 migration: Converted from jQuery to vanilla JavaScript.
+ *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
  *
@@ -23,9 +25,23 @@
  * @author        Tobias Oetterer
  */
 
-$( function() {
-    $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();
-        });
-    }
-);
+( function () {
+	'use strict';
+
+	// Wait for DOM to be ready
+	if ( document.readyState === 'loading' ) {
+		document.addEventListener( 'DOMContentLoading', initTooltips );
+	} else {
+		initTooltips();
+	}
+
+	function initTooltips() {
+		// Initialize all tooltips with Bootstrap 5 vanilla JS API
+		var tooltipTriggerList = document.querySelectorAll( '[data-bs-toggle="tooltip"]' );
+		tooltipTriggerList.forEach( function ( tooltipTriggerEl ) {
+			if ( typeof bootstrap !== 'undefined' && bootstrap.Tooltip ) {
+				new bootstrap.Tooltip( tooltipTriggerEl );
+			}
+		} );
+	}
+}() );

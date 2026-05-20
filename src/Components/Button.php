@@ -106,7 +106,12 @@ class Button extends AbstractComponent {
 		if ( (bool)$this->getValueFor( 'outline' ) ) {
 			$colorClass .= 'outline-';
 		}
-		$class[] = $colorClass . $this->getValueFor( 'color', 'primary' );
+		// Bootstrap 5 doesn't have btn-default, map to btn-secondary
+		$color = $this->getValueFor( 'color', 'primary' );
+		if ( $color === 'default' ) {
+			$color = 'secondary';
+		}
+		$class[] = $colorClass . $color;
 		if ( $size = $this->getValueFor( 'size' ) ) {
 			$class[] = "btn-" . $size;
 		}

@@ -2,9 +2,9 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
-use MediaWiki\Extension\BootstrapComponents\Components\Accordion as Accordion;
+use MediaWiki\Extension\BootstrapComponents\Components\Accordion;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use \MWException;
+use MWException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Accordion

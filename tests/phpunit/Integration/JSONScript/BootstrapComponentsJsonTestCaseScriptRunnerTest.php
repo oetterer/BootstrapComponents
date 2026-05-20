@@ -3,8 +3,8 @@
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Integration;
 
 use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
-use MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput;
 use MediaWiki\Extension\BootstrapComponents\HookRegistry;
+use MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput;
 use SMW\DIWikiPage;
 use SMW\Tests\JSONScriptTestCaseRunner;
 use SMW\Tests\Utils\JSONScript\JsonTestCaseFileHandler;

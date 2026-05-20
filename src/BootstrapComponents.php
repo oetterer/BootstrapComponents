@@ -43,7 +43,6 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use ConfigException;
 use Exception;
 use MWException;
 

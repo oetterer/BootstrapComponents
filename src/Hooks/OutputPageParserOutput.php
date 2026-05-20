@@ -27,13 +27,8 @@
 namespace MediaWiki\Extension\BootstrapComponents\Hooks;
 
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
-/*
- * TODO switch to these, wehen we drop support for mw < 1.40
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Parser\ParserOutput;
- */
-use \OutputPage;
-use \ParserOutput;
 
 /**
  * Class OutputPageParserOutput

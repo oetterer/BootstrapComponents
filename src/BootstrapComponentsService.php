@@ -2,8 +2,8 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use Config;
-use RequestContext;
+use MediaWiki\Config\Config;
+use MediaWiki\Context\RequestContext;
 
 class BootstrapComponentsService
 {

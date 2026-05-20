@@ -6,8 +6,8 @@ use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\HooksHandler;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
-use Parser;
-use ParserOutput;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutput;
 use PHPUnit\Framework\TestCase;
 
 /**

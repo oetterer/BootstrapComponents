@@ -31,7 +31,7 @@ use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
-use Parser;
+use MediaWiki\Parser\Parser;
 use ReflectionClass;
 
 /**

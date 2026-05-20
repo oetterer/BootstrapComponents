@@ -4,8 +4,8 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Hooks;
 
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput;
-use OutputPage;
-use ParserOutput;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Parser\ParserOutput;
 use PHPUnit\Framework\TestCase;
 
 /**

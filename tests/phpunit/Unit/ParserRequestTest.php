@@ -3,9 +3,9 @@
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
 use MediaWiki\Extension\BootstrapComponents\ParserRequest;
+use MediaWiki\Parser\Parser;
 use PHPUnit\Framework\TestCase;
-use \Parser;
-use \PPFrame;
+use PPFrame;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\ParserRequest

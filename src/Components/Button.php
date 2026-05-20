@@ -27,8 +27,8 @@
 namespace MediaWiki\Extension\BootstrapComponents\Components;
 
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
-use \Html;
-use \Title;
+use MediaWiki\Html\Html;
+use MediaWiki\Title\Title;
 
 /**
  * Class Button

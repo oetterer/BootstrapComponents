@@ -26,15 +26,14 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use Config;
-use ConfigException;
+use MediaWiki\Config\Config;
+use MediaWiki\Config\ConfigException;
 use Exception;
-use \Linker;
-use \Html;
-use \MediaWiki\MediaWikiServices;
-use MediaWiki\User\UserOptionsLookup;
-use \RequestContext;
-use \Title;
+use MediaWiki\Html\Html;
+use MediaWiki\Linker\Linker;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
+use MediaWiki\Context\RequestContext;
 
 /**
  * Class ImageModal

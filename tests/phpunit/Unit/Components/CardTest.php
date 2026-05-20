@@ -6,7 +6,7 @@ use MediaWiki\Extension\BootstrapComponents\Components\Accordion;
 use MediaWiki\Extension\BootstrapComponents\Components\Card;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use \MWException;
+use MWException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Card

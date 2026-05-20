@@ -2,7 +2,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
-use ConfigException;
+use MediaWiki\Config\ConfigException;
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use PHPUnit\Framework\TestCase;
 

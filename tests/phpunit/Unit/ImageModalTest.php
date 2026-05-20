@@ -2,17 +2,17 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
+use ConfigException;
 use File;
 use LocalFile;
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Extension\BootstrapComponents\ImageModal;
-use \ConfigException;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
-use \MediaWiki\MediaWikiServices;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
 use ThumbnailImage;
-use Title;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\ImageModal

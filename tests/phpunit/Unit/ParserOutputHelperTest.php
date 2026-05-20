@@ -4,10 +4,9 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
-use \MWException;
-// TODO: when dropping 1.39, switch to MediaWiki\Parser\Parser and MediaWiki\Parser\ParserOutput
-use Parser;
-use ParserOutput;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutput;
+use MWException;
 use PHPUnit\Framework\TestCase;
 
 /**

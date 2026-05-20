@@ -26,10 +26,10 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use MediaWiki\Extension\BootstrapComponents\Components\Carousel;
 use ImageGalleryBase;
+use MediaWiki\Extension\BootstrapComponents\Components\Carousel;
 use MediaWiki\MediaWikiServices;
-use Title;
+use MediaWiki\Title\Title;
 
 /**
  * Class CarouselGallery

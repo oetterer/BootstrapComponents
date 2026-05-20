@@ -5,7 +5,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 use MediaWiki\Extension\BootstrapComponents\Components\Tooltip;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use \MWException;
+use MWException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Tooltip

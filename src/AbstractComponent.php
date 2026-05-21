@@ -37,54 +37,24 @@ use RuntimeException;
  * @since 1.0
  */
 abstract class AbstractComponent implements NestableInterface {
-	/**
-	 * Holds a reference of the component's attribute manger.
-	 *
-	 * @var AttributeManager $attributeManager
-	 */
-	private $attributeManager;
-
-	/**
-	 * @var ComponentLibrary $componentLibrary
-	 */
-	private $componentLibrary;
+	private AttributeManager $attributeManager;
 
 	/**
 	 * The (html) id of this component. Not available before the component was opened.
-	 *
-	 * @var string $id
 	 */
-	private $id;
+	private ?string $id = null;
 
-	private $name;
+	private string $name;
 
-	/**
-	 * @var NestingController $nestingController
-	 */
-	private $nestingController;
+	private NestableInterface|false|null $parentComponent;
 
-	/**
-	 * @var NestableInterface|false $parentComponent
-	 */
-	private $parentComponent;
-
-	/**
-	 * @var ParserOutputHelper $parserOutputHelper
-	 */
-	private $parserOutputHelper;
-
-	/**
-	 * @var ParserRequest $parserRequest
-	 */
-	private $parserRequest;
+	private ?ParserRequest $parserRequest = null;
 
 	/**
 	 * For every of my registered attributes holds a value. false, if not valid in supplied
 	 * parserRequest.
-	 *
-	 * @var array $sanitizedAttributes
 	 */
-	private $sanitizedAttributes;
+	private array $sanitizedAttributes = [];
 
 	/**
 	 * Does the actual work in the individual components.
@@ -98,16 +68,13 @@ abstract class AbstractComponent implements NestableInterface {
 	/**
 	 * Component constructor.
 	 *
-	 * @param ComponentLibrary   $componentLibrary
-	 * @param ParserOutputHelper $parserOutputHelper
-	 * @param NestingController  $nestingController
-	 *
 	 * @throws RuntimeException cascading {@see ComponentLibrary::getNameFor} or {@see Component::extractAttribute}
 	 */
-	public function __construct( $componentLibrary, $parserOutputHelper, $nestingController ) {
-		$this->componentLibrary = $componentLibrary;
-		$this->parserOutputHelper = $parserOutputHelper;
-		$this->nestingController = $nestingController;
+	public function __construct(
+		private ComponentLibrary $componentLibrary,
+		private ParserOutputHelper $parserOutputHelper,
+		private NestingController $nestingController,
+	) {
 		$this->name = $componentLibrary->getNameFor(
 			get_class( $this )
 		);

@@ -10,26 +10,17 @@ class BootstrapComponentsService
 
 	/**
 	 * List of active components on the page
-	 *
-	 * @var array $activeComponents
 	 */
-	private array $activeComponents;
+	private array $activeComponents = [];
 
-	private Config $mainConfig;
-
-	private bool $modalsSuppressedByMagicWord;
+	private bool $modalsSuppressedByMagicWord = false;
 
 	/**
 	 * Holds the name of the skin we use (or false, if there is no skin).
-	 *
-	 * @var string $nameOfActiveSkin
 	 */
 	private string $nameOfActiveSkin;
 
-	public function __construct( Config $mainConfig ) {
-		$this->mainConfig = $mainConfig;
-		$this->activeComponents = [];
-		$this->modalsSuppressedByMagicWord = false;
+	public function __construct( private Config $mainConfig ) {
 	}
 
 

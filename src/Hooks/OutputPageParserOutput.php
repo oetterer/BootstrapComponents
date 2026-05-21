@@ -40,17 +40,10 @@ use MediaWiki\Output\OutputPage;
  */
 class OutputPageParserOutput {
 
-	private BootstrapComponentsService $bootstrapComponentService;
-
-	private OutputPage $outputPage;
-
-	/**
-	 * @param OutputPage $outputPage
-	 * @param BootstrapComponentsService $service
-	 */
-	public function __construct( OutputPage &$outputPage, BootstrapComponentsService $service ) {
-		$this->outputPage = $outputPage;
-		$this->bootstrapComponentService = $service;
+	public function __construct(
+		private OutputPage $outputPage,
+		private BootstrapComponentsService $bootstrapComponentService,
+	) {
 	}
 
 	/**

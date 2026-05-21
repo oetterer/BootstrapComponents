@@ -44,37 +44,22 @@ class ParserOutputHelper {
 
 	/**
 	 * To make sure, we only add the tracking category once.
-	 *
-	 * @var bool $articleTracked
 	 */
-	private $articleTracked;
+	private bool $articleTracked = false;
 
 	/**
 	 * To make sure, we only add the error tracking category once.
-	 *
-	 * @var bool $articleTrackedOnError
 	 */
-	private $articleTrackedOnError;
-
-	/**
-	 * @var Parser $parser
-	 */
-	private $parser;
-
+	private bool $articleTrackedOnError = false;
 
 	/**
 	 * ParserOutputHelper constructor.
 	 *
 	 * Do not instantiate directly, but use {@see ApplicationFactory::getParserOutputHelper} instead.
 	 *
-	 * @param Parser $parser
-	 *
 	 * @see ApplicationFactory::getParserOutputHelper
 	 */
-	public function __construct( $parser ) {
-		$this->articleTracked = false;
-		$this->articleTrackedOnError = false;
-		$this->parser = $parser;
+	public function __construct( private Parser $parser ) {
 	}
 
 	/**

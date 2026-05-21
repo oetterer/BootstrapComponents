@@ -55,9 +55,6 @@ use RuntimeException;
  */
 class BootstrapComponents {
 
-	const EXTENSION_DATA_NO_IMAGE_MODAL = 'bsc_no_image_modal';
-
-
 	/**
 	 * @var string $version
 	 */

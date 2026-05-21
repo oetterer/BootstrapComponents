@@ -59,13 +59,11 @@ class ImageModal implements NestableInterface {
 	/**
 	 * ImageModal constructor.
 	 *
-	 * @param null $null (was DummyLinker $dummyLinker)
 	 * @param ParserOutputHelper|null $parserOutputHelper DI for unit testing
 	 *
 	 * @throws RuntimeException cascading {@see ApplicationFactory} methods
 	 */
 	public function __construct(
-		$null,
 		private Title $title,
 		private File $file,
 		private NestingController $nestingController,

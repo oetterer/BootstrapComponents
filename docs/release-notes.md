@@ -1,5 +1,13 @@
 ## Release Notes
 
+### BootstrapComponents 6.0.0
+
+Released on TBD
+
+Breaking changes:
+* requires MediaWiki 1.43 or later
+* requires PHP 8.1 or later
+
 ### BootstrapComponents 5.2.3
 
 Released on 21-May-2026

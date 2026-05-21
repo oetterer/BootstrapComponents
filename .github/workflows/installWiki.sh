@@ -4,10 +4,12 @@ MW_BRANCH=$1
 EXTENSION_NAME=$2
 
 ## install core
-wget https://github.com/wikimedia/mediawiki/archive/${MW_BRANCH}.tar.gz -nv
-
-tar -zxf $MW_BRANCH.tar.gz
-mv mediawiki-$MW_BRANCH mediawiki
+# Clone rather than fetch the tarball: MW's .gitattributes marks
+# phpunit.xml.template as `export-ignore`, so it's absent from the
+# archive that GitHub serves. `composer phpunit:config` on MW master
+# needs that file; `git clone` ships it. ~40MB extra in cached
+# `.git/`, no measurable time difference.
+git clone --depth 1 --branch "$MW_BRANCH" https://github.com/wikimedia/mediawiki.git mediawiki
 cd $MW_ROOT
 
 composer install

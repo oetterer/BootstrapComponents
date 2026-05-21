@@ -1,5 +1,15 @@
 ## Release Notes
 
+### BootstrapComponents 5.2.3
+
+Released on 21-May-2026
+
+Changes:
+* add translations via translatewiki
+
+Fixes:
+* fix modal, tooltip, and popover not appearing on MediaWiki 1.43+
+
 ### BootstrapComponents 5.2.2
 
 Released on 01-April-2026

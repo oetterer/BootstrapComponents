@@ -7,6 +7,7 @@ use MediaWiki\Extension\BootstrapComponents\ModalBuilder;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
 use MediaWiki\Extension\BootstrapComponents\ParserRequest;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\ApplicationFactory
@@ -83,7 +84,7 @@ class ApplicationFactoryTest extends TestCase {
 	 * @param array $arguments
 	 * @param bool  $isParserFunction
 	 *
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 *
 	 * @dataProvider parserRequestProvider
 	 */
@@ -97,7 +98,7 @@ class ApplicationFactoryTest extends TestCase {
 	}
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function testGetParserOutputHelper() {
 		$instance = new ApplicationFactory();
@@ -120,13 +121,13 @@ class ApplicationFactoryTest extends TestCase {
 	public function testFailingGetNewParserRequest( array $arguments, bool $isParserFunction ) {
 		$instance = new ApplicationFactory();
 
-		$this->expectException( 'MWException' );
+		$this->expectException( RuntimeException::class );
 
 		$instance->getNewParserRequest( $arguments, $isParserFunction );
 	}
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanRegisterApplication() {
 		$instance = new ApplicationFactory();
@@ -136,7 +137,7 @@ class ApplicationFactoryTest extends TestCase {
 	}
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanNotRegisterApplicationOnInvalidName() {
 		$instance = new ApplicationFactory();
@@ -150,7 +151,7 @@ class ApplicationFactoryTest extends TestCase {
 
 	public function testCanNotRegisterApplicationOnInvalidClass() {
 		$instance = new ApplicationFactory();
-		$this->expectException( 'MWException' );
+		$this->expectException( RuntimeException::class );
 		$instance->registerApplication( 'test', 'FooBar' );
 	}
 

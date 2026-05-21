@@ -31,7 +31,7 @@ use MediaTransformOutput;
 use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use MWException;
+use RuntimeException;
 
 /**
  * Class ImageModal
@@ -98,7 +98,7 @@ class ImageModal implements NestableInterface {
 	 * @param BootstrapComponentsService $bootstrapComponentService
 	 * @param ParserOutputHelper|null $parserOutputHelper DI for unit testing
 	 *
-	 * @throws MWException cascading {@see ApplicationFactory} methods
+	 * @throws RuntimeException cascading {@see ApplicationFactory} methods
 	 */
 	public function __construct(
 		$null, Title $title, File $file,
@@ -162,7 +162,7 @@ class ImageModal implements NestableInterface {
 	 * @param string|bool $time          Timestamp of the file, set as false for current
 	 * @param string      $res           Final HTML output, used if this returns false
 	 *
-	 * @throws MWException     cascading {@see NestingController::open}
+	 * @throws RuntimeException     cascading {@see NestingController::open}
 	 * @throws \ConfigException cascading {@see ImageModal::generateTrigger}
 	 *
 	 * @return bool

@@ -26,7 +26,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
-use MWException;
+use RuntimeException;
 
 /**
  * Class ComponentLibrary
@@ -136,7 +136,7 @@ class ComponentLibrary {
 	 * @param string $componentIdentifier
 	 *
 	 * @return array
-	 * @throws MWException provided component is not known
+	 * @throws RuntimeException provided component is not known
 	 */
 	public function getAliasesFor( string $componentIdentifier ): array {
 		return $this->accessComponentDataStore( $componentIdentifier, 'aliases' );
@@ -148,7 +148,7 @@ class ComponentLibrary {
 	 * @param string $componentIdentifier
 	 *
 	 * @return array
-	 * @throws MWException provided component is not known
+	 * @throws RuntimeException provided component is not known
 	 */
 	public function getAttributesFor( string $componentIdentifier ): array {
 		return $this->accessComponentDataStore( $componentIdentifier, 'attributes' );
@@ -160,7 +160,7 @@ class ComponentLibrary {
 	 * @param string $componentIdentifier
 	 *
 	 * @return string
-	 * @throws MWException provided component is not known
+	 * @throws RuntimeException provided component is not known
 	 */
 	public function getClassFor( string $componentIdentifier ): string {
 		return $this->accessComponentDataStore( $componentIdentifier, 'class' );
@@ -180,7 +180,7 @@ class ComponentLibrary {
 	public function getHandlerTypeFor( string $componentIdentifier ): string {
 		try {
 			return $this->accessComponentDataStore( $componentIdentifier, 'handlerType' );
-		} catch ( MWException $e ) {
+		} catch ( RuntimeException $e ) {
 			return 'UNKNOWN';
 		}
 	}
@@ -205,7 +205,7 @@ class ComponentLibrary {
 	 */
 	public function getModulesFor( string $componentIdentifier, ?string $skin = null ): array {
 		if ( !$this->isKnown( $componentIdentifier ) ) {
-			// this prevents us from running into a MWException in the next call.
+			// this prevents us from running into a RuntimeException in the next call.
 			return [];
 		}
 		$allModules = $this->accessComponentDataStore( $componentIdentifier, 'modules' );
@@ -227,7 +227,7 @@ class ComponentLibrary {
 	 *
 	 * @param string $componentClass
 	 *
-	 * @throws MWException if supplied class is not registered
+	 * @throws RuntimeException if supplied class is not registered
 	 *
 	 * @return string
 	 */
@@ -241,7 +241,7 @@ class ComponentLibrary {
 			}
 		}
 		if ( is_null( $component ) ) {
-			throw new MWException( 'Trying to get a component name for unregistered class "' . (string) $componentClass . '"!' );
+			throw new RuntimeException( 'Trying to get a component name for unregistered class "' . (string) $componentClass . '"!' );
 		}
 		return $this->accessComponentDataStore( $component, 'name' );
 	}
@@ -301,13 +301,13 @@ class ComponentLibrary {
 	 * @param string $componentIdentifier
 	 * @param string $field
 	 *
-	 * @throws MWException on non-existing $componentIdentifier or $field
+	 * @throws RuntimeException on non-existing $componentIdentifier or $field
 	 *
 	 * @return mixed
 	 */
 	protected function accessComponentDataStore( string $componentIdentifier, string $field ): mixed {
 		if ( !isset( $this->getComponentDataStore()[$componentIdentifier][$field] ) ) {
-			throw new MWException(
+			throw new RuntimeException(
 				'Trying to access undefined field \'' . $field . '\' of component \'' . $componentIdentifier . '\'. Aborting'
 			);
 		}

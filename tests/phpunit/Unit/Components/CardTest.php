@@ -6,7 +6,7 @@ use MediaWiki\Extension\BootstrapComponents\Components\Accordion;
 use MediaWiki\Extension\BootstrapComponents\Components\Card;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use MWException;
+use RuntimeException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Card
@@ -26,7 +26,7 @@ class CardTest extends ComponentsTestBase {
 	private $input = 'Card test text';
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanConstruct() {
 
@@ -45,7 +45,7 @@ class CardTest extends ComponentsTestBase {
 	 * @param array  $arguments
 	 * @param string $expectedOutput
 	 *
-	 * @throws MWException
+	 * @throws RuntimeException
 	 *
 	 * @dataProvider placeMeArgumentsProvider
 	 */
@@ -69,7 +69,7 @@ class CardTest extends ComponentsTestBase {
 	 * @param array  $arguments
 	 * @param string $expectedOutput
 	 *
-	 * @throws MWException
+	 * @throws RuntimeException
 	 *
 	 * @dataProvider placeMeInsideAccordionArgumentsProvider
 	 */

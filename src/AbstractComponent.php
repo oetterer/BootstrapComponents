@@ -27,7 +27,7 @@
 namespace MediaWiki\Extension\BootstrapComponents;
 
 use MediaWiki\MediaWikiServices;
-use MWException;
+use RuntimeException;
 
 /**
  * Class AbstractComponent
@@ -107,7 +107,7 @@ abstract class AbstractComponent implements NestableInterface {
 	 * @param ParserOutputHelper $parserOutputHelper
 	 * @param NestingController  $nestingController
 	 *
-	 * @throws MWException cascading {@see ComponentLibrary::getNameFor} or {@see Component::extractAttribute}
+	 * @throws RuntimeException cascading {@see ComponentLibrary::getNameFor} or {@see Component::extractAttribute}
 	 */
 	public function __construct( $componentLibrary, $parserOutputHelper, $nestingController ) {
 		$this->componentLibrary = $componentLibrary;
@@ -144,14 +144,14 @@ abstract class AbstractComponent implements NestableInterface {
 	/**
 	 * @param ParserRequest $parserRequest ;
 	 *
-	 * @throws MWException self or cascading from {@see Component::processArguments}
+	 * @throws RuntimeException self or cascading from {@see Component::processArguments}
 	 *                      or {@see NestingController::close}
 	 *
 	 * @return string|array
 	 */
 	public function parseComponent( $parserRequest ) {
 		if ( !is_a( $parserRequest, ParserRequest::class ) ) {
-			throw new MWException( 'Invalid ParserRequest supplied to component ' . $this->getComponentName() . '!' );
+			throw new RuntimeException( 'Invalid ParserRequest supplied to component ' . $this->getComponentName() . '!' );
 		}
 		$this->getNestingController()->open( $this );
 		MediaWikiServices::getInstance()

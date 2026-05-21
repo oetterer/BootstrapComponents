@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
 use MediaWiki\Extension\BootstrapComponents\CarouselGallery;
 use MediaWiki\Title\Title;
-use MWException;
+use RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -35,7 +35,7 @@ class CarouselGalleryTest extends TestCase {
 	 * @param array  $additionalAttributes
 	 * @param string $expectedOutput
 	 *
-	 * @throws MWException
+	 * @throws RuntimeException
 	 * @dataProvider galleryDataProvider
 	 */
 	public function testToHtml( $imageList, $additionalAttributes, $expectedOutput ) {

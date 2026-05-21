@@ -72,7 +72,7 @@ class ParserFirstCallInit {
 	 * @param ComponentLibrary  $componentLibrary
 	 * @param NestingController $nestingController
 	 *
-	 * @throws \MWException  cascading {@see \BootstrapComponents\ApplicationFactory::getParserOutputHelper}
+	 * @throws RuntimeException  cascading {@see \BootstrapComponents\ApplicationFactory::getParserOutputHelper}
 	 */
 	public function __construct( $parser, $componentLibrary, $nestingController ) {
 		$this->componentLibrary = $componentLibrary;
@@ -82,7 +82,7 @@ class ParserFirstCallInit {
 	}
 
 	/**
-	 * @throws \MWException  cascading {@see \Parser::setFunctionHook} and {@see Parser::setHook}
+	 * @throws RuntimeException  cascading {@see \Parser::setFunctionHook} and {@see Parser::setHook}
 	 *
 	 * @return bool
 	 */

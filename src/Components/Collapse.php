@@ -30,7 +30,7 @@ use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
 use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
 use MediaWiki\Extension\BootstrapComponents\ParserRequest;
 use MediaWiki\Html\Html;
-use MWException;
+use RuntimeException;
 
 /**
  * Class Collapse
@@ -69,7 +69,7 @@ class Collapse extends AbstractComponent {
 	 *
 	 * @param ParserRequest $parserRequest
 	 *
-	 * @throws MWException cascading {@see \BootstrapComponents\Component::parseComponent}
+	 * @throws RuntimeException cascading {@see \BootstrapComponents\Component::parseComponent}
 	 * @return string
 	 */
 	private function generateButton( ParserRequest $parserRequest ) {

@@ -34,7 +34,7 @@ class ImageModalTest extends TestCase {
 	}
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanConstruct() {
 
@@ -51,7 +51,7 @@ class ImageModalTest extends TestCase {
 	}
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 * @throws \ConfigException
 	 */
 	public function testCanParseOnFileNonExistent() {
@@ -77,7 +77,7 @@ class ImageModalTest extends TestCase {
 	}
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 * @throws \ConfigException
 	 */
 	public function testCanParseOnFileNoAllowInlineParse() {
@@ -103,7 +103,7 @@ class ImageModalTest extends TestCase {
 	}
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 * @throws \ConfigException
 	 */
 	public function testCanParseOnOnInvalidManualThumb() {
@@ -131,7 +131,7 @@ class ImageModalTest extends TestCase {
 	}
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 * @throws \ConfigException
 	 */
 	public function testCanParseOnOnInvalidContentImage() {
@@ -196,7 +196,7 @@ class ImageModalTest extends TestCase {
 	 * @param string $expectedTrigger
 	 * @param string $expectedModal
 	 *
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 * @throws \ConfigException
 	 *
 	 * @dataProvider canParseDataProvider

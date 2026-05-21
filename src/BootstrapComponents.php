@@ -44,7 +44,7 @@
 namespace MediaWiki\Extension\BootstrapComponents;
 
 use Exception;
-use MWException;
+use RuntimeException;
 
 /**
  * Provides methods to register, when installed by composer
@@ -83,7 +83,7 @@ class BootstrapComponents {
 
 		if ( !defined( 'MEDIAWIKI' ) ) {
 			echo 'This file is part of the Mediawiki extension BootstrapComponents, it is not a valid entry point.' . PHP_EOL;
-			throw new MWException( 'This file is part of a Mediawiki Extension, it is not a valid entry point.' );
+			throw new RuntimeException( 'This file is part of a Mediawiki Extension, it is not a valid entry point.' );
 		}
 
 		// Using the constant as indicator to avoid class_exists

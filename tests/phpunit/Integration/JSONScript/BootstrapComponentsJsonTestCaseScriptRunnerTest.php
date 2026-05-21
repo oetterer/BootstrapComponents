@@ -42,7 +42,7 @@ class BootstrapComponentsJSONScriptTestCaseRunnerTest extends JSONScriptTestCase
 
 	/**
 	 * @throws \ConfigException
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	protected function setUp(): void {
 		wfDebugLog( 'BootstrapComponents', 'Running the JSONScriptTestCaseRunnerTest setup.' );

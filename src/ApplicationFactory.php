@@ -28,7 +28,7 @@ namespace MediaWiki\Extension\BootstrapComponents;
 
 use MediaWiki\Logger\LoggerFactory;
 use MediaWiki\MediaWikiServices;
-use MWException;
+use RuntimeException;
 use ReflectionClass;
 
 /**
@@ -126,7 +126,7 @@ class ApplicationFactory {
 	 *
 	 * @see ParserRequest::__construct
 	 *
-	 * @throws \MWException cascading {@see ParserRequest::__construct}
+	 * @throws RuntimeException cascading {@see ParserRequest::__construct}
 	 *
 	 * @return ParserRequest
 	 */
@@ -141,7 +141,7 @@ class ApplicationFactory {
 	 *
 	 * @see ParserOutputHelper
 	 *
-	 * @throws MWException  cascading {@see ApplicationFactory::getApplication}
+	 * @throws RuntimeException  cascading {@see ApplicationFactory::getApplication}
 	 *
 	 * @return ParserOutputHelper
 	 */
@@ -158,7 +158,7 @@ class ApplicationFactory {
 	 * @param string $name
 	 * @param string $class
 	 *
-	 * @throws MWException when class to register does not exist
+	 * @throws RuntimeException when class to register does not exist
 	 *
 	 * @return bool
 	 */
@@ -169,7 +169,7 @@ class ApplicationFactory {
 			$this->applicationClassRegister[$application] = $applicationClass;
 			return true;
 		} elseif ( $application != '' ) {
-			throw new MWException( 'ApplicationFactory was requested to register non existing class "' . $applicationClass . '"!' );
+			throw new RuntimeException( 'ApplicationFactory was requested to register non existing class "' . $applicationClass . '"!' );
 		}
 		$this->getLogger()->error( 'ApplicationFactory was requested to register invalid application for class ' . $applicationClass . '!' );
 		return false;
@@ -200,7 +200,7 @@ class ApplicationFactory {
 	 *
 	 * @param string $name
 	 *
-	 * @throws MWException  when no class is registered for the requested application or the creation of the object fails.
+	 * @throws RuntimeException  when no class is registered for the requested application or the creation of the object fails.
 	 *
 	 * @return object
 	 */
@@ -209,7 +209,7 @@ class ApplicationFactory {
 			return $this->applicationStore[$name];
 		}
 		if ( !isset( $this->applicationClassRegister[$name] ) ) {
-			throw new MWException( 'ApplicationFactory was requested to return application "' . $name . '". No appropriate class registered!' );
+			throw new RuntimeException( 'ApplicationFactory was requested to return application "' . $name . '". No appropriate class registered!' );
 		}
 		$args = func_get_args();
 		array_shift( $args ); # because, we already used the first argument $name
@@ -217,7 +217,7 @@ class ApplicationFactory {
 		try {
 			$objectReflection = new ReflectionClass( $this->applicationClassRegister[$name] );
 		} catch ( \ReflectionException $e ) {
-			throw new MWException(
+			throw new RuntimeException(
 				'Error while trying to build application "' . $name . '" with class ' . $this->applicationClassRegister[$name]
 			);
 		}

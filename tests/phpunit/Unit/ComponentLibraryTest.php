@@ -5,6 +5,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 use MediaWiki\Config\ConfigException;
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\ComponentLibrary
@@ -76,7 +77,7 @@ class ComponentLibraryTest extends TestCase {
 	 * @param string[] $expectedAliases
 	 *
 	 * @throws ConfigException
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 *
 	 * @dataProvider componentAliasesProvider
 	 */
@@ -93,7 +94,7 @@ class ComponentLibraryTest extends TestCase {
 	 * @param string[] $expectedAttributes
 	 *
 	 * @throws ConfigException
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 *
 	 * @dataProvider componentAttributesProvider
 	 */
@@ -203,7 +204,7 @@ class ComponentLibraryTest extends TestCase {
 	 * @param string $componentClass
 	 *
 	 * @throws ConfigException
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 *
 	 * @dataProvider componentNameAndClassProvider
 	 */
@@ -242,7 +243,7 @@ class ComponentLibraryTest extends TestCase {
 	public function testFails( $method, $param ) {
 		$instance = new ComponentLibrary();
 
-		$this->expectException( 'MWException' );
+		$this->expectException( RuntimeException::class );
 
 		call_user_func_array( [ $instance, $method ], [ $param ] );
 	}
@@ -279,7 +280,7 @@ class ComponentLibraryTest extends TestCase {
 	public function testUnknownComponentName() {
 		$instance = new ComponentLibrary( true );
 
-		$this->expectException( 'MWException' );
+		$this->expectException( RuntimeException::class );
 		$instance->getClassFor( 'foobar' );
 	}
 
@@ -289,7 +290,7 @@ class ComponentLibraryTest extends TestCase {
 	public function testUnknownComponentClass() {
 		$instance = new ComponentLibrary( true );
 
-		$this->expectException( 'MWException' );
+		$this->expectException( RuntimeException::class );
 		$instance->getNameFor( '\BootstrapComponents\Components\Foobar' );
 	}
 

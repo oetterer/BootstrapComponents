@@ -6,7 +6,7 @@ use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
-use MWException;
+use RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -100,7 +100,7 @@ class ParserOutputHelperTest extends TestCase {
 	 * @return array[]
 	 *
 	 * @throws \ConfigException
-	 * @throws MWException
+	 * @throws RuntimeException
 	 */
 	public function componentNameAndClassProvider() {
 		$cl = new ComponentLibrary();

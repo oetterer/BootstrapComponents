@@ -43,7 +43,7 @@ class CarouselGallery extends ImageGalleryBase {
 	 *
 	 * @param ParserOutputHelper $parserOutputHelper used for unit tests
 	 *
-	 * @throws \MWException cascading {@see CarouselGallery::constructCarouselParserRequest} and  {@see AbstractComponent::parseComponent}
+	 * @throws RuntimeException cascading {@see CarouselGallery::constructCarouselParserRequest} and  {@see AbstractComponent::parseComponent}
 	 * @return string
 	 */
 	public function toHTML( $parserOutputHelper = null ) {
@@ -160,7 +160,7 @@ class CarouselGallery extends ImageGalleryBase {
 	 * From array of supplies images and some other object properties, this constructs a parser request object,
 	 * to be used in the carousel component.
 	 *
-	 * @throws \MWException cascading {@see ApplicationFactory::getNewParserRequest}
+	 * @throws RuntimeException cascading {@see ApplicationFactory::getNewParserRequest}
 	 *
 	 * @return false|ParserRequest  returns false, if no valid images were detected
 	 */

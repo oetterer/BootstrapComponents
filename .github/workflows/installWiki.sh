@@ -4,10 +4,9 @@ MW_BRANCH=$1
 EXTENSION_NAME=$2
 
 ## install core
-wget https://github.com/wikimedia/mediawiki/archive/${MW_BRANCH}.tar.gz -nv
-
-tar -zxf $MW_BRANCH.tar.gz
-mv mediawiki-$MW_BRANCH mediawiki
+# [TEST BRANCH] git clone instead of tarball — MW master needs
+# phpunit.xml.template which is export-ignored from the archive.
+git clone --depth 1 --branch "$MW_BRANCH" https://github.com/wikimedia/mediawiki.git mediawiki
 cd $MW_ROOT
 
 composer install

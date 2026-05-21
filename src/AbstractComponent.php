@@ -26,6 +26,7 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
+use MediaWiki\MediaWikiServices;
 use \MWException;
 
 /**
@@ -153,6 +154,9 @@ abstract class AbstractComponent implements NestableInterface {
 			throw new MWException( 'Invalid ParserRequest supplied to component ' . $this->getComponentName() . '!' );
 		}
 		$this->getNestingController()->open( $this );
+		MediaWikiServices::getInstance()
+			->getService( 'BootstrapComponentsService' )
+			->registerComponentAsActive( $this->getComponentName() );
 		$this->initComponentData( $parserRequest );
 
 		$input = $this->prepareInput( $parserRequest );

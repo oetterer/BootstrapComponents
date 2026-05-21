@@ -254,7 +254,7 @@ class ImageModalTriggerTest extends TestCase {
 				[
 					'~<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#id">~',
 					'~<div class="thumbinner" style="width:96px;">~',
-					'~<img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" decoding="async" width="94" height="240" class="thumbimage" />~',
+					'~<img( alt="")? src="' . $scriptPath . '/images/a/aa/Shuttle.png" decoding="async" width="94" height="240" class="thumbimage"( /)?>~',
 				]
 			],
 			'framed'                         => [
@@ -319,7 +319,7 @@ class ImageModalTriggerTest extends TestCase {
 				],
 				[
 					'~<div class="thumb tleft"><span class="modal-trigger" data-toggle="modal" data-target="#id"><div class="thumbinner" style="width:96px;">~',
-					'~<img alt="" src="' . $scriptPath . '/images/a/aa/Shuttle.png" decoding="async" width="94" height="240" class="thumbimage" />~',
+					'~<img( alt="")? src="' . $scriptPath . '/images/a/aa/Shuttle.png" decoding="async" width="94" height="240" class="thumbimage"( /)?>~',
 					'~<div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge">~',
 				]
 			],

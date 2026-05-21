@@ -1,6 +1,6 @@
 {
 	"name": "BootstrapComponents",
-	"version": "5.2.2",
+	"version": "5.2.3",
 	"author": [ "Tobias Oetterer" ],
 	"url": "https://www.mediawiki.org/wiki/Extension:BootstrapComponents",
 	"descriptionmsg": "bootstrap-components-desc",

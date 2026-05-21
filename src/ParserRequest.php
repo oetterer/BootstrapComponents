@@ -38,24 +38,13 @@ use PPFrame;
  * @since 1.0
  */
 class ParserRequest {
-	/**
-	 * @var string[] $attributes
-	 */
+	/** @var string[] */
 	private array $attributes;
 
-	/**
-	 * @var string $input
-	 */
 	private string $input;
 
-	/**
-	 * @var PPFrame|null $frame
-	 */
 	private PPFrame|null $frame;
 
-	/**
-	 * @var Parser $parser
-	 */
 	private Parser $parser;
 
 	/**

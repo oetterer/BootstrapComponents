@@ -30,9 +30,6 @@ abstract class ComponentsTestBase extends TestCase {
 	 */
 	private $frame;
 
-	/**
-	 * @var NestingController
-	 */
 	private NestingController $nestingController;
 
 	/**

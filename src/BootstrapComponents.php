@@ -55,9 +55,6 @@ use RuntimeException;
  */
 class BootstrapComponents {
 
-	/**
-	 * @var string $version
-	 */
 	private static string $version;
 
 	/**

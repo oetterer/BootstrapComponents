@@ -80,15 +80,13 @@ class ComponentLibrary {
 	 *      ]
 	 *  ]
 	 * </pre>
-	 *
-	 * @var array $componentDataStore
 	 */
 	private array $componentDataStore;
 
 	/**
-	 * The list of registered/allowed bootstrap components, name or alias
+	 * The list of registered/allowed bootstrap components, name or alias.
 	 *
-	 * @var string[] $registeredComponents
+	 * @var string[]
 	 */
 	private array $registeredComponents;
 

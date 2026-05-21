@@ -18,8 +18,6 @@ class LuaLibraryTest extends LuaLibraryTestBase {
 
 	/**
 	 * Lua test module
-	 *
-	 * @var string
 	 */
 	protected static $moduleName = self::class;
 

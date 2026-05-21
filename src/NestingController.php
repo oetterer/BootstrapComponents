@@ -41,8 +41,6 @@ class NestingController {
 	/**
 	 * List of ids already in use in the context of the bootstrap components.
 	 * Key is of this array is the component name, value is the next usable id.
-	 *
-	 * @var array $autoincrementPerComponent
 	 */
 	private array $autoincrementPerComponent;
 
@@ -51,8 +49,6 @@ class NestingController {
 	 * can get information about their parent "nest".
 	 *
 	 * Consists of elements of type {@see Nestable}.
-	 *
-	 * @var array $componentStack
 	 */
 	private array $componentStack;
 

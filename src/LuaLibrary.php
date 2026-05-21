@@ -42,14 +42,8 @@ use ReflectionException;
  */
 class LuaLibrary extends LibraryBase {
 
-	/**
-	 * @var ApplicationFactory $applicationFactory;
-	 */
 	private ApplicationFactory $applicationFactory;
 
-	/**
-	 * @var BootstrapComponentsService
-	 */
 	private BootstrapComponentsService $bootstrapComponentService;
 
 	/**

@@ -11,14 +11,8 @@ use Traversable;
 
 class TestConfig implements Config, MutableConfig, IterableConfig
 {
-	/**
-	 * @var array
-	 */
 	private array $settings;
 
-	/**
-	 * @var array
-	 */
 	private array $originalSetting;
 
 	public function __construct( $prefix = 'wg' ) {

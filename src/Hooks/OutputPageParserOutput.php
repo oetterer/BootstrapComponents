@@ -41,8 +41,8 @@ use MediaWiki\Output\OutputPage;
 class OutputPageParserOutput {
 
 	public function __construct(
-		private OutputPage $outputPage,
-		private BootstrapComponentsService $bootstrapComponentService,
+		private readonly OutputPage $outputPage,
+		private readonly BootstrapComponentsService $bootstrapComponentService,
 	) {
 	}
 

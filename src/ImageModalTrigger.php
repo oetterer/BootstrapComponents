@@ -43,8 +43,8 @@ use MediaWiki\Title\Title;
  */
 class ImageModalTrigger {
 	public function __construct(
-		private string $id,
-		private File $file,
+		private readonly string $id,
+		private readonly File $file,
 	) {
 	}
 

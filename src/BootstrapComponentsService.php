@@ -20,7 +20,7 @@ class BootstrapComponentsService
 	 */
 	private string $nameOfActiveSkin;
 
-	public function __construct( private Config $mainConfig ) {
+	public function __construct( private readonly Config $mainConfig ) {
 	}
 
 

@@ -48,11 +48,11 @@ class ImageModal implements NestableInterface {
 	 */
 	const PARENTS_PREVENTING_MODAL = [ 'button', 'collapse ', 'image_modal', 'modal', 'popover', 'tooltip' ];
 
-	private null|string $id;
+	private readonly null|string $id;
 
-	private null|bool|NestableInterface $parentComponent;
+	private readonly null|bool|NestableInterface $parentComponent;
 
-	private ParserOutputHelper $parserOutputHelper;
+	private readonly ParserOutputHelper $parserOutputHelper;
 
 	private bool $disableSourceLink = false;
 

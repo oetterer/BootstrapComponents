@@ -48,22 +48,22 @@ class HooksHandler implements
 	/**
 	 * @var Config
 	 */
-	var Config $config;
+	private Config $config;
 
 	/**
 	 * @var BootstrapComponentsService
 	 */
-	var BootstrapComponentsService $bootstrapComponentsService;
+	private BootstrapComponentsService $bootstrapComponentsService;
 
 	/**
 	 * @var ComponentLibrary
 	 */
-	var ComponentLibrary $componentLibrary;
+	private ComponentLibrary $componentLibrary;
 
 	/**
 	 * @var NestingController
 	 */
-	var NestingController $nestingController;
+	private NestingController $nestingController;
 
 	public function __construct(
 		BootstrapComponentsService $bootstrapComponentsService, ComponentLibrary $componentLibrary,

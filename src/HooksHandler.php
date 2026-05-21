@@ -48,9 +48,9 @@ class HooksHandler implements
 	private Config $config;
 
 	public function __construct(
-		private BootstrapComponentsService $bootstrapComponentsService,
-		private ComponentLibrary $componentLibrary,
-		private NestingController $nestingController,
+		private readonly BootstrapComponentsService $bootstrapComponentsService,
+		private readonly ComponentLibrary $componentLibrary,
+		private readonly NestingController $nestingController,
 	) {
 	}
 

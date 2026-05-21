@@ -37,16 +37,16 @@ use RuntimeException;
  * @since 1.0
  */
 abstract class AbstractComponent implements NestableInterface {
-	private AttributeManager $attributeManager;
+	private readonly AttributeManager $attributeManager;
 
 	/**
 	 * The (html) id of this component. Not available before the component was opened.
 	 */
 	private ?string $id = null;
 
-	private string $name;
+	private readonly string $name;
 
-	private NestableInterface|false|null $parentComponent;
+	private readonly NestableInterface|false|null $parentComponent;
 
 	private ?ParserRequest $parserRequest = null;
 
@@ -71,9 +71,9 @@ abstract class AbstractComponent implements NestableInterface {
 	 * @throws RuntimeException cascading {@see ComponentLibrary::getNameFor} or {@see Component::extractAttribute}
 	 */
 	public function __construct(
-		private ComponentLibrary $componentLibrary,
-		private ParserOutputHelper $parserOutputHelper,
-		private NestingController $nestingController,
+		private readonly ComponentLibrary $componentLibrary,
+		private readonly ParserOutputHelper $parserOutputHelper,
+		private readonly NestingController $nestingController,
 	) {
 		$this->name = $componentLibrary->getNameFor(
 			get_class( $this )

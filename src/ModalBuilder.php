@@ -129,16 +129,9 @@ class ModalBuilder {
 	 * @see Components\Modal::generateButton
 	 */
 	public function __construct(
-<<<<<<< HEAD
-		private string $id,
-		private string $trigger,
-		/** must be safe raw html (best run through {@see Parser::recursiveTagParse}) */
-		private string $content,
-=======
 		private readonly string $id,
 		private readonly string $trigger,
 		private readonly string $content,
->>>>>>> 0490673 (Move ModalBuilder ctor param descriptions back into the docblock)
 	) {
 	}
 

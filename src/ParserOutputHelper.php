@@ -59,7 +59,7 @@ class ParserOutputHelper {
 	 *
 	 * @see ApplicationFactory::getParserOutputHelper
 	 */
-	public function __construct( private Parser $parser ) {
+	public function __construct( private readonly Parser $parser ) {
 	}
 
 	/**

@@ -3,7 +3,7 @@
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
 use MediaWiki\Extension\BootstrapComponents\LuaLibrary;
-use \Scribunto_LuaEngineTestBase;
+use Scribunto_LuaEngineTestBase;
 
 /**
  * @ingroup Test

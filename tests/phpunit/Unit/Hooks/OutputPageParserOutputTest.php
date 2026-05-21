@@ -5,7 +5,6 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Hooks;
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput;
 use MediaWiki\Output\OutputPage;
-use MediaWiki\Parser\ParserOutput;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -29,7 +28,6 @@ class OutputPageParserOutputTest extends TestCase {
 
 		$instance = new OutputPageParserOutput(
 			$outputPage,
-			$this->createMock( ParserOutput::class ),
 			$this->createMock( BootstrapComponentsService::class )
 		);
 
@@ -53,11 +51,7 @@ class OutputPageParserOutputTest extends TestCase {
 			->method( 'vectorSkinInUse' )
 			->willReturn( true );
 
-		$instance = new OutputPageParserOutput(
-			$outputPage,
-			$this->createMock( ParserOutput::class ),
-			$bootstrapService
-		);
+		$instance = new OutputPageParserOutput( $outputPage, $bootstrapService );
 		$instance->process();
 	}
 
@@ -71,11 +65,7 @@ class OutputPageParserOutputTest extends TestCase {
 			->method( 'vectorSkinInUse' )
 			->willReturn( false );
 
-		$instance = new OutputPageParserOutput(
-			$outputPage,
-			$this->createMock( ParserOutput::class ),
-			$bootstrapService
-		);
+		$instance = new OutputPageParserOutput( $outputPage, $bootstrapService );
 		$instance->process();
 	}
 }

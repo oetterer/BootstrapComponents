@@ -3,6 +3,7 @@
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Integration;
 
 use MediaWiki\Extension\BootstrapComponents\ApplicationFactory;
+use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Extension\BootstrapComponents\HookRegistry;
 use MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput;
 use SMW\DIWikiPage;
@@ -196,8 +197,9 @@ class BootstrapComponentsJSONScriptTestCaseRunnerTest extends JSONScriptTestCase
 			$outputPage = $this->getMockBuilder( 'OutputPage' )
 				->disableOriginalConstructor()
 				->getMock();
+			$bootstrapService = $this->createMock( BootstrapComponentsService::class );
 			/** @noinspection PhpParamsInspection */
-			$hook = new OutputPageParserOutput( $outputPage, $parserOutput );
+			$hook = new OutputPageParserOutput( $outputPage, $bootstrapService );
 			$hook->process();
 		} catch ( \Exception $e ) {
 			// nothing

@@ -193,8 +193,7 @@ class HooksHandler implements
 	public function onOutputPageParserOutput( $outputPage, $parserOutput ): void {
 		// @todo check, if we need to omit execution on actions edit, submit, or history
 		// $action = $outputPage->parserOptions()->getUser()->getRequest()->getVal( "action" );
-		$hook =
-			new OutputPageParserOutput( $outputPage, $parserOutput, $this->getBootstrapComponentsService() );
+		$hook = new OutputPageParserOutput( $outputPage, $this->getBootstrapComponentsService() );
 
 		$hook->process();
 	}

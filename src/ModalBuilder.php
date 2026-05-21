@@ -100,13 +100,6 @@ class ModalBuilder {
 	private $outerStyle;
 
 	/**
-	 * @var ParserOutputHelper $parserOutputHelper
-	 *
-	 * @deprecated unused since the inline-emission modal fix; will be removed in the next major release.
-	 */
-	private $parserOutputHelper;
-
-	/**
 	 * @var string $trigger
 	 */
 	private $trigger;
@@ -144,21 +137,17 @@ class ModalBuilder {
 	 * Do not instantiate directly, but use {@see ApplicationFactory::getNewModalBuilder}
 	 * instead.
 	 *
-	 * @param string             $id
-	 * @param string             $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
-	 * @param string             $content must be fully parsed html (use {@see Parser::recursiveTagParseFully})
-	 * @param ParserOutputHelper $parserOutputHelper @deprecated unused since the inline-emission modal fix; will be removed in the next major release.
+	 * @param string $id
+	 * @param string $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
+	 * @param string $content must be fully parsed html (use {@see Parser::recursiveTagParseFully})
 	 *
 	 * @see ApplicationFactory::getNewModalBuilder
 	 * @see Components\Modal::generateButton
-	 *
 	 */
-
-	public function __construct( $id, $trigger, $content, $parserOutputHelper ) {
+	public function __construct( $id, $trigger, $content ) {
 		$this->id = $id;
 		$this->trigger = $trigger;
 		$this->content = $content;
-		$this->parserOutputHelper = $parserOutputHelper;
 	}
 
 	/**

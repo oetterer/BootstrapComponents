@@ -345,8 +345,7 @@ class ImageModal implements NestableInterface {
 		$modal = ApplicationFactory::getInstance()->getNewModalBuilder(
 			$this->getId(),
 			$triggerString,
-			$content,
-			$this->getParserOutputHelper()
+			$content
 		);
 		$modal->setHeader(
 			$this->getTitle()->getBaseText()

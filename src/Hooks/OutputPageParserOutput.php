@@ -28,7 +28,6 @@ namespace MediaWiki\Extension\BootstrapComponents\Hooks;
 
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Output\OutputPage;
-use MediaWiki\Parser\ParserOutput;
 
 /**
  * Class OutputPageParserOutput
@@ -52,31 +51,18 @@ class OutputPageParserOutput {
 	private OutputPage $outputPage;
 
 	/**
-	 * @var ParserOutput $parserOutput
-	 *
-	 * @deprecated unused since the inline-emission modal fix; will be removed in the next major release.
-	 */
-	private ParserOutput $parserOutput;
-
-	/**
-	 * OutputPageParserOutput constructor.
-	 *
 	 * @param OutputPage $outputPage
-	 * @param ParserOutput $parserOutput @deprecated unused since the inline-emission modal fix; will be removed in the next major release.
 	 * @param BootstrapComponentsService $service
 	 */
-	public function __construct(
-		OutputPage &$outputPage, ParserOutput $parserOutput, BootstrapComponentsService $service
-	) {
+	public function __construct( OutputPage &$outputPage, BootstrapComponentsService $service ) {
 		$this->outputPage = $outputPage;
-		$this->parserOutput = $parserOutput;
 		$this->bootstrapComponentService = $service;
 	}
 
 	/**
 	 * @return void
 	 */
-	public function process(): void	{
+	public function process(): void {
 		if ( $this->getBootstrapComponentsService()->vectorSkinInUse() ) {
 			$this->getOutputPage()->addModules( [ 'ext.bootstrapComponents.vector-fix' ] );
 		}
@@ -91,14 +77,5 @@ class OutputPageParserOutput {
 	 */
 	protected function getOutputPage(): OutputPage {
 		return $this->outputPage;
-	}
-
-	/**
-	 * @deprecated unused since the inline-emission modal fix; will be removed in the next major release.
-	 *
-	 * @return ParserOutput
-	 */
-	protected function getParserOutput(): ParserOutput {
-		return $this->parserOutput;
 	}
 }

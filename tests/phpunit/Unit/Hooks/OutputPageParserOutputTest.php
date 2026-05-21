@@ -39,14 +39,16 @@ class OutputPageParserOutputTest extends TestCase {
 		);
 	}
 
-	public function testHookOutputPageParserOutputLoadsVectorFixUnderVector() {
+	public function testProcessLoadsPerComponentInitModulesAndVectorFix() {
+		$loadedModules = [];
+
 		$outputPage = $this->createMock( OutputPage::class );
 		$outputPage->expects( $this->never() )->method( 'addHTML' );
-		$outputPage->expects( $this->once() )
+		$outputPage->expects( $this->atLeastOnce() )
 			->method( 'addModules' )
-			->with(
-				$this->equalTo( [ 'ext.bootstrapComponents.vector-fix' ] )
-			);
+			->will( $this->returnCallback( function( $modules ) use ( &$loadedModules ) {
+				$loadedModules = array_merge( $loadedModules, (array)$modules );
+			} ) );
 
 		$bootstrapService = $this->createMock( BootstrapComponentsService::class );
 		$bootstrapService->expects( $this->once() )
@@ -59,12 +61,28 @@ class OutputPageParserOutputTest extends TestCase {
 			$bootstrapService
 		);
 		$instance->process();
+
+		$expected = [
+			'ext.bootstrapComponents.tooltip.fix',
+			'ext.bootstrapComponents.popover.fix',
+			'ext.bootstrapComponents.carousel.fix',
+			'ext.bootstrapComponents.vector-fix',
+		];
+		sort( $loadedModules );
+		sort( $expected );
+		$this->assertEquals( $expected, $loadedModules );
 	}
 
-	public function testHookDoesNothingWhenNotVector() {
+	public function testProcessSkipsVectorFixWhenNotVector() {
+		$loadedModules = [];
+
 		$outputPage = $this->createMock( OutputPage::class );
 		$outputPage->expects( $this->never() )->method( 'addHTML' );
-		$outputPage->expects( $this->never() )->method( 'addModules' );
+		$outputPage->expects( $this->atLeastOnce() )
+			->method( 'addModules' )
+			->will( $this->returnCallback( function( $modules ) use ( &$loadedModules ) {
+				$loadedModules = array_merge( $loadedModules, (array)$modules );
+			} ) );
 
 		$bootstrapService = $this->createMock( BootstrapComponentsService::class );
 		$bootstrapService->expects( $this->once() )
@@ -77,5 +95,7 @@ class OutputPageParserOutputTest extends TestCase {
 			$bootstrapService
 		);
 		$instance->process();
+
+		$this->assertNotContains( 'ext.bootstrapComponents.vector-fix', $loadedModules );
 	}
 }

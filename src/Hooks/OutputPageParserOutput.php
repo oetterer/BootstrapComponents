@@ -82,6 +82,12 @@ class OutputPageParserOutput {
 	 * @return void
 	 */
 	public function process(): void	{
+		$this->getOutputPage()->addModules( [
+			'ext.bootstrapComponents.tooltip.fix',
+			'ext.bootstrapComponents.popover.fix',
+			'ext.bootstrapComponents.carousel.fix',
+		] );
+
 		if ( $this->getBootstrapComponentsService()->vectorSkinInUse() ) {
 			$this->getOutputPage()->addModules( [ 'ext.bootstrapComponents.vector-fix' ] );
 		}

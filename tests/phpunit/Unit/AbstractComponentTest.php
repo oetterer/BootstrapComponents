@@ -5,7 +5,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\NestableInterface;
-use MWException;
+use RuntimeException;
 use PHPUnit\Framework\MockObject\Stub;
 
 /**
@@ -75,7 +75,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 	}
 
 	/**
-	 * @throws MWException
+	 * @throws RuntimeException
 	 */
 	public function testParseComponent() {
 		$parserRequest = $this->buildParserRequest(
@@ -96,7 +96,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 	/**
 	 * @param string $component
 	 *
-	 * @throws MWException
+	 * @throws RuntimeException
 	 * @dataProvider allComponentsProvider
 	 */
 	public function testSimpleOutput( string $component ) {
@@ -127,7 +127,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 	/**
 	 * @param string $component
 	 *
-	 * @throws MWException
+	 * @throws RuntimeException
 	 * @dataProvider allComponentsProvider
 	 */
 	public function testInvalidParserRequest( $component ) {
@@ -138,7 +138,7 @@ class AbstractComponentTest extends ComponentsTestBase {
 			$this->getParserOutputHelper(),
 			$this->getNestingController()
 		);
-		$this->expectException( 'MWException' );
+		$this->expectException( RuntimeException::class );
 		/** @noinspection PhpParamsInspection */
 		$instance->parseComponent(
 			'noParser'

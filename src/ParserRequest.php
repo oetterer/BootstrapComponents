@@ -27,7 +27,7 @@
 namespace MediaWiki\Extension\BootstrapComponents;
 
 use MediaWiki\Parser\Parser;
-use MWException;
+use RuntimeException;
 use PPFrame;
 
 /**
@@ -70,7 +70,7 @@ class ParserRequest {
 	 *
 	 * @see ApplicationFactory::getNewParserRequest
 	 *
-	 * @throws MWException
+	 * @throws RuntimeException
 	 */
 	public function __construct(
 		array $argumentsPassedByParser, bool $isParserFunction, string $componentName = 'unknown'
@@ -79,10 +79,10 @@ class ParserRequest {
 			$this->processArguments( $argumentsPassedByParser, $isParserFunction, $componentName );
 		$this->attributes = (array)$attributes;
 		if ( !$parser || !is_a( $parser, 'Parser' ) ) {
-			throw new MWException( 'Invalid parser object passed to component ' . $componentName . '!' );
+			throw new RuntimeException( 'Invalid parser object passed to component ' . $componentName . '!' );
 		}
 		if ( $frame && !is_a( $frame, 'PPFrame' ) ) {
-			throw new MWException( 'Invalid frame object passed to component ' . $componentName . '!' );
+			throw new RuntimeException( 'Invalid frame object passed to component ' . $componentName . '!' );
 		}
 		$this->parser = $parser;
 		$this->frame = $frame;
@@ -142,7 +142,7 @@ class ParserRequest {
 	 * @param array  $options
 	 * @param string $componentName
 	 *
-	 * @throws MWException
+	 * @throws RuntimeException
 	 * @return array $results
 	 */
 	private function extractParserFunctionOptions( array $options, string $componentName ): array {
@@ -152,7 +152,7 @@ class ParserRequest {
 		$results = [];
 		foreach ( $options as $option ) {
 			if ( !is_string( $option ) ) {
-				throw new MWException(
+				throw new RuntimeException(
 					'Arguments passed to bootstrap component "' . $componentName . '" are invalid!'
 				);
 			}
@@ -194,7 +194,7 @@ class ParserRequest {
 	 * @param bool   $isParserFunction
 	 * @param string $componentName
 	 *
-	 * @throws MWException if argument list does not match handler type or unknown handler type detected
+	 * @throws RuntimeException if argument list does not match handler type or unknown handler type detected
 	 * @return array array consisting of (string) $input, (array) $options, (Parser) $parser, and optional (PPFrame) $frame
 	 */
 	private function processArguments(
@@ -210,7 +210,7 @@ class ParserRequest {
 			return [ $input, $attributes, $parser, null ];
 		} else {
 			if ( count( $argumentsPassedByParser ) != 4 ) {
-				throw new MWException(
+				throw new RuntimeException(
 					'Argument list passed to bootstrap tag component "' . $componentName . '" is invalid!'
 				);
 			}

@@ -27,7 +27,7 @@
 namespace MediaWiki\Extension\BootstrapComponents;
 
 use MediaWiki\MediaWikiServices;
-use MWException;
+use RuntimeException;
 
 /**
  * Class NestingController
@@ -72,15 +72,15 @@ class NestingController {
 	 *
 	 * @param string|false $id id of the current object we are trying to close
 	 *
-	 * @throws MWException if current and closing component is different
+	 * @throws RuntimeException if current and closing component is different
 	 */
 	public function close( $id ): void {
 		$current = $this->getCurrentElement();
 		if ( !$current ) {
-			throw new MWException( 'Nesting error. Tried to close an empty stack.' );
+			throw new RuntimeException( 'Nesting error. Tried to close an empty stack.' );
 		}
 		if ( $id === false || ($current->getId() != $id) ) {
-			throw new MWException( 'Nesting error. Trying to close a component that is not the currently open one.' );
+			throw new RuntimeException( 'Nesting error. Trying to close a component that is not the currently open one.' );
 		}
 		array_pop( $this->componentStack );
 	}
@@ -124,11 +124,11 @@ class NestingController {
 	 *
 	 * @param NestableInterface $nestable
 	 *
-	 * @throws MWException when open is called with an invalid object
+	 * @throws RuntimeException when open is called with an invalid object
 	 */
 	public function open( mixed &$nestable ): void {
 		if ( !$nestable instanceof NestableInterface ) {
-			throw new MWException( 'Nesting error. Trying to put an object other than a Component an the nesting stack.' );
+			throw new RuntimeException( 'Nesting error. Trying to put an object other than a Component an the nesting stack.' );
 		}
 		$this->componentStack[] = $nestable;
 	}

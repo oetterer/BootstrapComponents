@@ -131,7 +131,7 @@ class HooksHandler implements
 	 * @param Parser $parser
 	 * @param string &$query
 	 * @param null|int &$widthOption
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function onImageBeforeProduceHTML(
 		$linker, &$title, &$file, &$frameParams, &$handlerParams, &$time, &$res, $parser, &$query, &$widthOption
@@ -242,7 +242,7 @@ class HooksHandler implements
 	 * @param Parser $parser
 	 *
 	 * @return bool
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function onParserFirstCallInit( $parser ): bool {
 		$hook = new ParserFirstCallInit( $parser, $this->getComponentLibrary(), $this->getNestingController() );

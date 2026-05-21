@@ -6,6 +6,7 @@ use MediaWiki\Extension\BootstrapComponents\AbstractComponent;
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\NestingController
@@ -86,23 +87,23 @@ class NestingControllerTest extends TestCase {
 	}
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function testCloseFailOnEmptyStack() {
 		$instance = new NestingController();
 
-		$this->expectException( 'MWException' );
+		$this->expectException( RuntimeException::class );
 
 		$instance->close( 'invalid' );
 	}
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function testOpenFail() {
 		$instance = new NestingController();
 
-		$this->expectException( 'MWException' );
+		$this->expectException( RuntimeException::class );
 
 		$component = 'invalid';
 		/** @noinspection PhpParamsInspection */
@@ -110,12 +111,12 @@ class NestingControllerTest extends TestCase {
 	}
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function testCloseFailOnInvalidId() {
 		$instance = new NestingController();
 
-		$this->expectException( 'MWException' );
+		$this->expectException( RuntimeException::class );
 
 		/** @var AbstractComponent $component */
 		$component = $this->getComponent( 'panel', 'MediaWiki\\Extension\\BootstrapComponents\\Components\\Card' );
@@ -147,7 +148,7 @@ class NestingControllerTest extends TestCase {
 	 * @return array[]
 	 *
 	 * @throws \ConfigException
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function componentNameAndClassProvider() {
 		$cl = new ComponentLibrary();

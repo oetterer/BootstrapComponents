@@ -31,7 +31,7 @@ use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\ParserOutputHelper;
 use MediaWiki\Html\Html;
-use MWException;
+use RuntimeException;
 
 /**
  * Class Card
@@ -64,7 +64,7 @@ class Card extends AbstractComponent {
 	 * @param ParserOutputHelper $parserOutputHelper
 	 * @param NestingController  $nestingController
 	 *
-	 * @throws MWException
+	 * @throws RuntimeException
 	 */
 	public function __construct( $componentLibrary, $parserOutputHelper, $nestingController ) {
 		parent::__construct( $componentLibrary, $parserOutputHelper, $nestingController );

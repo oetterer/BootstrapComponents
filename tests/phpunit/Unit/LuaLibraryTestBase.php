@@ -23,7 +23,7 @@ abstract class LuaLibraryTestBase extends Scribunto_LuaEngineTestBase
 	private $luaLibrary;
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	protected function setUp(): void {
 		parent::setUp();

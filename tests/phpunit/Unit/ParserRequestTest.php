@@ -6,6 +6,7 @@ use MediaWiki\Extension\BootstrapComponents\ParserRequest;
 use MediaWiki\Parser\Parser;
 use PHPUnit\Framework\TestCase;
 use PPFrame;
+use RuntimeException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\ParserRequest
@@ -45,7 +46,7 @@ class ParserRequestTest extends TestCase {
 	 * @param array $arguments
 	 * @param bool  $isParserFunction
 	 *
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 *
 	 * @dataProvider constructionProvider
 	 */
@@ -65,7 +66,7 @@ class ParserRequestTest extends TestCase {
 	 */
 	public function testCanNotConstruct( array $arguments, bool $isParserFunction ) {
 
-		$this->expectException( 'MWException' );
+		$this->expectException( RuntimeException::class );
 
 		$this->assertInstanceOf(
 			ParserRequest::class,
@@ -79,7 +80,7 @@ class ParserRequestTest extends TestCase {
 	 * @param string $expectedInput
 	 * @param array  $expectedAttributes
 	 *
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 *
 	 * @dataProvider constructionProvider
 	 */

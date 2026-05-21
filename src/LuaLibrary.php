@@ -29,7 +29,7 @@ namespace MediaWiki\Extension\BootstrapComponents;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LuaEngine;
 use MediaWiki\MediaWikiServices;
-use MWException;
+use RuntimeException;
 use ReflectionClass;
 use ReflectionException;
 
@@ -84,7 +84,7 @@ class LuaLibrary extends LibraryBase {
 	 * @return string[]
 	 *
 	 * Note: Please refrain from using Type hints in function signature. Will break tests!
-	 *@throws MWException
+	 *@throws RuntimeException
 	 *
 	 * @throws ReflectionException
 	 */
@@ -125,7 +125,7 @@ class LuaLibrary extends LibraryBase {
 	 * @param null|string $component
 	 *
 	 * @return ParserRequest
-	 *@throws MWException
+	 *@throws RuntimeException
 	 *
 	 */
 	protected function buildParserRequest(
@@ -142,7 +142,7 @@ class LuaLibrary extends LibraryBase {
 	/**
 	 * @param string $componentClass
 	 *
-	 * @throws MWException
+	 * @throws RuntimeException
 	 * @throws ReflectionException
 	 *
 	 * @return AbstractComponent

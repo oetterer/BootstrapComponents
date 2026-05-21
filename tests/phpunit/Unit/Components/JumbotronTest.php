@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
 use MediaWiki\Extension\BootstrapComponents\Components\Jumbotron;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use MWException;
+use RuntimeException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Jumbotron
@@ -24,7 +24,7 @@ class JumbotronTest extends ComponentsTestBase {
 	private $input = 'Jumbotron test text';
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanConstruct() {
 
@@ -44,7 +44,7 @@ class JumbotronTest extends ComponentsTestBase {
 	 * @param string $expectedOutput
 	 *
 	 * @dataProvider placeMeArgumentsProvider
-	 * @throws MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanRender( $input, $arguments, $expectedOutput ) {
 		$instance = new Jumbotron(

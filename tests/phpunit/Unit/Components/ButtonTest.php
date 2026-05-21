@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
 use MediaWiki\Extension\BootstrapComponents\Components\Button;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use MWException;
+use RuntimeException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Button
@@ -24,7 +24,7 @@ class ButtonTest extends ComponentsTestBase {
 	private $input = 'Button test text';
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanConstruct() {
 
@@ -44,7 +44,7 @@ class ButtonTest extends ComponentsTestBase {
 	 * @param string $expectedOutputPattern
 	 *
 	 * @dataProvider placeMeArgumentsProvider
-	 * @throws MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanRender( $input, $arguments, $expectedOutputPattern ) {
 		$instance = new Button(
@@ -64,7 +64,7 @@ class ButtonTest extends ComponentsTestBase {
 	}
 
 	/**
-	 * @throws MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanInjectRawAttributes() {
 

@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
 use MediaWiki\Extension\BootstrapComponents\Components\Alert;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use MWException;
+use RuntimeException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Alert
@@ -24,7 +24,7 @@ class AlertTest extends ComponentsTestBase {
 	private $input = 'Alert test text';
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanConstruct() {
 
@@ -44,7 +44,7 @@ class AlertTest extends ComponentsTestBase {
 	 * @param string $expectedOutput
 	 *
 	 * @dataProvider placeMeArgumentsProvider
-	 * @throws MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanRender( $input, $arguments, $expectedOutput ) {
 		$instance = new Alert(

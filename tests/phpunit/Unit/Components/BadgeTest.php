@@ -4,7 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Components;
 
 use MediaWiki\Extension\BootstrapComponents\Components\Badge;
 use MediaWiki\Extension\BootstrapComponents\Tests\Unit\ComponentsTestBase;
-use MWException;
+use RuntimeException;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Components\Badge
@@ -24,7 +24,7 @@ class BadgeTest extends ComponentsTestBase {
 	private $input = 'Badge test text';
 
 	/**
-	 * @throws \MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanConstruct() {
 
@@ -44,7 +44,7 @@ class BadgeTest extends ComponentsTestBase {
 	 * @param string $expectedOutput
 	 *
 	 * @dataProvider placeMeArgumentsProvider
-	 * @throws MWException
+	 * @throws RuntimeException
 	 */
 	public function testCanRender( $input, $arguments, $expectedOutput ) {
 		$instance = new Badge(

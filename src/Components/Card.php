@@ -50,13 +50,13 @@ class Card extends AbstractComponent {
 	/**
 	 * Card constructor.
 	 *
-	 * @param ComponentLibrary   $componentLibrary
-	 * @param ParserOutputHelper $parserOutputHelper
-	 * @param NestingController  $nestingController
-	 *
 	 * @throws RuntimeException
 	 */
-	public function __construct( $componentLibrary, $parserOutputHelper, $nestingController ) {
+	public function __construct(
+		ComponentLibrary $componentLibrary,
+		ParserOutputHelper $parserOutputHelper,
+		NestingController $nestingController,
+	) {
 		parent::__construct( $componentLibrary, $parserOutputHelper, $nestingController );
 		$this->collapsible = false;
 		$parent = $this->getParentComponent();

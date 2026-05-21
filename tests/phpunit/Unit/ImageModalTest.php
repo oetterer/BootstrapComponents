@@ -46,7 +46,7 @@ class ImageModalTest extends TestCase {
 		);
 		$this->assertInstanceOf(
 			ImageModal::class,
-			$this->createImageModalWithMocks( null, null, $file )
+			$this->createImageModalWithMocks( null, $file )
 		);
 	}
 
@@ -63,7 +63,7 @@ class ImageModalTest extends TestCase {
 			->method( 'exists' )
 			->willReturn( false );
 
-		$instance = $this->createImageModalWithMocks( null, null, $file );
+		$instance = $this->createImageModalWithMocks( null, $file );
 		$fp = [];
 		$hp = [];
 		$time = false;
@@ -89,7 +89,7 @@ class ImageModalTest extends TestCase {
 			->method( 'exists' )
 			->willReturn( true );
 
-		$instance = $this->createImageModalWithMocks( null, null, $file );
+		$instance = $this->createImageModalWithMocks( null, $file );
 		$fp = [];
 		$hp = [];
 		$time = false;
@@ -117,7 +117,7 @@ class ImageModalTest extends TestCase {
 			->method( 'exists' )
 			->willReturn( true );
 
-		$instance = $this->createImageModalWithMocks( null, null, $file );
+		$instance = $this->createImageModalWithMocks( null, $file );
 		$time = false;
 		$res = '';
 		$fp =  [ 'manualthumb' => 'ImageInvalid.png' ];
@@ -177,7 +177,7 @@ class ImageModalTest extends TestCase {
 			->method( 'transform' )
 			->willReturn( $thumb );
 
-		$instance = $this->createImageModalWithMocks( null, $title, $file );
+		$instance = $this->createImageModalWithMocks( $title, $file );
 		$time = false;
 		$res = '';
 		$fp = [ 'align' => 'left' ]; # otherwise, this test produces an exception while trying to call $title->getPageLanguage()->alignEnd()
@@ -256,7 +256,7 @@ class ImageModalTest extends TestCase {
 
 		$parserOutputHelper = $this->createMock( ParserOutputHelper::class );
 
-		$instance = $this->createImageModalWithMocks( null, $title, $file, $nestingController, null, $parserOutputHelper );
+		$instance = $this->createImageModalWithMocks( $title, $file, $nestingController, null, $parserOutputHelper );
 		$time = false;
 		$res = '';
 
@@ -419,16 +419,15 @@ class ImageModalTest extends TestCase {
 	}
 
 	private function createImageModalWithMocks(
-		$dummyLinker = null, $title = null, $file = null, $nestingController = null,
+		$title = null, $file = null, $nestingController = null,
 		$bootstrapService = null, $parserOutputHelper = null
 	) {
-		$dummyLinker = null;
 		$title = $title ?? $this->createMock( Title::class );
 		$file = $file ?? $this->createMock( LocalFile::class );
 		$nestingController = $nestingController ?? $this->createMock( NestingController::class );
 		$bootstrapService = $bootstrapService ?? $this->createMock( BootstrapComponentsService::class );
 		$parserOutputHelper = $parserOutputHelper ?? $this->createMock( ParserOutputHelper::class );
 
-		return new ImageModal( $dummyLinker, $title, $file, $nestingController, $bootstrapService, $parserOutputHelper );
+		return new ImageModal( $title, $file, $nestingController, $bootstrapService, $parserOutputHelper );
 	}
 }

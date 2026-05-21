@@ -121,7 +121,8 @@ class HooksHandler implements
 			if ( !$file ) {
 				return true;
 			}
-			$imageModal = new ImageModal( $linker, $title, $file,
+			$imageModal = new ImageModal(
+				$title, $file,
 				$this->getNestingController(), $this->getBootstrapComponentsService()
 			);
 

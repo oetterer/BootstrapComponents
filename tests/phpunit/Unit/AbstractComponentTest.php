@@ -120,14 +120,8 @@ class AbstractComponentTest extends ComponentsTestBase {
 		}
 		$this->assertIsString( $parsedString );
 
-		// TODO when we drop support for MW1.39
-		if ( version_compare( $GLOBALS['wgVersion'], '1.40', 'lt' ) ) {
-			$this->assertRegExp( '/class="[^"]*test-class"/', $parsedString );
-			$this->assertRegExp( '/style="[^"]*color:black"/', $parsedString );
-		} else {
-			$this->assertMatchesRegularExpression( '/class="[^"]*test-class"/', $parsedString );
-			$this->assertMatchesRegularExpression( '/style="[^"]*color:black"/', $parsedString );
-		}
+		$this->assertMatchesRegularExpression( '/class="[^"]*test-class"/', $parsedString );
+		$this->assertMatchesRegularExpression( '/style="[^"]*color:black"/', $parsedString );
 	}
 
 	/**

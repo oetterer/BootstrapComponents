@@ -60,12 +60,7 @@ class ButtonTest extends ComponentsTestBase {
 			$generatedOutput = $generatedOutput[0];
 		}
 
-		// TODO when we drop support for MW1.39
-		if ( version_compare( $GLOBALS['wgVersion'], '1.40', 'lt' ) ) {
-			$this->assertRegExp( $expectedOutputPattern, $generatedOutput );
-		} else {
-			$this->assertMatchesRegularExpression( $expectedOutputPattern, $generatedOutput );
-		}
+		$this->assertMatchesRegularExpression( $expectedOutputPattern, $generatedOutput );
 	}
 
 	/**
@@ -93,22 +88,12 @@ class ButtonTest extends ComponentsTestBase {
 			$generatedOutput = $generatedOutput[0];
 		}
 
-		// TODO when we drop support for MW1.39
-		if ( version_compare( $GLOBALS['wgVersion'], '1.40', 'lt' ) ) {
-			$this->assertRegExp(
-				'~^<a class="btn btn-primary btn-md manual" role="button" id="bsc_button_NULL" href=".*/'
-				. str_replace( ' ', '_', $this->input )
-				. '" data-toggle="foo" data-target="#bar">' . $this->input . '</a>$~',
-				$generatedOutput
-			);
-		} else {
-			$this->assertMatchesRegularExpression(
-				'~^<a class="btn btn-primary btn-md manual" role="button" id="bsc_button_NULL" href=".*/'
-				. str_replace( ' ', '_', $this->input )
-				. '" data-toggle="foo" data-target="#bar">' . $this->input . '</a>$~',
-				$generatedOutput
-			);
-		}
+		$this->assertMatchesRegularExpression(
+			'~^<a class="btn btn-primary btn-md manual" role="button" id="bsc_button_NULL" href=".*/'
+			. str_replace( ' ', '_', $this->input )
+			. '" data-toggle="foo" data-target="#bar">' . $this->input . '</a>$~',
+			$generatedOutput
+		);
 	}
 
 	/**

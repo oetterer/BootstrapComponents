@@ -57,18 +57,10 @@ class AlertTest extends ComponentsTestBase {
 
 		$generatedOutput = $instance->parseComponent( $parserRequest );
 
-		// TODO when we drop support for MW1.39
-		if ( version_compare( $GLOBALS['wgVersion'], '1.40', 'lt' ) ) {
-			$this->assertRegExp(
-				'~^<div.+class="alert alert-.+".*role="alert".*>' . $this->input . '(<button.*button>)?</div>$~',
-				$generatedOutput
-			);
-		} else {
-			$this->assertMatchesRegularExpression(
-				'~^<div.+class="alert alert-.+".*role="alert".*>' . $this->input . '(<button.*button>)?</div>$~',
-				$generatedOutput
-			);
-		}
+		$this->assertMatchesRegularExpression(
+			'~^<div.+class="alert alert-.+".*role="alert".*>' . $this->input . '(<button.*button>)?</div>$~',
+			$generatedOutput
+		);
 
 		$this->assertEquals( $expectedOutput, $generatedOutput );
 	}

@@ -48,44 +48,20 @@ class ImageModal implements NestableInterface {
 	 */
 	const PARENTS_PREVENTING_MODAL = [ 'button', 'collapse ', 'image_modal', 'modal', 'popover', 'tooltip' ];
 
-	/**
-	 * @var BootstrapComponentsService
-	 */
 	private BootstrapComponentsService $bootstrapComponentService;
 
-	/**
-	 * @var File $file
-	 */
 	private File $file;
 
-	/**
-	 * @var null|string $id
-	 */
 	private null|string $id;
 
-	/**
-	 * @var NestingController $nestingController
-	 */
 	private NestingController $nestingController;
 
-	/**
-	 * @var null|bool|NestableInterface $parentComponent
-	 */
 	private null|bool|NestableInterface $parentComponent;
 
-	/**
-	 * @var ParserOutputHelper $parserOutputHelper
-	 */
 	private ParserOutputHelper $parserOutputHelper;
 
-	/**
-	 * @var bool $disableSourceLink
-	 */
 	private bool $disableSourceLink;
 
-	/**
-	 * @var Title $title
-	 */
 	private Title $title;
 
 	/**

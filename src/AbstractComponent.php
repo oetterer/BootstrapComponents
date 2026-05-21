@@ -56,11 +56,6 @@ abstract class AbstractComponent implements NestableInterface {
 	 */
 	private $id;
 
-	/**
-	 * Name of the component
-	 *
-	 * @var string $name
-	 */
 	private $name;
 
 	/**

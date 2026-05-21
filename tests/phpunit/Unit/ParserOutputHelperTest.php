@@ -23,9 +23,6 @@ use PHPUnit\Framework\TestCase;
  * @author  Tobias Oetterer
  */
 class ParserOutputHelperTest extends TestCase {
-	/**
-	 * @var Parser
-	 */
 	private Parser $parser;
 
 	/**

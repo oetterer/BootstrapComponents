@@ -43,18 +43,8 @@ use RuntimeException;
  */
 class Card extends AbstractComponent {
 
-	/**
-	 * Indicates, whether this panel is collapsible
-	 *
-	 * @var bool $collapsible
-	 */
 	private bool $collapsible;
 
-	/**
-	 * If true, indicates that we are inside an accordion
-	 *
-	 * @var bool $insideAccordion
-	 */
 	private bool $insideAccordion;
 
 	/**

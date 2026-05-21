@@ -40,14 +40,8 @@ use MediaWiki\Output\OutputPage;
  */
 class OutputPageParserOutput {
 
-	/**
-	 * @var BootstrapComponentsService
-	 */
 	private BootstrapComponentsService $bootstrapComponentService;
 
-	/**
-	 * @var OutputPage $outputPage
-	 */
 	private OutputPage $outputPage;
 
 	/**

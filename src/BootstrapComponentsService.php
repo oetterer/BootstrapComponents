@@ -15,14 +15,8 @@ class BootstrapComponentsService
 	 */
 	private array $activeComponents;
 
-	/**
-	 * @var Config
-	 */
 	private Config $mainConfig;
 
-	/**
-	 * @var bool
-	 */
 	private bool $modalsSuppressedByMagicWord;
 
 	/**

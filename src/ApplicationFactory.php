@@ -40,9 +40,6 @@ use ReflectionClass;
  */
 class ApplicationFactory {
 
-	/**
-	 * @var ApplicationFactory $instance
-	 */
 	private static $instance = null;
 
 	/**

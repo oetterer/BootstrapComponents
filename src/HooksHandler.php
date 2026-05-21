@@ -45,24 +45,12 @@ class HooksHandler implements
 	ParserFirstCallInitHook,
 	SetupAfterCacheHook
 {
-	/**
-	 * @var Config
-	 */
 	private Config $config;
 
-	/**
-	 * @var BootstrapComponentsService
-	 */
 	private BootstrapComponentsService $bootstrapComponentsService;
 
-	/**
-	 * @var ComponentLibrary
-	 */
 	private ComponentLibrary $componentLibrary;
 
-	/**
-	 * @var NestingController
-	 */
 	private NestingController $nestingController;
 
 	public function __construct(

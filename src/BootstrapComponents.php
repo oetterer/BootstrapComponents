@@ -86,12 +86,6 @@ class BootstrapComponents {
 			throw new MWException( 'This file is part of a Mediawiki Extension, it is not a valid entry point.' );
 		}
 
-		if ( version_compare( $GLOBALS[ 'wgVersion' ], '1.39', 'lt' ) ) {
-			echo '<b>Error:</b> <a href="https://github.com/oetterer/BootstrapComponents/">Bootstrap Components</a> '
-				. 'is only compatible with MediaWiki 1.39 or above. You need to upgrade MediaWiki first.' . PHP_EOL;
-			throw new MWException( 'BootstrapComponents detected an incompatible MediaWiki version. Exiting.' );
-		}
-
 		// Using the constant as indicator to avoid class_exists
 		if ( !\ExtensionRegistry::getInstance()->isLoaded('Bootstrap') ) {
 			if ( PHP_SAPI === 'cli' || PHP_SAPI === 'phpdbg' ) {

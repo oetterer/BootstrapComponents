@@ -262,21 +262,13 @@ class ImageModalTest extends TestCase {
 
 		$resultOfParseCall = $instance->parse( $fp, $hp, $time, $res );
 
-		if ( version_compare( $GLOBALS['wgVersion'], '1.40', 'lt' ) ) {
-			$this->assertRegExp(
-				$expectedTrigger,
-				$resultOfParseCall ?: $res,
-				'failed with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $fp, $hp )
-			);
-		} else {
-			$this->assertMatchesRegularExpression(
-				$expectedTrigger,
-				$resultOfParseCall ?: $res,
-				'failed with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $fp, $hp )
-				. '++ ' . $expectedTrigger . PHP_EOL
-				. '--  ' . ($resultOfParseCall ?: $res)
-			);
-		}
+		$this->assertMatchesRegularExpression(
+			$expectedTrigger,
+			$resultOfParseCall ?: $res,
+			'failed with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $fp, $hp )
+			. '++ ' . $expectedTrigger . PHP_EOL
+			. '--  ' . ($resultOfParseCall ?: $res)
+		);
 		$this->assertStringContainsString(
 			$expectedModal,
 			$resultOfParseCall ?: $res,

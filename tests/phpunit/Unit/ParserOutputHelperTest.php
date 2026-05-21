@@ -89,15 +89,10 @@ class ParserOutputHelperTest extends TestCase {
 			$this->buildFullyEquippedParser( ( $renderedMessageRegExp != '~^$~' ) )
 		);
 
-		// TODO when we drop support for MW1.39
-		if ( version_compare( $GLOBALS['wgVersion'], '1.40', 'lt' ) ) {
-			$this->assertRegExp( $renderedMessageRegExp, $instance->renderErrorMessage( $messageText ) );
-		} else {
-			$this->assertMatchesRegularExpression(
-				$renderedMessageRegExp,
-				$instance->renderErrorMessage( $messageText )
-			);
-		}
+		$this->assertMatchesRegularExpression(
+			$renderedMessageRegExp,
+			$instance->renderErrorMessage( $messageText )
+		);
 
 	}
 

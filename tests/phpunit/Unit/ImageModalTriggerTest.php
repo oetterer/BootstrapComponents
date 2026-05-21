@@ -107,18 +107,10 @@ class ImageModalTriggerTest extends TestCase {
 		$resultOfParseCall = $instance->generate( $sfp, $hp );
 
 		foreach ( $expectedRegExp as $regExp ) {
-			// TODO when we drop support for MW1.39
-			if ( version_compare( $GLOBALS['wgVersion'], '1.40', 'lt' ) ) {
-				$this->assertRegExp(
-					$regExp, $resultOfParseCall,
-					'failed with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $sfp, $hp )
-				);
-			} else {
-				$this->assertMatchesRegularExpression(
-					$regExp, $resultOfParseCall,
-					'failed with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $sfp, $hp )
-				);
-			}
+			$this->assertMatchesRegularExpression(
+				$regExp, $resultOfParseCall,
+				'failed with test data:' . $this->generatePhpCodeForManualProviderDataOneCase( $sfp, $hp )
+			);
 		}
 	}
 

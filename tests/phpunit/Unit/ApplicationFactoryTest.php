@@ -68,11 +68,9 @@ class ApplicationFactoryTest extends TestCase {
 	}
 
 	public function testGetNewModalBuilder() {
-		$parserOutputHelper = $this->createMock( ParserOutputHelper::class );
-
 		$factory = new ApplicationFactory();
 
-		$modalBuilder = $factory->getNewModalBuilder( '', '', '', $parserOutputHelper );
+		$modalBuilder = $factory->getNewModalBuilder( '', '', '' );
 
 		$this->assertInstanceOf(
 			ModalBuilder::class,

@@ -21,12 +21,7 @@ use PHPUnit\Framework\TestCase;
 class ModalBuilderTest extends TestCase {
 
 	public function testCanConstruct() {
-		$parserOutputHelper = $this->getMockBuilder( 'MediaWiki\\Extension\\BootstrapComponents\\ParserOutputHelper' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		/** @noinspection PhpParamsInspection */
-		$instance = new ModalBuilder( 'id', 'trigger', '', $parserOutputHelper );
+		$instance = new ModalBuilder( 'id', 'trigger', '' );
 		$this->assertInstanceOf(
 			'MediaWiki\\Extension\\BootstrapComponents\\ModalBuilder',
 			$instance
@@ -48,13 +43,7 @@ class ModalBuilderTest extends TestCase {
 	 * @dataProvider parseDataProvider
 	 */
 	public function testCanParse( $id, $trigger, $content, $header, $footer, $outerClass, $outerStyle, $innerClass, $expectedTrigger, $expectedModal ) {
-
-		$parserOutputHelper = $this->getMockBuilder( 'MediaWiki\\Extension\\BootstrapComponents\\ParserOutputHelper' )
-			->disableOriginalConstructor()
-			->getMock();
-
-		/** @noinspection PhpParamsInspection */
-		$instance = new ModalBuilder( $id, $trigger, $content, $parserOutputHelper );
+		$instance = new ModalBuilder( $id, $trigger, $content );
 		if ( $header ) {
 			$instance->setHeader( $header );
 		}

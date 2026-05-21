@@ -228,6 +228,7 @@ class HooksHandler implements
 			}
 			foreach ( $this->getComponentLibrary()->getModulesFor( $activeComponent ) as $module ) {
 				$parser->getOutput()->addModuleStyles( [ $module ] );
+				$parser->getOutput()->addModules( [ $module ] );
 			}
 		}
 		return true;

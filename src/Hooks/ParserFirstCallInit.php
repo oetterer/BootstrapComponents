@@ -45,39 +45,18 @@ use ReflectionClass;
  */
 class ParserFirstCallInit {
 
-	/**
-	 * @var ComponentLibrary $componentLibrary
-	 */
-	private $componentLibrary;
-
-	/**
-	 * @var NestingController $nestingController
-	 */
-	private $nestingController;
-
-	/**
-	 * @var Parser $parser
-	 */
-	private $parser;
-
-	/**
-	 * @var ParserOutputHelper $parserOutputHelper
-	 */
-	private $parserOutputHelper;
+	private ParserOutputHelper $parserOutputHelper;
 
 	/**
 	 * ParserFirstCallInit constructor.
 	 *
-	 * @param Parser            $parser
-	 * @param ComponentLibrary  $componentLibrary
-	 * @param NestingController $nestingController
-	 *
 	 * @throws RuntimeException  cascading {@see \BootstrapComponents\ApplicationFactory::getParserOutputHelper}
 	 */
-	public function __construct( $parser, $componentLibrary, $nestingController ) {
-		$this->componentLibrary = $componentLibrary;
-		$this->nestingController = $nestingController;
-		$this->parser = $parser;
+	public function __construct(
+		private Parser $parser,
+		private ComponentLibrary $componentLibrary,
+		private NestingController $nestingController,
+	) {
 		$this->parserOutputHelper = ApplicationFactory::getInstance()->getParserOutputHelper( $parser );
 	}
 

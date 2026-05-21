@@ -4,6 +4,7 @@ namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Hooks;
 
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\Hooks\ParserFirstCallInit;
+use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Parser\Parser;
 use PHPUnit\Framework\TestCase;
 
@@ -75,9 +76,7 @@ class ParserFirstCallInitTest extends TestCase {
 				[ $this->equalTo( $prefix . 'well' ), $this->callback( 'is_callable' ) ]
 			);
 		$componentLibrary = new ComponentLibrary( true );
-		$nestingController = $this->getMockBuilder( 'BootstrapComponents\NestingController' )
-			->disableOriginalConstructor()
-			->getMock();
+		$nestingController = $this->createMock( NestingController::class );
 
 		/** @noinspection PhpParamsInspection */
 		$instance = new ParserFirstCallInit( $observerParser, $componentLibrary, $nestingController );

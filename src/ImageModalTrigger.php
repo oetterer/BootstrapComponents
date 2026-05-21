@@ -26,14 +26,15 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
+use Exception;
+use File;
 use MediaWiki\Config\Config;
 use MediaWiki\Config\ConfigException;
-use Exception;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Html\Html;
 use MediaWiki\Linker\Linker;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
-use MediaWiki\Context\RequestContext;
 
 /**
  * Class ImageModal
@@ -41,25 +42,10 @@ use MediaWiki\Context\RequestContext;
  * @since 1.0
  */
 class ImageModalTrigger {
-	/**
-	 * @var \File $file
-	 */
-	private $file;
-
-	/**
-	 * @var string $id
-	 */
-	private $id;
-
-	/**
-	 * ImageModal constructor.
-	 *
-	 * @param string $id
-	 * @param \File  $file
-	 */
-	public function __construct( $id, $file ) {
-		$this->id = $id;
-		$this->file = $file;
+	public function __construct(
+		private string $id,
+		private File $file,
+	) {
 	}
 
 	/**

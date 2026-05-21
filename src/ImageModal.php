@@ -48,44 +48,30 @@ class ImageModal implements NestableInterface {
 	 */
 	const PARENTS_PREVENTING_MODAL = [ 'button', 'collapse ', 'image_modal', 'modal', 'popover', 'tooltip' ];
 
-	private BootstrapComponentsService $bootstrapComponentService;
-
-	private File $file;
-
 	private null|string $id;
-
-	private NestingController $nestingController;
 
 	private null|bool|NestableInterface $parentComponent;
 
 	private ParserOutputHelper $parserOutputHelper;
 
-	private bool $disableSourceLink;
-
-	private Title $title;
+	private bool $disableSourceLink = false;
 
 	/**
 	 * ImageModal constructor.
 	 *
 	 * @param null $null (was DummyLinker $dummyLinker)
-	 * @param Title $title
-	 * @param File $file
-	 * @param NestingController $nestingController
-	 * @param BootstrapComponentsService $bootstrapComponentService
 	 * @param ParserOutputHelper|null $parserOutputHelper DI for unit testing
 	 *
 	 * @throws RuntimeException cascading {@see ApplicationFactory} methods
 	 */
 	public function __construct(
-		$null, Title $title, File $file,
-		NestingController $nestingController, BootstrapComponentsService $bootstrapComponentService,
-		ParserOutputHelper $parserOutputHelper = null
+		$null,
+		private Title $title,
+		private File $file,
+		private NestingController $nestingController,
+		private BootstrapComponentsService $bootstrapComponentService,
+		ParserOutputHelper $parserOutputHelper = null,
 	) {
-		$this->file = $file;
-		$this->title = $title;
-
-		$this->nestingController = $nestingController;
-		$this->bootstrapComponentService = $bootstrapComponentService;
 		$this->parserOutputHelper = $parserOutputHelper
 			?? ApplicationFactory::getInstance()->getParserOutputHelper();
 
@@ -93,7 +79,6 @@ class ImageModal implements NestableInterface {
 		$this->id = $this->getNestingController()->generateUniqueId(
 			$this->getComponentName()
 		);
-		$this->disableSourceLink = false;
 	}
 
 	/**

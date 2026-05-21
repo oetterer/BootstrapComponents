@@ -50,11 +50,6 @@ use MediaWiki\Html\Html;
 class ModalBuilder {
 
 	/**
-	 * @var string $content
-	 */
-	private $content;
-
-	/**
 	 * @var string|false $footer
 	 */
 	private $footer;
@@ -63,11 +58,6 @@ class ModalBuilder {
 	 * @var string|false $header
 	 */
 	private $header;
-
-	/**
-	 * @var string $id
-	 */
-	private $id;
 
 	/**
 	 * @var string|false $bodyClass
@@ -98,11 +88,6 @@ class ModalBuilder {
 	 * @var string|false $outerStyle
 	 */
 	private $outerStyle;
-
-	/**
-	 * @var string $trigger
-	 */
-	private $trigger;
 
 	/**
 	 * With this, you can wrap a generic trigger element inside a span block, that hopefully should
@@ -137,17 +122,24 @@ class ModalBuilder {
 	 * Do not instantiate directly, but use {@see ApplicationFactory::getNewModalBuilder}
 	 * instead.
 	 *
-	 * @param string $id
 	 * @param string $trigger must be safe raw html (best run through {@see Parser::recursiveTagParse})
 	 * @param string $content must be fully parsed html (use {@see Parser::recursiveTagParseFully})
 	 *
 	 * @see ApplicationFactory::getNewModalBuilder
 	 * @see Components\Modal::generateButton
 	 */
-	public function __construct( $id, $trigger, $content ) {
-		$this->id = $id;
-		$this->trigger = $trigger;
-		$this->content = $content;
+	public function __construct(
+<<<<<<< HEAD
+		private string $id,
+		private string $trigger,
+		/** must be safe raw html (best run through {@see Parser::recursiveTagParse}) */
+		private string $content,
+=======
+		private readonly string $id,
+		private readonly string $trigger,
+		private readonly string $content,
+>>>>>>> 0490673 (Move ModalBuilder ctor param descriptions back into the docblock)
+	) {
 	}
 
 	/**

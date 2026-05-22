@@ -447,10 +447,10 @@ class ModalBuilder {
 				$footer . Html::rawElement(
 					'button',
 					[
-						'type'         => 'button',
-						'class'        => 'btn btn-default',
+						'type'            => 'button',
+						'class'           => 'btn btn-default',
 						'data-bs-dismiss' => 'modal',
-						'aria-label'   => $close,
+						'aria-label'      => $close,
 					],
 					$close
 				)
@@ -477,16 +477,11 @@ class ModalBuilder {
 		$button = Html::rawElement(
 			'button',
 			[
-				'type'         => 'button',
-				'class'        => 'close',
+				'type'            => 'button',
+				'class'           => 'btn-close',
 				'data-bs-dismiss' => 'modal',
-				'aria-label'   => wfMessage( 'bootstrap-components-close-element' )->inContentLanguage()->text(),
-			],
-			Html::rawElement(
-				'span',
-				[ 'aria-hidden' => 'true' ],
-				'&times;'
-			)
+				'aria-label'      => wfMessage( 'bootstrap-components-close-element' )->inContentLanguage()->text(),
+			]
 		);
 		return Html::rawElement(
 				'div',

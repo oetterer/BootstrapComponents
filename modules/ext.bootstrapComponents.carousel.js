@@ -1,5 +1,5 @@
 /**
- * Contains javascript code executed when tooltips are used.
+ * Contains javascript code executed when carousels are used.
  *
  * @copyright (C) 2018, Tobias Oetterer, Paderborn University
  * @license       https://www.gnu.org/licenses/gpl-3.0.html GNU General Public License, version 3 (or later)
@@ -23,6 +23,25 @@
  * @author        Tobias Oetterer
  */
 
-$(function () {
-	$('.carousel').carousel();
-});
+( function () {
+	'use strict';
+
+	// Wait for DOM to be ready
+	if ( document.readyState === 'loading' ) {
+		document.addEventListener( 'DOMContentLoaded', initCarousels );
+	} else {
+		initCarousels();
+	}
+
+	function initCarousels() {
+		if ( typeof bootstrap === 'undefined' || !bootstrap.Carousel ) {
+			// eslint-disable-next-line no-console
+			console.warn( 'BootstrapComponents: bootstrap.Carousel is not available; carousels will not cycle.' );
+			return;
+		}
+		const carouselElements = document.querySelectorAll( '.carousel' );
+		carouselElements.forEach( function ( element ) {
+			new bootstrap.Carousel( element );
+		} );
+	}
+}() );

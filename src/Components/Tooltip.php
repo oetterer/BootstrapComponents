@@ -85,8 +85,8 @@ class Tooltip extends AbstractComponent {
 			$attributes = array_merge(
 				$attributes,
 				[
-					'data-placement' => $this->getValueFor( 'placement' ),
-					'data-toggle'    => 'tooltip',
+					'data-bs-placement' => $this->getValueFor( 'placement' ),
+					'data-bs-toggle'    => 'tooltip',
 					'title'          => $tooltip,
 				]
 			);

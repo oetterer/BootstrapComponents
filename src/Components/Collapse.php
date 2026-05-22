@@ -74,7 +74,7 @@ class Collapse extends AbstractComponent {
 	 */
 	private function generateButton( ParserRequest $parserRequest ) {
 		$button = new Button( $this->getComponentLibrary(), $this->getParserOutputHelper(), $this->getNestingController() );
-		$button->injectRawAttributes( [ 'data-toggle' => 'collapse' ] );
+		$button->injectRawAttributes( [ 'data-bs-toggle' => 'collapse' ] );
 
 		$buttonAttributes = $parserRequest->getAttributes();
 		unset( $buttonAttributes['id'] );

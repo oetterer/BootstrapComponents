@@ -204,7 +204,7 @@ class HooksHandler implements
 			if ( !$this->getComponentLibrary()->isRegistered( $activeComponent ) ) {
 				continue;
 			}
-			foreach ( $this->getComponentLibrary()->getModulesFor( $activeComponent ) as $module ) {
+			foreach ( $this->getComponentLibrary()->getModulesFor( $activeComponent, 'vector' ) as $module ) {
 				$parser->getOutput()->addModuleStyles( [ $module ] );
 				$parser->getOutput()->addModules( [ $module ] );
 			}

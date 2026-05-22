@@ -109,7 +109,9 @@
 			"scripts": "ext.bootstrapComponents.carousel.js"
 		},
 		"ext.bootstrapComponents.modal.fix": {
-			"styles": "ext.bootstrapComponents.modal.fix.css"
+			"dependencies": "ext.bootstrap.scripts",
+			"styles": "ext.bootstrapComponents.modal.fix.css",
+			"scripts": "ext.bootstrapComponents.modal.js"
 		},
 		"ext.bootstrapComponents.modal.vector-fix": {
 			"styles": "ext.bootstrapComponents.modal.vector-fix.css"

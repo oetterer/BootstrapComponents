@@ -72,10 +72,10 @@ class Badge extends AbstractComponent {
 		$class = [ 'badge' ];
 
 		if ( (bool)$this->getValueFor( 'pill' ) ) {
-			$class[] = 'badge-pill';
+			$class[] = 'rounded-pill';
 		}
 
-		$class[] = 'badge-' . $this->getValueFor( 'color', 'primary' );
+		$class[] = 'text-bg-' . $this->getValueFor( 'color', 'primary' );
 		return $class;
 	}
 }

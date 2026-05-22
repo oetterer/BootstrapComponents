@@ -1,5 +1,12 @@
 ## Release Notes
 
+### BootstrapComponents 5.2.4
+
+Released on 22-May-2026
+
+Fixes:
+* fix modal backdrop displaying on top of modal content on Vector, Vector 2022, MonoBook, and Timeless skins on MediaWiki 1.43+
+
 ### BootstrapComponents 5.2.3
 
 Released on 21-May-2026

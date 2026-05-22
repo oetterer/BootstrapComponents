@@ -78,7 +78,6 @@ background with button color.</dd>
 
 
 ### Links
-* https://getbootstrap.com/docs/4.1/components/buttons/
-* https://www.w3schools.com/bootstrap4/bootstrap_buttons.asp
-* https://getbootstrap.com/docs/4.1/utilities/colors/
+* https://getbootstrap.com/docs/5.3/components/buttons/
+* https://getbootstrap.com/docs/5.3/utilities/colors/
 *

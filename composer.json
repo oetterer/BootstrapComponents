@@ -27,7 +27,7 @@
 	"require": {
 		"php": ">=8.1",
 		"composer/installers": "^2|^1.0.1",
-		"mediawiki/bootstrap": "^5.0"
+		"mediawiki/bootstrap": "^6.0"
 	},
 	"require-dev": {
 		"mediawiki/mediawiki-codesniffer": "46.0.0",
@@ -58,5 +58,10 @@
 			"composer phpunit",
 			"composer cs"
 		]
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "6.x-dev"
+		}
 	}
 }

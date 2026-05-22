@@ -55,7 +55,7 @@ local tests = {
 			return removeId ( mw.bootstrap.parse( component, input, args ) )
 		end,
 		args = { 'alert', 'Alert content', { color = 'success', dismissible = 'fade', noStrip = true } },
-		expect = { '<div class="alert alert-success alert-dismissible fade show" role="alert">Alert content<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>' }
+		expect = { '<div class="alert alert-success alert-dismissible fade show" role="alert">Alert content<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>' }
 	},
 }
 

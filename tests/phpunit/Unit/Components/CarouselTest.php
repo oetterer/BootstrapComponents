@@ -79,17 +79,17 @@ class CarouselTest extends ComponentsTestBase {
 			'simple'                     => [
 				'[[File:Mal.jpg|Malcolm Reynolds_0]]',
 				[ '[[File:Mal.jpg|Malcolm Reynolds]]' => true, '[[File:Wash.jpg|link' => '|Hoban Washburne]]' ],
-				'<div class="carousel slide" id="bsc_carousel_NULL" data-ride="carousel">
-<ol class="carousel-indicators">
-	<li data-target="#bsc_carousel_NULL" data-slide-to="0" class="active"></li>
-	<li data-target="#bsc_carousel_NULL" data-slide-to="1"></li>
-	<li data-target="#bsc_carousel_NULL" data-slide-to="2"></li>
-</ol>
+				'<div class="carousel slide" id="bsc_carousel_NULL" data-bs-ride="carousel">
+<div class="carousel-indicators">
+	<button type="button" data-bs-target="#bsc_carousel_NULL" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+	<button type="button" data-bs-target="#bsc_carousel_NULL" data-bs-slide-to="1" aria-label="Slide 2"></button>
+	<button type="button" data-bs-target="#bsc_carousel_NULL" data-bs-slide-to="2" aria-label="Slide 3"></button>
+</div>
 <div class="carousel-inner">
 	<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds_0]]</div>
 	<div class="carousel-item">[[File:Mal.jpg|Malcolm Reynolds]]</div>
 	<div class="carousel-item">[[File:Wash.jpg|link=|Hoban Washburne]]</div>
-</div><a class="carousel-control-prev" href="#bsc_carousel_NULL" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#bsc_carousel_NULL" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
+</div><a class="carousel-control-prev" href="#bsc_carousel_NULL" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#bsc_carousel_NULL" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
 			],
 			'images missing'             => [
 				$this->input,
@@ -105,15 +105,15 @@ class CarouselTest extends ComponentsTestBase {
 					'fade'                              => true,
 					'style'                             => 'float:none;background-color:black',
 				],
-				'<div class="carousel slide carousel-fade crew" style="float:none;background-color:black" id="bsc_carousel_NULL" data-ride="carousel">
-<ol class="carousel-indicators">
-	<li data-target="#bsc_carousel_NULL" data-slide-to="0" class="active"></li>
-	<li data-target="#bsc_carousel_NULL" data-slide-to="1"></li>
-</ol>
+				'<div class="carousel slide carousel-fade crew" style="float:none;background-color:black" id="bsc_carousel_NULL" data-bs-ride="carousel">
+<div class="carousel-indicators">
+	<button type="button" data-bs-target="#bsc_carousel_NULL" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+	<button type="button" data-bs-target="#bsc_carousel_NULL" data-bs-slide-to="1" aria-label="Slide 2"></button>
+</div>
 <div class="carousel-inner">
 	<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds]]</div>
 	<div class="carousel-item">[[File:Wash.jpg|link=|Hoban Washburne]]</div>
-</div><a class="carousel-control-prev" href="#bsc_carousel_NULL" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#bsc_carousel_NULL" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
+</div><a class="carousel-control-prev" href="#bsc_carousel_NULL" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#bsc_carousel_NULL" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
 			],
 		];
 	}

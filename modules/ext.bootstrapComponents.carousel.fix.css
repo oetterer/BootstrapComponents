@@ -30,6 +30,6 @@
     margin: auto;
 }
 
-.carousel ol.carousel-indicators {
+.carousel .carousel-indicators {
     margin: 0 0 10px -30%;
 }

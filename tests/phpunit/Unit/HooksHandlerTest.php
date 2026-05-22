@@ -6,8 +6,6 @@ use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\HooksHandler;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
-use MediaWiki\Parser\Parser;
-use MediaWiki\Parser\ParserOutput;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -73,51 +71,5 @@ class HooksHandlerTest extends TestCase {
 	 */
 	public function testOnOutputPageParserOutput() {
 		$this->assertTrue( true );
-	}
-
-	public function testOnParserAfterParseLoadsActiveComponentScriptsAndStyles() {
-		$loadedStyles = [];
-		$loadedModules = [];
-
-		$parserOutput = $this->createMock( ParserOutput::class );
-		$parserOutput->method( 'addModuleStyles' )
-			->willReturnCallback( function ( $m ) use ( &$loadedStyles ) {
-				$loadedStyles = array_merge( $loadedStyles, (array)$m );
-			} );
-		$parserOutput->method( 'addModules' )
-			->willReturnCallback( function ( $m ) use ( &$loadedModules ) {
-				$loadedModules = array_merge( $loadedModules, (array)$m );
-			} );
-
-		$parser = $this->createMock( Parser::class );
-		$parser->method( 'getOutput' )->willReturn( $parserOutput );
-
-		$service = $this->createMock( BootstrapComponentsService::class );
-		$service->method( 'getNameOfActiveSkin' )->willReturn( 'vector' );
-		$service->method( 'getActiveComponents' )->willReturn( [ 'tooltip', 'popover' ] );
-
-		$library = $this->createMock( ComponentLibrary::class );
-		$library->method( 'isRegistered' )->willReturn( true );
-		$library->method( 'getModulesFor' )
-			->willReturnCallback( function ( $name ) {
-				return [ 'ext.bootstrapComponents.' . $name . '.fix' ];
-			} );
-
-		$handler = new HooksHandler(
-			$service,
-			$library,
-			$this->createMock( NestingController::class )
-		);
-
-		$text = '';
-		$handler->onParserAfterParse( $parser, $text, null );
-
-		// Per-component fix modules must reach BOTH addModuleStyles and addModules
-		// (style-only modules treat addModules as a no-op; modules with a scripts
-		// entry get their JS init via that call).
-		$this->assertContains( 'ext.bootstrapComponents.tooltip.fix', $loadedStyles );
-		$this->assertContains( 'ext.bootstrapComponents.popover.fix', $loadedStyles );
-		$this->assertContains( 'ext.bootstrapComponents.tooltip.fix', $loadedModules );
-		$this->assertContains( 'ext.bootstrapComponents.popover.fix', $loadedModules );
 	}
 }

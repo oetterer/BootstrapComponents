@@ -82,17 +82,17 @@ class CarouselGalleryTest extends TestCase {
 					'fade'  => '',
 				],
 				[
-					0 => '<div class="carousel slide carousel-fade firefly" style="float:space" id="youcanttakethesky" data-ride="carousel">' . PHP_EOL
-						. '<ol class="carousel-indicators">' . PHP_EOL
-						. "\t". '<li data-target="#youcanttakethesky" data-slide-to="0" class="active"></li>' . PHP_EOL
-						. "\t". '<li data-target="#youcanttakethesky" data-slide-to="1"></li>' . PHP_EOL
-						. "\t". '<li data-target="#youcanttakethesky" data-slide-to="2"></li>' . PHP_EOL
-						. '</ol>' . PHP_EOL
+					0 => '<div class="carousel slide carousel-fade firefly" style="float:space" id="youcanttakethesky" data-bs-ride="carousel">' . PHP_EOL
+						. '<div class="carousel-indicators">' . PHP_EOL
+						. "\t". '<button type="button" data-bs-target="#youcanttakethesky" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>' . PHP_EOL
+						. "\t". '<button type="button" data-bs-target="#youcanttakethesky" data-bs-slide-to="1" aria-label="Slide 2"></button>' . PHP_EOL
+						. "\t". '<button type="button" data-bs-target="#youcanttakethesky" data-bs-slide-to="2" aria-label="Slide 3"></button>' . PHP_EOL
+						. '</div>' . PHP_EOL
 						. '<div class="carousel-inner">' . PHP_EOL
 						. "\t". '<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=img-fluid]]</div>' . PHP_EOL
 						. "\t". '<div class="carousel-item">[[File:Wash.jpg|Hoban Washburne|link=/List_of_best_Pilots_in_the_Verse|class=img-fluid]]</div>' . PHP_EOL
 						. "\t". '<div class="carousel-item">[[File:MirandaSecretFiles.pdf|(c) by Hands of Blue|page=13|float=none|class=img-fluid]]</div>' . PHP_EOL
-						. '</div><a class="carousel-control-prev" href="#youcanttakethesky" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#youcanttakethesky" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
+						. '</div><a class="carousel-control-prev" href="#youcanttakethesky" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#youcanttakethesky" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
 					'isHTML' => true,
 					'noparse' => true,
 				],
@@ -104,15 +104,15 @@ class CarouselGalleryTest extends TestCase {
 				],
 				[],
 				[
-					0 => '<div class="carousel slide" id="bsc_carousel_0" data-ride="carousel">' . PHP_EOL
-						. '<ol class="carousel-indicators">' . PHP_EOL
-						. "\t". '<li data-target="#bsc_carousel_0" data-slide-to="0" class="active"></li>' . PHP_EOL
-						. "\t". '<li data-target="#bsc_carousel_0" data-slide-to="1"></li>' . PHP_EOL
-						. '</ol>' . PHP_EOL
+					0 => '<div class="carousel slide" id="bsc_carousel_0" data-bs-ride="carousel">' . PHP_EOL
+						. '<div class="carousel-indicators">' . PHP_EOL
+						. "\t". '<button type="button" data-bs-target="#bsc_carousel_0" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>' . PHP_EOL
+						. "\t". '<button type="button" data-bs-target="#bsc_carousel_0" data-bs-slide-to="1" aria-label="Slide 2"></button>' . PHP_EOL
+						. '</div>' . PHP_EOL
 						. '<div class="carousel-inner">' . PHP_EOL
 						. "\t". '<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=img-fluid]]</div>' . PHP_EOL
 						. "\t". '<div class="carousel-item">[[File:Wash.jpg|Hoban Washburne|link=/List_of_best_Pilots_in_the_Verse|class=img-fluid]]</div>' . PHP_EOL
-						. '</div><a class="carousel-control-prev" href="#bsc_carousel_0" role="button" data-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#bsc_carousel_0" role="button" data-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
+						. '</div><a class="carousel-control-prev" href="#bsc_carousel_0" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#bsc_carousel_0" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
 					'isHTML' => true,
 					'noparse' => true,
 				],

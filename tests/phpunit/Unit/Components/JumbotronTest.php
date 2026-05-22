@@ -69,17 +69,17 @@ class JumbotronTest extends ComponentsTestBase {
 			'simple'          => [
 				$this->input,
 				[],
-				'<div class="container"><div class="jumbotron" id="bsc_jumbotron_NULL">' . $this->input . '</div></div>',
+				'<div class="container"><div class="p-5 mb-4 bg-body-tertiary rounded-3" id="bsc_jumbotron_NULL">' . $this->input . '</div></div>',
 			],
 			'manual id'       => [
 				$this->input,
 				[ 'id' => 'hms_dortmunder' ],
-				'<div class="container"><div class="jumbotron" id="hms_dortmunder">' . $this->input . '</div></div>',
+				'<div class="container"><div class="p-5 mb-4 bg-body-tertiary rounded-3" id="hms_dortmunder">' . $this->input . '</div></div>',
 			],
 			'style and class' => [
 				$this->input,
 				[ 'class' => 'dummy nice', 'style' => 'float:right;background-color:green' ],
-				'<div class="container"><div class="jumbotron dummy nice" style="float:right;background-color:green" id="bsc_jumbotron_NULL">' . $this->input . '</div></div>',
+				'<div class="container"><div class="p-5 mb-4 bg-body-tertiary rounded-3 dummy nice" style="float:right;background-color:green" id="bsc_jumbotron_NULL">' . $this->input . '</div></div>',
 			],
 		];
 	}

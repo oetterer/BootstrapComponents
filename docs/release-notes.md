@@ -7,6 +7,7 @@ Released on TBD
 Breaking changes:
 * requires MediaWiki 1.43 or later
 * requires PHP 8.1 or later
+* requires Bootstrap extension 6.x, which bundles Bootstrap library 5.3
 
 ### BootstrapComponents 5.2.4
 

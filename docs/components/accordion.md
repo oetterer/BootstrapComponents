@@ -40,6 +40,5 @@ add multiple css styles, separate them by a semicolon.</dd>
 </dl>
 
 ### Links
-* https://getbootstrap.com/docs/4.1/components/collapse/#accordion-example
-* https://www.w3schools.com/bootstrap4/bootstrap_collapse.asp
+* https://getbootstrap.com/docs/5.3/components/accordion/
 

@@ -76,8 +76,7 @@ be used as the trigger element.</dd>
 </dl>
 
 ### Links
-* https://getbootstrap.com/docs/4.1/components/modal/
-* https://www.w3schools.com/bootstrap4/bootstrap_modal.asp
-* https://getbootstrap.com/docs/4.1/utilities/colors/
+* https://getbootstrap.com/docs/5.3/components/modal/
+* https://getbootstrap.com/docs/5.3/utilities/colors/
 
 Please, see also the [known issues](../known-issues.md) with this component.

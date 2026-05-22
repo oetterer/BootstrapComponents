@@ -22,6 +22,8 @@ the following components are available to be used inside the wiki text:
   want to hide and show large amount of content.
 * **[Jumbotron](components/jumbotron.md)**: A jumbotron indicates a big
   box for calling extra attention to some special content or information.
+  _Bootstrap 5 removed `.jumbotron`; the parser function is retained,
+  now emitting Bootstrap 5 utility classes for an equivalent look._
 * **[Modal](components/modal.md)**: The Modal component is a dialog
   box/popup window that is displayed on top of the current page.
 * **[Popover](components/popover.md)**: The Popover component produces a

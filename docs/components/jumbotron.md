@@ -1,9 +1,14 @@
 ## Jumbotron
+
+> **Note.** Bootstrap 5 removed the `.jumbotron` component. The
+> `bootstrap_jumbotron` parser function is retained for backward
+> compatibility and now emits the equivalent Bootstrap 5 utility-class
+> combination per the official migration guide linked below.
+
 A jumbotron indicates a big box for calling extra attention to some special
 content or information.
 
-A jumbotron is displayed as a grey box with rounded corners. It also enlarges
-the font sizes of the text inside it.
+A jumbotron is displayed as a grey box with rounded corners.
 
 See also:
 * [Alert](alert.md)
@@ -33,5 +38,5 @@ add multiple css styles, separate them by a semicolon.</dd>
 </dl>
 
 ### Links
-* https://getbootstrap.com/docs/4.1/components/jumbotron/
-* https://www.w3schools.com/bootstrap4/bootstrap_jumbotron.asp
+* https://getbootstrap.com/docs/5.3/migration/#jumbotron
+* https://getbootstrap.com/docs/5.3/examples/jumbotron/

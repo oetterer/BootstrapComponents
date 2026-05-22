@@ -109,6 +109,5 @@ add multiple css styles, separate them by a semicolon.</dd>
 </dl>
 
 ### Links
-* https://getbootstrap.com/docs/4.1/components/card/
-* https://www.w3schools.com/bootstrap4/bootstrap_cards.asp
-* https://getbootstrap.com/docs/4.1/utilities/colors/
+* https://getbootstrap.com/docs/5.3/components/card/
+* https://getbootstrap.com/docs/5.3/utilities/colors/

@@ -106,8 +106,8 @@ class Modal extends AbstractComponent {
 			[
 				'type'        => 'button',
 				'class'       => 'modal-trigger btn btn-' . $this->getValueFor( 'color', 'default' ),
-				'data-toggle' => 'modal',
-				'data-target' => '#' . $this->getId(),
+				'data-bs-toggle' => 'modal',
+				'data-bs-target' => '#' . $this->getId(),
 			],
 			$text
 		);

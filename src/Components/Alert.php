@@ -111,7 +111,7 @@ class Alert extends AbstractComponent {
 			[
 				'type'         => 'button',
 				'class'        => 'close',
-				'data-dismiss' => 'alert',
+				'data-bs-dismiss' => 'alert',
 				'aria-label'   => wfMessage( 'bootstrap-components-close-element' )->inContentLanguage()->text(),
 			],
 			Html::rawElement(

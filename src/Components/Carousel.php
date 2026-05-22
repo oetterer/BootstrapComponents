@@ -186,17 +186,20 @@ class Carousel extends AbstractComponent {
 		$class = 'active';
 		for ( $i = 0; $i < $num; $i++ ) {
 			$inner .= "\t" . Html::rawElement(
-					'li',
+					'button',
 					[
+						'type'             => 'button',
 						'data-bs-target'   => '#' . $this->getId(),
 						'data-bs-slide-to' => $i,
-						'class'         => $class,
+						'class'            => $class ?: false,
+						'aria-current'     => $class ? 'true' : false,
+						'aria-label'       => 'Slide ' . ( $i + 1 ),
 					]
 				) . PHP_EOL;
 			$class = false;
 		}
 		return PHP_EOL . Html::rawElement(
-				'ol',
+				'div',
 				[ 'class' => 'carousel-indicators' ],
 				$inner
 			) . PHP_EOL;

@@ -22,11 +22,28 @@
  * @ingroup       BootstrapComponents
  * @author        Tobias Oetterer
  */
-$( function() {
-    $(document).ready(function(){
-            $('[data-toggle="popover"]').popover({
-                html: true
-            });
-        });
-    }
-);
+
+( function () {
+	'use strict';
+
+	// Wait for DOM to be ready
+	if ( document.readyState === 'loading' ) {
+		document.addEventListener( 'DOMContentLoaded', initPopovers );
+	} else {
+		initPopovers();
+	}
+
+	function initPopovers() {
+		if ( typeof bootstrap === 'undefined' || !bootstrap.Popover ) {
+			// eslint-disable-next-line no-console
+			console.warn( 'BootstrapComponents: bootstrap.Popover is not available; popover triggers will not work.' );
+			return;
+		}
+		const popoverTriggerList = document.querySelectorAll( '[data-bs-toggle="popover"]' );
+		popoverTriggerList.forEach( function ( popoverTriggerEl ) {
+			new bootstrap.Popover( popoverTriggerEl, {
+				html: true
+			} );
+		} );
+	}
+}() );

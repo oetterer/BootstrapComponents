@@ -103,8 +103,8 @@ class ModalBuilder {
 			'span',
 			[
 				'class'       => 'modal-trigger',
-				'data-toggle' => 'modal',
-				'data-target' => '#' . $id,
+				'data-bs-toggle' => 'modal',
+				'data-bs-target' => '#' . $id,
 			],
 			$element
 		);
@@ -139,7 +139,7 @@ class ModalBuilder {
 	 * Parses the modal.
 	 *
 	 * Emits the trigger followed by the modal container inline. The container is
-	 * `position: fixed` and is addressed via `data-target="#id"`, so its DOM
+	 * `position: fixed` and is addressed via `data-bs-target="#id"`, so its DOM
 	 * placement is not significant.
 	 *
 	 * @return string
@@ -306,8 +306,8 @@ class ModalBuilder {
 	 */
 	protected function buildTrigger() {
 		$trigger = $this->getTrigger();
-		if ( preg_match( '/data-toggle[^"]+"modal/', $trigger )
-			&& preg_match( '/data-target[^"]+"#' . $this->getId() . '"/', $trigger )
+		if ( preg_match( '/data-bs-toggle[^"]+"modal/', $trigger )
+			&& preg_match( '/data-bs-target[^"]+"#' . $this->getId() . '"/', $trigger )
 			&& preg_match( '/class[^"]+"[^"]*modal-trigger' . '/', $trigger )
 		) {
 			return $trigger;
@@ -447,10 +447,10 @@ class ModalBuilder {
 				$footer . Html::rawElement(
 					'button',
 					[
-						'type'         => 'button',
-						'class'        => 'btn btn-default',
-						'data-dismiss' => 'modal',
-						'aria-label'   => $close,
+						'type'            => 'button',
+						'class'           => 'btn btn-default',
+						'data-bs-dismiss' => 'modal',
+						'aria-label'      => $close,
 					],
 					$close
 				)
@@ -477,16 +477,11 @@ class ModalBuilder {
 		$button = Html::rawElement(
 			'button',
 			[
-				'type'         => 'button',
-				'class'        => 'close',
-				'data-dismiss' => 'modal',
-				'aria-label'   => wfMessage( 'bootstrap-components-close-element' )->inContentLanguage()->text(),
-			],
-			Html::rawElement(
-				'span',
-				[ 'aria-hidden' => 'true' ],
-				'&times;'
-			)
+				'type'            => 'button',
+				'class'           => 'btn-close',
+				'data-bs-dismiss' => 'modal',
+				'aria-label'      => wfMessage( 'bootstrap-components-close-element' )->inContentLanguage()->text(),
+			]
 		);
 		return Html::rawElement(
 				'div',

@@ -69,7 +69,7 @@ class BadgeTest extends ComponentsTestBase {
 			'simple'          => [
 				$this->input,
 				[],
-				'<span class="badge badge-primary" id="bsc_badge_NULL">' . $this->input . '</span>',
+				'<span class="badge text-bg-primary" id="bsc_badge_NULL">' . $this->input . '</span>',
 			],
 			'empty'           => [
 				'',
@@ -79,22 +79,22 @@ class BadgeTest extends ComponentsTestBase {
 			'manual id'       => [
 				$this->input,
 				[ 'id' => 'book' ],
-				'<span class="badge badge-primary" id="book">' . $this->input . '</span>',
+				'<span class="badge text-bg-primary" id="book">' . $this->input . '</span>',
 			],
 			'style and class' => [
 				$this->input,
 				[ 'class' => 'dummy nice', 'style' => 'float:right;background-color:#80266e' ],
-				'<span class="badge badge-primary dummy nice" style="float:right;background-color:#80266e" id="bsc_badge_NULL">' . $this->input . '</span>',
+				'<span class="badge text-bg-primary dummy nice" style="float:right;background-color:#80266e" id="bsc_badge_NULL">' . $this->input . '</span>',
 			],
 			'pill'       => [
 				$this->input,
 				[ 'pill' => 'true' ],
-				'<span class="badge badge-pill badge-primary" id="bsc_badge_NULL">' . $this->input . '</span>',
+				'<span class="badge rounded-pill text-bg-primary" id="bsc_badge_NULL">' . $this->input . '</span>',
 			],
 			'no pill'       => [
 				$this->input,
 				[ 'pill' => 0 ],
-				'<span class="badge badge-primary" id="bsc_badge_NULL">' . $this->input . '</span>',
+				'<span class="badge text-bg-primary" id="bsc_badge_NULL">' . $this->input . '</span>',
 			],
 		];
 	}

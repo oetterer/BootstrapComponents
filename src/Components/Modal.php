@@ -104,10 +104,10 @@ class Modal extends AbstractComponent {
 		return Html::rawElement(
 			'button',
 			[
-				'type'        => 'button',
-				'class'       => 'modal-trigger btn btn-' . $this->getValueFor( 'color', 'default' ),
-				'data-toggle' => 'modal',
-				'data-target' => '#' . $this->getId(),
+				'type'           => 'button',
+				'class'          => 'modal-trigger btn btn-' . $this->getValueFor( 'color', 'default' ),
+				'data-bs-toggle' => 'modal',
+				'data-bs-target' => '#' . $this->getId(),
 			],
 			$text
 		);

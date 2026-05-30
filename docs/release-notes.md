@@ -5,8 +5,15 @@
 Released on TBD
 
 Breaking changes:
-* requires MediaWiki 1.43 or later
-* requires PHP 8.1 or later
+* requires the Bootstrap extension v6, which bundles Bootstrap library v5.3
+
+Changes:
+* migrate to Bootstrap 5.3
+* component init no longer requires jQuery
+* badge classes updated: `badge-pill` becomes `rounded-pill`, `badge-<color>` becomes `text-bg-<color>`
+* alert and modal close buttons use the Bootstrap 5 `btn-close` shape
+* jumbotron now composes utility classes; Bootstrap 5 removed `.jumbotron`
+* carousel indicators use `<button>` elements
 
 ### BootstrapComponents 5.2.4
 

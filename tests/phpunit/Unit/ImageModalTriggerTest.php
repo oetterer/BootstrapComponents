@@ -164,7 +164,7 @@ class ImageModalTriggerTest extends TestCase {
 					'page' => false,
 				],
 				[
-					'~<span class="modal-trigger" data-toggle="modal" data-target="#id"><img src="thumbnail::toHtml\(\)/return/value\.png" ></span>~',
+					'~<span class="modal-trigger" data-bs-toggle="modal" data-bs-target="#id"><img src="thumbnail::toHtml\(\)/return/value\.png" ></span>~',
 				]
 			],
 			'frame params w/o thumbnail'     => [
@@ -184,7 +184,7 @@ class ImageModalTriggerTest extends TestCase {
 					'page' => false,
 				],
 				[
-					'~<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#id">~',
+					'~<div class="floatleft"><span class="modal-trigger" data-bs-toggle="modal" data-bs-target="#id">~',
 					'~<img src="thumbnail::toHtml\(\)/return/value\.png" alt="test_alt" title="test_title" class="test_class">~',
 				]
 			],
@@ -206,7 +206,7 @@ class ImageModalTriggerTest extends TestCase {
 					'page'  => 7,
 				],
 				[
-					'~<div class="floatleft"><span class="modal-trigger" data-toggle="modal" data-target="#id">~',
+					'~<div class="floatleft"><span class="modal-trigger" data-bs-toggle="modal" data-bs-target="#id">~',
 					'~<img src="thumbnail::toHtml\(\)/return/value\.png" >~',
 				]
 			],
@@ -228,7 +228,7 @@ class ImageModalTriggerTest extends TestCase {
 					'page'  => 7,
 				],
 				[
-					'~<div class="thumb tmiddle"><span class="modal-trigger" data-toggle="modal" data-target="#id">~',
+					'~<div class="thumb tmiddle"><span class="modal-trigger" data-bs-toggle="modal" data-bs-target="#id">~',
 					'~<div class="thumbinner" style="width:642px;"><img src="thumbnail::toHtml\(\)/return/value\.png" class="thumbimage">~',
 					'~<div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge">~',
 				]
@@ -252,7 +252,7 @@ class ImageModalTriggerTest extends TestCase {
 					'page' => false,
 				],
 				[
-					'~<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#id">~',
+					'~<div class="thumb tnone"><span class="modal-trigger" data-bs-toggle="modal" data-bs-target="#id">~',
 					'~<div class="thumbinner" style="width:96px;">~',
 					'~<img( alt="")? src="' . $scriptPath . '/images/a/aa/Shuttle.png" decoding="async" width="94" height="240" class="thumbimage"( /)?>~',
 				]
@@ -274,7 +274,7 @@ class ImageModalTriggerTest extends TestCase {
 					'page' => false,
 				],
 				[
-					'~<div class="thumb tnone"><span class="modal-trigger" data-toggle="modal" data-target="#id">~',
+					'~<div class="thumb tnone"><span class="modal-trigger" data-bs-toggle="modal" data-bs-target="#id">~',
 					'~<div class="thumbinner" style="width:642px;"><img src="thumbnail::toHtml\(\)/return/value\.png" class="thumbimage">~',
 				]
 			],
@@ -296,7 +296,7 @@ class ImageModalTriggerTest extends TestCase {
 					'page'  => false,
 				],
 				[
-					'~<div class="center"><span class="modal-trigger" data-toggle="modal" data-target="#id"><img src="thumbnail::toHtml\(\)/return/value\.png" >~',
+					'~<div class="center"><span class="modal-trigger" data-bs-toggle="modal" data-bs-target="#id"><img src="thumbnail::toHtml\(\)/return/value\.png" >~',
 				]
 			],
 			'manual thumbnail, upright'      => [
@@ -318,7 +318,7 @@ class ImageModalTriggerTest extends TestCase {
 					'page' => false,
 				],
 				[
-					'~<div class="thumb tleft"><span class="modal-trigger" data-toggle="modal" data-target="#id"><div class="thumbinner" style="width:96px;">~',
+					'~<div class="thumb tleft"><span class="modal-trigger" data-bs-toggle="modal" data-bs-target="#id"><div class="thumbinner" style="width:96px;">~',
 					'~<img( alt="")? src="' . $scriptPath . '/images/a/aa/Shuttle.png" decoding="async" width="94" height="240" class="thumbimage"( /)?>~',
 					'~<div class="thumbcaption"><div class="magnify"><a class="internal" title="Enlarge">~',
 				]

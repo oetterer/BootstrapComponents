@@ -63,7 +63,7 @@ class Carousel extends AbstractComponent {
 					'class'     => $this->arrayToString( $class, ' ' ),
 					'style'     => $this->arrayToString( $style, ';' ),
 					'id'        => $this->getId(),
-					'data-ride' => 'carousel',
+					'data-bs-ride' => 'carousel',
 				],
 				$this->generateIndicators( count( $images ) )
 				. Html::rawElement(
@@ -90,7 +90,7 @@ class Carousel extends AbstractComponent {
 					'class'      => 'carousel-control-prev',
 					'href'       => '#' . $this->getId(),
 					'role'       => 'button',
-					'data-slide' => 'prev',
+					'data-bs-slide' => 'prev',
 				],
 				Html::rawElement( 'span', [ 'class' => 'carousel-control-prev-icon', 'aria-hidden' => 'true' ] )
 			) . Html::rawElement(
@@ -99,7 +99,7 @@ class Carousel extends AbstractComponent {
 					'class'      => 'carousel-control-next',
 					'href'       => '#' . $this->getId(),
 					'role'       => 'button',
-					'data-slide' => 'next',
+					'data-bs-slide' => 'next',
 				],
 				Html::rawElement( 'span', [ 'class' => 'carousel-control-next-icon', 'aria-hidden' => 'true' ] )
 			);
@@ -186,17 +186,20 @@ class Carousel extends AbstractComponent {
 		$class = 'active';
 		for ( $i = 0; $i < $num; $i++ ) {
 			$inner .= "\t" . Html::rawElement(
-					'li',
+					'button',
 					[
-						'data-target'   => '#' . $this->getId(),
-						'data-slide-to' => $i,
-						'class'         => $class,
+						'type'             => 'button',
+						'data-bs-target'   => '#' . $this->getId(),
+						'data-bs-slide-to' => $i,
+						'class'            => $class ?: false,
+						'aria-current'     => $class ? 'true' : false,
+						'aria-label'       => 'Slide ' . ( $i + 1 ),
 					]
 				) . PHP_EOL;
 			$class = false;
 		}
 		return PHP_EOL . Html::rawElement(
-				'ol',
+				'div',
 				[ 'class' => 'carousel-indicators' ],
 				$inner
 			) . PHP_EOL;

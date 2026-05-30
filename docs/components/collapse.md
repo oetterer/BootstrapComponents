@@ -29,5 +29,4 @@ be used as the trigger element. In this case, all but the attributes
 </dl>
 
 ### Links
-* https://getbootstrap.com/docs/4.1/components/collapse/
-* https://www.w3schools.com/bootstrap4/bootstrap_collapse.asp
+* https://getbootstrap.com/docs/5.3/components/collapse/

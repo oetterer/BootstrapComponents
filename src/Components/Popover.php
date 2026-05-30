@@ -87,11 +87,11 @@ class Popover extends AbstractComponent {
 			$attributes = array_merge(
 				$attributes,
 				[
-					'data-toggle'    => 'popover',
+					'data-bs-toggle'    => 'popover',
 					'title'          => $heading,
-					'data-content'   => str_replace( "\n", " ", trim( $input ) ),
-					'data-placement' => $this->getValueFor( 'placement' ),
-					'data-trigger'   => $this->getValueFor( 'trigger' ),
+					'data-bs-content'   => str_replace( "\n", " ", trim( $input ) ),
+					'data-bs-placement' => $this->getValueFor( 'placement' ),
+					'data-bs-trigger'   => $this->getValueFor( 'trigger' ),
 				]
 			);
 			$tag = "button";

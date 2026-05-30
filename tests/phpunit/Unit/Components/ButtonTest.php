@@ -80,7 +80,7 @@ class ButtonTest extends ComponentsTestBase {
 		);
 
 		$instance->injectRawAttributes(
-			[ 'data-toggle' => 'foo', 'data-target' => '#bar' ]
+			[ 'data-bs-toggle' => 'foo', 'data-bs-target' => '#bar' ]
 		);
 
 		$generatedOutput = $instance->parseComponent( $parserRequest );
@@ -91,7 +91,7 @@ class ButtonTest extends ComponentsTestBase {
 		$this->assertMatchesRegularExpression(
 			'~^<a class="btn btn-primary btn-md manual" role="button" id="bsc_button_NULL" href=".*/'
 			. str_replace( ' ', '_', $this->input )
-			. '" data-toggle="foo" data-target="#bar">' . $this->input . '</a>$~',
+			. '" data-bs-toggle="foo" data-bs-target="#bar">' . $this->input . '</a>$~',
 			$generatedOutput
 		);
 	}

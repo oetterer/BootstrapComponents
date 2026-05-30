@@ -44,7 +44,9 @@ class Jumbotron extends AbstractComponent {
 	 * @param string $input
 	 */
 	protected function placeMe( $input ) {
-		list ( $class, $style ) = $this->processCss( 'jumbotron', [] );
+		// Bootstrap 5 dropped `.jumbotron` in favour of composing the same look
+		// from utility classes. See https://getbootstrap.com/docs/5.3/examples/jumbotron/.
+		list ( $class, $style ) = $this->processCss( [ 'p-5', 'mb-4', 'bg-body-tertiary', 'rounded-3' ], [] );
 		# @hack: the outer container is a workaround, to get all the necessary css if not inside a grid container
 		# @fixme: used inside mw content, the width calculation for smaller screens is broken (as of Bootstrap 1.2.3)
 		return Html::rawElement(

@@ -1,15 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kly"
+			"Kly",
+			"LowensteinYang"
 		]
 	},
-	"bootstrap-components-desc": "意在提供給編輯者能簡易存取一些由 Twitter Bootstrap 引入的元件",
-	"bootstrap-components-error-tracking-category": "帶有 bootstrap 元件的頁面出錯",
+	"bootstrap-components-desc": "意在提供給編輯者能簡易存取一些由Twitter Bootstrap所引入的元件",
+	"bootstrap-components-error-tracking-category": "帶有bootstrap元件的頁面出錯",
 	"bootstrap-components-close-element": "關閉",
 	"bootstrap-components-image-modal-source-button": "觀看來源頁面",
-	"bootstrap-components-lua-error-no-component": "沒有替 mw.bootstrap.parse 提供元件名稱。",
-	"bootstrap-components-lua-error-invalid-component": "傳遞給 mw.bootstrap.parse 的無效元件名稱：$1。",
+	"bootstrap-components-lua-error-no-component": "沒有給mw.bootstrap.parse函式提供元件名稱。",
+	"bootstrap-components-lua-error-invalid-component": "傳遞給mw.bootstrap.parse函式的無效元件名稱：$1。",
 	"bootstrap-components-badge-content-missing": "您必須為此徽章指定文字內容。",
 	"bootstrap-components-button-target-missing": "您必須為此按鍵指定目標。",
 	"bootstrap-components-button-target-invalid": "您必須為此按鍵指定有效的目標。",

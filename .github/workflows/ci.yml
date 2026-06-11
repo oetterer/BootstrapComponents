@@ -25,7 +25,7 @@ jobs:
             php: 8.3
             type: normal
             experimental: false
-          - mw: 'master'
+          - mw: 'REL1_46'
             php: 8.4
             type: normal
             experimental: true
@@ -95,12 +95,32 @@ jobs:
         run: bash EarlyCopy/.github/workflows/uploadImages.sh
 
       - if: env.TYPE != 'coverage'
-        name: Run PHPUnit w/o coverage
-        run: php tests/phpunit/phpunit.php -c extensions/BootstrapComponents/ --testsuite bootstrap-components-unit
+        name: Run PHPUnit
+        run: |
+          if [ -f tests/phpunit/phpunit.php ]; then
+            php tests/phpunit/phpunit.php -c extensions/BootstrapComponents/ --testsuite bootstrap-components-unit
+          else
+            # MW 1.46 and later
+            if [ ! -f phpunit.xml.template ]; then
+              wget -q -O phpunit.xml.template "https://raw.githubusercontent.com/wikimedia/mediawiki/${{ matrix.mw }}/phpunit.xml.template"
+            fi
+            composer phpunit:config
+            vendor/bin/phpunit -c phpunit.xml extensions/BootstrapComponents/tests/phpunit/Unit
+          fi
 
       - if: env.TYPE == 'coverage'
-        name: Run PHPUnit w/ coverage
-        run: php tests/phpunit/phpunit.php -c extensions/BootstrapComponents/ --testsuite bootstrap-components-unit --coverage-clover coverage.clover
+        name: Run PHPUnit (coverage)
+        run: |
+          if [ -f tests/phpunit/phpunit.php ]; then
+            php tests/phpunit/phpunit.php -c extensions/BootstrapComponents/ --testsuite bootstrap-components-unit --coverage-clover coverage.clover
+          else
+            # MW 1.46 and later
+            if [ ! -f phpunit.xml.template ]; then
+              wget -q -O phpunit.xml.template "https://raw.githubusercontent.com/wikimedia/mediawiki/${{ matrix.mw }}/phpunit.xml.template"
+            fi
+            composer phpunit:config
+            vendor/bin/phpunit -c phpunit.xml extensions/BootstrapComponents/tests/phpunit/Unit --coverage-clover coverage.clover
+          fi
 
       - if: env.TYPE == 'coverage'
         name: upload coverage report

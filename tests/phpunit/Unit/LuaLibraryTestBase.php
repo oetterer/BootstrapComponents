@@ -3,7 +3,7 @@
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit;
 
 use MediaWiki\Extension\BootstrapComponents\LuaLibrary;
-use Scribunto_LuaEngineTestBase;
+use MediaWiki\Extension\Scribunto\Tests\Engines\LuaCommon\LuaEngineTestBase;
 
 /**
  * @ingroup Test
@@ -15,7 +15,7 @@ use Scribunto_LuaEngineTestBase;
  * @since   1.1
  * @author  Tobias Oetterer
  */
-abstract class LuaLibraryTestBase extends Scribunto_LuaEngineTestBase
+abstract class LuaLibraryTestBase extends LuaEngineTestBase
 {
 	/**
 	 * @var LuaLibrary

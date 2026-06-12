@@ -22,6 +22,9 @@ use PHPUnit\Framework\TestCase;
 class ServiceWiringTest extends TestCase {
 
 
+	/**
+	 * @covers  \MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService
+	 */
 	public function testCanConstructBootstrapComponentsService()	{
 		$this->assertInstanceOf(
 			BootstrapComponentsService::class,
@@ -29,6 +32,9 @@ class ServiceWiringTest extends TestCase {
 		);
 	}
 
+	/**
+	 * @covers  \MediaWiki\Extension\BootstrapComponents\ComponentLibrary
+	 */
 	public function testCanConstructComponentLibrary()	{
 		$this->assertInstanceOf(
 			ComponentLibrary::class,
@@ -36,6 +42,9 @@ class ServiceWiringTest extends TestCase {
 		);
 	}
 
+	/**
+	 * @covers  \MediaWiki\Extension\BootstrapComponents\NestingController
+	 */
 	public function testCanConstructNestingController()	{
 		$this->assertInstanceOf(
 			NestingController::class,

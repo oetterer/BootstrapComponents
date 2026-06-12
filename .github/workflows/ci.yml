@@ -72,7 +72,7 @@ jobs:
 
       - name: Cache MediaWiki
         id: cache-mediawiki
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: |
             mediawiki
@@ -81,12 +81,12 @@ jobs:
           key: mw_${{ matrix.mw }}-php${{ matrix.php }}
 
       - name: Cache Composer cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.composer/cache
           key: composer-php${{ matrix.php }}
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           path: EarlyCopy
 
@@ -95,7 +95,7 @@ jobs:
         working-directory: ~
         run: bash EarlyCopy/.github/workflows/installWiki.sh ${{ matrix.mw }} BootstrapComponents
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           path: mediawiki/extensions/BootstrapComponents
 

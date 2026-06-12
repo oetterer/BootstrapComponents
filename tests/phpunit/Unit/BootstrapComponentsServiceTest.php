@@ -70,7 +70,6 @@ class BootstrapComponentsServiceTest extends TestCase {
 
 		$reflection = new ReflectionClass( BootstrapComponentsService::class );
 		$method = $reflection->getMethod( 'detectSkinInUse' );
-		$method->setAccessible( true );
 
 		// this is default
 		$this->assertEquals(

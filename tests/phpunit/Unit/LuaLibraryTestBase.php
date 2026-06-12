@@ -22,6 +22,10 @@ abstract class LuaLibraryTestBase extends Scribunto_LuaEngineTestBase
 	 */
 	private $luaLibrary;
 
+	protected function getEngineName(): string {
+		return 'LuaStandalone';
+	}
+
 	/**
 	 * @throws \MWException
 	 */

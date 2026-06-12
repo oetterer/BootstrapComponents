@@ -52,7 +52,9 @@ class CarouselGalleryTest extends TestCase {
 			->getMock();
 		$instance->mParser->expects( $this->any() )
 			->method( 'recursiveTagParse' )
-			->will( $this->returnArgument( 0 ) );
+			->will( $this->returnCallback( function ( $text ) {
+				return (string)$text;
+			} ) );
 
 		foreach ( $imageList as $imageData ) {
 			$instance->add( Title::newFromText( $imageData[0] ), $imageData[1], $imageData[2], $imageData[3], $imageData[4] );

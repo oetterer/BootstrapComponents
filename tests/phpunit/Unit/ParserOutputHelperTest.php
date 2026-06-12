@@ -55,7 +55,7 @@ class ParserOutputHelperTest extends TestCase {
 		$parser = $this->createMock( 'Parser' );
 		$parser->expects( $this->once() )
 			->method( 'getOutput' )
-			->willReturn( false );
+			->willReturn( new ParserOutput( 'ParserOutputMockText' ) );
 
 		$instance = new ParserOutputHelper( $parser );
 
@@ -67,7 +67,7 @@ class ParserOutputHelperTest extends TestCase {
 		$parser = $this->createMock( 'Parser' );
 		$parser->expects( $this->once() )
 			->method( 'getOutput' )
-			->willReturn( false );
+			->willReturn( new ParserOutput( 'ParserOutputMockText' ) );
 
 		$instance = new ParserOutputHelper( $parser );
 

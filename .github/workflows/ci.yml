@@ -11,6 +11,7 @@ jobs:
     name: "PHPUnit: MW ${{ matrix.mw }}, PHP ${{ matrix.php }} (TYPE ${{ matrix.type }})"
 
     strategy:
+      fail-fast: false
       matrix:
         include:
           - mw: 'REL1_39'

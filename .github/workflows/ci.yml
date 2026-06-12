@@ -109,8 +109,6 @@ jobs:
 
       - if: env.TYPE != 'coverage'
         name: Run PHPUnit
-        env:
-          MEDIAWIKI_HAS_INTEGRATION_TESTS: '1'
         run: |
           if [ -f tests/phpunit/phpunit.php ]; then
             php tests/phpunit/phpunit.php -c extensions/BootstrapComponents/ --testsuite bootstrap-components-unit
@@ -120,13 +118,12 @@ jobs:
               wget -q -O phpunit.xml.template "https://raw.githubusercontent.com/wikimedia/mediawiki/${{ matrix.mw }}/phpunit.xml.template"
             fi
             composer phpunit:config
-            vendor/bin/phpunit -c phpunit.xml extensions/BootstrapComponents/tests/phpunit/Unit
+            # Temporary integration-test workaround; see master issue #98.
+            MEDIAWIKI_HAS_INTEGRATION_TESTS=1 vendor/bin/phpunit -c phpunit.xml extensions/BootstrapComponents/tests/phpunit/Unit
           fi
 
       - if: env.TYPE == 'coverage'
         name: Run PHPUnit (coverage)
-        env:
-          MEDIAWIKI_HAS_INTEGRATION_TESTS: '1'
         run: |
           if [ -f tests/phpunit/phpunit.php ]; then
             php tests/phpunit/phpunit.php -c extensions/BootstrapComponents/ --testsuite bootstrap-components-unit --coverage-clover coverage.clover
@@ -136,7 +133,8 @@ jobs:
               wget -q -O phpunit.xml.template "https://raw.githubusercontent.com/wikimedia/mediawiki/${{ matrix.mw }}/phpunit.xml.template"
             fi
             composer phpunit:config
-            vendor/bin/phpunit -c phpunit.xml extensions/BootstrapComponents/tests/phpunit/Unit --coverage-clover coverage.clover
+            # Temporary integration-test workaround; see master issue #98.
+            MEDIAWIKI_HAS_INTEGRATION_TESTS=1 vendor/bin/phpunit -c phpunit.xml extensions/BootstrapComponents/tests/phpunit/Unit --coverage-clover coverage.clover
           fi
 
       - if: env.TYPE == 'coverage'

@@ -68,7 +68,7 @@ class ImageModal implements NestableInterface {
 		private File $file,
 		private NestingController $nestingController,
 		private BootstrapComponentsService $bootstrapComponentService,
-		ParserOutputHelper $parserOutputHelper = null,
+		?ParserOutputHelper $parserOutputHelper = null,
 	) {
 		$this->parserOutputHelper = $parserOutputHelper
 			?? ApplicationFactory::getInstance()->getParserOutputHelper();

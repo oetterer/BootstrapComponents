@@ -61,10 +61,14 @@ abstract class ComponentsTestBase extends TestCase {
 		$this->parser = $this->createMock( Parser::class );
 		$this->parser->expects( $this->any() )
 			->method( 'recursiveTagParse' )
-			->will( $this->returnArgument( 0 ) );
+			->will( $this->returnCallback( function ( $text ) {
+				return (string)$text;
+			} ) );
 		$this->parser->expects( $this->any() )
 			->method( 'recursiveTagParseFully' )
-			->will( $this->returnArgument( 0 ) );
+			->will( $this->returnCallback( function ( $text ) {
+				return (string)$text;
+			} ) );
 		$this->parserOutputHelper = $this->createMock( ParserOutputHelper::class );
 		$this->parserOutputHelper->expects( $this->any() )
 			->method( 'renderErrorMessage' )

@@ -37,10 +37,6 @@ jobs:
             php: 8.3
             type: normal
             experimental: false
-          - mw: 'master'
-            php: 8.4
-            type: normal
-            experimental: true
 
     runs-on: ubuntu-latest
     continue-on-error: ${{ matrix.experimental }}

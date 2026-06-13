@@ -4,10 +4,7 @@ MW_BRANCH=$1
 EXTENSION_NAME=$2
 
 ## install core
-wget https://github.com/wikimedia/mediawiki/archive/${MW_BRANCH}.tar.gz -nv
-
-tar -zxf $MW_BRANCH.tar.gz
-mv mediawiki-$MW_BRANCH mediawiki
+git clone --depth 1 --branch ${MW_BRANCH} https://github.com/wikimedia/mediawiki.git mediawiki
 cd $MW_ROOT
 
 composer install
@@ -35,10 +32,8 @@ git clone --branch ${MW_BRANCH} https://github.com/wikimedia/Vector.git
 
 ## Scribunto
 cd ../extensions
-wget https://github.com/wikimedia/mediawiki-extensions-Scribunto/archive/${MW_BRANCH}.tar.gz
-tar -zxf ${MW_BRANCH}.tar.gz
 [[ -e Scribunto ]] && rm -rf Scribunto
-mv mediawiki-extensions-Scribunto* Scribunto
+git clone --depth 1 --branch ${MW_BRANCH} https://github.com/wikimedia/mediawiki-extensions-Scribunto.git Scribunto
 cd ..
 
 

@@ -2,6 +2,29 @@
 Some components cause problems with other components or "external"
 elements.
 
+### Skins that load Bootstrap themselves
+Some skins put Bootstrap on the page on their own. For those, this extension does not
+request Extension:Bootstrap's `ext.bootstrap.styles`, since that would load Bootstrap's
+CSS twice. Chameleon, Medik and Tweeki are treated this way. Every other skin, Vector
+and Timeless among them, keeps getting Bootstrap from Extension:Bootstrap.
+
+Bootstrap's JavaScript is only partly covered by this. This extension stops requesting
+`ext.bootstrap.scripts` for those skins as well, but its own carousel, modal, popover
+and tooltip modules declare that module as a dependency, so a page using any of those
+components still loads it. On Chameleon that is harmless, because Chameleon pulls in
+the same module and ResourceLoader serves it once. On Medik and Tweeki it means
+Extension:Bootstrap's JavaScript runs alongside the skin's own bundled copy.
+
+With Medik and Tweeki, matching the Bootstrap versions is up to you. They bundle their
+own Bootstrap and declare no dependency on Extension:Bootstrap, so nothing checks that
+their Bootstrap matches the one this extension expects. BootstrapComponents 6.x targets
+Bootstrap 5.3, so pair it with a Bootstrap 5 release of these skins, and stay on
+BootstrapComponents 5.x for their Bootstrap 4 releases. Chameleon is not affected: it
+depends on Extension:Bootstrap itself, so Composer keeps the two in step.
+
+This extension cannot read the exact Bootstrap version a skin provides, so a mismatch
+surfaces as a component that looks or behaves wrong, not as an error message.
+
 ### Modals and popovers
 When you put popovers on a page with modals (or image modals),
 the modals break.

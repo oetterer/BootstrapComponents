@@ -8,6 +8,9 @@ Changes:
 * add a migration guide for the Bootstrap 4 to 5 upgrade
 * split the migration guide into one document per upgrade and link both guides from the README
 
+Fixes:
+* fix Bootstrap's CSS loading twice on the Chameleon, Medik, and Tweeki skins, which provide Bootstrap themselves
+
 ### BootstrapComponents 6.0.0
 
 Released on 16-July-2026

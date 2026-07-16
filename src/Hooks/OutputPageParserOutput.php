@@ -40,6 +40,13 @@ use MediaWiki\Output\OutputPage;
  */
 class OutputPageParserOutput {
 
+	/**
+	 * Skins that put Bootstrap on the page themselves, either by bundling their own copy
+	 * or, in Chameleon's case, by registering Extension:Bootstrap's modules under a
+	 * different name that ResourceLoader cannot deduplicate against ext.bootstrap.*.
+	 */
+	private const SKINS_LOADING_BOOTSTRAP_THEMSELVES = [ 'chameleon', 'medik', 'tweeki' ];
+
 	public function __construct(
 		private readonly OutputPage $outputPage,
 		private readonly BootstrapComponentsService $bootstrapComponentService,
@@ -50,9 +57,26 @@ class OutputPageParserOutput {
 	 * @return void
 	 */
 	public function process(): void {
+		$this->addBootstrapModules();
+
 		if ( $this->getBootstrapComponentsService()->vectorSkinInUse() ) {
 			$this->getOutputPage()->addModules( [ 'ext.bootstrapComponents.vector-fix' ] );
 		}
+	}
+
+	private function addBootstrapModules(): void {
+		if ( $this->activeSkinLoadsBootstrapItself() ) {
+			return;
+		}
+
+		$this->getOutputPage()->addModuleStyles( [ 'ext.bootstrap.styles' ] );
+		$this->getOutputPage()->addModules( [ 'ext.bootstrap.scripts' ] );
+	}
+
+	private function activeSkinLoadsBootstrapItself(): bool {
+		$activeSkin = strtolower( $this->getOutputPage()->getSkin()->getSkinName() ?? '' );
+
+		return in_array( $activeSkin, self::SKINS_LOADING_BOOTSTRAP_THEMSELVES, true );
 	}
 
 	protected function getBootstrapComponentsService(): BootstrapComponentsService {

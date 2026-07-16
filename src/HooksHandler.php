@@ -197,8 +197,6 @@ class HooksHandler implements
 		// once, this was only loaded, when a component was paced on the page. now, we load it always
 		// to keep the layout of all the wiki pages consistent.
 		$parser->getOutput()->addModuleStyles( [ 'ext.bootstrapComponents.bootstrap.fix' ] );
-		$parser->getOutput()->addModuleStyles( [ 'ext.bootstrap.styles' ] );
-		$parser->getOutput()->addModules( [ 'ext.bootstrap.scripts' ] );
 		$skin = $this->getBootstrapComponentsService()->getNameOfActiveSkin();
 		foreach ( $this->getBootstrapComponentsService()->getActiveComponents() as $activeComponent ) {
 			if ( !$this->getComponentLibrary()->isRegistered( $activeComponent ) ) {

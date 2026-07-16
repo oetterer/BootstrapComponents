@@ -2,10 +2,12 @@
 
 namespace MediaWiki\Extension\BootstrapComponents\Tests\Unit\Hooks;
 
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput;
 use MediaWiki\Output\OutputPage;
 use PHPUnit\Framework\TestCase;
+use Skin;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput
@@ -37,33 +39,81 @@ class OutputPageParserOutputTest extends TestCase {
 		);
 	}
 
-	public function testHookOutputPageParserOutputLoadsVectorFixUnderVector() {
-		$outputPage = $this->createMock( OutputPage::class );
-		$outputPage->expects( $this->never() )->method( 'addHTML' );
-		$outputPage->expects( $this->once() )
-			->method( 'addModules' )
-			->with(
-				$this->equalTo( [ 'ext.bootstrapComponents.vector-fix' ] )
-			);
+	public function testAddsBootstrapStylesForSkinWithoutOwnBootstrap() {
+		$outputPage = $this->newOutputPageForSkin( 'monobook' );
 
-		$bootstrapService = $this->createMock( BootstrapComponentsService::class );
-		$bootstrapService->expects( $this->once() )
-			->method( 'vectorSkinInUse' )
-			->willReturn( true );
+		$this->process( $outputPage, vectorSkinInUse: false );
 
-		$instance = new OutputPageParserOutput( $outputPage, $bootstrapService );
-		$instance->process();
+		$this->assertContains( 'ext.bootstrap.styles', $outputPage->getModuleStyles() );
 	}
 
-	public function testHookDoesNothingWhenNotVector() {
-		$outputPage = $this->createMock( OutputPage::class );
-		$outputPage->expects( $this->never() )->method( 'addHTML' );
-		$outputPage->expects( $this->never() )->method( 'addModules' );
+	public function testAddsBootstrapScriptsForSkinWithoutOwnBootstrap() {
+		$outputPage = $this->newOutputPageForSkin( 'monobook' );
 
+		$this->process( $outputPage, vectorSkinInUse: false );
+
+		$this->assertContains( 'ext.bootstrap.scripts', $outputPage->getModules() );
+	}
+
+	/**
+	 * @dataProvider skinLoadingBootstrapItselfProvider
+	 */
+	public function testOmitsBootstrapStylesForSkinLoadingBootstrapItself( string $skinName ) {
+		$outputPage = $this->newOutputPageForSkin( $skinName );
+
+		$this->process( $outputPage, vectorSkinInUse: false );
+
+		$this->assertNotContains( 'ext.bootstrap.styles', $outputPage->getModuleStyles() );
+	}
+
+	/**
+	 * @dataProvider skinLoadingBootstrapItselfProvider
+	 */
+	public function testOmitsBootstrapScriptsForSkinLoadingBootstrapItself( string $skinName ) {
+		$outputPage = $this->newOutputPageForSkin( $skinName );
+
+		$this->process( $outputPage, vectorSkinInUse: false );
+
+		$this->assertNotContains( 'ext.bootstrap.scripts', $outputPage->getModules() );
+	}
+
+	public static function skinLoadingBootstrapItselfProvider(): array {
+		return [
+			'chameleon' => [ 'chameleon' ],
+			'medik' => [ 'medik' ],
+			'tweeki' => [ 'tweeki' ],
+		];
+	}
+
+	public function testHookOutputPageParserOutputLoadsVectorFixUnderVector() {
+		$outputPage = $this->newOutputPageForSkin( 'vector' );
+
+		$this->process( $outputPage, vectorSkinInUse: true );
+
+		$this->assertContains( 'ext.bootstrapComponents.vector-fix', $outputPage->getModules() );
+	}
+
+	public function testOmitsVectorFixWhenVectorIsNotInUse() {
+		$outputPage = $this->newOutputPageForSkin( 'monobook' );
+
+		$this->process( $outputPage, vectorSkinInUse: false );
+
+		$this->assertNotContains( 'ext.bootstrapComponents.vector-fix', $outputPage->getModules() );
+	}
+
+	private function newOutputPageForSkin( string $skinName ): OutputPage {
+		$skin = $this->createMock( Skin::class );
+		$skin->method( 'getSkinName' )->willReturn( $skinName );
+
+		$context = new RequestContext();
+		$context->setSkin( $skin );
+
+		return new OutputPage( $context );
+	}
+
+	private function process( OutputPage $outputPage, bool $vectorSkinInUse ): void {
 		$bootstrapService = $this->createMock( BootstrapComponentsService::class );
-		$bootstrapService->expects( $this->once() )
-			->method( 'vectorSkinInUse' )
-			->willReturn( false );
+		$bootstrapService->method( 'vectorSkinInUse' )->willReturn( $vectorSkinInUse );
 
 		$instance = new OutputPageParserOutput( $outputPage, $bootstrapService );
 		$instance->process();

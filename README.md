@@ -30,8 +30,8 @@ configuration it can add a new [gallery][Gallery] mode, and replace normal
 Please also see the [known issues][known-issues] section.
 
 There are also migration guides for users switching
-to [Bootstrap 5](docs/migration-guide-bs5.md) (BootstrapComponents 6.0) and
-to [Bootstrap 4](docs/migration-guide-bs4.md) (BootstrapComponents ~4.0).
+to [Bootstrap 5](docs/migration-guide-bs5.md) (Bootstrap Components ~6.0) and
+to [Bootstrap 4](docs/migration-guide-bs4.md) (Bootstrap Components ~4.0 and ~5.0).
 
 ## Contact
 For bug reports and feature requests, please see if it is already reported on

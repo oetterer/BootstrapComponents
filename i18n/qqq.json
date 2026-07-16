@@ -10,6 +10,7 @@
 	"bootstrap-components-tracking-category": "Tracking category for pages with calls to at least one bootstrap tag.\n\n{{Notranslate}}",
 	"bootstrap-components-close-element": "Text for the close button of various components.\n\n{{Identical|Close}}",
 	"bootstrap-components-image-modal-source-button": "Text on the button linking to the image source page.",
+	"bootstrap-components-carousel-slide-label": "Text for the accessibility label of a carousel indicator button.\n\nParameters:\n* $1 - slide number",
 	"bootstrap-components-lua-error-no-component": "Error message that indicates, that there was no component name provided to the lua parse function.",
 	"bootstrap-components-lua-error-invalid-component": "Error message that indicates, that there was an invalid component name provided to the lua parse function.\n\nParameters:\n* $1 - invalid component provided",
 	"bootstrap-components-badge-content-missing": "Error message that indicates, that the text is missing in a badge component. Please supply an input text after the double colon.",

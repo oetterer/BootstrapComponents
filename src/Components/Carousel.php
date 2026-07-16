@@ -193,7 +193,7 @@ class Carousel extends AbstractComponent {
 						'data-bs-slide-to' => $i,
 						'class'            => $class ?: false,
 						'aria-current'     => $class ? 'true' : false,
-						'aria-label'       => 'Slide ' . ( $i + 1 ),
+						'aria-label'       => wfMessage( 'bootstrap-components-carousel-slide-label', $i + 1 )->inContentLanguage()->text(),
 					]
 				) . PHP_EOL;
 			$class = false;

@@ -1,5 +1,13 @@
 ## Release Notes
 
+### BootstrapComponents 6.0.1
+
+Released on TBD
+
+Changes:
+* add a migration guide for the Bootstrap 4 to 5 upgrade
+* split the migration guide into one document per upgrade and link both guides from the README
+
 ### BootstrapComponents 6.0.0
 
 Released on 16-July-2026
@@ -14,8 +22,7 @@ Changes:
 * rewrite component JavaScript from jQuery to the native Bootstrap 5 API
 * reimplement the jumbotron using Bootstrap 5 utility classes, since Bootstrap 5 removed the .jumbotron component
 
-See the [migration guide](migration-guide.md#bootstrapcomponents-5x-to-60-bootstrap-4-to-5)
-when upgrading from 5.x.
+See the [migration guide](migration-guide-bs5.md) when upgrading from 5.x.
 
 ### BootstrapComponents 5.2.4
 
@@ -171,7 +178,7 @@ Fixes:
 * fixed some typos
 * fix component popover header handling
 
-Also see the [migration guide](migration-guide.md) when switching to ~4.0.
+Also see the [migration guide](migration-guide-bs4.md) when switching to ~4.0.
 
 ### BootstrapComponents 1.2.4
 

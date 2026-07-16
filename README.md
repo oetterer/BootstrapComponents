@@ -29,8 +29,9 @@ configuration it can add a new [gallery][Gallery] mode, and replace normal
 
 Please also see the [known issues][known-issues] section.
 
-There is also a [migration guide](docs/migration-guide.md) for users switching
-from bootstrap3 (BootstrapComponents ~1.2) to bootstrap4 (BootstrapComponents ~4.0).
+There are also migration guides for users switching
+to [Bootstrap 5](docs/migration-guide-bs5.md) (BootstrapComponents 6.0) and
+to [Bootstrap 4](docs/migration-guide-bs4.md) (BootstrapComponents ~4.0).
 
 ## Contact
 For bug reports and feature requests, please see if it is already reported on

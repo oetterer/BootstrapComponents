@@ -14,6 +14,9 @@ Changes:
 * rewrite component JavaScript from jQuery to the native Bootstrap 5 API
 * reimplement the jumbotron using Bootstrap 5 utility classes, since Bootstrap 5 removed the .jumbotron component
 
+See the [migration guide](migration-guide.md#bootstrapcomponents-5x-to-60-bootstrap-4-to-5)
+when upgrading from 5.x.
+
 ### BootstrapComponents 5.2.4
 
 Released on 22-May-2026

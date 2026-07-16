@@ -2,12 +2,17 @@
 
 ### BootstrapComponents 6.0.0
 
-Released on TBD
+Released on 16-July-2026
 
 Breaking changes:
 * requires MediaWiki 1.43 or later
 * requires PHP 8.1 or later
 * requires Bootstrap extension 6.x, which bundles Bootstrap library 5.3
+
+Changes:
+* change bootstrap foundation from version 4 to version 5.3
+* rewrite component JavaScript from jQuery to the native Bootstrap 5 API
+* reimplement the jumbotron using Bootstrap 5 utility classes, since Bootstrap 5 removed the .jumbotron component
 
 ### BootstrapComponents 5.2.4
 

@@ -5,7 +5,7 @@
 
 Bootstrap Components is a [MediaWiki] extension that aims to provide
 editors with easy access to certain components introduced by
-[Twitter Bootstrap 4][Bootstrap].
+[Bootstrap 5][Bootstrap].
 
 Depending on your configuration, editors can utilize several
 _tag extensions_ and _parser functions_ inside wiki code to place certain

@@ -37,7 +37,7 @@ need review. The changes most likely to matter:
 | `badge-{color}` | `text-bg-{color}` |
 | `badge-pill` | `rounded-pill` |
 | `jumbotron` | `p-5 mb-4 bg-body-tertiary rounded-3` |
-| carousel indicators as `<ol>`/`<li>` | `<button>` elements |
+| `ol.carousel-indicators` with `<li>` children | `div.carousel-indicators` with `<button>` children |
 
 ### Hand-written Bootstrap HTML in templates
 

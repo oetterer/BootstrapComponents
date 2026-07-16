@@ -1,6 +1,6 @@
 ## Migration Guide: Bootstrap 4 to 5
 
-BootstrapComponents 6.0 moves the underlying framework from Bootstrap 4
+Bootstrap Components 6.0 moves the underlying framework from Bootstrap 4
 to Bootstrap 5.3. All components keep their wikitext syntax: no parser
 function or tag was removed or renamed, and existing pages keep parsing
 as before. What needs attention is everything a wiki builds around the
@@ -12,13 +12,13 @@ emitted markup.
 * PHP 8.1 or later
 * Bootstrap extension 6.x, which bundles the Bootstrap 5.3 library
 
-Upgrade the Bootstrap extension together with BootstrapComponents; the
+Upgrade the Bootstrap extension together with Bootstrap Components; the
 two versions belong together.
 
 ### Jumbotron
 
 Bootstrap 5 removed the `.jumbotron` component.
-**BootstrapComponents takes care of that** by rebuilding the component
+**Bootstrap Components takes care of that** by rebuilding the component
 from [utility classes][BS5-jumbotron] (`p-5 mb-4 bg-body-tertiary
 rounded-3`), so existing jumbotrons keep working. Expect slight visual
 differences, and note that custom CSS targeting `.jumbotron` no longer

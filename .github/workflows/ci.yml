@@ -105,20 +105,3 @@ jobs:
             # Temporary integration-test workaround; see issue #98.
             MEDIAWIKI_HAS_INTEGRATION_TESTS=1 vendor/bin/phpunit -c phpunit.xml extensions/BootstrapComponents/tests/phpunit/Unit
           fi
-
-      - if: env.TYPE == 'coverage'
-        name: Run PHPUnit (coverage)
-        run: |
-          if [ -f tests/phpunit/phpunit.php ]; then
-            php tests/phpunit/phpunit.php -c extensions/BootstrapComponents/ --testsuite bootstrap-components-unit --coverage-clover coverage.clover
-          else
-            # MW 1.46 and later
-            composer phpunit:config
-            # Temporary integration-test workaround; see issue #98.
-            MEDIAWIKI_HAS_INTEGRATION_TESTS=1 vendor/bin/phpunit -c phpunit.xml extensions/BootstrapComponents/tests/phpunit/Unit --coverage-clover coverage.clover
-          fi
-
-      - if: env.TYPE == 'coverage'
-        name: upload coverage report
-        working-directory: ~
-        run: bash EarlyCopy/.github/workflows/uploadCoverageReport.sh

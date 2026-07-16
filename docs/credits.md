@@ -8,9 +8,6 @@ It is based upon the [Bootstrap extension][ExtensionBootstrap] created
 by Stephan Gambke, now maintained by [ProfessionalWiki][ProWiki].
 Also, some parts of its documentation is copied and used here.
 
-Code snippets used for CI on [Travis] and [Scrutinizer] were taken from
-the [SemanticScribunto] software repository.
-
 Integration tests use the `JsonTestCaseScriptRunner` class created by
 mwjames for [SemanticMediaWiki] and both json test classes and the
 `ReadmeContentsBuilder` are adaptions of his work, also.
@@ -27,8 +24,7 @@ See its documentation on [mediawiki.org][ExtensionBootstrap] and
 [GitHub][BootstrapGitHub].
 
 For integration tests, this extension relies on classes from the extension
-[SemanticMediaWiki]. It is only installed, when conduction CI tests on
-[Travis].
+[SemanticMediaWiki]. It is only installed when conducting CI tests.
 
 ### Thanks!
 
@@ -48,8 +44,5 @@ If I forgot somebody, sorry. Please drop me a note, so I can add them here.
 [ExtensionBootstrap]: https://www.mediawiki.org/wiki/Extension:Bootstrap
 [BootstrapGitHub]: https://github.com/ProfessionalWiki/Bootstrap
 [ProWiki]: https://github.com/ProfessionalWiki
-[Travis]: https://travis-ci.org
-[Scrutinizer]: https://scrutinizer-ci.com
-[SemanticScribunto]: https://github.com/SemanticMediaWiki/SemanticScribunto
 [SemanticMediaWiki]: https://github.com/SemanticMediaWiki/SemanticMediaWiki
 [Sandbox]: https://sandbox.semantic-mediawiki.org/wiki/BootstrapComponents

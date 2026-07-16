@@ -2,8 +2,6 @@
 [![Build Status](https://github.com/oetterer/BootstrapComponents/actions/workflows/ci.yml/badge.svg)](https://github.com/oetterer/BootstrapComponents/actions/workflows/ci.yml)
 ![Latest Stable Version](https://img.shields.io/packagist/v/mediawiki/bootstrap-components.svg)
 ![Total Download Count](https://img.shields.io/packagist/dt/mediawiki/bootstrap-components.svg)
-[![Code Coverage](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/?branch=master)
-[![Code Quality](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/oetterer/BootstrapComponents/?branch=master)
 
 Bootstrap Components is a [MediaWiki] extension that aims to provide
 editors with easy access to certain components introduced by

@@ -110,4 +110,4 @@ end
 ```
 
 [Scribunto]: https://www.mediawiki.org/wiki/Extension:Scribunto
-[components]: bs3/components.md
+[components]: components.md

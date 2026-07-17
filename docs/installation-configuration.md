@@ -128,7 +128,7 @@ galleries, please visit [mediawiki.org][Gallery].
 [Git]: https://git-scm.com/
 [GitArchive]: https://github.com/oetterer/BootstrapComponents/archive/master.zip
 [BootstrapExtension]: https://www.mediawiki.org/wiki/Extension:Bootstrap
-[Components]: bs3/components.md
+[Components]: components.md
 [known-issues]: known-issues.md
 [ImageHelp]: https://www.mediawiki.org/wiki/Help:Images
 [Gallery]: https://www.mediawiki.org/wiki/Help:Images#Rendering_a_gallery_of_images

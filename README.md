@@ -40,11 +40,7 @@ the list of [open bugs][open bugs]. If not, [report it][report bugs]. Also, see 
 the list of [known issues][known-issues].
 
 Use the [talk page on MediaWiki.org][mw-talk] for general questions, comments,
-or suggestions. For direct contact with the author, please use the
-[Email functionality on MediaWiki.org.][mw-mail]
-
-## Bootstrap3
-If you use bootstrap3, please use the [legacy documentation](docs/bs3/README.md).
+or suggestions.
 
 [MediaWiki]: https://www.mediawiki.org/
 [Bootstrap]: http://getbootstrap.com/
@@ -54,4 +50,3 @@ If you use bootstrap3, please use the [legacy documentation](docs/bs3/README.md)
 [open bugs]: https://github.com/oetterer/BootstrapComponents/issues
 [report bugs]: https://github.com/oetterer/BootstrapComponents/issues/new
 [mw-talk]: https://www.mediawiki.org/wiki/Extension_talk:BootstrapComponents
-[mw-mail]: https://www.mediawiki.org/wiki/Special:EmailUser/oetterer

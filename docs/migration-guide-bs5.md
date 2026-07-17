@@ -72,7 +72,12 @@ Pages rendered before the upgrade still carry Bootstrap 4 markup in the
 parser cache while the wiki already serves Bootstrap 5 CSS and
 JavaScript, so components on cached pages can look broken. This
 resolves as pages re-render; to force it, purge the affected pages or
-run the `purgeParserCache` maintenance script.
+clear the whole parser cache with the `purgeParserCache` maintenance
+script:
+
+```
+php maintenance/run.php purgeParserCache --age 0
+```
 
 [BS5-jumbotron]: https://getbootstrap.com/docs/5.3/examples/jumbotron/
 [BS5-migration]: https://getbootstrap.com/docs/5.3/migration/

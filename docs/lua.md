@@ -71,11 +71,11 @@ like this
 
 ```lua
 local tooltip = mw.bootstrap.parse( 'tooltip', 'ambiguous', { text='better explanation' } )
-local inner = [[<bootstrap_card heading="Headline for Card1">Text inside the card</bootstrap_panel>
-    <bootstrap_card heading="Headline for Card2">Text inside the card</bootstrap_panel>
-    <bootstrap_card heading="Headline for Card3" color="danger" active>Text inside the card]] .. tooltip ..  [[</bootstrap_panel>
-    <bootstrap_card heading="Headline for Card4" color="info">Text inside the card</bootstrap_panel>
-    <bootstrap_card color="info">Text inside the card</bootstrap_panel>]]
+local inner = [[<bootstrap_card heading="Headline for Card1">Text inside the card</bootstrap_card>
+    <bootstrap_card heading="Headline for Card2">Text inside the card</bootstrap_card>
+    <bootstrap_card heading="Headline for Card3" color="danger" active>Text inside the card]] .. tooltip ..  [[</bootstrap_card>
+    <bootstrap_card heading="Headline for Card4" color="info">Text inside the card</bootstrap_card>
+    <bootstrap_card color="info">Text inside the card</bootstrap_card>]]
 return mw.bootstrap.parse(
     'accordion',
     inner,

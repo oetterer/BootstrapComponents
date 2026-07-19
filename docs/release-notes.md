@@ -2,7 +2,10 @@
 
 ### BootstrapComponents 6.0.1
 
-Released on TBD
+Released on 20-July-2026
+
+Fixes:
+* fix text color on anchor-based buttons and colored cards
 
 Changes:
 * add a migration guide for the Bootstrap 4 to 5 upgrade

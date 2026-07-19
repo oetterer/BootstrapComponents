@@ -23,5 +23,5 @@
  * @author        Tobias Oetterer
  */
 .text-white .card-header .card-title {
-	color: var(--white);
+	color: var(--bs-white);
 }

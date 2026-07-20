@@ -104,12 +104,12 @@
 			"styles": "ext.bootstrapComponents.card.fix.css"
 		},
 		"ext.bootstrapComponents.carousel.fix": {
-			"dependencies": "ext.bootstrap.scripts",
+			"class": "MediaWiki\\Extension\\BootstrapComponents\\ResourceLoader\\BootstrapDependentModule",
 			"styles": "ext.bootstrapComponents.carousel.fix.css",
 			"scripts": "ext.bootstrapComponents.carousel.js"
 		},
 		"ext.bootstrapComponents.modal.fix": {
-			"dependencies": "ext.bootstrap.scripts",
+			"class": "MediaWiki\\Extension\\BootstrapComponents\\ResourceLoader\\BootstrapDependentModule",
 			"styles": "ext.bootstrapComponents.modal.fix.css",
 			"scripts": "ext.bootstrapComponents.modal.js"
 		},
@@ -117,14 +117,14 @@
 			"styles": "ext.bootstrapComponents.modal.vector-fix.css"
 		},
 		"ext.bootstrapComponents.popover.fix": {
-			"dependencies": "ext.bootstrap.scripts",
+			"class": "MediaWiki\\Extension\\BootstrapComponents\\ResourceLoader\\BootstrapDependentModule",
 			"scripts": "ext.bootstrapComponents.popover.js"
 		},
 		"ext.bootstrapComponents.popover.vector-fix": {
 			"styles": "ext.bootstrapComponents.popover.vector-fix.css"
 		},
 		"ext.bootstrapComponents.tooltip.fix": {
-			"dependencies": "ext.bootstrap.scripts",
+			"class": "MediaWiki\\Extension\\BootstrapComponents\\ResourceLoader\\BootstrapDependentModule",
 			"scripts": "ext.bootstrapComponents.tooltip.js",
 			"styles": "ext.bootstrapComponents.tooltip.fix.css"
 		},

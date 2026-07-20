@@ -45,7 +45,7 @@ class OutputPageParserOutput {
 	 * or, in Chameleon's case, by registering Extension:Bootstrap's modules under a
 	 * different name that ResourceLoader cannot deduplicate against ext.bootstrap.*.
 	 */
-	private const SKINS_LOADING_BOOTSTRAP_THEMSELVES = [ 'chameleon', 'medik', 'tweeki' ];
+	private const BOOTSTRAP_SKINS = [ 'chameleon', 'medik', 'tweeki' ];
 
 	public function __construct(
 		private readonly OutputPage $outputPage,
@@ -76,7 +76,7 @@ class OutputPageParserOutput {
 	private function activeSkinLoadsBootstrapItself(): bool {
 		$activeSkin = strtolower( $this->getOutputPage()->getSkin()->getSkinName() ?? '' );
 
-		return in_array( $activeSkin, self::SKINS_LOADING_BOOTSTRAP_THEMSELVES, true );
+		return in_array( $activeSkin, self::BOOTSTRAP_SKINS, true );
 	}
 
 	protected function getBootstrapComponentsService(): BootstrapComponentsService {

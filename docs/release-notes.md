@@ -10,6 +10,7 @@ Changes:
 
 Fixes:
 * fix Bootstrap's CSS loading twice on the Chameleon, Medik, and Tweeki skins, which provide Bootstrap themselves
+* fix Bootstrap's JavaScript loading twice on the Medik skin, which broke its navbar and action dropdowns
 
 ### BootstrapComponents 6.0.0
 

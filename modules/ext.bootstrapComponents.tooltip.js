@@ -26,22 +26,9 @@
 ( function () {
 	'use strict';
 
-	// Wait for DOM to be ready
-	if ( document.readyState === 'loading' ) {
-		document.addEventListener( 'DOMContentLoaded', initTooltips );
-	} else {
-		initTooltips();
-	}
-
-	function initTooltips() {
-		if ( typeof bootstrap === 'undefined' || !bootstrap.Tooltip ) {
-			// eslint-disable-next-line no-console
-			console.warn( 'BootstrapComponents: bootstrap.Tooltip is not available; tooltip triggers will not work.' );
-			return;
-		}
-		const tooltipTriggerList = document.querySelectorAll( '[data-bs-toggle="tooltip"]' );
-		tooltipTriggerList.forEach( function ( tooltipTriggerEl ) {
-			new bootstrap.Tooltip( tooltipTriggerEl );
+	mw.libs.bootstrapComponents.whenReady( 'Tooltip', function ( Tooltip, root ) {
+		root.querySelectorAll( '[data-bs-toggle="tooltip"]' ).forEach( function ( element ) {
+			Tooltip.getOrCreateInstance( element );
 		} );
-	}
+	} );
 }() );

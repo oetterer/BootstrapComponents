@@ -1,5 +1,16 @@
 ## Release Notes
 
+### BootstrapComponents 6.1.0
+
+Released on TBD
+
+Fixes:
+* fix BootstrapComponents on skins that bundle their own Bootstrap, such as Medik and Tweeki: the second Bootstrap copy broke their navbar and action dropdowns and left stray list bullets on the sidebar and menus, and is no longer loaded
+
+Changes:
+* Bootstrap from Extension:Bootstrap is now loaded only on skins that do not provide their own
+* `api.php?action=parse` no longer lists `ext.bootstrap.styles` and `ext.bootstrap.scripts`; they load at page render instead, so page views, VisualEditor and live preview are unaffected
+
 ### BootstrapComponents 6.0.1
 
 Released on 20-July-2026

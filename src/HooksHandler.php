@@ -6,6 +6,7 @@ use Bootstrap\BootstrapManager;
 use MediaWiki\Config\Config;
 use MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput;
 use MediaWiki\Extension\BootstrapComponents\Hooks\ParserFirstCallInit;
+use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\Hook\GalleryGetModesHook;
 use MediaWiki\Hook\ImageBeforeProduceHTMLHook;
 use MediaWiki\Hook\InternalParseBeforeLinksHook;
@@ -37,6 +38,7 @@ use StripState;
  * @since 5.0
  */
 class HooksHandler implements
+	BeforePageDisplayHook,
 	GalleryGetModesHook,
 	ImageBeforeProduceHTMLHook,
 	InternalParseBeforeLinksHook,
@@ -67,6 +69,21 @@ class HooksHandler implements
 		}
 
 		return true;
+	}
+
+	public function onBeforePageDisplay( $out, $skin ): void {
+		if ( $this->getBootstrapComponentsService()->skinProvidesBootstrap( $skin->getSkinName() ) ) {
+			return;
+		}
+
+		// Only where a page parsed content, which is where onParserAfterParse added the fix styles.
+		// This keeps Bootstrap off pages that render no wiki content, such as most special pages.
+		if ( !in_array( 'ext.bootstrapComponents.bootstrap.fix', $out->getModuleStyles(), true ) ) {
+			return;
+		}
+
+		$out->addModuleStyles( [ 'ext.bootstrap.styles' ] );
+		$out->addModules( [ 'ext.bootstrap.scripts' ] );
 	}
 
 	/**
@@ -194,11 +211,7 @@ class HooksHandler implements
 	 * @return bool
 	 */
 	public function onParserAfterParse( $parser, &$text, $stripState ): bool {
-		// once, this was only loaded, when a component was paced on the page. now, we load it always
-		// to keep the layout of all the wiki pages consistent.
 		$parser->getOutput()->addModuleStyles( [ 'ext.bootstrapComponents.bootstrap.fix' ] );
-		$parser->getOutput()->addModuleStyles( [ 'ext.bootstrap.styles' ] );
-		$parser->getOutput()->addModules( [ 'ext.bootstrap.scripts' ] );
 		$skin = $this->getBootstrapComponentsService()->getNameOfActiveSkin();
 		foreach ( $this->getBootstrapComponentsService()->getActiveComponents() as $activeComponent ) {
 			if ( !$this->getComponentLibrary()->isRegistered( $activeComponent ) ) {

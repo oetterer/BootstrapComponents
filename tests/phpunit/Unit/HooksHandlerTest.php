@@ -6,7 +6,9 @@ use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\HooksHandler;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
+use MediaWiki\Output\OutputPage;
 use PHPUnit\Framework\TestCase;
+use Skin;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\HooksHandler
@@ -71,5 +73,53 @@ class HooksHandlerTest extends TestCase {
 	 */
 	public function testOnOutputPageParserOutput() {
 		$this->assertTrue( true );
+	}
+
+	public function testOnBeforePageDisplayLoadsBootstrapForNonProviderSkinWithParsedContent() {
+		$outputPage = $this->createMock( OutputPage::class );
+		$outputPage->method( 'getModuleStyles' )->willReturn( [ 'ext.bootstrapComponents.bootstrap.fix' ] );
+		$outputPage->expects( $this->once() )
+			->method( 'addModuleStyles' )
+			->with( [ 'ext.bootstrap.styles' ] );
+		$outputPage->expects( $this->once() )
+			->method( 'addModules' )
+			->with( [ 'ext.bootstrap.scripts' ] );
+
+		$this->newHooksHandler( false )->onBeforePageDisplay( $outputPage, $this->newSkin( 'vector' ) );
+	}
+
+	public function testOnBeforePageDisplaySkipsSkinThatProvidesBootstrap() {
+		$outputPage = $this->createMock( OutputPage::class );
+		$outputPage->expects( $this->never() )->method( 'addModuleStyles' );
+		$outputPage->expects( $this->never() )->method( 'addModules' );
+
+		$this->newHooksHandler( true )->onBeforePageDisplay( $outputPage, $this->newSkin( 'medik' ) );
+	}
+
+	public function testOnBeforePageDisplaySkipsPageThatParsedNoContent() {
+		$outputPage = $this->createMock( OutputPage::class );
+		$outputPage->method( 'getModuleStyles' )->willReturn( [] );
+		$outputPage->expects( $this->never() )->method( 'addModuleStyles' );
+		$outputPage->expects( $this->never() )->method( 'addModules' );
+
+		$this->newHooksHandler( false )->onBeforePageDisplay( $outputPage, $this->newSkin( 'vector' ) );
+	}
+
+	private function newHooksHandler( bool $skinProvidesBootstrap ): HooksHandler {
+		$service = $this->createMock( BootstrapComponentsService::class );
+		$service->method( 'skinProvidesBootstrap' )->willReturn( $skinProvidesBootstrap );
+
+		return new HooksHandler(
+			$service,
+			$this->createMock( ComponentLibrary::class ),
+			$this->createMock( NestingController::class ),
+		);
+	}
+
+	private function newSkin( string $skinName ): Skin {
+		$skin = $this->createMock( Skin::class );
+		$skin->method( 'getSkinName' )->willReturn( $skinName );
+
+		return $skin;
 	}
 }

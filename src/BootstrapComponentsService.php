@@ -9,6 +9,11 @@ class BootstrapComponentsService
 {
 
 	/**
+	 * Skins that put Bootstrap on the page themselves.
+	 */
+	private const SKINS_WITH_OWN_BOOTSTRAP = [ 'medik', 'tweeki' ];
+
+	/**
 	 * List of active components on the page
 	 */
 	private array $activeComponents = [];
@@ -74,6 +79,10 @@ class BootstrapComponentsService
 	 */
 	public function vectorSkinInUse(): bool {
 		return in_array( strtolower( $this->getNameOfActiveSkin() ), [ 'vector', 'vector-2022' ] ) ;
+	}
+
+	public function skinProvidesBootstrap( string $skin ): bool {
+		return in_array( $skin, self::SKINS_WITH_OWN_BOOTSTRAP, true );
 	}
 
 	/**

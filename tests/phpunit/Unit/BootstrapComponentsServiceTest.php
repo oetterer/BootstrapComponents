@@ -62,6 +62,23 @@ class BootstrapComponentsServiceTest extends TestCase {
 	}
 
 	/**
+	 * @dataProvider skinProvidesBootstrapProvider
+	 */
+	public function testSkinProvidesBootstrap( string $skin, bool $expected ) {
+		$instance = new BootstrapComponentsService( $this->getMockBuilder( Config::class )->getMock() );
+		$this->assertSame( $expected, $instance->skinProvidesBootstrap( $skin ) );
+	}
+
+	public static function skinProvidesBootstrapProvider(): array {
+		return [
+			'medik provides its own Bootstrap' => [ 'medik', true ],
+			'tweeki provides its own Bootstrap' => [ 'tweeki', true ],
+			'vector does not' => [ 'vector', false ],
+			'chameleon uses Extension:Bootstrap' => [ 'chameleon', false ],
+		];
+	}
+
+	/**
 	 * @throws ReflectionException
 	 */
 	public function testPrivateCanDetectSkinInUse() {

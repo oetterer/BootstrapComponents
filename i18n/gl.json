@@ -9,6 +9,7 @@
 	"bootstrap-components-error-tracking-category": "Páxinas con erros no compoñente de bootstrap",
 	"bootstrap-components-close-element": "Pechar",
 	"bootstrap-components-image-modal-source-button": "Visitar fonte",
+	"bootstrap-components-carousel-slide-label": "Diapositiva $1",
 	"bootstrap-components-lua-error-no-component": "Non se indicou ningún nome de compoñente para mw.bootstrap.parse.",
 	"bootstrap-components-lua-error-invalid-component": "Nome de compoñente non válido enviado a mw.bootstrap.parse: $1.",
 	"bootstrap-components-badge-content-missing": "Debe especificar o texto para este emblema.",

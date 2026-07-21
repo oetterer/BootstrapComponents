@@ -119,9 +119,12 @@ class BootstrapComponentsService
 	}
 
 	/**
-	 * Skins that put the Bootstrap stylesheet on the page themselves.
+	 * Skins that put the Bootstrap stylesheet on the page themselves. Chameleon belongs here but
+	 * not in the scripts map: it registers Extension:Bootstrap's stylesheet under its own module
+	 * name (zzz.ext.bootstrap.styles), which ResourceLoader cannot deduplicate against
+	 * ext.bootstrap.styles, while its Bootstrap JavaScript is ext.bootstrap.scripts itself.
 	 */
-	private const SKINS_WITH_OWN_BOOTSTRAP_STYLES = [ 'medik', 'tweeki' ];
+	private const SKINS_WITH_OWN_BOOTSTRAP_STYLES = [ 'chameleon', 'medik', 'tweeki' ];
 
 	public function skinProvidesBootstrapStyles( string $skin ): bool {
 		return in_array( strtolower( $skin ), self::SKINS_WITH_OWN_BOOTSTRAP_STYLES, true );

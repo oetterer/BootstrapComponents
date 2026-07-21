@@ -26,6 +26,8 @@
 ( function () {
 	'use strict';
 
+	const { getComponentClass } = require( 'ext.bootstrapComponents.bootstrap' );
+
 	// Wait for DOM to be ready
 	if ( document.readyState === 'loading' ) {
 		document.addEventListener( 'DOMContentLoaded', initTooltips );
@@ -34,14 +36,15 @@
 	}
 
 	function initTooltips() {
-		if ( typeof bootstrap === 'undefined' || !bootstrap.Tooltip ) {
+		const Tooltip = getComponentClass( 'Tooltip' );
+		if ( !Tooltip ) {
 			// eslint-disable-next-line no-console
 			console.warn( 'BootstrapComponents: bootstrap.Tooltip is not available; tooltip triggers will not work.' );
 			return;
 		}
 		const tooltipTriggerList = document.querySelectorAll( '[data-bs-toggle="tooltip"]' );
 		tooltipTriggerList.forEach( function ( tooltipTriggerEl ) {
-			new bootstrap.Tooltip( tooltipTriggerEl );
+			new Tooltip( tooltipTriggerEl );
 		} );
 	}
 }() );

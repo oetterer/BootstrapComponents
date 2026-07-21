@@ -26,6 +26,8 @@
 ( function () {
 	'use strict';
 
+	const { getComponentClass } = require( 'ext.bootstrapComponents.bootstrap' );
+
 	// Wait for DOM to be ready
 	if ( document.readyState === 'loading' ) {
 		document.addEventListener( 'DOMContentLoaded', initCarousels );
@@ -34,14 +36,15 @@
 	}
 
 	function initCarousels() {
-		if ( typeof bootstrap === 'undefined' || !bootstrap.Carousel ) {
+		const Carousel = getComponentClass( 'Carousel' );
+		if ( !Carousel ) {
 			// eslint-disable-next-line no-console
 			console.warn( 'BootstrapComponents: bootstrap.Carousel is not available; carousels will not cycle.' );
 			return;
 		}
 		const carouselElements = document.querySelectorAll( '.carousel' );
 		carouselElements.forEach( function ( element ) {
-			new bootstrap.Carousel( element );
+			new Carousel( element );
 		} );
 	}
 }() );

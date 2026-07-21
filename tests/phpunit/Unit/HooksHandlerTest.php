@@ -107,6 +107,17 @@ class HooksHandlerTest extends TestCase {
 		$this->newHooksHandler()->onBeforePageDisplay( $out, $this->newSkin( 'medik' ) );
 	}
 
+	public function testOnBeforePageDisplaySkipsOnlyTheStylesheetOnChameleon() {
+		$out = $this->createMock( OutputPage::class );
+		$out->method( 'getModuleStyles' )->willReturn( [ 'ext.bootstrapComponents.bootstrap.fix' ] );
+		$out->expects( $this->once() )->method( 'addJsConfigVars' )
+			->with( 'wgBootstrapComponentsBootstrapModules', [ 'scripts' => 'ext.bootstrap.scripts', 'styles' => null ] );
+		$out->expects( $this->never() )->method( 'addModuleStyles' );
+		$out->expects( $this->once() )->method( 'addModules' )
+			->with( [ 'ext.bootstrap.scripts' ] );
+
+		$this->newHooksHandler()->onBeforePageDisplay( $out, $this->newSkin( 'chameleon' ) );
+	}
 
 	public function testOnBeforePageDisplayOnlySetsTheConfigVariableWhenNoContentWasParsed() {
 		$out = $this->createMock( OutputPage::class );

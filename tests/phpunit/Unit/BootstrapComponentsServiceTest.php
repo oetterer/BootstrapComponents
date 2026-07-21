@@ -91,6 +91,7 @@ class BootstrapComponentsServiceTest extends TestCase {
 
 	public static function skinProvidesBootstrapStylesProvider(): array {
 		return [
+			'chameleon registers its own copy of the stylesheet' => [ 'chameleon', true ],
 			'medik ships its own stylesheet' => [ 'medik', true ],
 			'tweeki ships its own stylesheet' => [ 'tweeki', true ],
 			'vector does not' => [ 'vector', false ],

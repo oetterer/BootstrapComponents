@@ -144,6 +144,13 @@ class BootstrapComponentsServiceTest extends TestCase {
 		$this->assertSame( 'skins.tweeki.my.scripts', $instance->getBootstrapScriptsModule( 'tweeki' ) );
 	}
 
+	public function testGetBootstrapScriptsModuleForTweekiFallsBackOnANonStringModule() {
+		$config = new TestConfig();
+		$config->set( 'TweekiSkinCustomScriptModule', [ 'skins.a', 'skins.b' ] );
+		$instance = new BootstrapComponentsService( $config );
+		$this->assertSame( 'ext.bootstrap.scripts', $instance->getBootstrapScriptsModule( 'tweeki' ) );
+	}
+
 	/**
 	 * @throws ReflectionException
 	 */

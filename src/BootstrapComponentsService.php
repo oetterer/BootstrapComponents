@@ -104,7 +104,9 @@ class BootstrapComponentsService
 		if ( $this->mainConfig->has( 'TweekiSkinCustomScriptModule' )
 			&& $this->mainConfig->get( 'TweekiSkinCustomScriptModule' )
 		) {
-			return $this->mainConfig->get( 'TweekiSkinCustomScriptModule' );
+			$module = $this->mainConfig->get( 'TweekiSkinCustomScriptModule' );
+			// A shape we do not mirror; fall back to Extension:Bootstrap's copy.
+			return is_string( $module ) ? $module : 'ext.bootstrap.scripts';
 		}
 		if ( $this->mainConfig->has( 'TweekiSkinUseCustomFiles' )
 			&& $this->mainConfig->get( 'TweekiSkinUseCustomFiles' )

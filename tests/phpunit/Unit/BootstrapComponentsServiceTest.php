@@ -62,6 +62,88 @@ class BootstrapComponentsServiceTest extends TestCase {
 	}
 
 	/**
+	 * @dataProvider skinProvidesBootstrapScriptsProvider
+	 */
+	public function testSkinProvidesBootstrapScripts( string $skin, bool $expected ) {
+		$instance = new BootstrapComponentsService( $this->getMockBuilder( Config::class )->getMock() );
+		$this->assertSame( $expected, $instance->skinProvidesBootstrapScripts( $skin ) );
+	}
+
+	public static function skinProvidesBootstrapScriptsProvider(): array {
+		return [
+			'medik ships its own Bootstrap' => [ 'medik', true ],
+			'tweeki ships its own Bootstrap' => [ 'tweeki', true ],
+			'vector does not' => [ 'vector', false ],
+			'vector-2022 does not' => [ 'vector-2022', false ],
+			'chameleon uses Extension:Bootstrap scripts' => [ 'chameleon', false ],
+			'monobook does not' => [ 'monobook', false ],
+			'unknown skin does not' => [ 'serenity', false ],
+		];
+	}
+
+	/**
+	 * @dataProvider skinProvidesBootstrapStylesProvider
+	 */
+	public function testSkinProvidesBootstrapStyles( string $skin, bool $expected ) {
+		$instance = new BootstrapComponentsService( $this->getMockBuilder( Config::class )->getMock() );
+		$this->assertSame( $expected, $instance->skinProvidesBootstrapStyles( $skin ) );
+	}
+
+	public static function skinProvidesBootstrapStylesProvider(): array {
+		return [
+			'medik ships its own stylesheet' => [ 'medik', true ],
+			'tweeki ships its own stylesheet' => [ 'tweeki', true ],
+			'vector does not' => [ 'vector', false ],
+			'unknown skin does not' => [ 'serenity', false ],
+		];
+	}
+
+	/**
+	 * @dataProvider getBootstrapScriptsModuleProvider
+	 */
+	public function testGetBootstrapScriptsModule( string $skin, string $expected ) {
+		$instance = new BootstrapComponentsService( $this->getMockBuilder( Config::class )->getMock() );
+		$this->assertSame( $expected, $instance->getBootstrapScriptsModule( $skin ) );
+	}
+
+	public static function getBootstrapScriptsModuleProvider(): array {
+		return [
+			'medik uses its own skin module' => [ 'medik', 'skins.medik.js' ],
+			'vector uses Extension:Bootstrap' => [ 'vector', 'ext.bootstrap.scripts' ],
+			'chameleon uses Extension:Bootstrap' => [ 'chameleon', 'ext.bootstrap.scripts' ],
+			'unknown skin falls back to Extension:Bootstrap' => [ 'serenity', 'ext.bootstrap.scripts' ],
+		];
+	}
+
+	public function testGetBootstrapScriptsModuleForTweekiDefaultsToItsScriptModule() {
+		$instance = new BootstrapComponentsService( new TestConfig() );
+		$this->assertSame( 'skins.tweeki.scripts', $instance->getBootstrapScriptsModule( 'tweeki' ) );
+	}
+
+	public function testGetBootstrapScriptsModuleForTweekiTreatsFalseCustomModuleAsUnset() {
+		$config = new TestConfig();
+		$config->set( 'TweekiSkinCustomScriptModule', false );
+		$config->set( 'TweekiSkinUseCustomFiles', false );
+		$instance = new BootstrapComponentsService( $config );
+		$this->assertSame( 'skins.tweeki.scripts', $instance->getBootstrapScriptsModule( 'tweeki' ) );
+	}
+
+	public function testGetBootstrapScriptsModuleForTweekiUsesCustomFilesModule() {
+		$config = new TestConfig();
+		$config->set( 'TweekiSkinUseCustomFiles', true );
+		$instance = new BootstrapComponentsService( $config );
+		$this->assertSame( 'skins.tweeki.custom.scripts', $instance->getBootstrapScriptsModule( 'tweeki' ) );
+	}
+
+	public function testGetBootstrapScriptsModuleForTweekiHonorsConfiguredScriptModule() {
+		$config = new TestConfig();
+		$config->set( 'TweekiSkinCustomScriptModule', 'skins.tweeki.my.scripts' );
+		$config->set( 'TweekiSkinUseCustomFiles', true );
+		$instance = new BootstrapComponentsService( $config );
+		$this->assertSame( 'skins.tweeki.my.scripts', $instance->getBootstrapScriptsModule( 'tweeki' ) );
+	}
+
+	/**
 	 * @throws ReflectionException
 	 */
 	public function testPrivateCanDetectSkinInUse() {

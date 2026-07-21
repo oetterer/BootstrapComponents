@@ -1,5 +1,16 @@
 ## Release Notes
 
+### BootstrapComponents 6.1.0
+
+Released on TBD
+
+Fixes:
+* fix dropdown menus, accordions and other click-driven components on Medik and Tweeki
+* skins that provide their own Bootstrap (Medik and Tweeki) no longer also load Extension:Bootstrap's copy
+
+Changes:
+* `api.php?action=parse` no longer lists the `ext.bootstrap.*` modules; anything rendering parsed content outside a normal page view must load Bootstrap itself
+
 ### BootstrapComponents 6.0.1
 
 Released on 20-July-2026

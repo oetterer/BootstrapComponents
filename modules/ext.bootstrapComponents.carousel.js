@@ -26,25 +26,17 @@
 ( function () {
 	'use strict';
 
-	const { getComponentClass } = require( 'ext.bootstrapComponents.bootstrap' );
+	const { getComponentClass, whenReady } = require( 'ext.bootstrapComponents.bootstrap' );
 
-	// Wait for DOM to be ready
-	if ( document.readyState === 'loading' ) {
-		document.addEventListener( 'DOMContentLoaded', initCarousels );
-	} else {
-		initCarousels();
-	}
-
-	function initCarousels() {
+	whenReady( function ( content ) {
 		const Carousel = getComponentClass( 'Carousel' );
 		if ( !Carousel ) {
 			// eslint-disable-next-line no-console
 			console.warn( 'BootstrapComponents: bootstrap.Carousel is not available; carousels will not cycle.' );
 			return;
 		}
-		const carouselElements = document.querySelectorAll( '.carousel' );
-		carouselElements.forEach( function ( element ) {
+		content.querySelectorAll( '.carousel' ).forEach( function ( element ) {
 			new Carousel( element );
 		} );
-	}
+	} );
 }() );

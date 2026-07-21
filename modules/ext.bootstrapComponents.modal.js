@@ -5,16 +5,9 @@
 ( function () {
 	'use strict';
 
-	const { getComponentClass } = require( 'ext.bootstrapComponents.bootstrap' );
+	const { getComponentClass, whenReady } = require( 'ext.bootstrapComponents.bootstrap' );
 
-	// Wait for DOM to be ready
-	if ( document.readyState === 'loading' ) {
-		document.addEventListener( 'DOMContentLoaded', initModals );
-	} else {
-		initModals();
-	}
-
-	function initModals() {
+	whenReady( function ( content ) {
 		const Modal = getComponentClass( 'Modal' );
 		if ( !Modal ) {
 			// eslint-disable-next-line no-console
@@ -23,9 +16,8 @@
 		}
 		// Instantiate every .modal element so trigger clicks (or programmatic
 		// bootstrap.Modal.getOrCreateInstance(el).show()) work as expected.
-		const modalList = document.querySelectorAll( '.modal' );
-		modalList.forEach( function ( modalEl ) {
+		content.querySelectorAll( '.modal' ).forEach( function ( modalEl ) {
 			Modal.getOrCreateInstance( modalEl );
 		} );
-	}
+	} );
 }() );

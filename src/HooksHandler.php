@@ -6,6 +6,7 @@ use Bootstrap\BootstrapManager;
 use MediaWiki\Config\Config;
 use MediaWiki\Extension\BootstrapComponents\Hooks\OutputPageParserOutput;
 use MediaWiki\Extension\BootstrapComponents\Hooks\ParserFirstCallInit;
+use MediaWiki\Hook\BeforePageDisplayHook;
 use MediaWiki\Hook\GalleryGetModesHook;
 use MediaWiki\Hook\ImageBeforeProduceHTMLHook;
 use MediaWiki\Hook\InternalParseBeforeLinksHook;
@@ -37,6 +38,7 @@ use StripState;
  * @since 5.0
  */
 class HooksHandler implements
+	BeforePageDisplayHook,
 	GalleryGetModesHook,
 	ImageBeforeProduceHTMLHook,
 	InternalParseBeforeLinksHook,
@@ -45,6 +47,12 @@ class HooksHandler implements
 	ParserFirstCallInitHook,
 	SetupAfterCacheHook
 {
+	/**
+	 * The styles fix module added on every parsed page. onBeforePageDisplay reads it as the
+	 * marker that the page rendered parsed content.
+	 */
+	private const BOOTSTRAP_FIX_MODULE = 'ext.bootstrapComponents.bootstrap.fix';
+
 	private Config $config;
 
 	public function __construct(
@@ -67,6 +75,40 @@ class HooksHandler implements
 		}
 
 		return true;
+	}
+
+	/**
+	 * Hook: BeforePageDisplay
+	 *
+	 * Loads Bootstrap for the active skin: Extension:Bootstrap's stylesheet and script are each
+	 * added only when the skin does not put its own on the page, so a single copy of each is on
+	 * the page, and only where the page rendered parsed content, the same scope in which
+	 * onParserAfterParse adds the styles fix. Component initialization waits on whichever module
+	 * carries this skin's Bootstrap, the modules are named in a config variable set on every page:
+	 * content can also arrive after page display (live preview on an edit page), and the init
+	 * scripts loaded with it read the variable and fetch the named module on demand.
+	 *
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/BeforePageDisplay
+	 */
+	public function onBeforePageDisplay( $out, $skin ): void {
+		$skinName = $skin->getSkinName();
+		$service = $this->getBootstrapComponentsService();
+
+		$out->addJsConfigVars( 'wgBootstrapComponentsBootstrapModules', [
+			'scripts' => $service->getBootstrapScriptsModule( $skinName ),
+			'styles' => $service->getBootstrapStylesModule( $skinName ),
+		] );
+
+		if ( !in_array( self::BOOTSTRAP_FIX_MODULE, $out->getModuleStyles(), true ) ) {
+			return;
+		}
+
+		if ( !$service->skinProvidesBootstrapStyles( $skinName ) ) {
+			$out->addModuleStyles( [ 'ext.bootstrap.styles' ] );
+		}
+		if ( !$service->skinProvidesBootstrapScripts( $skinName ) ) {
+			$out->addModules( [ 'ext.bootstrap.scripts' ] );
+		}
 	}
 
 	/**
@@ -194,11 +236,10 @@ class HooksHandler implements
 	 * @return bool
 	 */
 	public function onParserAfterParse( $parser, &$text, $stripState ): bool {
-		// once, this was only loaded, when a component was paced on the page. now, we load it always
-		// to keep the layout of all the wiki pages consistent.
-		$parser->getOutput()->addModuleStyles( [ 'ext.bootstrapComponents.bootstrap.fix' ] );
-		$parser->getOutput()->addModuleStyles( [ 'ext.bootstrap.styles' ] );
-		$parser->getOutput()->addModules( [ 'ext.bootstrap.scripts' ] );
+		// Always add the styles fix on parsed pages; it doubles as the marker onBeforePageDisplay
+		// reads to load Bootstrap for the active skin (which the shared, skin agnostic parser
+		// cache cannot decide).
+		$parser->getOutput()->addModuleStyles( [ self::BOOTSTRAP_FIX_MODULE ] );
 		$skin = $this->getBootstrapComponentsService()->getNameOfActiveSkin();
 		foreach ( $this->getBootstrapComponentsService()->getActiveComponents() as $activeComponent ) {
 			if ( !$this->getComponentLibrary()->isRegistered( $activeComponent ) ) {

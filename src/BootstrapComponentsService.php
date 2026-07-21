@@ -77,6 +77,57 @@ class BootstrapComponentsService
 	}
 
 	/**
+	 * Whether the given skin ships its own Bootstrap JavaScript.
+	 */
+	public function skinProvidesBootstrapScripts( string $skin ): bool {
+		return $this->getBootstrapScriptsModule( $skin ) !== 'ext.bootstrap.scripts';
+	}
+
+	/**
+	 * The ResourceLoader script module carrying the Bootstrap this skin should use: the skin's own on
+	 * skins that ship Bootstrap, Extension:Bootstrap's `ext.bootstrap.scripts` otherwise. The
+	 * component initialization waits on this module.
+	 */
+	public function getBootstrapScriptsModule( string $skin ): string {
+		return match ( strtolower( $skin ) ) {
+			'medik' => 'skins.medik.js',
+			'tweeki' => $this->getTweekiScriptModule(),
+			default => 'ext.bootstrap.scripts',
+		};
+	}
+
+	/**
+	 * Mirrors Tweeki's own script-module selection ({@see \SkinTweeki::initPage}), so we depend on
+	 * whichever module the running wiki actually loads Bootstrap through.
+	 */
+	private function getTweekiScriptModule(): string {
+		if ( $this->mainConfig->has( 'TweekiSkinCustomScriptModule' )
+			&& $this->mainConfig->get( 'TweekiSkinCustomScriptModule' )
+		) {
+			return $this->mainConfig->get( 'TweekiSkinCustomScriptModule' );
+		}
+		if ( $this->mainConfig->has( 'TweekiSkinUseCustomFiles' )
+			&& $this->mainConfig->get( 'TweekiSkinUseCustomFiles' )
+		) {
+			return 'skins.tweeki.custom.scripts';
+		}
+		return 'skins.tweeki.scripts';
+	}
+
+	public function getBootstrapStylesModule( string $skin ): ?string {
+		return $this->skinProvidesBootstrapStyles( $skin ) ? null : 'ext.bootstrap.styles';
+	}
+
+	/**
+	 * Skins that put the Bootstrap stylesheet on the page themselves.
+	 */
+	private const SKINS_WITH_OWN_BOOTSTRAP_STYLES = [ 'medik', 'tweeki' ];
+
+	public function skinProvidesBootstrapStyles( string $skin ): bool {
+		return in_array( strtolower( $skin ), self::SKINS_WITH_OWN_BOOTSTRAP_STYLES, true );
+	}
+
+	/**
 	 * @param bool $useConfig   set this to true, if we can't rely on {@see \RequestContext::getSkin}
 	 *
 	 * @return string

@@ -36,7 +36,7 @@
 			return;
 		}
 		content.querySelectorAll( '[data-bs-toggle="tooltip"]' ).forEach( function ( el ) {
-			new Tooltip( el );
+			Tooltip.getOrCreateInstance( el );
 		} );
 	} );
 }() );

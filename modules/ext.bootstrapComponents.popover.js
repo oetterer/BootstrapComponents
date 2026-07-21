@@ -36,7 +36,7 @@
 			return;
 		}
 		content.querySelectorAll( '[data-bs-toggle="popover"]' ).forEach( function ( el ) {
-			new Popover( el, { html: true } );
+			Popover.getOrCreateInstance( el, { html: true } );
 		} );
 	} );
 }() );

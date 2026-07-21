@@ -33,6 +33,9 @@
 		}
 	},
 	"Hooks": {
+		"BeforePageDisplay": {
+			"handler": "BootStrapHooks"
+		},
 		"GalleryGetModes": {
 			"handler": "BootStrapHooks"
 		},
@@ -92,7 +95,6 @@
 			"styles": "ext.bootstrapComponents.bootstrap.fix.css"
 		},
 		"ext.bootstrapComponents.bootstrap": {
-			"dependencies": "ext.bootstrap.scripts",
 			"packageFiles": [ "ext.bootstrapComponents.bootstrap.js" ]
 		},
 		"ext.bootstrapComponents.accordion.fix": {

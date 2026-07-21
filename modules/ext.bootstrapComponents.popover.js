@@ -26,27 +26,17 @@
 ( function () {
 	'use strict';
 
-	const { getComponentClass } = require( 'ext.bootstrapComponents.bootstrap' );
+	const { getComponentClass, whenReady } = require( 'ext.bootstrapComponents.bootstrap' );
 
-	// Wait for DOM to be ready
-	if ( document.readyState === 'loading' ) {
-		document.addEventListener( 'DOMContentLoaded', initPopovers );
-	} else {
-		initPopovers();
-	}
-
-	function initPopovers() {
+	whenReady( function ( content ) {
 		const Popover = getComponentClass( 'Popover' );
 		if ( !Popover ) {
 			// eslint-disable-next-line no-console
 			console.warn( 'BootstrapComponents: bootstrap.Popover is not available; popover triggers will not work.' );
 			return;
 		}
-		const popoverTriggerList = document.querySelectorAll( '[data-bs-toggle="popover"]' );
-		popoverTriggerList.forEach( function ( popoverTriggerEl ) {
-			new Popover( popoverTriggerEl, {
-				html: true
-			} );
+		content.querySelectorAll( '[data-bs-toggle="popover"]' ).forEach( function ( el ) {
+			new Popover( el, { html: true } );
 		} );
-	}
+	} );
 }() );

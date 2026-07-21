@@ -26,25 +26,17 @@
 ( function () {
 	'use strict';
 
-	const { getComponentClass } = require( 'ext.bootstrapComponents.bootstrap' );
+	const { getComponentClass, whenReady } = require( 'ext.bootstrapComponents.bootstrap' );
 
-	// Wait for DOM to be ready
-	if ( document.readyState === 'loading' ) {
-		document.addEventListener( 'DOMContentLoaded', initTooltips );
-	} else {
-		initTooltips();
-	}
-
-	function initTooltips() {
+	whenReady( function ( content ) {
 		const Tooltip = getComponentClass( 'Tooltip' );
 		if ( !Tooltip ) {
 			// eslint-disable-next-line no-console
 			console.warn( 'BootstrapComponents: bootstrap.Tooltip is not available; tooltip triggers will not work.' );
 			return;
 		}
-		const tooltipTriggerList = document.querySelectorAll( '[data-bs-toggle="tooltip"]' );
-		tooltipTriggerList.forEach( function ( tooltipTriggerEl ) {
-			new Tooltip( tooltipTriggerEl );
+		content.querySelectorAll( '[data-bs-toggle="tooltip"]' ).forEach( function ( el ) {
+			new Tooltip( el );
 		} );
-	}
+	} );
 }() );

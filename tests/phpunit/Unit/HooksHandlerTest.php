@@ -6,7 +6,12 @@ use MediaWiki\Extension\BootstrapComponents\BootstrapComponentsService;
 use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\HooksHandler;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
+use MediaWiki\Extension\BootstrapComponents\Tests\Fixtures\TestConfig;
+use MediaWiki\Output\OutputPage;
+use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutput;
 use PHPUnit\Framework\TestCase;
+use Skin;
 
 /**
  * @covers  \MediaWiki\Extension\BootstrapComponents\HooksHandler
@@ -63,13 +68,69 @@ class HooksHandlerTest extends TestCase {
 		$this->assertEquals( 'MediaWiki\\Extension\\BootstrapComponents\\CarouselGallery', $modes['carousel'] );
 	}
 
-	/**
-	 * this hook is tested in
-	 * @see OutputPageParserOutputTest::testHookOutputPageParserOutput
-	 *
-	 * @return void
-	 */
-	public function testOnOutputPageParserOutput() {
-		$this->assertTrue( true );
+	public function testOnParserAfterParseAddsOnlyTheStylesFix() {
+		$parserOutput = new ParserOutput();
+		$parser = $this->createMock( Parser::class );
+		$parser->method( 'getOutput' )->willReturn( $parserOutput );
+		$text = '';
+
+		$this->newHooksHandler()->onParserAfterParse( $parser, $text, null );
+
+		$this->assertContains( 'ext.bootstrapComponents.bootstrap.fix', $parserOutput->getModuleStyles() );
+		$this->assertNotContains( 'ext.bootstrap.styles', $parserOutput->getModuleStyles() );
+		$this->assertNotContains( 'ext.bootstrap.scripts', $parserOutput->getModuleStyles() );
+		$this->assertNotContains( 'ext.bootstrap.styles', $parserOutput->getModules() );
+		$this->assertNotContains( 'ext.bootstrap.scripts', $parserOutput->getModules() );
+	}
+
+	public function testOnBeforePageDisplayLoadsExtensionBootstrapOnNonProviderContentPage() {
+		$out = $this->createMock( OutputPage::class );
+		$out->method( 'getModuleStyles' )->willReturn( [ 'ext.bootstrapComponents.bootstrap.fix' ] );
+		$out->expects( $this->once() )->method( 'addJsConfigVars' )
+			->with( 'wgBootstrapComponentsBootstrapModules', [ 'scripts' => 'ext.bootstrap.scripts', 'styles' => 'ext.bootstrap.styles' ] );
+		$out->expects( $this->once() )->method( 'addModuleStyles' )
+			->with( [ 'ext.bootstrap.styles' ] );
+		$out->expects( $this->once() )->method( 'addModules' )
+			->with( [ 'ext.bootstrap.scripts' ] );
+
+		$this->newHooksHandler()->onBeforePageDisplay( $out, $this->newSkin( 'vector' ) );
+	}
+
+	public function testOnBeforePageDisplaySkipsExtensionBootstrapOnSkinThatShipsItsOwn() {
+		$out = $this->createMock( OutputPage::class );
+		$out->method( 'getModuleStyles' )->willReturn( [ 'ext.bootstrapComponents.bootstrap.fix' ] );
+		$out->expects( $this->once() )->method( 'addJsConfigVars' )
+			->with( 'wgBootstrapComponentsBootstrapModules', [ 'scripts' => 'skins.medik.js', 'styles' => null ] );
+		$out->expects( $this->never() )->method( 'addModuleStyles' );
+		$out->expects( $this->never() )->method( 'addModules' );
+
+		$this->newHooksHandler()->onBeforePageDisplay( $out, $this->newSkin( 'medik' ) );
+	}
+
+
+	public function testOnBeforePageDisplayOnlySetsTheConfigVariableWhenNoContentWasParsed() {
+		$out = $this->createMock( OutputPage::class );
+		$out->method( 'getModuleStyles' )->willReturn( [] );
+		$out->expects( $this->once() )->method( 'addJsConfigVars' )
+			->with( 'wgBootstrapComponentsBootstrapModules', [ 'scripts' => 'ext.bootstrap.scripts', 'styles' => 'ext.bootstrap.styles' ] );
+		$out->expects( $this->never() )->method( 'addModules' );
+		$out->expects( $this->never() )->method( 'addModuleStyles' );
+
+		$this->newHooksHandler()->onBeforePageDisplay( $out, $this->newSkin( 'vector' ) );
+	}
+
+	private function newHooksHandler(): HooksHandler {
+		return new HooksHandler(
+			new BootstrapComponentsService( new TestConfig() ),
+			$this->createMock( ComponentLibrary::class ),
+			$this->createMock( NestingController::class ),
+		);
+	}
+
+	private function newSkin( string $skinName ): Skin {
+		$skin = $this->createMock( Skin::class );
+		$skin->method( 'getSkinName' )->willReturn( $skinName );
+
+		return $skin;
 	}
 }

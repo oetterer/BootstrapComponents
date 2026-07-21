@@ -2,7 +2,7 @@
 
 ### BootstrapComponents 6.1.0
 
-Released on TBD
+Released on 21-July-2026
 
 Fixes:
 * fix dropdown menus, accordions and other click-driven components on Medik and Tweeki

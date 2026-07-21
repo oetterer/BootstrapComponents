@@ -5,6 +5,8 @@
 ( function () {
 	'use strict';
 
+	const { getComponentClass } = require( 'ext.bootstrapComponents.bootstrap' );
+
 	// Wait for DOM to be ready
 	if ( document.readyState === 'loading' ) {
 		document.addEventListener( 'DOMContentLoaded', initModals );
@@ -13,7 +15,8 @@
 	}
 
 	function initModals() {
-		if ( typeof bootstrap === 'undefined' || !bootstrap.Modal ) {
+		const Modal = getComponentClass( 'Modal' );
+		if ( !Modal ) {
 			// eslint-disable-next-line no-console
 			console.warn( 'BootstrapComponents: bootstrap.Modal is not available; modal triggers will not work.' );
 			return;
@@ -22,7 +25,7 @@
 		// bootstrap.Modal.getOrCreateInstance(el).show()) work as expected.
 		const modalList = document.querySelectorAll( '.modal' );
 		modalList.forEach( function ( modalEl ) {
-			bootstrap.Modal.getOrCreateInstance( modalEl );
+			Modal.getOrCreateInstance( modalEl );
 		} );
 	}
 }() );

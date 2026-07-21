@@ -36,7 +36,7 @@
 			return;
 		}
 		content.querySelectorAll( '.carousel' ).forEach( function ( element ) {
-			new Carousel( element );
+			Carousel.getOrCreateInstance( element );
 		} );
 	} );
 }() );

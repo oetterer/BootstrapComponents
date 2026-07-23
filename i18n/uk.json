@@ -1,13 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Esk78"
+			"Esk78",
+			"Movses"
 		]
 	},
 	"bootstrap-components-desc": "Надає редакторам легкий доступ до деяких компонентів, введених в Twitter Bootstrap",
 	"bootstrap-components-error-tracking-category": "Сторінки з помилками компонента bootstrap",
 	"bootstrap-components-close-element": "Закрити",
 	"bootstrap-components-image-modal-source-button": "Переглянути джерело",
+	"bootstrap-components-carousel-slide-label": "Слайд $1",
 	"bootstrap-components-lua-error-no-component": "Не вказана назва компонента для mw.bootstrap.parse.",
 	"bootstrap-components-lua-error-invalid-component": "Недопустима назва компонента, який передається до mw.bootstrap.parse: $1.",
 	"bootstrap-components-badge-content-missing": "Ви повинні вказати текст для цього значка.",

@@ -16,6 +16,8 @@ use MediaWiki\Hook\ParserFirstCallInitHook;
 use MediaWiki\Hook\SetupAfterCacheHook;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Parser\Parser;
+use MediaWiki\Parser\ParserOutput;
+use MediaWiki\ResourceLoader\Module;
 use SMW\Utils\File;
 use StripState;
 
@@ -246,11 +248,25 @@ class HooksHandler implements
 				continue;
 			}
 			foreach ( $this->getComponentLibrary()->getModulesFor( $activeComponent, 'vector' ) as $module ) {
-				$parser->getOutput()->addModuleStyles( [ $module ] );
-				$parser->getOutput()->addModules( [ $module ] );
+				$this->addModuleToMatchingQueue( $parser->getOutput(), $module );
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * ResourceLoader discards anything but a styles-only module from the styles queue, so a module
+	 * carrying scripts or dependencies has to go to the general queue, which delivers its styles too.
+	 */
+	private function addModuleToMatchingQueue( ParserOutput $parserOutput, string $module ): void {
+		$registeredModule = MediaWikiServices::getInstance()->getResourceLoader()->getModule( $module );
+
+		if ( $registeredModule && $registeredModule->getType() === Module::LOAD_STYLES ) {
+			$parserOutput->addModuleStyles( [ $module ] );
+			return;
+		}
+
+		$parserOutput->addModules( [ $module ] );
 	}
 
 	/**

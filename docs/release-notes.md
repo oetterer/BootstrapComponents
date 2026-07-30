@@ -1,5 +1,12 @@
 ## Release Notes
 
+### BootstrapComponents 6.1.1
+
+Released on TBD
+
+Fixes:
+* stop logging `Unexpected general module ... in styles queue.` on pages using a modal, carousel, tooltip or popover
+
 ### BootstrapComponents 6.1.0
 
 Released on 21-July-2026

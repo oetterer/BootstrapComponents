@@ -247,8 +247,8 @@ class HooksHandler implements
 			if ( !$this->getComponentLibrary()->isRegistered( $activeComponent ) ) {
 				continue;
 			}
-			foreach ( $this->getComponentLibrary()->getModulesFor( $activeComponent, 'vector' ) as $module ) {
-				$this->addModuleToMatchingQueue( $parser->getOutput(), $module );
+			foreach ( $this->getComponentLibrary()->getModulesFor( $activeComponent, 'vector' ) as $moduleName ) {
+				$this->addModuleToMatchingQueue( $parser->getOutput(), $moduleName );
 			}
 		}
 		return true;
@@ -256,17 +256,18 @@ class HooksHandler implements
 
 	/**
 	 * ResourceLoader discards anything but a styles-only module from the styles queue, so a module
-	 * carrying scripts or dependencies has to go to the general queue, which delivers its styles too.
+	 * that also carries scripts, dependencies, messages or templates has to go to the general
+	 * queue, which delivers its styles too.
 	 */
-	private function addModuleToMatchingQueue( ParserOutput $parserOutput, string $module ): void {
-		$registeredModule = MediaWikiServices::getInstance()->getResourceLoader()->getModule( $module );
+	private function addModuleToMatchingQueue( ParserOutput $parserOutput, string $moduleName ): void {
+		$module = MediaWikiServices::getInstance()->getResourceLoader()->getModule( $moduleName );
 
-		if ( $registeredModule && $registeredModule->getType() === Module::LOAD_STYLES ) {
-			$parserOutput->addModuleStyles( [ $module ] );
+		if ( $module !== null && $module->getType() === Module::LOAD_STYLES ) {
+			$parserOutput->addModuleStyles( [ $moduleName ] );
 			return;
 		}
 
-		$parserOutput->addModules( [ $module ] );
+		$parserOutput->addModules( [ $moduleName ] );
 	}
 
 	/**

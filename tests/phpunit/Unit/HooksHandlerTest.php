@@ -7,11 +7,9 @@ use MediaWiki\Extension\BootstrapComponents\ComponentLibrary;
 use MediaWiki\Extension\BootstrapComponents\HooksHandler;
 use MediaWiki\Extension\BootstrapComponents\NestingController;
 use MediaWiki\Extension\BootstrapComponents\Tests\Fixtures\TestConfig;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Output\OutputPage;
 use MediaWiki\Parser\Parser;
 use MediaWiki\Parser\ParserOutput;
-use MediaWiki\ResourceLoader\Module;
 use PHPUnit\Framework\TestCase;
 use Skin;
 
@@ -85,21 +83,21 @@ class HooksHandlerTest extends TestCase {
 		$this->assertNotContains( 'ext.bootstrap.scripts', $parserOutput->getModules() );
 	}
 
-	public function testOnParserAfterParseKeepsGeneralModulesOutOfTheStylesQueue() {
-		$parserOutput = $this->parserOutputAfterParsingWith( 'modal' );
+	public function testOnParserAfterParseSplitsComponentModulesByType() {
+		$parserOutput = $this->parserOutputWithActiveComponent( 'modal' );
 
-		$this->assertNotEmpty( $parserOutput->getModules(), 'the active component contributed no modules' );
-		$this->assertSame( [], $this->modulesOfType( $parserOutput->getModuleStyles(), Module::LOAD_GENERAL ) );
+		$this->assertSame(
+			[
+				'ext.bootstrapComponents.bootstrap.fix',
+				'ext.bootstrapComponents.button.fix',
+				'ext.bootstrapComponents.modal.vector-fix',
+			],
+			$parserOutput->getModuleStyles()
+		);
+		$this->assertSame( [ 'ext.bootstrapComponents.modal.fix' ], $parserOutput->getModules() );
 	}
 
-	public function testOnParserAfterParseKeepsStylesOnlyModulesOutOfTheGeneralQueue() {
-		$parserOutput = $this->parserOutputAfterParsingWith( 'modal' );
-
-		$this->assertNotEmpty( $parserOutput->getModules(), 'the active component contributed no modules' );
-		$this->assertSame( [], $this->modulesOfType( $parserOutput->getModules(), Module::LOAD_STYLES ) );
-	}
-
-	private function parserOutputAfterParsingWith( string $componentName ): ParserOutput {
+	private function parserOutputWithActiveComponent( string $componentName ): ParserOutput {
 		$bootstrapComponentsService = new BootstrapComponentsService( new TestConfig() );
 		$bootstrapComponentsService->registerComponentAsActive( $componentName );
 		$parserOutput = new ParserOutput();
@@ -115,23 +113,6 @@ class HooksHandlerTest extends TestCase {
 		$hooksHandler->onParserAfterParse( $parser, $text, null );
 
 		return $parserOutput;
-	}
-
-	/**
-	 * @param string[] $moduleNames
-	 * @return string[]
-	 */
-	private function modulesOfType( array $moduleNames, string $type ): array {
-		$resourceLoader = MediaWikiServices::getInstance()->getResourceLoader();
-
-		return array_values( array_filter(
-			$moduleNames,
-			static function ( string $moduleName ) use ( $resourceLoader, $type ): bool {
-				$module = $resourceLoader->getModule( $moduleName );
-
-				return $module !== null && $module->getType() === $type;
-			}
-		) );
 	}
 
 	public function testOnBeforePageDisplayLoadsExtensionBootstrapOnNonProviderContentPage() {

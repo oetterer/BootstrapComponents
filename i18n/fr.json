@@ -3,13 +3,15 @@
 		"authors": [
 			"Gomoko",
 			"Urhixidur",
-			"Verdy p"
+			"Verdy p",
+			"Wladek92"
 		]
 	},
 	"bootstrap-components-desc": "Vise à fournir aux éditeurs un accès facile à certains composants introduits par Twitter Bootstrap",
 	"bootstrap-components-error-tracking-category": "Pages avec des erreurs de composant bootstrap",
 	"bootstrap-components-close-element": "Fermer",
 	"bootstrap-components-image-modal-source-button": "Visiter la source",
+	"bootstrap-components-carousel-slide-label": "Diapositive $1",
 	"bootstrap-components-lua-error-no-component": "Aucun nom de composant fourni pour mw.bootstrap.parse.",
 	"bootstrap-components-lua-error-invalid-component": "Nom de composant non valide passé à mw.bootstrap.parse : $1.",
 	"bootstrap-components-badge-content-missing": "Vous devez spécifier un texte pour cet insigne.",

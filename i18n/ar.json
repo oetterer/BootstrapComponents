@@ -10,6 +10,7 @@
 	"bootstrap-components-error-tracking-category": "الصفحات ذات أخطاء مكون التمهيد",
 	"bootstrap-components-close-element": "أغلق",
 	"bootstrap-components-image-modal-source-button": "عرض المصدر",
+	"bootstrap-components-carousel-slide-label": "الشريحة $1",
 	"bootstrap-components-lua-error-no-component": "م يتم توفير اسم مكون لـmw.bootstrap.parse.",
 	"bootstrap-components-lua-error-invalid-component": "تم تمرير اسم مكون غير صالح إلى mw.bootstrap.parse: $1.",
 	"bootstrap-components-badge-content-missing": "يجب تحديد نص لهذه الشارة.",

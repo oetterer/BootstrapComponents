@@ -83,6 +83,38 @@ class HooksHandlerTest extends TestCase {
 		$this->assertNotContains( 'ext.bootstrap.scripts', $parserOutput->getModules() );
 	}
 
+	public function testOnParserAfterParseSplitsComponentModulesByType() {
+		$parserOutput = $this->parserOutputWithActiveComponent( 'modal' );
+
+		$this->assertSame(
+			[
+				'ext.bootstrapComponents.bootstrap.fix',
+				'ext.bootstrapComponents.button.fix',
+				'ext.bootstrapComponents.modal.vector-fix',
+			],
+			$parserOutput->getModuleStyles()
+		);
+		$this->assertSame( [ 'ext.bootstrapComponents.modal.fix' ], $parserOutput->getModules() );
+	}
+
+	private function parserOutputWithActiveComponent( string $componentName ): ParserOutput {
+		$bootstrapComponentsService = new BootstrapComponentsService( new TestConfig() );
+		$bootstrapComponentsService->registerComponentAsActive( $componentName );
+		$parserOutput = new ParserOutput();
+		$parser = $this->createMock( Parser::class );
+		$parser->method( 'getOutput' )->willReturn( $parserOutput );
+		$text = '';
+
+		$hooksHandler = new HooksHandler(
+			$bootstrapComponentsService,
+			new ComponentLibrary(),
+			$this->createMock( NestingController::class ),
+		);
+		$hooksHandler->onParserAfterParse( $parser, $text, null );
+
+		return $parserOutput;
+	}
+
 	public function testOnBeforePageDisplayLoadsExtensionBootstrapOnNonProviderContentPage() {
 		$out = $this->createMock( OutputPage::class );
 		$out->method( 'getModuleStyles' )->willReturn( [ 'ext.bootstrapComponents.bootstrap.fix' ] );

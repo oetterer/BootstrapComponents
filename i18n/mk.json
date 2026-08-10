@@ -8,6 +8,7 @@
 	"bootstrap-components-error-tracking-category": "Страници со грешки во составниците на Bootstrap",
 	"bootstrap-components-close-element": "Затвори",
 	"bootstrap-components-image-modal-source-button": "Погл. извор",
+	"bootstrap-components-carousel-slide-label": "Слика $1",
 	"bootstrap-components-lua-error-no-component": "Не е укажан назив за mw.bootstrap.parse.",
 	"bootstrap-components-lua-error-invalid-component": "Добиен е неважечки назив на составницата во mw.bootstrap.parse: $1.",
 	"bootstrap-components-badge-content-missing": "Мора да укажете текст за значкава.",

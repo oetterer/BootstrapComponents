@@ -2,13 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
-			"Mooeypoo"
+			"Mooeypoo",
+			"YaronSh"
 		]
 	},
 	"bootstrap-components-desc": "ניסיון לספק לעורכים גישה קלה לרכיבים מסוימים שנוספו ב־Twitter Bootstrap",
 	"bootstrap-components-error-tracking-category": "דפים עם שגיאות ברכיב bootstrap",
 	"bootstrap-components-close-element": "סגירה",
 	"bootstrap-components-image-modal-source-button": "הצגת מקור",
+	"bootstrap-components-carousel-slide-label": "שקופית $1",
 	"bootstrap-components-lua-error-no-component": "לא סופק שם רכיב עבור mw.bootstrap.parse.",
 	"bootstrap-components-lua-error-invalid-component": "שם רכיב בלתי־תקין הועבר ל־mw.bootstrap.parse‏: $1.",
 	"bootstrap-components-badge-content-missing": "חובה לציין טקסט עבור הסמל (badge) הזה.",

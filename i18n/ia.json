@@ -8,6 +8,7 @@
 	"bootstrap-components-error-tracking-category": "Paginas con errores de componente bootstrap",
 	"bootstrap-components-close-element": "Clauder",
 	"bootstrap-components-image-modal-source-button": "Visitar fonte",
+	"bootstrap-components-carousel-slide-label": "Diapositiva $1",
 	"bootstrap-components-lua-error-no-component": "Nulle nomine de componente fornite pro mw.bootstrap.parse.",
 	"bootstrap-components-lua-error-invalid-component": "Nomine de componente non valide passate a mw.bootstrap.parse: $1.",
 	"bootstrap-components-badge-content-missing": "Tu debe specificar le texto de iste emblema.",

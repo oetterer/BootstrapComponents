@@ -83,6 +83,46 @@ class HooksHandlerTest extends TestCase {
 		$this->assertNotContains( 'ext.bootstrap.scripts', $parserOutput->getModules() );
 	}
 
+	public function testOnParserAfterParseAddsStylesOnlyModuleToTheStylesQueue() {
+		$parserOutput = $this->parserOutputWithComponentModules( [ 'ext.bootstrapComponents.button.fix' ] );
+
+		$this->assertContains( 'ext.bootstrapComponents.button.fix', $parserOutput->getModuleStyles() );
+		$this->assertSame( [], $parserOutput->getModules() );
+	}
+
+	public function testOnParserAfterParseAddsModuleWithScriptsToTheGeneralQueue() {
+		$parserOutput = $this->parserOutputWithComponentModules( [ 'ext.bootstrapComponents.modal.fix' ] );
+
+		$this->assertSame( [ 'ext.bootstrapComponents.modal.fix' ], $parserOutput->getModules() );
+		$this->assertNotContains( 'ext.bootstrapComponents.modal.fix', $parserOutput->getModuleStyles() );
+	}
+
+	/**
+	 * @param string[] $moduleNames
+	 */
+	private function parserOutputWithComponentModules( array $moduleNames ): ParserOutput {
+		$bootstrapComponentsService = new BootstrapComponentsService( new TestConfig() );
+		$bootstrapComponentsService->registerComponentAsActive( 'modal' );
+
+		$componentLibrary = $this->createStub( ComponentLibrary::class );
+		$componentLibrary->method( 'isRegistered' )->willReturn( true );
+		$componentLibrary->method( 'getModulesFor' )->willReturn( $moduleNames );
+
+		$parserOutput = new ParserOutput();
+		$parser = $this->createStub( Parser::class );
+		$parser->method( 'getOutput' )->willReturn( $parserOutput );
+		$text = '';
+
+		$hooksHandler = new HooksHandler(
+			$bootstrapComponentsService,
+			$componentLibrary,
+			$this->createStub( NestingController::class ),
+		);
+		$hooksHandler->onParserAfterParse( $parser, $text, null );
+
+		return $parserOutput;
+	}
+
 	public function testOnBeforePageDisplayLoadsExtensionBootstrapOnNonProviderContentPage() {
 		$out = $this->createMock( OutputPage::class );
 		$out->method( 'getModuleStyles' )->willReturn( [ 'ext.bootstrapComponents.bootstrap.fix' ] );

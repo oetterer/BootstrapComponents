@@ -28,7 +28,7 @@ jobs:
           - mw: 'REL1_46'
             php: 8.4
             type: normal
-            experimental: true
+            experimental: false
           - mw: 'REL1_47'
             php: 8.5
             type: normal

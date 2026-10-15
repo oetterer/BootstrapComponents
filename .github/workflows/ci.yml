@@ -29,6 +29,10 @@ jobs:
             php: 8.4
             type: normal
             experimental: true
+          - mw: 'REL1_47'
+            php: 8.5
+            type: normal
+            experimental: true
           - mw: 'master'
             php: 8.5
             type: normal

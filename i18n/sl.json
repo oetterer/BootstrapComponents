@@ -9,6 +9,7 @@
 	"bootstrap-components-error-tracking-category": "Strani z napakami komponent bootstrapa",
 	"bootstrap-components-close-element": "Zapri",
 	"bootstrap-components-image-modal-source-button": "Obišči vir",
+	"bootstrap-components-carousel-slide-label": "Drsnica $1",
 	"bootstrap-components-lua-error-no-component": "Za mw.bootstrap.parse ni bilo zagotovljeno nobeno ime komponente.",
 	"bootstrap-components-lua-error-invalid-component": "mw.bootstrap.parse je bilo predloženo neveljavno ime komponente: $1.",
 	"bootstrap-components-badge-content-missing": "Za to značko morate določiti besedilo.",

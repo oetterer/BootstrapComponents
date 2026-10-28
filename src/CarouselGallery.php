@@ -67,7 +67,12 @@ class CarouselGallery extends ImageGalleryBase {
 		if ( $carouselParserRequest === false ) {
 			return $parserOutputHelper->renderErrorMessage( 'bootstrap-components-carousel-images-missing' );
 		}
-		return $carousel->parseComponent( $carouselParserRequest );
+		$carouselPrintOut = $carousel->parseComponent( $carouselParserRequest );
+		// the component returns its parser function result, but the <gallery> tag hook must return the html only
+		if ( is_array( $carouselPrintOut ) ) {
+			$carouselPrintOut = $carouselPrintOut[0];
+		}
+		return $carouselPrintOut;
 	}
 
 	/**

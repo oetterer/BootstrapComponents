@@ -57,7 +57,15 @@ class CarouselGalleryTest extends TestCase {
 			} ) );
 
 		foreach ( $imageList as $imageData ) {
-			$instance->add( Title::newFromText( $imageData[0] ), $imageData[1], $imageData[2], $imageData[3], $imageData[4] );
+			$instance->add(
+				Title::newFromText( $imageData[0] ),
+				$imageData[1],
+				$imageData[2],
+				'',
+				$imageData[3],
+				CarouselGallery::LOADING_DEFAULT,
+				$imageData[4]
+			);
 		}
 		$instance->setAttributes( $additionalAttributes );
 		$this->assertEquals(
@@ -73,9 +81,9 @@ class CarouselGalleryTest extends TestCase {
 		return [
 			'simple' => [
 				[
-					[ 'File:Mal.jpg', 'Malcolm Reynolds', '(alt) Malcolm Reynolds', '', [] ],
-					[ 'File:Wash.jpg', 'Hoban Washburne', '', '/List_of_best_Pilots_in_the_Verse', [] ],
-					[ 'File:MirandaSecretFiles.pdf', '(c) by Hands of Blue', '', '', [ 'page' => '13', 'float' => 'none' ] ],
+					[ 'File:Mal.jpg', 'Malcolm Reynolds', '(alt) Malcolm Reynolds', [ 'targetlang' => 'en' ], [ 'class' => 'captain', 'title' => 'Malcolm Reynolds' ] ],
+					[ 'File:Wash.jpg', 'Hoban Washburne', 'Hoban Washburne', [ 'targetlang' => 'en' ], [ 'link-url' => 'https://example.org/List_of_best_Pilots_in_the_Verse', 'title' => 'Hoban Washburne' ] ],
+					[ 'File:MirandaSecretFiles.pdf', '(c) by Hands of Blue', '(c) by Hands of Blue', [ 'page' => '13', 'targetlang' => 'en' ], [ 'title' => '(c) by Hands of Blue' ] ],
 				],
 				[
 					'class' => 'firefly',
@@ -90,15 +98,15 @@ class CarouselGalleryTest extends TestCase {
 					. "\t". '<button type="button" data-bs-target="#youcanttakethesky" data-bs-slide-to="2" aria-label="Slide 3"></button>' . PHP_EOL
 					. '</div>' . PHP_EOL
 					. '<div class="carousel-inner">' . PHP_EOL
-					. "\t". '<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=img-fluid]]</div>' . PHP_EOL
-					. "\t". '<div class="carousel-item">[[File:Wash.jpg|Hoban Washburne|link=/List_of_best_Pilots_in_the_Verse|class=img-fluid]]</div>' . PHP_EOL
-					. "\t". '<div class="carousel-item">[[File:MirandaSecretFiles.pdf|(c) by Hands of Blue|page=13|float=none|class=img-fluid]]</div>' . PHP_EOL
+					. "\t". '<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=captain img-fluid]]</div>' . PHP_EOL
+					. "\t". '<div class="carousel-item">[[File:Wash.jpg|Hoban Washburne|alt=Hoban Washburne|class=img-fluid|link=https://example.org/List_of_best_Pilots_in_the_Verse]]</div>' . PHP_EOL
+					. "\t". '<div class="carousel-item">[[File:MirandaSecretFiles.pdf|(c) by Hands of Blue|page=13|alt=(c) by Hands of Blue|class=img-fluid]]</div>' . PHP_EOL
 					. '</div><a class="carousel-control-prev" href="#youcanttakethesky" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#youcanttakethesky" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
 			],
 			'no local attributes' => [
 				[
-					[ 'File:Mal.jpg', 'Malcolm Reynolds', '(alt) Malcolm Reynolds', '', [] ],
-					[ 'File:Wash.jpg', 'Hoban Washburne', '', '/List_of_best_Pilots_in_the_Verse', [] ],
+					[ 'File:Mal.jpg', 'Malcolm Reynolds', '(alt) Malcolm Reynolds', [ 'targetlang' => 'en' ], [ 'title' => 'Malcolm Reynolds' ] ],
+					[ 'File:Wash.jpg', 'Hoban Washburne', 'Hoban Washburne', [ 'targetlang' => 'en' ], [ 'title' => 'Hoban Washburne' ] ],
 				],
 				[],
 				'<div class="carousel slide" id="bsc_carousel_0" data-bs-ride="carousel">' . PHP_EOL
@@ -108,13 +116,13 @@ class CarouselGalleryTest extends TestCase {
 					. '</div>' . PHP_EOL
 					. '<div class="carousel-inner">' . PHP_EOL
 					. "\t". '<div class="carousel-item active">[[File:Mal.jpg|Malcolm Reynolds|alt=(alt) Malcolm Reynolds|class=img-fluid]]</div>' . PHP_EOL
-					. "\t". '<div class="carousel-item">[[File:Wash.jpg|Hoban Washburne|link=/List_of_best_Pilots_in_the_Verse|class=img-fluid]]</div>' . PHP_EOL
+					. "\t". '<div class="carousel-item">[[File:Wash.jpg|Hoban Washburne|alt=Hoban Washburne|class=img-fluid]]</div>' . PHP_EOL
 					. '</div><a class="carousel-control-prev" href="#bsc_carousel_0" role="button" data-bs-slide="prev"><span class="carousel-control-prev-icon" aria-hidden="true"></span></a><a class="carousel-control-next" href="#bsc_carousel_0" role="button" data-bs-slide="next"><span class="carousel-control-next-icon" aria-hidden="true"></span></a></div>',
 			],
 			'only invalid images' => [
 				[
-					[ 'Londinium', 'Londinium', '', '', [] ],
-					[ 'Template:Planets', 'Planets', '', '', [] ],
+					[ 'Londinium', 'Londinium', 'Londinium', [ 'targetlang' => 'en' ], [ 'title' => 'Londinium' ] ],
+					[ 'Template:Planets', 'Planets', 'Planets', [ 'targetlang' => 'en' ], [ 'title' => 'Planets' ] ],
 				],
 				[],
 				'bootstrap-components-carousel-images-missing'

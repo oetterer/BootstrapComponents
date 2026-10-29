@@ -100,31 +100,38 @@ class CarouselGallery extends ImageGalleryBase {
 	private function buildImageStringFromData( $imageData ) {
 
 		/** @var \Title $imageTitle */
-		list( $imageTitle, $imageCaption, $imageAlt, $imageLink, $imageParams ) = $imageData;
+		list( $imageTitle, $imageCaption, $imageAlt, , $imageParams, , $imageOptions ) = $imageData;
+		// core adds targetlang to every gallery image; it is not image syntax, and makeImage sets it again on the re-parse
+		unset( $imageParams['targetlang'] );
 		$imageParams['alt'] = $imageAlt;
-		# @note: this is a local link. has to be an article name :(
-		# @note: assuming here, that the correct link processing is done in image processing
-		$imageParams['link'] = $imageLink;
+		$imageParams['class'] = empty( $imageOptions['class'] ) ? 'img-fluid' : $imageOptions['class'] . ' img-fluid';
 
-		// note that imageCaption, imageAlt and imageLink are strings. the latter is a local link or empty
 		// imageParams is an associative array param => value
 		$carouselImage = '[[' . $imageTitle->getPrefixedText();
 		if ( !empty( $imageCaption ) ) {
 			$carouselImage .= '|' . $imageCaption;
-		}
-		if ( empty( $imageParams['class'] ) ) {
-			$imageParams['class'] = 'img-fluid';
-		} else {
-			$imageParams['class'] .= ' img-fluid';
 		}
 		foreach ( $imageParams as $key => $val ) {
 			if ( !empty( $val ) ) {
 				$carouselImage .= '|' . $key . '=' . $val;
 			}
 		}
-		$carouselImage .= ']]';
+		$carouselImage .= $this->buildLinkOption( $imageOptions ?? [] ) . ']]';
 
 		return $carouselImage;
+	}
+
+	private function buildLinkOption( array $imageOptions ): string {
+		if ( isset( $imageOptions['link-url'] ) ) {
+			return '|link=' . $imageOptions['link-url'];
+		}
+		if ( isset( $imageOptions['link-title'] ) ) {
+			return '|link=' . $imageOptions['link-title']->getFullText();
+		}
+		if ( isset( $imageOptions['no-link'] ) ) {
+			return '|link=';
+		}
+		return '';
 	}
 
 	/**

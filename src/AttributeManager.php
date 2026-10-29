@@ -26,6 +26,8 @@
 
 namespace MediaWiki\Extension\BootstrapComponents;
 
+use MediaWiki\Parser\Sanitizer;
+
 /**
  * Class AttributeManager
  *
@@ -49,6 +51,13 @@ class AttributeManager {
 	 * @var int
 	 */
 	const NO_FALSE_VALUE = 0;
+
+	/**
+	 * For attributes that take inline CSS, checked like any other inline style.
+	 *
+	 * @var int
+	 */
+	const CSS_VALUE = 2;
 
 	/**
 	 * Holds all values indicating a "no". Can be used to ignore "enable"-fields.
@@ -183,11 +192,11 @@ class AttributeManager {
 	 * Returns the allowed values for a given attribute or NULL if invalid attribute. Note that an alias is deemed "valid".
 	 *
 	 * Note that allowed values can be an array, {@see AttributeManager::NO_FALSE_VALUE},
-	 * or {@see AttributeManager::ANY_VALUE}.
+	 * {@see AttributeManager::ANY_VALUE}, or {@see AttributeManager::CSS_VALUE}.
 	 *
 	 * @param string $attribute
 	 *
-	 * @return null|array|bool
+	 * @return null|array|int
 	 */
 	protected function getAllowedValuesFor( $attribute ) {
 		if ( !$this->isValid( $attribute ) ) {
@@ -221,6 +230,8 @@ class AttributeManager {
 	 * will be returned, null otherwise.
 	 *
 	 * If an attribute is registered as NO_FALSE_VALUE and value is the empty string, it gets converted to true.
+	 * If it is registered as CSS_VALUE, value is returned as {@see Sanitizer::checkCss} leaves it, which replaces
+	 * CSS MediaWiki blocks in inline styles.
 	 *
 	 * Note: an ANY_VALUE attribute can still be the empty string.
 	 * Note: that every value for an unregistered attribute fails verification automatically.
@@ -237,6 +248,8 @@ class AttributeManager {
 		} elseif ( $allowedValues === self::ANY_VALUE ) {
 			// here, the component deals with empty strings on its own, and we return blindly what we got
 			return $value;
+		} elseif ( $allowedValues === self::CSS_VALUE ) {
+			return Sanitizer::checkCss( $value );
 		} elseif ( is_array( $allowedValues ) && in_array( strtolower( $value ), $allowedValues, true ) ) {
 			return $value;
 		}
@@ -250,7 +263,7 @@ class AttributeManager {
 		return [
 			'active'        => self::NO_FALSE_VALUE,
 			'background'    => [ 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
-			'body-style'    => self::ANY_VALUE,
+			'body-style'    => self::CSS_VALUE,
 			'class'         => self::ANY_VALUE,
 			'color'         => [ 'default', 'primary', 'secondary', 'success', 'danger', 'warning', 'info', 'light', 'dark', 'white', ],
 			'collapsible'   => self::NO_FALSE_VALUE,
@@ -259,17 +272,17 @@ class AttributeManager {
 			'fade'          => self::NO_FALSE_VALUE,
 			'footer'        => self::ANY_VALUE,
 			'footer-image'  => self::ANY_VALUE,
-			'footer-style'  => self::ANY_VALUE,
+			'footer-style'  => self::CSS_VALUE,
 			'header'        => self::ANY_VALUE,
 			'header-image'  => self::ANY_VALUE,
-			'header-style'  => self::ANY_VALUE,
+			'header-style'  => self::CSS_VALUE,
 			'id'            => self::ANY_VALUE,
 			'link'          => self::ANY_VALUE,
 			'outline'       => self::NO_FALSE_VALUE,
 			'pill'          => self::NO_FALSE_VALUE,
 			'placement'     => [ 'top', 'bottom', 'left', 'right' ],
 			'size'          => [ 'xs', 'sm', 'md', 'lg' ],
-			'style'         => self::ANY_VALUE,
+			'style'         => self::CSS_VALUE,
 			'text'          => self::ANY_VALUE,
 			'trigger'       => [ 'default', 'focus', 'hover' ],
 		];

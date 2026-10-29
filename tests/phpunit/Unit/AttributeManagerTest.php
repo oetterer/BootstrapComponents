@@ -131,6 +131,7 @@ class AttributeManagerTest extends TestCase {
 			'noFalseValue w/ any'          => [ [ 'active' ], [], 'active', 'foobar', 'active', 'foobar' ],
 			'fixedList w/ match'           => [ [ 'color' ], [], 'color', 'danger', 'color', 'danger' ],
 			'fixedList w/o match'          => [ [ 'color' ], [], 'color', 'ease', 'color', null ],
+			'css w/ blocked css'           => [ [ 'style' ], [], 'style', 'background:url(//example.org/a.png)', 'style', '/* insecure input */' ],
 			'alias'                        => [ [ 'header' ], [ 'heading' => 'header '], 'heading', 'foo bar', 'header', 'foo bar' ],
 		];
 		// adding no values

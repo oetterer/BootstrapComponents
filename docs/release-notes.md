@@ -8,6 +8,7 @@ Fixes:
 * fix TypeError that stops pages using `<gallery mode="carousel">` from rendering
 * fix `<gallery mode="carousel">` showing `targetlang=<language code>` as an image's tooltip, alt text or caption
 * fix `<gallery mode="carousel">` ignoring an image's `link=` and (on MediaWiki 1.47 and later) its `class=`
+* align component `style` and card `header-style`, `body-style` and `footer-style` values with MediaWiki's processing of inline styles: a value using CSS MediaWiki removes there, such as `url()`, is now dropped as a whole
 
 ### BootstrapComponents 6.1.1
 

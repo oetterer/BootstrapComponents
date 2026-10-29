@@ -1,29 +1,29 @@
 ## Installation
 There are two ways you can install this extension: you can use [Composer]
-for installation, activation, and dependency management or you can do this
+for installation, activation, and dependency management, or you can do this
 all manually.
 
 ### Composer
 This is the easiest and recommended approach. Just add the following to
-the "require"-section of your `composer.local.json` file and run the
+the "require" section of your `composer.local.json` file and run the
 `php composer.phar install/update "mediawiki/bootstrap-components"` command.
 
 ```
 {
 	"require": {
-		"mediawiki/bootstrap-components": "~5.0"
+		"mediawiki/bootstrap-components": "~6.0"
 	}
 }
 ```
 
 ### Manually
-You need to download the extension and all the the dependencies yourself.
+You need to download the extension and all the dependencies yourself.
 
 First, you should take care of dependencies. That means installing
 the MediaWiki [Extension Bootstrap][BootstrapExtension]. See there
 for details on how to do this.
 
-Then you need to download this extension, by cloning its repository
+Then you need to download this extension by cloning its repository
 using [git][Git]. Venture into your extensions directory and run:
 
 ```
@@ -33,22 +33,22 @@ git clone https://github.com/oetterer/BootstrapComponents
 You can also download the [archive][GitArchive] and extract it yourself.
 
 Note that getting the extension manually from GitHub leaves you with the
-must current version of the extension.
+most current version of the extension.
 
 ## Loading
 
 You need to add the following to your `LocalSettings.php` file, no matter
-whether you installed the extension via composer or manually:
+whether you installed the extension via Composer or manually:
 
 ```
 wfLoadExtension( 'BootstrapComponents' );
 ```
 
-Check your wiki's Version special page to verify, that the extension is loaded.
+Check your wiki’s Version special page to verify that the extension is loaded.
 
 ## Configuration
-You can change some of the behaviour of this extension with the
-following settings inside your wiki's configuration. Just add the
+You can change some of the behavior of this extension with the
+following settings inside your wiki’s configuration. Just add the
 corresponding line to your `LocalSettings.php`.
 
 Available settings:
@@ -58,7 +58,7 @@ Available settings:
 * [$wgBootstrapComponentsEnableCarouselGalleryMode](#wgbootstrapcomponentsenablecarouselgallerymode)
 
 ### `$wgBootstrapComponentsWhitelist`
-Default setting is `true`.
+The default setting is `true`.
 
 This allows you to enable all, some, or none of the components inside
 your wiki code.
@@ -78,10 +78,10 @@ $wgBootstrapComponentsWhitelist = [ 'icon', 'panel', 'tooltip', 'modal' ];
 When using modals, you might want to disable popovers. See
 [known issues][known-issues] for more.
 
-To disable all components simply set this to `false`.
+To disable all components, simply set this to `false`.
 
 ### `$wgBootstrapComponentsModalReplaceImageTag`
-Default setting is `false`.
+The default setting is `false`.
 
 You can have this extension change the normal image handling in your
 wiki. If you set this to `true`, all image tags not containing a `link=`
@@ -101,26 +101,26 @@ processed accordingly. Please see the help page on [mediawiki.org][ImageHelp].
 Even after enabling this option you can suppress image modals on a
 given page by adding the magic word `__NOIMAGEMODAL__` somewhere on
 the page. If you want to suppress modal conversion for an individual image,
-give it the css class `no-modal`.
+give it the CSS class `no-modal`.
 
 Example:
 ```
 [[File:NormalImage.png|class=no-modal|alt=normal|This image is displayed normally]]
 ```
 
-Please see [known issues][known-issues] for additional information.
+See [known issues][known-issues] for more information.
 
 ### `$wgBootstrapComponentsDisableSourceLinkOnImageModal`
-Default setting is `false`.
+The default setting is `false`.
 
 When using image modals (thus having
 `$wgBootstrapComponentsModalReplaceImageTag` set to true) enabling
-this suppresses the source link in the footer section of the modal.
+this suppresses the source link in the modal footer.
 
 ### `$wgBootstrapComponentsEnableCarouselGalleryMode`
-Default setting is `true`.
+The default setting is `true`.
 
-This adds the mode _carousel_ to the `<gallery>`-tag which, when used
+This adds the mode _carousel_ to the `<gallery>` tag, which, when used,
 turns your gallery into a carousel. For Information on how to use
 galleries, please visit [mediawiki.org][Gallery].
 

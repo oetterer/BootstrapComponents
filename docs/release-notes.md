@@ -2,7 +2,7 @@
 
 ### BootstrapComponents 6.1.2
 
-Released on TBD
+Released on 29-October-2026
 
 Fixes:
 * fix TypeError that stops pages using `<gallery mode="carousel">` from rendering
